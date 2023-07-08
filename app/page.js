@@ -1,95 +1,71 @@
+"use client";
 import Image from 'next/image'
-import styles from './page.module.css'
+import Page from '@/components/page'
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
 
 export default function Home() {
+  function calcAge(dateString) {
+    let birthday = +new Date(dateString);
+    return ~~((Date.now() - birthday) / 31557600000);
+  }
+
+  function birthday(date = "Jun 29") {
+    if (Date().includes(date)) {
+      return `Today is my birthday, turning ${calcAge(new Date("2004-06-28"))} years old`
+    } else return `I'm currently ${calcAge(new Date("2004-06-28"))} years old`
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
+    <main key={usePathname()} className="main">
+      <Page>
+        <div style={{ width: 550, marginTop: 25 }}>
+          <div className='sizing'>Hello, my name is <a style={{ color: '#4ca6ca' }}>ForGetFulSkyBro</a> or <a style={{ color: '#4ca6ca' }}>Sky</a> for short. {birthday()} and I&apos;ve been coding for <a style={{ color: '#4ca6ca' }}>{calcAge(new Date("2019-07-03"))}</a> years. I enjoy creating open source projects on my free time or whenever I&apos;m not lazy.</div>
+          <Link href="https://discord.com/users/268843733317976066" target='_blank'><div style={{ display: 'inline-block' }} className='cardSocials'>
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
+              style={{ marginTop: 5 }}
+              src="Discord.svg"
+              width={37}
+              height={37}
+              draggable={false}
+              alt="Discord"
               priority
             />
-          </a>
+          </div></Link>
+          <Link href="https://github.com/forgetfulskybro" target='_blank'><div style={{ display: 'inline-block' }} className='cardSocials'>
+            <Image
+              style={{ marginTop: 5 }}
+              src="GitHub.svg"
+              width={37}
+              height={37}
+              draggable={false}
+              alt="GitHub"
+              priority
+            />
+          </div></Link>
+          <Link href="https://rvlt.gg/functious" target='_blank'><div style={{ display: 'inline-block' }} className='cardSocials'>
+            <Image
+              style={{ marginTop: 5 }}
+              src="Revolt.svg"
+              width={37}
+              height={37}
+              draggable={false}
+              alt="Revolt"
+              priority
+            />
+          </div></Link>
         </div>
-      </div>
 
-      <div className={styles.center}>
         <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+          className='hide'
+          src="/me.png"
+          height={240}
+          width={240}
+          draggable={false}
+          alt="Avatar"
         />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      </Page>
     </main>
   )
 }
