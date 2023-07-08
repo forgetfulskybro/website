@@ -36,7 +36,7 @@ export default function Home() {
           <Link href="https://github.com/forgetfulskybro" target='_blank'><div style={{ display: 'inline-block' }} className='cardSocials'>
             <Image
               style={{ marginTop: 5 }}
-              src="GitHub.svg"
+              src="Github.svg"
               width={37}
               height={37}
               draggable={false}
@@ -59,7 +59,7 @@ export default function Home() {
 
         <Image
           className='hide'
-          src="/me.png"
+          src="/Me.png"
           height={240}
           width={240}
           draggable={false}

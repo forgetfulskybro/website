@@ -18,7 +18,7 @@ export default function Projects() {
     flags: [],
   }, {
     title: "ForGetFul",
-    image: "/ForGetFul.png",
+    image: "/Forgetful.png",
     tags: [{ name: "Discord Bot", color: "#5764F3" }, { name: "Website", color: "#3B3E40" }],
     desc: "A multipurpose bot that suited for many needs.",
     footer: {
