@@ -22,6 +22,7 @@ export default function Home() {
       <Page>
         <div style={{ width: 550, marginTop: 25 }}>
           <div className='sizing'>Hello, my name is <a style={{ color: '#4ca6ca' }}>ForGetFulSkyBro</a> or <a style={{ color: '#4ca6ca' }}>Sky</a> for short. {birthday()} and I&apos;ve been coding for <a style={{ color: '#4ca6ca' }}>{calcAge(new Date("2019-07-03"))}</a> years. I enjoy creating open source projects on my free time or whenever I&apos;m not lazy.</div>
+          <div className='center flexGrid'>
           <Link href="https://discord.com/users/268843733317976066" target='_blank'><div style={{ display: 'inline-block' }} className='cardSocials'>
             <Image
               style={{ marginTop: 5 }}
@@ -55,6 +56,7 @@ export default function Home() {
               priority
             />
           </div></Link>
+          </div>
         </div>
 
         <Image

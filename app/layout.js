@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head><link rel="icon" href="/me.png" sizes="any" /></head>
+      <head><link rel="icon" href="/Me.png" sizes="any" /></head>
       <body className={Fira.className}>{children}</body>
     </html>
   )

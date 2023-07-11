@@ -1,108 +1,55 @@
 "use client";
 import Image from 'next/image'
 import Page from '@/components/page'
+import { useState } from "react";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export default function Projects() {
 
   const array = [{
-    title: "Would You",
-    image: "/WouldYou.png",
-    tags: [{ name: "Discord Bot", color: "#5764F3" }],
-    desc: "An activity based bot that helps improve overall activity for your server.",
-    footer: {
-      start: "Aug 22, 2022",
-      end: "Present",
-    },
-    contribution: false,
+    title: "JavaScript",
+    image: "/Javascript.svg",
   }, {
-    title: "Would You",
-    image: "/WouldYou.png",
-    tags: [{ name: "Discord Bot", color: "#5764F3" }],
-    desc: "An activity based bot that helps improve overall activity for your server.",
-    footer: {
-      start: "Aug 22, 2022",
-      end: "Present",
-    },
-    contribution: false,
-  }, {
-    title: "Would You",
-    image: "/WouldYou.png",
-    tags: [{ name: "Discord Bot", color: "#5764F3" }],
-    desc: "An activity based bot that helps improve overall activity for your server.",
-    footer: {
-      start: "Aug 22, 2022",
-      end: "Present",
-    },
-    contribution: false,
-  }, {
-    title: "Would You",
-    image: "/WouldYou.png",
-    tags: [{ name: "Discord Bot", color: "#5764F3" }],
-    desc: "An activity based bot that helps improve overall activity for your server.",
-    footer: {
-      start: "Aug 22, 2022",
-      end: "Present",
-    },
-    contribution: false,
-  }, {
-    title: "Would You",
-    image: "/WouldYou.png",
-    tags: [{ name: "Discord Bot", color: "#5764F3" }],
-    desc: "An activity based bot that helps improve overall activity for your server.",
-    footer: {
-      start: "Aug 22, 2022",
-      end: "Present",
-    },
-    contribution: false,
-  }, {
-    title: "Would You",
-    image: "/WouldYou.png",
-    tags: [{ name: "Discord Bot", color: "#5764F3" }],
-    desc: "An activity based bot that helps improve overall activity for your server.",
-    footer: {
-      start: "Aug 22, 2022",
-      end: "Present",
-    },
-    contribution: false,
-  }, {
-    title: "Would You",
-    image: "/WouldYou.png",
-    tags: [{ name: "Discord Bot", color: "#5764F3" }],
-    desc: "An activity based bot that helps improve overall activity for your server.",
-    footer: {
-      start: "Aug 22, 2022",
-      end: "Present",
-    },
-    contribution: false,
-  }, {
-    title: "Functious",
-    image: "/Functious.png",
-    tags: [{ name: "Revolt Bot", color: "#FE4654" }],
-    desc: "Revolt bot that allows for creating giveaways, polls, and reaction roles.",
-    footer: {
-      start: "Feb 18 2023",
-      end: "Present",
-    },
-    contribution: false,
-  }, {
-    title: "Luau.gg",
-    image: "/Luau.jpg",
-    tags: [{ name: "Website", color: "#3B3E40" }],
-    desc: "Website made by SamOphis on GitHub.",
-    footer: {
-      start: "Apr 1, 2022",
-      end: "Apr 1, 2022",
-    },
-    contribution: true,
-  }]
+      title: "HTML",
+      image: "/Html5.svg",
+    }, {
+      title: "CSS",
+      image: "/Css3.svg",
+    }, {
+      title: "Next.js",
+      image: "/Nextjs.svg",
+    }, {
+      title: "React",
+      image: "/React.svg",
+    },{
+      title: "Node.js",
+      image: "/Nodejs.svg",
+    },{
+      title: "MongoDb",
+      image: "/Mongodb.svg",
+    },];
 
   return (
     <main key={usePathname()} className="main">
       <Page>
-        <div style={{ marginRight: 10 }} className='flexGrid'>
-
+        <div style={{ marginRight: 10, maxHeight: '80vh' }} className='flexGrid'>
+          {array.map((project) => (
+            <div key={project.title} className='interestsCard flex'>
+              <div className='interestsTitle center'>
+                {project.image && (
+                  <Image
+                    src={project.image}
+                    height={25}
+                    width={25}
+                    draggable={false}
+                    alt={project.name}
+                    priority />
+                )}
+                <a style={{ marginLeft: 0.7 }}>{project.title}</a>
+              </div>
+            </div>
+          ))}
         </div>
       </Page>
     </main>

@@ -151,15 +151,6 @@ a {
    font-family: var(--font-mono);
  }
 
- .description p {
-   position: relative;
-   margin: 0;
-   padding: 1rem;
-   background-color: rgba(var(--callout-rgb), 0.5);
-   border: 1px solid rgba(var(--callout-border-rgb), 0.3);
-   border-radius: var(--border-radius);
- }
-
  .code {
    font-weight: 700;
    font-family: var(--font-mono);
@@ -218,7 +209,7 @@ a {
    margin-right: 15px;
    width: 140px;
    height: 50px;
-   border-radius: var(--border-radius);
+   border-radius: 5px;
    border: 1px solid rgba(var(--card-border-rgb), 0.15);
    transition: background 200ms, border 200ms;
    background: #121213;
@@ -238,19 +229,6 @@ a {
  .card span {
    display: inline-block;
    transition: transform 200ms;
- }
-
- .card h2 {
-   font-weight: 600;
-   margin-bottom: 0.7rem;
- }
-
- .card p {
-   margin: 0;
-   opacity: 0.6;
-   font-size: 0.9rem;
-   line-height: 1.5;
-   max-width: 30ch;
  }
 
  .center {
@@ -308,9 +286,33 @@ a {
    flex: 1 auto;
  }
 
- .break {
-   flex-basis: 100%;
-   height: 0;
+ .interestsCard {
+   position: relative;
+   text-align: center;
+   width: auto;
+   padding: .4rem;
+   width: 240px;
+   height: 40px;
+   border-radius: 5px;
+   border: 1px solid rgba(var(--card-border-rgb), 0.15);
+   transition: background 200ms, border 200ms;
+   background: #121213;
+ }
+
+ .interestsCard:hover {
+   background: rgba(var(--card-rgb), 0.1);
+   cursor: pointer;
+ }
+
+ .interestsTitle {
+   position: relative;
+   text-align: center;
+   display: flex;
+   flex-direction: row;
+   gap: 3px;
+   font-size: 19px;
+   font-weight: 800;
+   text-align: left;
  }
 
  .projectCard {
@@ -324,6 +326,10 @@ a {
    background: #121213;
  }
 
+ .projectCard:hover {
+   background: rgba(var(--card-rgb), 0.1);
+   cursor: pointer;
+ }
  .projectTitle {
    display: flex;
    flex-direction: row;
@@ -381,10 +387,6 @@ a {
    font-size: 11px;
  }
 
- .projectCard:hover {
-   background: rgba(var(--card-rgb), 0.1);
-   cursor: pointer;
- }
 
  /* Mobile */
  @media (max-width: 620px) {
@@ -414,7 +416,6 @@ a {
      margin-top: 15px;
      width: 140px;
      height: 50px;
-     border-radius: var(--border-radius);
      border: 1px solid rgba(var(--card-border-rgb), 0.15);
      transition: background 200ms, border 200ms;
      background: #121213;

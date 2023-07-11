@@ -1,6 +1,7 @@
 "use client";
 import Image from 'next/image'
 import Page from '@/components/page'
+import { useState } from "react";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -96,7 +97,7 @@ export default function Projects() {
       end: "Apr 1, 2022",
     },
     flags: [{ name: "Contribution", color: "#4ca6ca" }, { name: "Discontinued", color: "#CC222A" }],
-  }]
+    }];
 
   return (
     <main key={usePathname()} className="main">
@@ -112,7 +113,7 @@ export default function Projects() {
                     height={25}
                     width={25}
                     draggable={false}
-                    alt="Avatar"
+                    alt={project.name}
                     priority />
                 )}
                 <a style={{ marginLeft: 0.7, marginTop: 1.3 }}>{project.title}</a>
