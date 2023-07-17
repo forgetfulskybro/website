@@ -11,17 +11,30 @@ export default function Home() {
     return ~~((Date.now() - birthday) / 31557600000);
   }
 
-  function birthday(date = "Jun 29") {
-    if (Date().includes(date)) {
-      return `Today is my birthday, turning ${calcAge(new Date("2004-06-28"))} years old`
-    } else return `I'm currently ${calcAge(new Date("2004-06-28"))} years old`
-  }
+  // function birthday(date = "Jun 29") {
+  //   if (Date().includes(date)) {
+  //     return (<a>Today is my birthday, turning <a className="Blue">{calcAge(new Date("2004-06-28"))}</a> years old</a>)
+  //   } else return (<a>I&apos;m currently <a className="Blue">{calcAge(new Date("2004-06-28"))}</a> years old</a>)
+  // }
 
   return (
     <main key={usePathname()} className="main">
       <Page>
         <div style={{ width: 550, marginTop: 25 }}>
-          <div className='sizing'>Hello, my name is <a style={{ color: '#4ca6ca' }}>ForGetFulSkyBro</a> or <a style={{ color: '#4ca6ca' }}>Sky</a> for short. {birthday()} and I&apos;ve been coding for <a style={{ color: '#4ca6ca' }}>{calcAge(new Date("2019-07-03"))}</a> years. I enjoy creating open source projects on my free time or whenever I&apos;m not lazy.</div>
+          <div className='center flexGrid'>
+          <Image
+          style={{ marginBottom: 15 }}
+          className='hiding'
+          src="/Me.png"
+          height={140}
+          width={140}
+          draggable={false}
+          alt="Avatar"
+          priority
+          />
+            
+          </div>
+          <div className='sizing'>Hello, my name is <a className="Blue">ForGetFulSkyBro</a> or <a className="Blue">Sky</a> for short. I&apos;m currently <a className="Blue">{calcAge(new Date("2004-06-28"))}</a> years old and I&apos;ve been coding for <a className="Blue">{calcAge(new Date("2019-07-03"))}</a> years. I enjoy creating open source projects on my free time or whenever I&apos;m not lazy.</div>
           <div className='center flexGrid'>
           <Link href="https://discord.com/users/268843733317976066" target='_blank'><div style={{ display: 'inline-block' }} className='cardSocials'>
             <Image
@@ -60,12 +73,13 @@ export default function Home() {
         </div>
 
         <Image
-          className='hide'
+          className='hide highlight'
           src="/Me.png"
           height={240}
           width={240}
           draggable={false}
           alt="Avatar"
+          priority
         />
       </Page>
     </main>

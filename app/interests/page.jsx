@@ -43,7 +43,7 @@ export default function Projects() {
                     height={25}
                     width={25}
                     draggable={false}
-                    alt={project.name}
+                    alt="Interest"
                     priority />
                 )}
                 <a style={{ marginLeft: 0.7 }}>{project.title}</a>

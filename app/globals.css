@@ -236,17 +236,14 @@ a {
    align-items: center;
  }
 
- .highlight:hover {
-   color: #CC2E46;
- }
-
  .button {
    text-align: center;
-   width: 7rem;
+   width: auto;
    padding: .5rem 1.2rem;
-   border-radius: var(--border-radius);
+   border-radius: 4px;
    border: 1px solid rgba(var(--card-border-rgb), 0.15);
    transition: background 200ms, border 200ms;
+   background-color: #121213;
  }
 
  @media (hover: hover) and (pointer: fine) {
@@ -254,6 +251,11 @@ a {
      background: rgba(var(--card-rgb), 0.1);
      border: 1px solid #4ca6ca;
      cursor: pointer;
+   }
+
+   .disable:hover {
+    border: 1px solid rgba(var(--card-border-rgb), 0.15);
+    cursor: not-allowed !important;
    }
  }
 
@@ -269,10 +271,17 @@ a {
    text-align: center;
  }
 
+ .hiding {
+   display: none;
+ }
  @media screen and (max-width:841px) {
    .hide {
      display: none;
    }
+    
+   .hiding {
+      display: block;
+    }
  }
 
  .flexGrid {
@@ -287,33 +296,60 @@ a {
  }
 
  .interestsCard {
-   position: relative;
-   text-align: center;
-   width: auto;
-   padding: .4rem;
-   width: 240px;
-   height: 40px;
-   border-radius: 5px;
-   border: 1px solid rgba(var(--card-border-rgb), 0.15);
-   transition: background 200ms, border 200ms;
-   background: #121213;
- }
+  position: relative;
+  text-align: center;
+  width: auto;
+  padding: .4rem;
+  width: 240px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid rgba(var(--card-border-rgb), 0.15);
+  transition: background 200ms, border 200ms;
+  background: #121213;
+}
 
- .interestsCard:hover {
-   background: rgba(var(--card-rgb), 0.1);
-   cursor: pointer;
- }
+.interestsCard:hover {
+  background: rgba(var(--card-rgb), 0.1);
+  cursor: pointer;
+}
 
- .interestsTitle {
-   position: relative;
-   text-align: center;
-   display: flex;
-   flex-direction: row;
-   gap: 3px;
-   font-size: 19px;
-   font-weight: 800;
-   text-align: left;
- }
+.interestsTitle {
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  font-size: 19px;
+  font-weight: 800;
+  text-align: left;
+}
+
+.gamesCard {
+  position: relative;
+  text-align: center;
+  width: auto;
+  padding: .4rem;
+  width: 240px;
+  height: 100px;
+  border-radius: 5px;
+  border: 1px solid rgba(var(--card-border-rgb), 0.15);
+  transition: background 200ms, border 200ms;
+  background: #121213;
+}
+
+.gamesCard:hover {
+  background: rgba(var(--card-rgb), 0.1);
+  cursor: pointer;
+}
+
+.gamesTitle {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  font-size: 19px;
+  font-weight: 800;
+}
 
  .projectCard {
    position: relative;
@@ -387,11 +423,15 @@ a {
    font-size: 11px;
  }
 
+ .Blue {
+   color: #4ca6ca
+ }
 
  /* Mobile */
  @media (max-width: 620px) {
    .sizing {
      font-size: 15px;
+     margin-right: 10px;
    }
 
    .projectTags {

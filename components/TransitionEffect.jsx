@@ -7,8 +7,6 @@ export default function TransitionEffect({ children }) {
     const variants = {
         in: {
             scale: 0.8,
-            // y: usePathname() === "/" ? 100 : usePathname() === "/projects" ? 100 : '100%',
-            // x: usePathname() === "/" ? "100%" : usePathname() === "/projects" ? '-100%' : 100,
             y: 100,
             x: "100%",
             transition: {
