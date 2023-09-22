@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@vercel/analytics": "^1.0.1",
@@ -14,6 +15,7 @@
     "eslint-config-next": "13.4.7",
     "framer-motion": "^10.12.18",
     "next": "13.4.7",
+    "next-sitemap": "^4.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "reactstrap": "^9.2.0"
