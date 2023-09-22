@@ -13,6 +13,7 @@ export default function RootLayout({ children }) {
         <title>ForGetFulSkybro - Portfolio</title>
         <meta name="theme-color" content="#4ca6ca" />
         <meta name="msapplication-TileColor" content="#4ca6ca" />
+        <meta name="robots" content="index, follow" />
         <meta property="og:image" content="https://website-forgetfulskybro.vercel.app/Me.png" />
         <meta
           name="description"
