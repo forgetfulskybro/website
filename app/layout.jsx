@@ -10,6 +10,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/Me.png" sizes="any" />
         <meta property="og:title" content="ForGetFulSkybro - Portfolio" />
+        <title>ForGetFulSkybro - Portfolio</title>
         <meta name="theme-color" content="#4ca6ca" />
         <meta name="msapplication-TileColor" content="#4ca6ca" />
         <meta property="og:image" content="https://website-forgetfulskybro.vercel.app/Me.png" />
