@@ -5,16 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 const Fira = Fira_Code({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "ForGetFulSkybro - Portfolio",
   description: "Hello, my name is ForGetFulSkyBro or Sky for short. I'm currently 19 years old and I've been coding for 4 years. I enjoy creating open source projects on my free time or whenever I'm not lazy.",
-  image: "https://website-forgetfulskybro.vercel.app/Me.png",	
-  url: "https://website-forgetfulskybro.vercel.app",
-  type: "website",
-  site_name: "ForGetFulSkyBro",
-  locale: "en_US",
-  theme_color: '#4ca6ca',
-
-
 };
 
 export default function RootLayout({ children }) {
@@ -22,6 +13,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <link rel="icon" href="/Me.png" sizes="any" />
+        <meta property="og:title" content="ForGetFulSkybro - Portfolio" />
+        <meta name="theme-color" content="#4ca6ca" />
+        <meta name="msapplication-TileColor" content="#4ca6ca" />
+        <meta property="og:image" content="https://website-forgetfulskybro.vercel.app/Me.png" />
       </head>
       <body className={Fira.className}>
         {children}
