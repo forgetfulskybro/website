@@ -262,7 +262,8 @@ export default function Projects() {
             </div>
             <br />
             <br />
-            <a className="blogHeader">D: Politics</a>
+            <a className="blogHeader">D: Immaturity and Abuse of Power</a>
+            <br />
             <br />
             <div>
               What I love about the Revolt admins is their maturity; their

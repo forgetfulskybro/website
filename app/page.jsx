@@ -58,17 +58,7 @@ export default function Home() {
               priority
             />
           </div></Link>
-          <Link href="https://rvlt.gg/functious" target='_blank'><div style={{ display: 'inline-block' }} className='cardSocials'>
-            <Image
-              style={{ marginTop: 5 }}
-              src="Revolt.svg"
-              width={37}
-              height={37}
-              draggable={false}
-              alt="Revolt"
-              priority
-            />
-          </div></Link>
+          
           </div>
         </div>
 
