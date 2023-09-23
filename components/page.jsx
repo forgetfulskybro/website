@@ -72,7 +72,7 @@ export default function Page({ children }) {
                 />
               </span>
             </Link>
-            <Link href="/interests" prefetch={true}>
+            <Link href="/blog" prefetch={true}>
               <UncontrolledTooltip
                 style={{
                   margin: "5px 5px 5px 5px",
@@ -82,18 +82,18 @@ export default function Page({ children }) {
                   fontSize: 13,
                 }}
                 target="tooltip3">
-                Interests
+                Blog
               </UncontrolledTooltip>
               <span
                 id="tooltip3"
                 className={
-                  usePathname() === "/interests"
-                    ? "dot interests interestsHigh"
-                    : "dot interests"
+                  usePathname() === "/log"
+                    ? "dot blog blogHigh"
+                    : "dot blog"
                 }>
                 <Image
                   style={{ marginTop: 7 }}
-                  src="Interests.svg"
+                  src="Blog.svg"
                   width={17}
                   height={17}
                   draggable={false}

@@ -34,8 +34,8 @@ export default function Home() {
           />
             
           </div>
-          <div className='sizing'>Hello, my name is <a className="Blue">ForGetFulSkyBro</a> or <a className="Blue">Sky</a> for short. I&apos;m currently <a className="Blue">{calcAge(new Date("2004-06-28"))}</a> years old and I&apos;ve been coding for <a className="Blue">{calcAge(new Date("2019-07-03"))}</a> years. I enjoy creating open source projects on my free time or whenever I&apos;m not lazy.</div>
-          <div className='center flexGrid'>
+          <div className='sizing'>Hello, my name is <a className="Blue">ForGetFulSkyBro</a> or <a className="Blue">Sky</a> for short. I&apos;m currently <a className="Blue">{calcAge(new Date("2004-06-29"))}</a> years old and I&apos;ve been coding for <a className="Blue">{calcAge(new Date("2019-07-03"))}</a> years. I enjoy creating open source projects on my free time or whenever I&apos;m not lazy.</div>
+          <div style={{ marginLeft: '-15px' }} className='flexGrid'>
           <Link href="https://discord.com/users/268843733317976066" target='_blank'><div style={{ display: 'inline-block' }} className='cardSocials'>
             <Image
               style={{ marginTop: 5 }}

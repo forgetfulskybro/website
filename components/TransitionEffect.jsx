@@ -49,7 +49,7 @@ export default function TransitionEffect({ children }) {
             <LazyMotion features={domAnimation}>
                 <AnimatePresence mode="wait" >
                     <motion.div
-                        key={usePathname()}
+                        key={usePathname()+1}
                         variants={!shouldReduceMotion ? variants : null}
                         initial="in"
                         animate={["center", "scaleUp"]}

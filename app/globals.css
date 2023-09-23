@@ -196,8 +196,8 @@ a {
  }
 
 
- .interestsHigh,
- .interests:hover {
+ .blogHigh,
+ .blog:hover {
    background-color: #1abc9c;
    transition: .25s ease-in-out;
  }
@@ -295,25 +295,25 @@ a {
    flex: 1 auto;
  }
 
- .interestsCard {
+ .blogCard {
   position: relative;
   text-align: center;
   width: auto;
   padding: .4rem;
-  width: 240px;
-  height: 40px;
+  width: 400px;
+  height: 90px;
   border-radius: 5px;
   border: 1px solid rgba(var(--card-border-rgb), 0.15);
   transition: background 200ms, border 200ms;
   background: #121213;
 }
 
-.interestsCard:hover {
+.blogCard:hover {
   background: rgba(var(--card-rgb), 0.1);
   cursor: pointer;
 }
 
-.interestsTitle {
+.blogTitle {
   position: relative;
   text-align: center;
   display: flex;
@@ -367,31 +367,31 @@ a {
    cursor: pointer;
  }
  .projectTitle {
-   display: flex;
-   flex-direction: row;
-   gap: 3px;
-   margin-top: 8px;
-   margin-left: 20px;
-   font-size: 19px;
-   font-weight: 800;
-   text-align: left;
- }
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  margin-top: 8px;
+  margin-left: 20px;
+  font-size: 19px;
+  font-weight: 800;
+  text-align: left;
+}
 
- .projectTitle,
- .img {
-   border-radius: 9999px;
- }
+.projectTitle,
+.img {
+  border-radius: 9999px;
+}
 
- .projectDesc {
-   color: #a29f9f;
-   position: absolute;
-   top: 40px;
-   margin-top: 4px;
-   margin-left: 20px;
-   word-wrap: normal;
-   font-size: 12px;
-   text-align: left;
- }
+.projectDesc {
+  color: #a29f9f;
+  position: absolute;
+  top: 40px;
+  margin-top: 4px;
+  margin-left: 20px;
+  word-wrap: normal;
+  font-size: 12px;
+  text-align: left;
+}
 
  .projectTags {
    font-weight: 600;
@@ -422,6 +422,58 @@ a {
    margin-left: 20px;
    font-size: 11px;
  }
+
+ .blogTitle {
+  display: flex;
+  flex-direction: row;
+  font-size: 15px;
+  font-weight: 800;
+  text-align: left;
+  top: 5px;
+}
+
+.blogHeader {
+  font-size: 20px;
+  color: #caf964;
+}
+
+.blogFooter {
+  color: #6b6a6a;
+  position: absolute;
+  top: 53px;
+  font-size: 10px;
+}
+
+.blogPostBody {
+  color: #dcdbdb;
+  font-size: 15px;
+  margin-right: 5px;
+}
+
+.imageSource {
+  float: left;
+  margin: 5px;
+  border-radius: 7px;
+}
+
+.link {
+  color: #9A5CB4;
+  text-decoration-line:underline;
+}
+
+.blockquote {
+  border-left: 0.3em #8230a5 solid;
+  color: #8230a5;
+  padding-left: 10px;
+}
+
+.divider {
+  width: 99%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
  .Blue {
    color: #4ca6ca
