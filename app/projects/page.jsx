@@ -50,7 +50,6 @@ export default function Projects() {
         { name: "Discontinued", color: "#CC222A" },
       ],
       github: "https://github.com/forgetfulskybro/Revolt-Functious",
-      community: "https://rvlt.gg/functious",
     },
     {
       target: "RBL",
@@ -87,7 +86,6 @@ export default function Projects() {
         { name: "Discontinued", color: "#CC222A" },
       ],
       github: "https://github.com/forgetfulskybro/Revolt-Modmail",
-      community: "https://rvlt.gg/functious",
     },
     {
       target: "RB",
@@ -103,7 +101,6 @@ export default function Projects() {
         { name: "Discontinued", color: "#CC222A" },
       ],
       github: "https://github.com/forgetfulskybro/Revolt-Bridge",
-      community: "https://rvlt.gg/functious",
     },
     {
       target: "D",
