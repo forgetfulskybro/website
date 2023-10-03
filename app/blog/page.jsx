@@ -7,7 +7,8 @@ export default function Projects() {
   const array = [
     {
       title: "Revolt Awareness",
-      date: "September 23, 2022",
+      date: "September 23, 2023",
+      edit: "October 3, 2023",
       image: "/Revolt.svg",
       path: "/blog/revolt",
       num: 1,
@@ -27,29 +28,45 @@ export default function Projects() {
         <div
           style={{ marginRight: 10, maxHeight: "80vh" }}
           className="flexGrid">
-          {array.sort((a, b) => b.num - a.num).map((project) => (
-            <a
-              key={project.num}
-              href={project.path}
-              className="blogCard flex">
-              <div className="blogTitle">
-                <div className="blogTitle">{project.title}</div>
-                <div className="blogFooter">{project.date}</div>
+          {array
+            .sort((a, b) => b.num - a.num)
+            .map((project) => (
+              <a
+                key={project.num}
+                href={project.path}
+                className="blogCard flex">
+                <div className="blogTitle">
+                  <div className="blogTitle">{project.title}</div>
+                  <div className="blogFooter">
+                    {project.date}
+                    {project.edit && (
+                      <Image
+                        id="Edit"
+                        style={{ marginLeft: "3px" }}
+                        src="../Edit.svg"
+                        width={10}
+                        height={10}
+                        draggable={false}
+                        alt="Last edit"
+                        priority
+                      />
+                    )}
+                  </div>
 
-                {project.image && (
-                  <Image
-                    style={{ display: "block", marginLeft: "auto" }}
-                    src={project.image}
-                    height={65}
-                    width={75}
-                    draggable={false}
-                    alt="BlogPost"
-                    priority
-                  />
-                )}
-              </div>
-            </a>
-          ))}
+                  {project.image && (
+                    <Image
+                      style={{ display: "block", marginLeft: "auto" }}
+                      src={project.image}
+                      height={65}
+                      width={75}
+                      draggable={false}
+                      alt="BlogPost"
+                      priority
+                    />
+                  )}
+                </div>
+              </a>
+            ))}
         </div>
       </Page>
     </main>

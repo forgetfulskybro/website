@@ -444,6 +444,12 @@ a {
   font-size: 10px;
 }
 
+.blogPostSecondary {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+}
+
 .blogPostBody {
   color: #dcdbdb;
   font-size: 15px;

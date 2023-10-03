@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Page from "@/components/pageSecondary";
 import { usePathname } from "next/navigation";
+import { UncontrolledTooltip } from "reactstrap";
 
 export default function Projects() {
   // <Link className="link" target="_blank" href="">
@@ -11,10 +12,36 @@ export default function Projects() {
   return (
     <main key={usePathname()} className="main">
       <Page>
+        <UncontrolledTooltip
+          style={{
+            border: "1px solid rgba(var(200, 200, 200), 0.15)",
+            transition: "200ms, border 200ms",
+            margin: "5px 5px 5px 5px",
+            backgroundColor: "#060607",
+            padding: 5,
+            borderRadius: 7,
+            fontSize: 13,
+          }}
+          target="Edit">
+          Edited Last: October 3, 2023
+        </UncontrolledTooltip>
+
         <div style={{ maxHeight: "80vh" }} className="flexGrid">
           <div className="blogPostTitle">
             <h2>Revolt Awareness</h2>
-            <h6 style={{ color: "#a29f9f" }}>September 23, 2023</h6>
+            <div className="blogPostSecondary">
+              <h6 style={{ color: "#a29f9f" }}>September 23, 2023</h6>{" "}
+                <Image
+                  id="Edit"
+                  style={{ cursor: "pointer" }}
+                  src="../Edit.svg"
+                  width={13}
+                  height={13}
+                  draggable={false}
+                  alt="Last Edited"
+                  priority
+                />
+            </div>
           </div>
 
           <div className="divider"></div>
@@ -43,6 +70,97 @@ export default function Projects() {
                 href="https://rentry.org/rebolt">
                 Rebolt
               </Link>
+            </div>
+            <br />
+            <br />
+            <div>
+              <a className="blogHeader">My Testimony</a>
+              <br />
+              <br />
+              When I first joined Revolt back in February of 2023, I found it to
+              be really cool open source app with a fun API to work with. At
+              first, I created bot called Functious to be the very first bot of
+              certain subjects such as polls and giveaways. After some time, I
+              got friends to join and even create their own little projects to
+              work on such as RBL (
+              <Link
+                className="link"
+                target="_blank"
+                href="https://revoltbots.org">
+                Revolt Botlist
+              </Link>
+              ) and other bots. I must admit that the community behind Revolt
+              were of different opinion than us but of course, I kept that all
+              to myself as I have no reason to start drama where it's not
+              needed. In DMs and private servers were the only places we would
+              discuss such differentiating opinions (According to Insert and
+              Lea, it is{" "}
+              <Link
+                className="link"
+                target="_blank"
+                href="https://i.imgur.com/zTFOq5q_d.webp?maxwidth=760&fidelity=grand">
+                against law to have such opinions?
+              </Link>
+              ). So by them suspending my account just proves that they spy on
+              messages by suspected people which seems like an evasion of
+              privacy that all Revolt staff members have access to. Quite{" "}
+              <Link
+                className="link"
+                target="_blank"
+                href="https://i.imgur.com/uFX5M0o_d.webp?maxwidth=760&fidelity=grand">
+                contradictory toward their slogan
+              </Link>{" "}
+              for Revolt.
+            </div>
+            <br />
+            <br />
+            <div>
+              Another thing I have noticed is that religion does not really
+              matter to Revolt staff team. In the past few months, two religious
+              servers have been removed from the platform and the mods/owner of
+              such servers were terminated. The first religious server I seen
+              get taken down was{" "}
+              <Link
+                className="link"
+                target="_blank"
+                href="https://rentry.org/rebolt#islamportal">
+                IslamPortal
+              </Link>{" "}
+              and the reason for this can be simply shortened to just "bigotry"
+              and "discrimination". For the full reason,{" "}
+              <Link
+                className="link"
+                target="_blank"
+                href="https://rentry.org/46pze">
+                head here
+              </Link>
+              . The second religious server that got removed was called
+              "Christendom" which of course revolved around Christianity. The
+              reason for the take down was for{" "}
+              <Link
+                className="link"
+                target="_blank"
+                href="https://i.imgur.com/019jcR7_d.webp?maxwidth=760&fidelity=grand">
+                "fostering hate speech, conspiracy theories (????) and targeted
+                harassment"
+              </Link>
+              . Yet, while they are removing such religious servers, one still
+              remains which of course is a{" "}
+              <Link
+                className="link"
+                target="_blank"
+                href="https://i.imgur.com/BT3mmXV_d.webp?maxwidth=760&fidelity=grand">
+                Satanism server
+              </Link>
+              . Seems like Insert has no problem{" "}
+              <Link
+                className="link"
+                target="_blank"
+                href="https://i.imgur.com/EScE1fP_d.webp?maxwidth=760&fidelity=grand">
+                keeping the server on the platform
+              </Link>
+              , but they try their hardest to find the smallest piece of
+              "evidence" to remove other religions.
             </div>
             <br />
             <br />
