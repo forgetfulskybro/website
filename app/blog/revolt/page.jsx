@@ -322,7 +322,7 @@ export default function Projects() {
             </div>
             <br />
             <br />
-            <a className="blogHeader">B: Politics</a>
+            <a className="blogHeader">C: Racism</a>
             <br />
             <br />
             <div>
@@ -359,7 +359,7 @@ export default function Projects() {
             </div>
             <br />
             <br />
-            <a className="blogHeader">C: Privacy</a>
+            <a className="blogHeader">D: Privacy</a>
             <br />
             <br />
             <div>
@@ -380,7 +380,7 @@ export default function Projects() {
             </div>
             <br />
             <br />
-            <a className="blogHeader">D: Immaturity and Abuse of Power</a>
+            <a className="blogHeader">E: Immaturity and Abuse of Power</a>
             <br />
             <br />
             <div>
