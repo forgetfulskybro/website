@@ -63,7 +63,6 @@ export default function Home() {
               width={140}
               draggable={false}
               alt="Avatar"
-              priority
             />
           </div>
           <div className="sizing">
@@ -102,7 +101,6 @@ export default function Home() {
                     height={37}
                     draggable={false}
                     alt={item.alt}
-                    priority
                   />
                 </div>
               </Link>
@@ -117,7 +115,6 @@ export default function Home() {
           width={240}
           draggable={false}
           alt="Avatar"
-          priority
         />
       </Page>
     </main>

@@ -28,14 +28,16 @@ export default function Projects() {
       <Page>
         <div
           style={{ marginRight: 10, maxHeight: "80vh" }}
-          className="flexGrid">
+          className="flexGrid"
+        >
           {array
             .sort((a, b) => b.num - a.num)
             .map((project) => (
               <a
                 key={project.num}
                 href={project.path}
-                className="blogCard flex">
+                className="blogCard flex"
+              >
                 <div className="blogTitle">
                   <div className="blogTitle">{project.title}</div>
                   <div className="blogFooter">
@@ -49,7 +51,6 @@ export default function Projects() {
                         height={10}
                         draggable={false}
                         alt="Last edit"
-                        priority
                       />
                     )}
                   </div>
@@ -62,7 +63,6 @@ export default function Projects() {
                       width={75}
                       draggable={false}
                       alt="BlogPost"
-                      priority
                     />
                   )}
                 </div>

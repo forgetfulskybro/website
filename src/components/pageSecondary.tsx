@@ -45,7 +45,6 @@ export default function Page({ children }: { children: React.ReactNode }) {
                   height={17}
                   draggable={false}
                   alt="Go back"
-                  priority
                 />
               </span>
             </div>
@@ -86,7 +85,6 @@ export default function Page({ children }: { children: React.ReactNode }) {
                   height={17}
                   draggable={false}
                   alt="Go back"
-                  priority
                 />
               </span>
             </div>

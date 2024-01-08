@@ -18,7 +18,6 @@ export default function Home() {
               height={37}
               draggable={false}
               alt="trol"
-              priority
             />
           </div>
         </div>

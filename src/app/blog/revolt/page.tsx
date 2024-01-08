@@ -23,7 +23,8 @@ export default function Projects() {
             borderRadius: 7,
             fontSize: 13,
           }}
-          target="Edit">
+          target="Edit"
+        >
           Edited Last: December 31, 2023
         </UncontrolledTooltip>
 
@@ -40,7 +41,6 @@ export default function Projects() {
                 height={13}
                 draggable={false}
                 alt="Last Edited"
-                priority
               />
             </div>
           </div>
@@ -61,14 +61,16 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://qyint-community.github.io/feed/qyint-community-feed/post11.html">
+                href="https://qyint-community.github.io/feed/qyint-community-feed/post11.html"
+              >
                 Qyint Community Feed
               </Link>
               <br />•{" "}
               <Link
                 className="link"
                 target="_blank"
-                href="https://rentry.org/rebolt">
+                href="https://rentry.org/rebolt"
+              >
                 Rebolt
               </Link>
             </div>
@@ -87,7 +89,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://revoltbots.org">
+                href="https://revoltbots.org"
+              >
                 Revolt Botlist
               </Link>
               ) and other bots. I must admit that the community behind Revolt
@@ -99,7 +102,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.com/zTFOq5q_d.webp?maxwidth=760&fidelity=grand">
+                href="https://i.imgur.com/zTFOq5q_d.webp?maxwidth=760&fidelity=grand"
+              >
                 against law to have such opinions?
               </Link>
               ). So by them suspending my account just proves that they spy on
@@ -108,7 +112,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.com/uFX5M0o_d.webp?maxwidth=760&fidelity=grand">
+                href="https://i.imgur.com/uFX5M0o_d.webp?maxwidth=760&fidelity=grand"
+              >
                 contradictory toward their slogan
               </Link>{" "}
               for Revolt.
@@ -124,7 +129,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://rentry.org/rebolt#islamportal">
+                href="https://rentry.org/rebolt#islamportal"
+              >
                 IslamPortal
               </Link>{" "}
               and the reason for this can be simply shortened to just "bigotry"
@@ -132,7 +138,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://rentry.org/46pze">
+                href="https://rentry.org/46pze"
+              >
                 head here
               </Link>
               . The second religious server that got removed was called
@@ -141,7 +148,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.com/019jcR7_d.webp?maxwidth=760&fidelity=grand">
+                href="https://i.imgur.com/019jcR7_d.webp?maxwidth=760&fidelity=grand"
+              >
                 "fostering hate speech, conspiracy theories (????) and targeted
                 harassment"
               </Link>
@@ -150,14 +158,16 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.com/BT3mmXV_d.webp?maxwidth=760&fidelity=grand">
+                href="https://i.imgur.com/BT3mmXV_d.webp?maxwidth=760&fidelity=grand"
+              >
                 Satanism server
               </Link>
               . Seems like Insert has no problem{" "}
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.com/EScE1fP_d.webp?maxwidth=760&fidelity=grand">
+                href="https://i.imgur.com/EScE1fP_d.webp?maxwidth=760&fidelity=grand"
+              >
                 keeping the server on the platform
               </Link>
               , but they try their hardest to find the smallest piece of
@@ -173,7 +183,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://revolt.chat/aup">
+                href="https://revolt.chat/aup"
+              >
                 Revolt AUP
               </Link>{" "}
               clearly states:
@@ -190,7 +201,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.io/pEATcep_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=grand">
+                href="https://i.imgur.io/pEATcep_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=grand"
+              >
                 publicly share a link to a self-hosted repository of 3.6TB of
                 unethically pirated Nintendo content
               </Link>
@@ -200,7 +212,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.io/z3XDmYL_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=grand">
+                href="https://i.imgur.io/z3XDmYL_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=grand"
+              >
                 right here
               </Link>
               , where he says that the "content isn't hosted on Revolt," but if
@@ -210,7 +223,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://rentry.org/rebolt#islamportal">
+                href="https://rentry.org/rebolt#islamportal"
+              >
                 Med's (Link to his article)
               </Link>{" "}
               server (i.e., IslamPortal) get banned from the platform for
@@ -220,14 +234,16 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.com/z3XDmYL_d.webp?maxwidth=760&fidelity=grand">
+                href="https://i.imgur.com/z3XDmYL_d.webp?maxwidth=760&fidelity=grand"
+              >
                 right here
               </Link>
               . But if hosting is the issue, how come a user's YouTube video was{" "}
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.com/FA9WtTA_d.webp?maxwidth=760&fidelity=grand">
+                href="https://i.imgur.com/FA9WtTA_d.webp?maxwidth=760&fidelity=grand"
+              >
                 removed from their profile
               </Link>
               ?
@@ -239,14 +255,16 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.com/T9bHjFi_d.webp?maxwidth=760&amp;shape=thumb&amp;fidelity=grand">
+                href="https://i.imgur.com/T9bHjFi_d.webp?maxwidth=760&amp;shape=thumb&amp;fidelity=grand"
+              >
                 removed it from the profile
               </Link>
               . Another thing, I've recently{" "}
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.com/PSu29Zv_d.webp?maxwidth=760&amp;shape=thumb&amp;fidelity=grand">
+                href="https://i.imgur.com/PSu29Zv_d.webp?maxwidth=760&amp;shape=thumb&amp;fidelity=grand"
+              >
                 contacted Nintendo's piracy email
               </Link>{" "}
               about such website as it is blatant stealing of copyrighted
@@ -259,7 +277,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://web.archive.org/web/20230614185451/https://futacockinside.me/switch/">
+                href="https://web.archive.org/web/20230614185451/https://futacockinside.me/switch/"
+              >
                 The Legend of Zelda: Tears Of The Kingdom
               </Link>
               ) to the public, the website went under a modification that makes
@@ -267,7 +286,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.com/UbPhmLj_d.webp?maxwidth=760&fidelity=grand">
+                href="https://i.imgur.com/UbPhmLj_d.webp?maxwidth=760&fidelity=grand"
+              >
                 certain credentials can enter
               </Link>{" "}
               . Almost like they're trying to hide the games from the public so
@@ -279,7 +299,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://web.archive.org/web/20230208155607/https://futacockinside.me/">
+                href="https://web.archive.org/web/20230208155607/https://futacockinside.me/"
+              >
                 allowed users to download content from it
               </Link>
               .
@@ -293,7 +314,8 @@ export default function Projects() {
                 <Link
                   className="link"
                   target="_blank"
-                  href="https://qyint-community.github.io/feed/qyint-community-feed/post11.html">
+                  href="https://qyint-community.github.io/feed/qyint-community-feed/post11.html"
+                >
                   Qynit Community
                 </Link>{" "}
                 of "No Politics!".
@@ -303,7 +325,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://rvlt.gg/RXJK3m0H">
+                href="https://rvlt.gg/RXJK3m0H"
+              >
                 Revolt Lounge's
               </Link>{" "}
               rules include Rule 3 that states:
@@ -325,7 +348,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.com/Bt6Vg8y_d.webp?maxwidth=760&fidelity=grand">
+                href="https://i.imgur.com/Bt6Vg8y_d.webp?maxwidth=760&fidelity=grand"
+              >
                 insult an entire Group of People for their Political Position
               </Link>{" "}
               while we were talking about Apes?
@@ -334,7 +358,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.com/7XceCVr_d.webp?maxwidth=760&fidelity=grand">
+                href="https://i.imgur.com/7XceCVr_d.webp?maxwidth=760&fidelity=grand"
+              >
                 bring up
               </Link>{" "}
               - and misrepresent - my Stance on a completely different political
@@ -343,7 +368,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.com/ryRDRYu_d.webp?maxwidth=760&fidelity=grand">
+                href="https://i.imgur.com/ryRDRYu_d.webp?maxwidth=760&fidelity=grand"
+              >
                 Here
               </Link>{" "}
               is the Clarification of my Position btw. I did not post this in
@@ -371,14 +397,16 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.io/VvkjBrX_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=medium">
+                href="https://i.imgur.io/VvkjBrX_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=medium"
+              >
                 equating apes and monkeys
               </Link>{" "}
               with{" "}
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.io/62ZuaP7_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=medium">
+                href="https://i.imgur.io/62ZuaP7_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=medium"
+              >
                 black people
               </Link>
               . The excuse was that "it's just a joke," but according to that
@@ -402,7 +430,8 @@ export default function Projects() {
               <Link
                 className="link"
                 target="_blank"
-                href="https://i.imgur.io/GRG8vnZ_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=medium">
+                href="https://i.imgur.io/GRG8vnZ_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=medium"
+              >
                 commitment to staying 100% free &amp; open-source
               </Link>
               , as they still have proprietary blobs on their service such as
@@ -422,7 +451,8 @@ export default function Projects() {
               <Link
                 href="https://i.imgur.io/0gytSKS_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=medium"
                 className="link"
-                target="_blank">
+                target="_blank"
+              >
                 constant rambling about child porn
               </Link>{" "}
               so much that it breaks the search system, the official moderation
@@ -430,14 +460,16 @@ export default function Projects() {
               <Link
                 href="https://i.imgur.io/zwEGJG6_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=medium"
                 className="link"
-                target="_blank">
+                target="_blank"
+              >
                 decent profile banner
               </Link>
               ,{" "}
               <Link
                 href="https://i.imgur.io/JrYQmK6_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=medium"
                 className="link"
-                target="_blank">
+                target="_blank"
+              >
                 ruling out disagreement with their worldviews as "hate speech"
               </Link>
               , add to that their professional moderation of their platform
@@ -445,35 +477,40 @@ export default function Projects() {
               <Link
                 href="https://i.imgur.io/hVWfMd7_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=medium"
                 className="link"
-                target="_blank">
+                target="_blank"
+              >
                 being dumb
               </Link>
               ," "
               <Link
                 href="https://i.imgur.io/2GHYUup_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=medium"
                 className="link"
-                target="_blank">
+                target="_blank"
+              >
                 annoying the chat (a.k.a., being a black gorilla)
               </Link>
               ," and "
               <Link
                 href="https://i.imgur.io/tUWF0dV_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=medium"
                 className="link"
-                target="_blank">
+                target="_blank"
+              >
                 talking back to a moderator
               </Link>
               ." Oh, don't forget that the same admins{" "}
               <Link
                 href="https://i.imgur.io/SubkjM4_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=medium"
                 className="link"
-                target="_blank">
+                target="_blank"
+              >
                 complain about having to moderate a simple server
               </Link>{" "}
               and have a tendency to{" "}
               <Link
                 href="https://i.imgur.io/4FDrSBa_d.webp?maxwidth=640&amp;shape=thumb&amp;fidelity=medium"
                 className="link"
-                target="_blank">
+                target="_blank"
+              >
                 reject simple questions about the justification of mod abuse
               </Link>{" "}
               for transparency's sake. How mature!
