@@ -1,10 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
-import Link from "next/link";
-import Image from "next/image";
+import { UncontrolledTooltip } from "reactstrap";
 import Page from "@/components/pageSecondary";
 import { usePathname } from "next/navigation";
-import { UncontrolledTooltip } from "reactstrap";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 export default function Projects() {
   // <Link className="link" target="_blank" href="">
@@ -23,24 +24,24 @@ export default function Projects() {
             fontSize: 13,
           }}
           target="Edit">
-          Edited Last: October 3, 2023
+          Edited Last: December 31, 2023
         </UncontrolledTooltip>
 
         <div style={{ maxHeight: "80vh" }} className="flexGrid">
           <div className="blogPostTitle">
             <h2>Revolt Awareness</h2>
             <div className="blogPostSecondary">
-              <h6 style={{ color: "#a29f9f" }}>September 23, 2023</h6>{" "}
-                <Image
-                  id="Edit"
-                  style={{ cursor: "pointer" }}
-                  src="../Edit.svg"
-                  width={13}
-                  height={13}
-                  draggable={false}
-                  alt="Last Edited"
-                  priority
-                />
+              <h6 style={{ color: "#a29f9f" }}>Creation: September 23, 2023</h6>{" "}
+              <Image
+                id="Edit"
+                style={{ cursor: "pointer" }}
+                src="../Edit.svg"
+                width={13}
+                height={13}
+                draggable={false}
+                alt="Last Edited"
+                priority
+              />
             </div>
           </div>
 
@@ -250,7 +251,38 @@ export default function Projects() {
               </Link>{" "}
               about such website as it is blatant stealing of copyrighted
               content and Lea is even bosting about it in his Revolt profile.
-              Once Nintendo has emailed me back, I'll add more images.
+            </div>
+            <br />
+            <div>
+              Ever since we announced Lea's Nintendo "archive" (which has the
+              latest Nintendo games such as{" "}
+              <Link
+                className="link"
+                target="_blank"
+                href="https://web.archive.org/web/20230614185451/https://futacockinside.me/switch/">
+                The Legend of Zelda: Tears Of The Kingdom
+              </Link>
+              ) to the public, the website went under a modification that makes
+              it so only people with{" "}
+              <Link
+                className="link"
+                target="_blank"
+                href="https://i.imgur.com/UbPhmLj_d.webp?maxwidth=760&fidelity=grand">
+                certain credentials can enter
+              </Link>{" "}
+              . Almost like they're trying to hide the games from the public so
+              Nintendo can't take down the site due to copyright. If you use{" "}
+              <Link className="link" target="_blank" href="https://archive.org">
+                https://archive.org
+              </Link>
+              , we can see that the site was open to the public and even{" "}
+              <Link
+                className="link"
+                target="_blank"
+                href="https://web.archive.org/web/20230208155607/https://futacockinside.me/">
+                allowed users to download content from it
+              </Link>
+              .
             </div>
             <br />
             <br />
@@ -322,7 +354,7 @@ export default function Projects() {
             </div>
             <br />
             <br />
-            <a className="blogHeader">C: Racism</a>
+            <a className="blogHeader">B: Politics</a>
             <br />
             <br />
             <div>
@@ -359,7 +391,7 @@ export default function Projects() {
             </div>
             <br />
             <br />
-            <a className="blogHeader">D: Privacy</a>
+            <a className="blogHeader">C: Privacy</a>
             <br />
             <br />
             <div>
@@ -380,7 +412,7 @@ export default function Projects() {
             </div>
             <br />
             <br />
-            <a className="blogHeader">E: Immaturity and Abuse of Power</a>
+            <a className="blogHeader">D: Immaturity and Abuse of Power</a>
             <br />
             <br />
             <div>

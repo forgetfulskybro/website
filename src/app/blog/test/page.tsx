@@ -1,8 +1,7 @@
 "use client";
-import Link from "next/link";
-import Image from "next/image";
 import Page from "@/components/pageSecondary";
 import { usePathname } from "next/navigation";
+import React from "react";
 
 export default function Projects() {
   //  <Link style={{color: '#9A5CB4'}} target="_blank" href="">
@@ -13,7 +12,7 @@ export default function Projects() {
         <div style={{ maxHeight: "80vh" }} className="flexGrid">
           <div className="blogPostTitle">
             <h2>👋 Hello, this is a test</h2>
-            <h6 style={{ color: "#a29f9f" }}>September 20, 2023</h6>
+            <h6 style={{ color: "#a29f9f" }}>Creation: September 20, 2023</h6>
           </div>
 
           <div className="divider"></div>
