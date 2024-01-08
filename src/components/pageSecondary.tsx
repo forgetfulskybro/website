@@ -11,10 +11,13 @@ export default function Page({ children }: { children: React.ReactNode }) {
   return (
     <TransitionEffect>
       <div className="parent center">
-        <div className="card boxes">
+        <div className="card boxes flexGrid">
           <div
-            style={{ height: "48px", marginRight: ".7rem" }}
-            className="cardSlider">
+            style={{
+              height: "48px",
+            }}
+            className="cardSlider hide"
+          >
             <div style={{ cursor: "pointer" }} onClick={() => router.back()}>
               <UncontrolledTooltip
                 style={{
@@ -26,13 +29,15 @@ export default function Page({ children }: { children: React.ReactNode }) {
                   borderRadius: 7,
                   fontSize: 13,
                 }}
-                target="tooltip">
+                target="tooltip"
+              >
                 Go back
               </UncontrolledTooltip>
               <span
                 id="tooltip"
                 style={{ marginTop: 8 }}
-                className="dot home homeHigh">
+                className="dot home homeHigh"
+              >
                 <Image
                   style={{ marginTop: 7 }}
                   src="../backward.svg"
@@ -47,6 +52,45 @@ export default function Page({ children }: { children: React.ReactNode }) {
           </div>
 
           <div className="description">{children}</div>
+
+          <div
+            style={{
+              height: "48px",
+            }}
+            className="sliderSideSecondary hiding"
+          >
+            <div style={{ cursor: "pointer" }} onClick={() => router.back()}>
+              <UncontrolledTooltip
+                style={{
+                  border: "1px solid rgba(var(200, 200, 200), 0.15)",
+                  transition: "200ms, border 200ms",
+                  margin: "5px 5px 5px 5px",
+                  backgroundColor: "#060607",
+                  padding: 5,
+                  borderRadius: 7,
+                  fontSize: 13,
+                }}
+                target="tooltip"
+              >
+                Go back
+              </UncontrolledTooltip>
+              <span
+                id="tooltip"
+                style={{ marginTop: 8 }}
+                className="dot home homeHigh"
+              >
+                <Image
+                  style={{ marginTop: 7 }}
+                  src="../backward.svg"
+                  width={17}
+                  height={17}
+                  draggable={false}
+                  alt="Go back"
+                  priority
+                />
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </TransitionEffect>

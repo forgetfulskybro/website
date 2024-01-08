@@ -90,7 +90,7 @@ export default function Home() {
             </Link>
             .
           </div>
-          <div style={{ marginTop: "20px" }} className="flexGrid">
+          <div style={{ marginTop: "20px" }} className="flexGrid centered">
             {links.map((item) => (
               <Link key={item.alt} href={item.url} target="_blank">
                 <div className="cardSocials flex">
