@@ -1,12 +1,24 @@
 "use client";
-import Image from 'next/image'
-import Page from "@/components/page";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { UncontrolledTooltip } from "reactstrap";
+import { usePathname } from "next/navigation";
+import Page from "@/components/page";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 export default function Projects() {
-  const array = [
+  const array: {
+    target: string;
+    title: string;
+    image: string | null;
+    tags: any[];
+    desc: string;
+    footer: { start: string; end: string };
+    flags: any[];
+    github: string | null;
+    website: string | null;
+    community: string | null;
+  }[] = [
     {
       target: "WY",
       title: "Would You",
@@ -19,8 +31,8 @@ export default function Projects() {
       },
       flags: [],
       github: "https://github.com/Would-You-Bot",
-      website: "https://wouldyoubot.gg",
       community: "https://wouldyoubot.gg/discord",
+      website: "https://wouldyoubot.gg",
     },
     {
       target: "SB",
@@ -35,6 +47,22 @@ export default function Projects() {
       flags: [],
       github: "https://github.com/forgetfulskybro/Support-Bot",
       community: "https://discord.gg/ty6Rsua",
+      website: null,
+    },
+    {
+      target: "W",
+      title: "Personal Website",
+      image: null,
+      tags: [{ name: "Website", color: "#3B3E40" }],
+      desc: "A personal website which I add quite literally anything about me for others to know.",
+      footer: {
+        start: "Jul 2, 2023",
+        end: "Present",
+      },
+      flags: [],
+      github: "https://github.com/forgetfulskybro/website",
+      community: "https://discord.gg/ty6Rsua",
+      website: "/",
     },
     {
       target: "F",
@@ -46,10 +74,10 @@ export default function Projects() {
         start: "Feb 18, 2023",
         end: "Present",
       },
-      flags: [
-        { name: "Discontinued", color: "#CC222A" },
-      ],
+      flags: [{ name: "Discontinued", color: "#CC222A" }],
       github: "https://github.com/forgetfulskybro/Revolt-Functious",
+      community: null,
+      website: null,
     },
     {
       target: "RBL",
@@ -64,13 +92,10 @@ export default function Projects() {
         start: "Apr 12, 2023",
         end: "Present",
       },
-      flags: [
-        { name: "Contribution", color: "#4ca6ca" },
-        { name: "Discontinued", color: "#CC222A" },
-      ],
-      website: "https://revoltbots.org",
+      flags: [{ name: "Contribution", color: "#4ca6ca" }],
       github: "https://github.com/BrydenIsNotSmart/Revolt-Bot-List",
       community: "https://revoltbots.org/server",
+      website: "https://revoltbots.org",
     },
     {
       target: "RM",
@@ -82,10 +107,10 @@ export default function Projects() {
         start: "Feb 4, 2023",
         end: "Present",
       },
-      flags: [
-        { name: "Discontinued", color: "#CC222A" },
-      ],
+      flags: [{ name: "Discontinued", color: "#CC222A" }],
       github: "https://github.com/forgetfulskybro/Revolt-Modmail",
+      community: null,
+      website: null,
     },
     {
       target: "RB",
@@ -97,10 +122,10 @@ export default function Projects() {
         start: "Feb 7, 2023",
         end: "Present",
       },
-      flags: [
-        { name: "Discontinued", color: "#CC222A" },
-      ],
+      flags: [{ name: "Discontinued", color: "#CC222A" }],
       github: "https://github.com/forgetfulskybro/Revolt-Bridge",
+      community: null,
+      website: null,
     },
     {
       target: "D",
@@ -116,7 +141,9 @@ export default function Projects() {
         { name: "Contribution", color: "#4ca6ca" },
         { name: "Discontinued", color: "#CC222A" },
       ],
+      github: null,
       community: "https://discord.gg/utilibots-618115853178634240",
+      website: null,
     },
     {
       target: "AYB",
@@ -136,6 +163,7 @@ export default function Projects() {
         { name: "Discontinued", color: "#CC222A" },
       ],
       github: "https://github.com/AYB-Archive",
+      community: null,
       website: "https://ayblisting.com",
     },
     {
@@ -153,6 +181,8 @@ export default function Projects() {
         { name: "Discontinued", color: "#CC222A" },
       ],
       github: "https://github.com/SamOphis",
+      community: null,
+      website: null,
     },
     {
       target: "FGF",
@@ -168,7 +198,9 @@ export default function Projects() {
         end: "Jun 12, 2023",
       },
       flags: [{ name: "Discontinued", color: "#CC222A" }],
+      github: null,
       community: "https://discord.gg/ty6Rsua",
+      website: null,
     },
   ];
 
@@ -177,15 +209,16 @@ export default function Projects() {
       <Page>
         <div
           style={{ marginRight: 10, maxHeight: "80vh" }}
-          className="flexGrid">
+          className="flexGrid"
+        >
           {array.map((project) => (
             <div
               id={project.target}
               key={project.target}
-              className="projectCard flex">
+              className="projectCard flex"
+            >
               <UncontrolledTooltip
                 autohide={false}
-                delay={0}
                 style={{
                   border: "1px solid rgba(var(200, 200, 200), 0.15)",
                   transition: "200ms, border 200ms",
@@ -195,7 +228,8 @@ export default function Projects() {
                   borderRadius: 7,
                   fontSize: 13,
                 }}
-                target={project.target}>
+                target={project.target}
+              >
                 <div className="flexGrid center">
                   {project.github ? (
                     <Link href={project.github} target="_blank">
@@ -251,7 +285,8 @@ export default function Projects() {
                   <div
                     key={tag.name}
                     style={{ backgroundColor: tag.color, padding: "0.2rem" }}
-                    className="projectTags">
+                    className="projectTags"
+                  >
                     {tag.name}
                   </div>
                 ))}
@@ -269,7 +304,8 @@ export default function Projects() {
                         color: e.color,
                         fontWeight: 1000,
                         marginLeft: 10,
-                      }}>
+                      }}
+                    >
                       {e.name}
                     </a>
                   ))}

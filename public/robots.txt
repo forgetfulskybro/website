@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://forgetful.vercel.app/
+
+# Sitemaps
+Sitemap: https://forgetful.vercel.app/sitemap.xml

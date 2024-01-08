@@ -1,13 +1,15 @@
+/* eslint-disable react/no-children-prop */
 "use client";
-import Link from 'next/link';
 import TransitionEffect from "@/components/TransitionEffect";
-import Image from 'next/image'
-import { usePathname } from 'next/navigation';
 import { UncontrolledTooltip } from "reactstrap";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
-export default function Page({ children }) {
+export default function Page({ children }: { children: React.ReactNode }) {
   return (
-    <TransitionEffect key={usePathname()}>
+    <TransitionEffect>
       <div className="parent center">
         <div className="card boxes">
           <div className="cardSlider">
@@ -33,7 +35,7 @@ export default function Page({ children }) {
                 }>
                 <Image
                   style={{ marginTop: 7 }}
-                  src="House.svg"
+                  src={`House.svg`}
                   width={17}
                   height={17}
                   draggable={false}
@@ -87,9 +89,7 @@ export default function Page({ children }) {
               <span
                 id="tooltip3"
                 className={
-                  usePathname() === "/log"
-                    ? "dot blog blogHigh"
-                    : "dot blog"
+                  usePathname() === "/log" ? "dot blog blogHigh" : "dot blog"
                 }>
                 <Image
                   style={{ marginTop: 7 }}

@@ -1,7 +1,8 @@
 "use client";
-import Image from "next/image";
-import Page from "@/components/page";
 import { usePathname } from "next/navigation";
+import Page from "@/components/page";
+import Image from "next/image";
+import React from "react";
 
 export default function Projects() {
   const array = [

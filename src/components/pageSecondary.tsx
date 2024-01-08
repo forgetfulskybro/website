@@ -1,17 +1,21 @@
+/* eslint-disable react/no-children-prop */
 "use client";
-import Link from "next/link";
 import TransitionEffect from "@/components/TransitionEffect";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { UncontrolledTooltip } from "reactstrap";
+import Image from "next/image";
+import React from "react";
 
-export default function Page({ children }) {
+export default function Page({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
   return (
-    <TransitionEffect key={usePathname()}>
+    <TransitionEffect>
       <div className="parent center">
         <div className="card boxes">
-          <div style={{ height: '48px', marginRight: '.7rem' }} className="cardSlider">
-            <Link href="/blog" prefetch={true}>
+          <div
+            style={{ height: "48px", marginRight: ".7rem" }}
+            className="cardSlider">
+            <div style={{ cursor: "pointer" }} onClick={() => router.back()}>
               <UncontrolledTooltip
                 style={{
                   border: "1px solid rgba(var(200, 200, 200), 0.15)",
@@ -39,7 +43,7 @@ export default function Page({ children }) {
                   priority
                 />
               </span>
-            </Link>
+            </div>
           </div>
 
           <div className="description">{children}</div>
