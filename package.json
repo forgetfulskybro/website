@@ -12,6 +12,7 @@
     "@vercel/analytics": "^1.1.1",
     "framer-motion": "^10.16.16",
     "next": "14.0.4",
+    "next-auth": "^4.24.5",
     "next-sitemap": "^4.2.3",
     "react": "^18",
     "react-dom": "^18",

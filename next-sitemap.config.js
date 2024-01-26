@@ -1,5 +1,5 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: "https://website-forgetfulskybro.vercel.app/",
+  siteUrl: "https://forgetful.vercel.app/",
   generateRobotsTxt: true,
 };
