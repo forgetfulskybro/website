@@ -1,12 +1,16 @@
 "use client";
-import { Fira_Code } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { Fira_Code } from "next/font/google";
 import React from "react";
 import "./globals.css";
 
 const Fira = Fira_Code({ subsets: ["latin"] });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   function calcAge(dateString: Date) {
     let birthday = +new Date(dateString);
     return ~~((Date.now() - birthday) / 31557600000);
