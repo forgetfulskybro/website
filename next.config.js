@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: "cdn.discordapp.com",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "strafe.chat",
+        pathname: "**",
+      },
     ],
   },
 };

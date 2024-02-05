@@ -1,4 +1,5 @@
 "use client";
+import ToolTip from "@/components/ToolTip";
 import Page from "@/components/page";
 import Image from "next/image";
 import Link from "next/link";
@@ -38,14 +39,16 @@ export default function Home() {
       return (
         <>
           Today is my birthday, turning{" "}
-          <a className="Blue">{calcAge(new Date("2004-06-28"))}</a> years old{" "}
+          <strong className="Blue">{calcAge(new Date("2004-06-28"))}</strong>{" "}
+          years old{" "}
         </>
       );
     } else
       return (
         <>
           I&apos;m currently{" "}
-          <a className="Blue">{calcAge(new Date("2004-06-28"))}</a> years old{" "}
+          <strong className="Blue">{calcAge(new Date("2004-06-28"))}</strong>{" "}
+          years old{" "}
         </>
       );
   }
@@ -63,15 +66,18 @@ export default function Home() {
               width={140}
               draggable={false}
               alt="Avatar"
+              priority
             />
           </div>
           <div className="sizing">
-            Hello, my name is <a className="Blue">ForGetFulSkyBro</a> or{" "}
-            <a className="Blue">Sky</a> for short. {birthday()}
+            Hello, my name is <strong className="Blue">ForGetFulSkyBro</strong>{" "}
+            or <strong className="Blue">Sky</strong> for short. {birthday()}
             and I&apos;ve been coding for{" "}
-            <a className="Blue">{calcAge(new Date("2019-07-03"))}</a> years. I
-            enjoy creating open source projects on my free time or whenever
-            I&apos;m not lazy. Also I like{" "}
+            <strong className="Blue">
+              {calcAge(new Date("2019-07-03"))}
+            </strong>{" "}
+            years. I enjoy creating open source projects on my free time or
+            whenever I&apos;m not lazy. Also I like{" "}
             <Link
               className="link"
               target="_blank"
@@ -79,7 +85,7 @@ export default function Home() {
             >
               turtles
             </Link>{" "}
-            and{" "}
+            &{" "}
             <Link
               className="link"
               target="_blank"
@@ -92,17 +98,20 @@ export default function Home() {
           <div style={{ marginTop: "20px" }} className="flexGrid centered">
             {links.map((item) => (
               <Link key={item.alt} href={item.url} target="_blank">
-                <div className="cardSocials flex">
-                  <Image
-                    className="img"
-                    style={{ marginTop: 5 }}
-                    src={item.src}
-                    width={37}
-                    height={37}
-                    draggable={false}
-                    alt={item.alt}
-                  />
-                </div>
+                <ToolTip content={item.alt} placement="bottom">
+                  <div className="cardSocials flex">
+                    <Image
+                      className="img"
+                      style={{ marginTop: 5 }}
+                      src={item.src}
+                      width={37}
+                      height={37}
+                      draggable={false}
+                      alt={item.alt}
+                      priority
+                    />
+                  </div>
+                </ToolTip>
               </Link>
             ))}
           </div>
@@ -115,6 +124,7 @@ export default function Home() {
           width={240}
           draggable={false}
           alt="Avatar"
+          priority
         />
       </Page>
     </main>

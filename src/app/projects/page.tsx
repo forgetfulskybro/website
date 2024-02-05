@@ -1,6 +1,6 @@
 "use client";
-import { UncontrolledTooltip } from "reactstrap";
 import { usePathname } from "next/navigation";
+import ToolTip from "@/components/ToolTipCover";
 import Page from "@/components/page";
 import Image from "next/image";
 import Link from "next/link";
@@ -48,6 +48,24 @@ export default function Projects() {
       github: "https://github.com/forgetfulskybro/Support-Bot",
       community: "https://discord.gg/ty6Rsua",
       website: null,
+    },
+    {
+      target: "SC",
+      title: "Strafe.chat",
+      image: "https://strafe.chat/favicon.ico",
+      tags: [
+        { name: "Website", color: "#3B3E40" },
+        { name: "Application", color: "#533374" },
+      ],
+      desc: "A web application focused on no censorship.",
+      footer: {
+        start: "Jul 17, 2023",
+        end: "Present",
+      },
+      flags: [{ name: "Contribution", color: "#4ca6ca" }],
+      github: "https://github.com/strafechat",
+      community: "https://discord.gg/yC4qw79qRa",
+      website: "https://strafe.chat",
     },
     {
       target: "W",
@@ -212,25 +230,18 @@ export default function Projects() {
           className="flexGrid"
         >
           {array.map((project) => (
-            <div
-              id={project.target}
+            <ToolTip
               key={project.target}
-              className="projectCard flex"
-            >
-              <UncontrolledTooltip
-                autohide={false}
-                style={{
-                  border: "1px solid rgba(var(200, 200, 200), 0.15)",
-                  transition: "200ms, border 200ms",
-                  margin: "5px 5px 5px 5px",
-                  backgroundColor: "#060607",
-                  padding: 5,
-                  borderRadius: 7,
-                  fontSize: 13,
-                }}
-                target={project.target}
-              >
-                <div className="flexGrid center">
+              placement="top"
+              content={
+                <div
+                  style={{
+                    backgroundColor: "#595959",
+                    border: "2px 2px 2px 2px #595959",
+                    borderRadius: "5px",
+                  }}
+                  className="flexGrid center"
+                >
                   {project.github ? (
                     <Link href={project.github} target="_blank">
                       <button className="button">GitHub</button>
@@ -243,11 +254,11 @@ export default function Projects() {
 
                   {project.community ? (
                     <Link href={project.community} target="_blank">
-                      <button className="button">Community</button>
+                      <button className="button">Online</button>
                     </Link>
                   ) : (
                     <button className="button disable" disabled>
-                      Community
+                      Online
                     </button>
                   )}
 
@@ -261,55 +272,58 @@ export default function Projects() {
                     </button>
                   )}
                 </div>
-              </UncontrolledTooltip>
-
-              <div className="projectTitle">
-                {project.image && (
-                  <Image
-                    className="img"
-                    src={project.image}
-                    height={25}
-                    width={25}
-                    draggable={false}
-                    alt="ProjectName"
-                  />
-                )}
-                <a style={{ marginLeft: 0.7, marginTop: 1.3 }}>
-                  {project.title}
-                </a>
-              </div>
-              <div className="projectDesc">{project.desc}</div>
-              <div className="tags">
-                {project.tags.map((tag) => (
-                  <div
-                    key={tag.name}
-                    style={{ backgroundColor: tag.color, padding: "0.2rem" }}
-                    className="projectTags"
-                  >
-                    {tag.name}
-                  </div>
-                ))}
-              </div>
-              <div className="projectFooter">
-                {project.footer.start} <a style={{ color: "#6A6969" }}>-</a>{" "}
-                <a style={{ color: "white", fontWeight: 1000 }}>
-                  {project.footer.end}
-                </a>
-                {project.flags.length > 0 &&
-                  project.flags.map((e) => (
-                    <a
-                      key={e.name}
-                      style={{
-                        color: e.color,
-                        fontWeight: 1000,
-                        marginLeft: 10,
-                      }}
+              }
+            >
+              <div className="projectCard flex">
+                <div className="projectTitle">
+                  {project.image && (
+                    <Image
+                      className="img"
+                      src={project.image}
+                      height={25}
+                      width={25}
+                      draggable={false}
+                      alt="ProjectName"
+                      priority
+                    />
+                  )}
+                  <a style={{ marginLeft: 0.7, marginTop: 1.3 }}>
+                    {project.title}
+                  </a>
+                </div>
+                <div className="projectDesc">{project.desc}</div>
+                <div className="tags">
+                  {project.tags.map((tag) => (
+                    <div
+                      key={tag.name}
+                      style={{ backgroundColor: tag.color, padding: "0.2rem" }}
+                      className="projectTags"
                     >
-                      {e.name}
-                    </a>
+                      {tag.name}
+                    </div>
                   ))}
+                </div>
+                <div className="projectFooter">
+                  {project.footer.start} <a style={{ color: "#6A6969" }}>-</a>{" "}
+                  <a style={{ color: "white", fontWeight: 1000 }}>
+                    {project.footer.end}
+                  </a>
+                  {project.flags.length > 0 &&
+                    project.flags.map((e) => (
+                      <a
+                        key={e.name}
+                        style={{
+                          color: e.color,
+                          fontWeight: 1000,
+                          marginLeft: 10,
+                        }}
+                      >
+                        {e.name}
+                      </a>
+                    ))}
+                </div>
               </div>
-            </div>
+            </ToolTip>
           ))}
         </div>
       </Page>

@@ -20,22 +20,24 @@ export default function RootLayout({
     if (Date().includes(date)) {
       return (
         <>
-          Today is my birthday, turning{" "}
-          <a className="Blue">{calcAge(new Date("2004-06-28"))}</a> years old{" "}
+          Today is my birthday, turning {calcAge(new Date("2004-06-28"))} years
+          old{" "}
         </>
       );
     } else
       return (
-        <>
-          I&apos;m currently{" "}
-          <a className="Blue">{calcAge(new Date("2004-06-28"))}</a> years old{" "}
-        </>
+        <>I&apos;m currently {calcAge(new Date("2004-06-28"))} years old </>
       );
   }
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/Me.png" sizes="any" />
+        <link
+          rel="icon"
+          href="/Me.png"
+          type="image/png"
+          sizes="any"
+        />
         <meta property="og:title" content="ForGetFulSkybro - Portfolio" />
         <title>ForGetFulSkybro - Portfolio</title>
         <meta name="theme-color" content="#4ca6ca" />

@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
-import { UncontrolledTooltip } from "reactstrap";
 import Page from "@/components/pageSecondary";
 import { usePathname } from "next/navigation";
+import ToolTip from "@/components/ToolTip";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -13,35 +13,22 @@ export default function Projects() {
   return (
     <main key={usePathname()} className="main">
       <Page>
-        <UncontrolledTooltip
-          style={{
-            border: "1px solid rgba(var(200, 200, 200), 0.15)",
-            transition: "200ms, border 200ms",
-            margin: "5px 5px 5px 5px",
-            backgroundColor: "#060607",
-            padding: 5,
-            borderRadius: 7,
-            fontSize: 13,
-          }}
-          target="Edit"
-        >
-          Edited Last: December 31, 2023
-        </UncontrolledTooltip>
-
         <div style={{ maxHeight: "80vh" }} className="flexGrid">
           <div className="blogPostTitle">
             <h2>Revolt Awareness</h2>
             <div className="blogPostSecondary">
               <h6 style={{ color: "#a29f9f" }}>Creation: September 23, 2023</h6>{" "}
-              <Image
-                id="Edit"
-                style={{ cursor: "pointer" }}
-                src="../Edit.svg"
-                width={13}
-                height={13}
-                draggable={false}
-                alt="Last Edited"
-              />
+              <ToolTip content="Edited Last: December 31, 2023" placement="bottom">
+                <Image
+                  id="Edit"
+                  style={{ cursor: "pointer" }}
+                  src="../Edit.svg"
+                  width={13}
+                  height={13}
+                  draggable={false}
+                  alt="Last Edited"
+                />
+              </ToolTip>
             </div>
           </div>
 

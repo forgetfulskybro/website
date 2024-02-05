@@ -2,7 +2,7 @@
 "use client";
 import TransitionEffect from "@/components/TransitionEffect";
 import { useRouter } from "next/navigation";
-import { UncontrolledTooltip } from "reactstrap";
+import ToolTip from "@/components/ToolTip";
 import Image from "next/image";
 import React from "react";
 
@@ -19,34 +19,22 @@ export default function Page({ children }: { children: React.ReactNode }) {
             className="cardSlider hide"
           >
             <div style={{ cursor: "pointer" }} onClick={() => router.back()}>
-              <UncontrolledTooltip
-                style={{
-                  border: "1px solid rgba(var(200, 200, 200), 0.15)",
-                  transition: "200ms, border 200ms",
-                  margin: "5px 5px 5px 5px",
-                  backgroundColor: "#060607",
-                  padding: 5,
-                  borderRadius: 7,
-                  fontSize: 13,
-                }}
-                target="tooltip"
-              >
-                Go back
-              </UncontrolledTooltip>
-              <span
-                id="tooltip"
-                style={{ marginTop: 8 }}
-                className="dot home homeHigh"
-              >
-                <Image
-                  style={{ marginTop: 7 }}
-                  src="../backward.svg"
-                  width={17}
-                  height={17}
-                  draggable={false}
-                  alt="Go back"
-                />
-              </span>
+              <ToolTip content="Go Back" placement="top">
+                <span
+                  id="tooltip"
+                  style={{ marginTop: 8 }}
+                  className="dot home homeHigh"
+                >
+                  <Image
+                    style={{ marginTop: 7 }}
+                    src="../backward.svg"
+                    width={17}
+                    height={17}
+                    draggable={false}
+                    alt="Go back"
+                  />
+                </span>
+              </ToolTip>
             </div>
           </div>
 
@@ -59,34 +47,22 @@ export default function Page({ children }: { children: React.ReactNode }) {
             className="sliderSideSecondary hiding"
           >
             <div style={{ cursor: "pointer" }} onClick={() => router.back()}>
-              <UncontrolledTooltip
-                style={{
-                  border: "1px solid rgba(var(200, 200, 200), 0.15)",
-                  transition: "200ms, border 200ms",
-                  margin: "5px 5px 5px 5px",
-                  backgroundColor: "#060607",
-                  padding: 5,
-                  borderRadius: 7,
-                  fontSize: 13,
-                }}
-                target="tooltip"
-              >
-                Go back
-              </UncontrolledTooltip>
-              <span
-                id="tooltip"
-                style={{ marginTop: 8 }}
-                className="dot home homeHigh"
-              >
-                <Image
-                  style={{ marginTop: 7 }}
-                  src="../backward.svg"
-                  width={17}
-                  height={17}
-                  draggable={false}
-                  alt="Go back"
-                />
-              </span>
+              <ToolTip content="Go Back" placement="top">
+                <span
+                  id="tooltip"
+                  style={{ marginTop: 8 }}
+                  className="dot home homeHigh"
+                >
+                  <Image
+                    style={{ marginTop: 7 }}
+                    src="../backward.svg"
+                    width={17}
+                    height={17}
+                    draggable={false}
+                    alt="Go back"
+                  />
+                </span>
+              </ToolTip>
             </div>
           </div>
         </div>
