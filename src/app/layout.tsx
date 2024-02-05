@@ -1,4 +1,5 @@
 "use client";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import { Fira_Code } from "next/font/google";
 import React from "react";
@@ -32,12 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link
-          rel="icon"
-          href="/Me.png"
-          type="image/png"
-          sizes="any"
-        />
+        <link rel="icon" href="/Me.png" type="image/png" sizes="any" />
         <meta property="og:title" content="ForGetFulSkybro - Portfolio" />
         <title>ForGetFulSkybro - Portfolio</title>
         <meta name="theme-color" content="#4ca6ca" />
@@ -63,6 +59,7 @@ export default function RootLayout({
         />
       </head>
       <body className={Fira.className}>
+        <SpeedInsights />
         {children}
         <Analytics />
       </body>
