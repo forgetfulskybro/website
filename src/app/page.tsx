@@ -11,14 +11,10 @@ export default function Home() {
 
   React.useEffect(() => {
     const handleStorageChange = (event: any) => {
-      if (typeof window !== "undefined") {
-        if (
-          (localStorage.getItem("language") as SetStateAction<string>) !== data
-        )
-          return setData(
-            localStorage.getItem("language") as SetStateAction<string>
-          );
-      }
+      if ((localStorage.getItem("language") as SetStateAction<string>) !== data)
+        return setData(
+          localStorage.getItem("language") as SetStateAction<string>
+        );
     };
 
     window.addEventListener("storage", handleStorageChange);
@@ -29,13 +25,11 @@ export default function Home() {
   }, [data]);
 
   React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      return setData(
-        (localStorage.getItem("language") as SetStateAction<string>)
-          ? (localStorage.getItem("language") as SetStateAction<string>)
-          : "en_EN"
-      );
-    }
+    return setData(
+      (localStorage.getItem("language") as SetStateAction<string>)
+        ? (localStorage.getItem("language") as SetStateAction<string>)
+        : "en_EN"
+    );
   }, []);
 
   const links: { url: string; src: string; alt: string }[] = [
