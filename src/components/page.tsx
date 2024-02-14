@@ -2,33 +2,49 @@
 /* eslint-disable react/no-children-prop */
 "use client";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
+import React, { MouseEvent, ReactNode, useState, Fragment } from "react";
 import TransitionEffect from "@/components/TransitionEffect";
-import { usePathname } from "next/navigation";
 import { Menu, MenuItem, Popover } from "@mui/material";
-import { useTheme } from "@mui/system";
+import { usePathname } from "next/navigation";
+import Translate from "./translation";
 import ToolTip from "./ToolTip";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
-export default function Page({ children }: { children: React.ReactNode }) {
-  const [anchor, setAnchor] = React.useState<HTMLButtonElement | null>(null);
-  const [anchorM, setAnchorM] = React.useState<HTMLButtonElement | null>(null);
-  const [language, setLanguage] = React.useState("en");
+export default function Page({ children }: { children: ReactNode }) {
+  const [anchor, setAnchor] = useState<HTMLButtonElement | null>(null);
+  const [anchorM, setAnchorM] = useState<HTMLButtonElement | null>(null);
+  const [language, setLanguage] = useState(
+    (localStorage.getItem("language") as string)
+      ? (localStorage.getItem("language") as string)
+      : "en_EN"
+  );
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchor(anchor ? null : event.currentTarget);
   };
 
-  const handleClickM = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickM = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorM(anchorM ? null : event.currentTarget);
   };
 
-  const createHandleMenuClick = (menuItem: string, popupState: any) => {
+  const languageSwitcher = (menuItem: string, popupState: any) => {
     return () => {
       setLanguage(menuItem);
+      localStorage.setItem("language", menuItem);
+      window.dispatchEvent(new Event("storage"));
       return popupState.close();
     };
+  };
+
+  const colorTheme = (theme: string) => {
+    const rootTheme = document.querySelector<HTMLElement>(":root");
+    const root = getComputedStyle(rootTheme as Element);
+
+    if (root?.getPropertyValue("--card-rgb") === theme) return;
+
+    localStorage.setItem("theme", theme);
+    return rootTheme?.style.setProperty("--card-rgb", theme);
   };
 
   const menuArray: {
@@ -36,20 +52,24 @@ export default function Page({ children }: { children: React.ReactNode }) {
     large: string;
   }[] = [
     {
-      small: "en",
-      large: "English",
+      small: "en_EN",
+      large: new Translate().get(language, "Comps.page.languages.english"),
     },
     {
-      small: "sp",
-      large: "Spanish (Test)",
+      small: "es_ES",
+      large: new Translate().get(language, "Comps.page.languages.spanish"),
     },
     {
-      small: "fr",
-      large: "French (Test)",
+      small: "fr_FR",
+      large: new Translate().get(language, "Comps.page.languages.french"),
     },
     {
-      small: "ds",
-      large: "Dan Sucks",
+      small: "ds_DS",
+      large: new Translate().get(language, "Comps.page.languages.danSucks"),
+    },
+    {
+      small: "ec_EC",
+      large: new Translate().get(language, "Comps.page.languages.enchant"),
     },
   ];
 
@@ -60,19 +80,19 @@ export default function Page({ children }: { children: React.ReactNode }) {
     path: string;
   }[] = [
     {
-      name: "Home",
+      name: new Translate().get(language, "Comps.page.home"),
       class: "home",
       src: "House",
       path: "/",
     },
     {
-      name: "Projects",
+      name: new Translate().get(language, "Comps.page.projects"),
       class: "projects",
       src: "Folder",
       path: "/projects",
     },
     {
-      name: "Blog",
+      name: new Translate().get(language, "Comps.page.blog"),
       class: "blog",
       src: "Blog",
       path: "/blog",
@@ -85,7 +105,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
         <div className="card boxes">
           <div className="cardSlider hide center" style={{ marginRight: 10 }}>
             <Popover
-              style={{ marginLeft: "20px" }}
+              style={{ marginTop: "-5px", marginLeft: "15px" }}
               id={"settings"}
               open={Boolean(anchor)}
               anchorEl={anchor}
@@ -95,57 +115,126 @@ export default function Page({ children }: { children: React.ReactNode }) {
                 horizontal: "right",
               }}
             >
-              <div
-                style={{ backgroundColor: "#111112", color: "#fff" }}
-                className="settingsCard"
-              >
+              <div className="settingsCard">
                 <PopupState variant="popover" popupId="popup-menu">
                   {(popupState) => (
-                    <React.Fragment>
-                      <button
-                        style={{ marginTop: "50px" }}
-                        {...bindTrigger(popupState)}
-                        className="button"
+                    <div>
+                      <Fragment>
+                        <button
+                          style={{ marginTop: "9px" }}
+                          {...bindTrigger(popupState)}
+                          className="button"
+                        >
+                          {new Translate().get(language, "Comps.page.language")}{" "}
+                          <Image
+                            src={`arrow.svg`}
+                            width={10}
+                            height={10}
+                            draggable={false}
+                            alt={"Dropdown"}
+                            priority
+                          />
+                        </button>
+                        <Menu {...bindMenu(popupState)}>
+                          {menuArray.map((m) => (
+                            <MenuItem
+                              key={m.small}
+                              onClick={languageSwitcher(m.small, popupState)}
+                            >
+                              {language === m.small ? (
+                                <Image
+                                  style={{ marginRight: "5px" }}
+                                  src={`check.svg`}
+                                  width={15}
+                                  height={15}
+                                  draggable={false}
+                                  alt={"Selected"}
+                                  priority
+                                />
+                              ) : (
+                                ""
+                              )}
+                              {m.large}
+                            </MenuItem>
+                          ))}
+                        </Menu>
+                      </Fragment>
+
+                      <div
+                        style={{
+                          marginTop: "37px",
+                          fontSize: "12px",
+                        }}
                       >
-                        Language{" "}
-                        <Image
-                          src={`arrow.svg`}
-                          width={10}
-                          height={10}
-                          draggable={false}
-                          alt={"Dropdown"}
-                          priority
-                        />
-                      </button>
-                      <Menu {...bindMenu(popupState)}>
-                        {menuArray.map((m) => (
-                          <MenuItem
-                            key={m.small}
-                            onClick={createHandleMenuClick(m.small, popupState)}
+                        <h3>
+                          {new Translate().get(
+                            language,
+                            "Comps.page.colorTheme"
+                          )}
+                        </h3>
+                        <div
+                          style={{ marginTop: "10px" }}
+                          className="flexGrid center"
+                        >
+                          <div
+                            onClick={() => colorTheme("100, 100, 100")}
+                            style={{ backgroundColor: "#131314" }}
+                            className="colors card boxes"
                           >
-                            {language === m.small ? (
-                              <Image
-                                style={{ marginRight: "5px" }}
-                                src={`check.svg`}
-                                width={15}
-                                height={15}
-                                draggable={false}
-                                alt={"Selected"}
-                                priority
-                              />
-                            ) : (
-                              ""
-                            )}
-                            {m.large}
-                          </MenuItem>
-                        ))}
-                      </Menu>
-                    </React.Fragment>
+                            <h3>
+                              {new Translate().get(language, "Comps.page.dark")}
+                            </h3>
+                          </div>
+                          <div
+                            onClick={() => colorTheme("230, 89, 89")}
+                            className="colors card boxes"
+                          >
+                            <h3>
+                              {new Translate().get(
+                                language,
+                                "Comps.page.shrimp"
+                              )}
+                            </h3>
+                          </div>
+                          <div
+                            onClick={() => colorTheme("63, 41, 90")}
+                            style={{
+                              backgroundColor: "#3F295A",
+                            }}
+                            className="colors card boxes"
+                          >
+                            <h3>
+                              {new Translate().get(
+                                language,
+                                "Comps.page.chant"
+                              )}
+                            </h3>
+                          </div>
+                          <div
+                            onClick={() => colorTheme("98, 195, 237")}
+                            style={{
+                              backgroundColor: "#62C3ED",
+                            }}
+                            className="colors card boxes"
+                          >
+                            <h3>
+                              {new Translate().get(
+                                language,
+                                "Comps.page.smurf"
+                              )}
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   )}
                 </PopupState>
               </div>
             </Popover>
-            <ToolTip content="Settings" placement="top">
+            <ToolTip
+              content={new Translate().get(language, "Comps.page.settings")}
+              placement="top"
+            >
               <span
                 aria-describedby="settings"
                 onClick={handleClick}
@@ -165,10 +254,9 @@ export default function Page({ children }: { children: React.ReactNode }) {
                 />
               </span>
             </ToolTip>
-            <div
-              style={{ marginBottom: 4, marginTop: -0 }}
-              className="divider"
-            ></div>
+            <div style={{ marginBottom: 4, marginTop: -0 }} className="divider">
+              hi
+            </div>
             {array.map((d, i) => (
               <Link href={d.path} key={d.src}>
                 <ToolTip content={d.name} placement="top">
@@ -205,17 +293,134 @@ export default function Page({ children }: { children: React.ReactNode }) {
                 onClose={handleClickM}
                 anchorOrigin={{
                   vertical: "top",
-                  horizontal: "right",
+                  horizontal: "center",
                 }}
                 transformOrigin={{
                   vertical: "bottom",
                   horizontal: "center",
                 }}
               >
-                <div
-                  style={{ backgroundColor: "#111112", color: "#fff" }}
-                  className="settingsCard flex"
-                ></div>
+                <div className="settingsCardM">
+                  <PopupState variant="popover" popupId="popup-menuM">
+                    {(popupState) => (
+                      <div>
+                        <Fragment>
+                          <button
+                            style={{ marginTop: "9px" }}
+                            {...bindTrigger(popupState)}
+                            className="button"
+                          >
+                            {new Translate().get(
+                              language,
+                              "Comps.page.language"
+                            )}{" "}
+                            <Image
+                              src={`arrow.svg`}
+                              width={10}
+                              height={10}
+                              draggable={false}
+                              alt={"Dropdown"}
+                              priority
+                            />
+                          </button>
+                          <Menu {...bindMenu(popupState)}>
+                            {menuArray.map((m) => (
+                              <MenuItem
+                                key={m.small}
+                                onClick={languageSwitcher(m.small, popupState)}
+                              >
+                                {language === m.small ? (
+                                  <Image
+                                    style={{ marginRight: "5px" }}
+                                    src={`check.svg`}
+                                    width={15}
+                                    height={15}
+                                    draggable={false}
+                                    alt={"Selected"}
+                                    priority
+                                  />
+                                ) : (
+                                  ""
+                                )}
+                                {m.large}
+                              </MenuItem>
+                            ))}
+                          </Menu>
+                        </Fragment>
+
+                        <div
+                          style={{
+                            marginTop: "37px",
+                            fontSize: "12px",
+                          }}
+                        >
+                          <h3>
+                            {new Translate().get(
+                              language,
+                              "Comps.page.colorTheme"
+                            )}
+                          </h3>
+                          <div
+                            style={{ marginTop: "10px" }}
+                            className="flexGrid center"
+                          >
+                            <div
+                              onClick={() => colorTheme("100, 100, 100")}
+                              style={{ backgroundColor: "#131314" }}
+                              className="colorsM card boxes"
+                            >
+                              <h3>
+                                {new Translate().get(
+                                  language,
+                                  "Comps.page.dark"
+                                )}
+                              </h3>
+                            </div>
+                            <div
+                              onClick={() => colorTheme("230, 89, 89")}
+                              className="colorsM card boxes"
+                            >
+                              <h3>
+                                {new Translate().get(
+                                  language,
+                                  "Comps.page.shrimp"
+                                )}
+                              </h3>
+                            </div>
+                            <div
+                              onClick={() => colorTheme("63, 41, 90")}
+                              style={{
+                                backgroundColor: "#3F295A",
+                              }}
+                              className="colorsM card boxes"
+                            >
+                              <h3>
+                                {new Translate().get(
+                                  language,
+                                  "Comps.page.chant"
+                                )}
+                              </h3>
+                            </div>
+                            <div
+                              onClick={() => colorTheme("98, 195, 237")}
+                              style={{
+                                backgroundColor: "#62C3ED",
+                              }}
+                              className="colorsM card boxes"
+                            >
+                              <h3>
+                                {new Translate().get(
+                                  language,
+                                  "Comps.page.smurf"
+                                )}
+                              </h3>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </PopupState>
+                </div>
               </Popover>
               <ToolTip content="Settings" placement="top">
                 <span

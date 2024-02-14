@@ -1,0 +1,103 @@
+{
+  "Blogs": {
+    "creation": "Dan Sucks",
+    "editedLast": "Dan Sucks"
+  },
+  "Projects": {
+    "footer": {
+      "endPresent": "Dan Sucks",
+      "endUnknown": "Dan Sucks"
+    },
+    "tags": {
+      "website": "Dan Sucks",
+      "application": "Dan Sucks"
+    },
+    "flags": {
+      "contrib": "Dan Sucks",
+      "discon": "Dan Sucks"
+    },
+    "buttons": {
+      "community": "Dan Sucks",
+      "website": "Dan Sucks"
+    },
+    "list": {
+      "WY": {
+        "desc": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks."
+      },
+      "SB": {
+        "desc": "Dan Sucks Dan Sucks Dan, Sucks, Dan, Sucks Dan Sucks."
+      },
+      "SC": {
+        "desc": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks."
+      },
+      "W": {
+        "desc": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks."
+      },
+      "F": {
+        "desc": "Dan Sucks Dan Sucks Dan Sucks Dan, Sucks, Dan Sucks Dan Sucks."
+      },
+      "RBL": {
+        "desc": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks."
+      },
+      "RM": {
+        "desc": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks."
+      },
+      "RB": {
+        "desc": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks & Dan Sucks Dan Sucks."
+      },
+      "D": {
+        "desc": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks."
+      },
+      "AYB": {
+        "desc": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks."
+      },
+      "L": {
+        "desc": "Dan Sucks Dan Sucks Dan Sucks."
+      },
+      "FGF": {
+        "desc": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks."
+      }
+    }
+  },
+  "Misc": {
+    "page": {
+      "birthday": {
+        "today": "Dan Sucks Dan Sucks, Dan {age} Sucks Dan",
+        "random": "Sucks Dan {age} Sucks Dan"
+      },
+      "descHello": "Dan Sucks, Dan Sucks Dan",
+      "descOr": "Sucks",
+      "descShort": "Dan Sucks",
+      "desc": "Dan Sucks Dan Sucks Dan {date} Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks",
+      "turtles": "Dan",
+      "capybaras": "Sucks"
+    },
+    "404": {
+      "forgetful": "Dan.. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks"
+    }
+  },
+  "Comps": {
+    "page": {
+      "languages": {
+        "english": "Dan Sucks",
+        "spanish": "Dan Sucks",
+        "french": "Dan Sucks",
+        "danSucks": "Dan Sucks",
+        "enchant": "Dan Sucks"
+      },
+      "settings": "Dan Sucks",
+      "language": "Sucks",
+      "home": "Dan",
+      "projects": "Sucks",
+      "colorTheme": "Dan Sucks",
+      "blog": "Blog",
+      "dark": "Dan",
+      "shrimp": "Sucks",
+      "chant": "Dan",
+      "smurf": "Sucks"
+    },
+    "pageSecondary": {
+      "back": "Dan Sucks"
+    }
+  }
+}

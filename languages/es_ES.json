@@ -1,0 +1,103 @@
+{
+  "Blogs": {
+    "creation": "Creación",
+    "editedLast": "Última edición"
+  },
+  "Projects": {
+    "footer": {
+      "endPresent": "Presente",
+      "endUnknown": "Desconocido"
+    },
+    "tags": {
+      "website": "Sitio web",
+      "application": "Aplicación"
+    },
+    "flags": {
+      "contrib": "Contribución",
+      "discon": "Descatalogado"
+    },
+    "buttons": {
+      "community": "En línea",
+      "website": "Sitio web"
+    },
+    "list": {
+      "WY": {
+        "desc": "Un bot basado en la actividad que ayuda a mejorar la actividad general de tu servidor."
+      },
+      "SB": {
+        "desc": "Bot de soporte personalizado con modmail, regalos, sugerencias y mucho más."
+      },
+      "SC": {
+        "desc": "Una aplicación web centrada en la no censura."
+      },
+      "W": {
+        "desc": "Un sitio web personal en el que añado literalmente cualquier cosa sobre mí para que los demás la conozcan."
+      },
+      "F": {
+        "desc": "Revolt bot que permite crear regalos, encuestas y roles de reacción."
+      },
+      "RBL": {
+        "desc": "Un lugar donde puedes encontrar los mejores Revolt Bots."
+      },
+      "RM": {
+        "desc": "El primer bot de Modmail que se hace en Revolt."
+      },
+      "RB": {
+        "desc": "Una forma muy sencilla de unir tus servidores Revolt y Discord."
+      },
+      "D": {
+        "desc": "Un bot polivalente hecho para mantener entretenidos a tus miembros."
+      },
+      "AYB": {
+        "desc": "Implica al bot AYB Music y a la API AYB que utilizó el sitio web."
+      },
+      "L": {
+        "desc": "Sitio web realizado por SamOphis en GitHub."
+      },
+      "FGF": {
+        "desc": "Un bot polivalente que se adapta a muchas necesidades."
+      }
+    }
+  },
+  "Misc": {
+    "page": {
+      "birthday": {
+        "today": "Hoy es mi cumpleaños, cumplo {age} años",
+        "random": "Actualmente tengo {age} años"
+      },
+      "descHello": "Hola, me llamo",
+      "descOr": "o",
+      "descShort": "para abreviar",
+      "desc": "y llevo codificando {date} años. Me gusta crear proyectos de código abierto en mi tiempo libre o cuando no tengo pereza. También me gusta",
+      "turtles": "tortugas",
+      "capybaras": "carpinchos"
+    },
+    "404": {
+      "forgetful": "Uhhh... creo que olvidé añadir esta página ya que estoy bastante"
+    }
+  },
+  "Comps": {
+    "page": {
+      "languages": {
+        "english": "Inglés",
+        "spanish": "Español",
+        "french": "Francés",
+        "danSucks": "Dan Apesta",
+        "enchant": "Encantamiento"
+      },
+      "settings": "Ajustes",
+      "language": "Idioma",
+      "home": "Inicio",
+      "projects": "Proyectos",
+      "colorTheme": "Tema de color",
+      "blog": "Blog",
+      "dark": "Oscuro",
+      "shrimp": "Gambas",
+      "chant": "Canto",
+      "smurf": "Smurf"
+    },
+    "pageSecondary": {
+      "back": "Volver atrás"
+    }
+  }
+}

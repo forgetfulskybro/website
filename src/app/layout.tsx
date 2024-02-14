@@ -11,7 +11,14 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
+  }) {
+  window.onload = function () {
+    if (localStorage.getItem("theme"))
+      document
+        .querySelector<HTMLElement>(":root")
+        ?.style.setProperty("--card-rgb", localStorage.getItem("theme"));
+  }
+  
   function calcAge(dateString: Date) {
     let birthday = +new Date(dateString);
     return ~~((Date.now() - birthday) / 31557600000);

@@ -1,18 +1,43 @@
 "use client";
 import { usePathname } from "next/navigation";
 import ToolTip from "@/components/ToolTipCover";
+import Translate from "@components/translation";
 import Page from "@/components/page";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { SetStateAction } from "react";
 
 export default function Projects() {
+  const [data, setData] = React.useState("");
+
+  React.useEffect(() => {
+    const handleStorageChange = (event: any) => {
+      if ((localStorage.getItem("language") as SetStateAction<string>) !== data)
+        return setData(
+          localStorage.getItem("language") as SetStateAction<string>
+        );
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [data]);
+
+  React.useEffect(() => {
+    return setData(
+      (localStorage.getItem("language") as SetStateAction<string>)
+        ? (localStorage.getItem("language") as SetStateAction<string>)
+        : "en_EN"
+    );
+  }, []);
+
   const array: {
     target: string;
     title: string;
     image: string | null;
     tags: any[];
-    desc: string;
     footer: { start: string; end: string };
     flags: any[];
     github: string | null;
@@ -24,10 +49,9 @@ export default function Projects() {
       title: "Would You",
       image: "/WouldYou.svg",
       tags: [{ name: "Discord Bot", color: "#5764F3" }],
-      desc: "An activity based bot that helps improve overall activity for your server.",
       footer: {
         start: "Aug 22, 2022",
-        end: "Present",
+        end: new Translate().get(data, "Projects.footer.endPresent"),
       },
       flags: [],
       github: "https://github.com/Would-You-Bot",
@@ -39,10 +63,9 @@ export default function Projects() {
       title: "Support Bot",
       image: "/Support.png",
       tags: [{ name: "Discord Bot", color: "#5764F3" }],
-      desc: "Custom support bot with modmail, giveaways, suggestions, and more.",
       footer: {
         start: "Sep 30, 2022",
-        end: "Present",
+        end: new Translate().get(data, "Projects.footer.endPresent"),
       },
       flags: [],
       github: "https://github.com/forgetfulskybro/Support-Bot",
@@ -54,15 +77,25 @@ export default function Projects() {
       title: "Strafe.chat",
       image: "https://strafe.chat/favicon.ico",
       tags: [
-        { name: "Website", color: "#3B3E40" },
-        { name: "Application", color: "#533374" },
+        {
+          name: new Translate().get(data, "Projects.tags.website"),
+          color: "#3B3E40",
+        },
+        {
+          name: new Translate().get(data, "Projects.tags.application"),
+          color: "#533374",
+        },
       ],
-      desc: "A web application focused on no censorship.",
       footer: {
         start: "Jul 17, 2023",
-        end: "Present",
+        end: new Translate().get(data, "Projects.footer.endPresent"),
       },
-      flags: [{ name: "Contribution", color: "#4ca6ca" }],
+      flags: [
+        {
+          name: new Translate().get(data, "Projects.flags.contrib"),
+          color: "#4ca6ca",
+        },
+      ],
       github: "https://github.com/strafechat",
       community: "https://discord.gg/yC4qw79qRa",
       website: "https://strafe.chat",
@@ -71,11 +104,15 @@ export default function Projects() {
       target: "W",
       title: "Personal Website",
       image: null,
-      tags: [{ name: "Website", color: "#3B3E40" }],
-      desc: "A personal website which I add quite literally anything about me for others to know.",
+      tags: [
+        {
+          name: new Translate().get(data, "Projects.tags.website"),
+          color: "#3B3E40",
+        },
+      ],
       footer: {
         start: "Jul 2, 2023",
-        end: "Present",
+        end: new Translate().get(data, "Projects.footer.endPresent"),
       },
       flags: [],
       github: "https://github.com/forgetfulskybro/website",
@@ -87,12 +124,16 @@ export default function Projects() {
       title: "Functious",
       image: "/Functious.png",
       tags: [{ name: "Revolt Bot", color: "#FE4654" }],
-      desc: "Revolt bot that allows for creating giveaways, polls, and reaction roles.",
       footer: {
         start: "Feb 18, 2023",
-        end: "Present",
+        end: "Sep 19, 2023",
       },
-      flags: [{ name: "Discontinued", color: "#CC222A" }],
+      flags: [
+        {
+          name: new Translate().get(data, "Projects.flags.discon"),
+          color: "#CC222A",
+        },
+      ],
       github: "https://github.com/forgetfulskybro/Revolt-Functious",
       community: null,
       website: null,
@@ -103,14 +144,21 @@ export default function Projects() {
       image: "/Revoltbots.png",
       tags: [
         { name: "Revolt Bot", color: "#FE4654" },
-        { name: "Website", color: "#3B3E40" },
+        {
+          name: new Translate().get(data, "Projects.tags.website"),
+          color: "#3B3E40",
+        },
       ],
-      desc: "A place where you can find the best Revolt Bots.",
       footer: {
         start: "Apr 12, 2023",
-        end: "Present",
+        end: "Sep 19, 2023",
       },
-      flags: [{ name: "Contribution", color: "#4ca6ca" }],
+      flags: [
+        {
+          name: new Translate().get(data, "Projects.flags.contrib"),
+          color: "#4ca6ca",
+        },
+      ],
       github: "https://github.com/BrydenIsNotSmart/Revolt-Bot-List",
       community: "https://revoltbots.org/server",
       website: "https://revoltbots.org",
@@ -120,12 +168,16 @@ export default function Projects() {
       title: "Revolt Modmail",
       image: null,
       tags: [{ name: "Revolt Bot", color: "#FE4654" }],
-      desc: "The first Modmail bot that is made in Revolt.",
       footer: {
         start: "Feb 4, 2023",
-        end: "Present",
+        end: "Sep 19, 2023",
       },
-      flags: [{ name: "Discontinued", color: "#CC222A" }],
+      flags: [
+        {
+          name: new Translate().get(data, "Projects.flags.discon"),
+          color: "#CC222A",
+        },
+      ],
       github: "https://github.com/forgetfulskybro/Revolt-Modmail",
       community: null,
       website: null,
@@ -135,12 +187,16 @@ export default function Projects() {
       title: "Revolt Bridge",
       image: null,
       tags: [{ name: "Revolt Bot", color: "#FE4654" }],
-      desc: "A very simple way to bridge your Revolt & Discord servers together.",
       footer: {
         start: "Feb 7, 2023",
-        end: "Present",
+        end: "Sep 19, 2023",
       },
-      flags: [{ name: "Discontinued", color: "#CC222A" }],
+      flags: [
+        {
+          name: new Translate().get(data, "Projects.flags.discon"),
+          color: "#CC222A",
+        },
+      ],
       github: "https://github.com/forgetfulskybro/Revolt-Bridge",
       community: null,
       website: null,
@@ -150,14 +206,19 @@ export default function Projects() {
       title: "Durchie",
       image: "/Durchie.png",
       tags: [{ name: "Discord Bot", color: "#5764F3" }],
-      desc: "A multipurpose bot that was made to keep your members entertained.",
       footer: {
         start: "Jun 1, 2021",
         end: "Jun 9,2022",
       },
       flags: [
-        { name: "Contribution", color: "#4ca6ca" },
-        { name: "Discontinued", color: "#CC222A" },
+        {
+          name: new Translate().get(data, "Projects.flags.contrib"),
+          color: "#4ca6ca",
+        },
+        {
+          name: new Translate().get(data, "Projects.flags.discon"),
+          color: "#CC222A",
+        },
       ],
       github: null,
       community: "https://discord.gg/utilibots-618115853178634240",
@@ -169,16 +230,24 @@ export default function Projects() {
       image: "/Ayb.png",
       tags: [
         { name: "Discord Bot", color: "#5764F3" },
-        { name: "Website", color: "#3B3E40" },
+        {
+          name: new Translate().get(data, "Projects.tags.website"),
+          color: "#3B3E40",
+        },
       ],
-      desc: "Involves AYB Music bot and AYB API that the website used.",
       footer: {
         start: "Dec 10, 2020",
-        end: "Unknown",
+        end: new Translate().get(data, "Projects.footer.endUnknown"),
       },
       flags: [
-        { name: "Contribution", color: "#4ca6ca" },
-        { name: "Discontinued", color: "#CC222A" },
+        {
+          name: new Translate().get(data, "Projects.flags.contrib"),
+          color: "#4ca6ca",
+        },
+        {
+          name: new Translate().get(data, "Projects.flags.discon"),
+          color: "#CC222A",
+        },
       ],
       github: "https://github.com/AYB-Archive",
       community: null,
@@ -188,15 +257,25 @@ export default function Projects() {
       target: "L",
       title: "Luau.gg",
       image: "/Luau.jpg",
-      tags: [{ name: "Website", color: "#3B3E40" }],
-      desc: "Website made by SamOphis on GitHub.",
+      tags: [
+        {
+          name: new Translate().get(data, "Projects.tags.website"),
+          color: "#3B3E40",
+        },
+      ],
       footer: {
         start: "Apr 1, 2022",
         end: "Apr 1, 2022",
       },
       flags: [
-        { name: "Contribution", color: "#4ca6ca" },
-        { name: "Discontinued", color: "#CC222A" },
+        {
+          name: new Translate().get(data, "Projects.flags.contrib"),
+          color: "#4ca6ca",
+        },
+        {
+          name: new Translate().get(data, "Projects.flags.discon"),
+          color: "#CC222A",
+        },
       ],
       github: "https://github.com/SamOphis",
       community: null,
@@ -208,14 +287,21 @@ export default function Projects() {
       image: "/Forgetful.png",
       tags: [
         { name: "Discord Bot", color: "#5764F3" },
-        { name: "Website", color: "#3B3E40" },
+        {
+          name: new Translate().get(data, "Projects.tags.website"),
+          color: "#3B3E40",
+        },
       ],
-      desc: "A multipurpose bot that suited for many needs.",
       footer: {
         start: "Jul 03, 2019",
         end: "Jun 12, 2023",
       },
-      flags: [{ name: "Discontinued", color: "#CC222A" }],
+      flags: [
+        {
+          name: new Translate().get(data, "Projects.flags.discon"),
+          color: "#CC222A",
+        },
+      ],
       github: null,
       community: "https://discord.gg/ty6Rsua",
       website: null,
@@ -254,21 +340,28 @@ export default function Projects() {
 
                   {project.community ? (
                     <Link href={project.community} target="_blank">
-                      <button className="button">Online</button>
+                      <button className="button">
+                        {new Translate().get(
+                          data,
+                          "Projects.buttons.community"
+                        )}
+                      </button>
                     </Link>
                   ) : (
                     <button className="button disable" disabled>
-                      Online
+                      {new Translate().get(data, "Projects.buttons.community")}
                     </button>
                   )}
 
                   {project.website ? (
                     <Link href={project.website} target="_blank">
-                      <button className="button">Website</button>
+                      <button className="button">
+                        {new Translate().get(data, "Projects.buttons.website")}
+                      </button>
                     </Link>
                   ) : (
                     <button className="button disable" disabled>
-                      Website
+                      {new Translate().get(data, "Projects.buttons.website")}
                     </button>
                   )}
                 </div>
@@ -291,7 +384,12 @@ export default function Projects() {
                     {project.title}
                   </a>
                 </div>
-                <div className="projectDesc">{project.desc}</div>
+                <div className="projectDesc">
+                  {new Translate().get(
+                    data,
+                    `Projects.list.${project.target}.desc`
+                  )}
+                </div>
                 <div className="tags">
                   {project.tags.map((tag) => (
                     <div

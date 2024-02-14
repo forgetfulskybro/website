@@ -1,0 +1,103 @@
+{
+  "Blogs": {
+    "creation": "Creation",
+    "editedLast": "Edited Last"
+  },
+  "Projects": {
+    "footer": {
+      "endPresent": "Present",
+      "endUnknown": "Unknown"
+    },
+    "tags": {
+      "website": "Website",
+      "application": "Application"
+    },
+    "flags": {
+      "contrib": "Contribution",
+      "discon": "Discontinued"
+    },
+    "buttons": {
+      "community": "Online",
+      "website": "Website"
+    },
+    "list": {
+      "WY": {
+        "desc": "An activity based bot that helps improve overall activity for your server."
+      },
+      "SB": {
+        "desc": "Custom support bot with modmail, giveaways, suggestions, and more."
+      },
+      "SC": {
+        "desc": "A web application focused on no censorship."
+      },
+      "W": {
+        "desc": "A personal website which I add quite literally anything about me for others to know."
+      },
+      "F": {
+        "desc": "Revolt bot that allows for creating giveaways, polls, and reaction roles."
+      },
+      "RBL": {
+        "desc": "A place where you can find the best Revolt Bots."
+      },
+      "RM": {
+        "desc": "The first Modmail bot that is made in Revolt."
+      },
+      "RB": {
+        "desc": "A very simple way to bridge your Revolt & Discord servers together."
+      },
+      "D": {
+        "desc": "A multipurpose bot that was made to keep your members entertained."
+      },
+      "AYB": {
+        "desc": "Involves AYB Music bot and AYB API that the website used."
+      },
+      "L": {
+        "desc": "Website made by SamOphis on GitHub."
+      },
+      "FGF": {
+        "desc": "A multipurpose bot for many server needs."
+      }
+    }
+  },
+  "Misc": {
+    "page": {
+      "birthday": {
+        "today": "Today is my birthday, turning {age} years old",
+        "random": "I'm currently {age} years old"
+      },
+      "descHello": "Hello, my name is",
+      "descOr": "or",
+      "descShort": "for short",
+      "desc": "and I've been coding for {date} years. I enjoy creating open source projects on my free time or whenever I'm not lazy. Also I like",
+      "turtles": "turtles",
+      "capybaras": "capybaras"
+    },
+    "404": {
+      "forgetful": "Uhhh.. think I forgot to add this page as I'm quite"
+    }
+  },
+  "Comps": {
+    "page": {
+      "languages": {
+        "english": "English",
+        "spanish": "Spanish",
+        "french": "French",
+        "danSucks": "Dan Sucks",
+        "enchant": "Enchantment"
+      },
+      "settings": "Settings",
+      "language": "Language",
+      "home": "Home",
+      "projects": "Projects",
+      "colorTheme": "Color Theme",
+      "blog": "Blog",
+      "dark": "Dark", 
+      "shrimp": "Shrimp",
+      "chant": "Chant",
+      "smurf": "Smurf"
+    },
+    "pageSecondary": {
+      "back": "Go Back"
+    }
+  }
+}

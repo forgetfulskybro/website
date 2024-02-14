@@ -1,11 +1,37 @@
 "use client";
+import Translate from "@components/translation";
 import ToolTip from "@/components/ToolTip";
 import Page from "@/components/page";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { SetStateAction } from "react";
 
 export default function Home() {
+  const [data, setData] = React.useState("");
+
+  React.useEffect(() => {
+    const handleStorageChange = (event: any) => {
+      if ((localStorage.getItem("language") as SetStateAction<string>) !== data)
+        return setData(
+          localStorage.getItem("language") as SetStateAction<string>
+        );
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [data]);
+
+  React.useEffect(() => {
+    return setData(
+      (localStorage.getItem("language") as SetStateAction<string>)
+        ? (localStorage.getItem("language") as SetStateAction<string>)
+        : "en_EN"
+    );
+  }, []);
+
   const links: { url: string; src: string; alt: string }[] = [
     {
       url: "https://discord.gg/ty6Rsua",
@@ -36,23 +62,14 @@ export default function Home() {
 
   function birthday(date = "Jun 29") {
     if (Date().includes(date)) {
-      return (
-        <>
-          Today is my birthday, turning{" "}
-          <strong className="Blue">{calcAge(new Date("2004-06-28"))}</strong>{" "}
-          years old{" "}
-        </>
-      );
+      return new Translate().get(data, "Misc.page.birthday.today", {
+        age: calcAge(new Date("2004-06-28")),
+      });
     } else
-      return (
-        <>
-          I&apos;m currently{" "}
-          <strong className="Blue">{calcAge(new Date("2004-06-28"))}</strong>{" "}
-          years old{" "}
-        </>
-      );
+      return new Translate().get(data, "Misc.page.birthday.random", {
+        age: calcAge(new Date("2004-06-28")),
+      });
   }
-
   return (
     <main className="main">
       <Page>
@@ -70,20 +87,20 @@ export default function Home() {
             />
           </div>
           <div className="sizing">
-            Hello, my name is <strong className="Blue">ForGetFulSkyBro</strong>{" "}
-            or <strong className="Blue">Sky</strong> for short. {birthday()}
-            and I&apos;ve been coding for{" "}
-            <strong className="Blue">
-              {calcAge(new Date("2019-07-03"))}
-            </strong>{" "}
-            years. I enjoy creating open source projects on my free time or
-            whenever I&apos;m not lazy. Also I like{" "}
+            {new Translate().get(data, "Misc.page.descHello")}{" "}
+            <strong className="Blue">ForGetFulSkyBro</strong>{" "}
+            {new Translate().get(data, "Misc.page.descOr")}{" "}
+            <strong className="Blue">Sky</strong>{" "}
+            {new Translate().get(data, "Misc.page.descShort")}. {birthday()}{" "}
+            {new Translate().get(data, "Misc.page.desc", {
+              date: calcAge(new Date("2019-07-03")),
+            })}{" "}
             <Link
               className="link"
               target="_blank"
               href="https://google.com/search?q=turtles"
             >
-              turtles
+              {new Translate().get(data, "Misc.page.turtles")}
             </Link>{" "}
             &{" "}
             <Link
@@ -91,7 +108,7 @@ export default function Home() {
               target="_blank"
               href="https://google.com/search?q=capybaras"
             >
-              capybaras
+              {new Translate().get(data, "Misc.page.capybaras")}
             </Link>
             .
           </div>

@@ -1,13 +1,38 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
+import Translate from "@components/translation";
 import Page from "@/components/pageSecondary";
 import { usePathname } from "next/navigation";
 import ToolTip from "@/components/ToolTip";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { SetStateAction } from "react";
 
 export default function Projects() {
+  const [data, setData] = React.useState("");
+
+  React.useEffect(() => {
+    const handleStorageChange = (event: any) => {
+      if ((localStorage.getItem("language") as SetStateAction<string>) !== data)
+        return setData(
+          localStorage.getItem("language") as SetStateAction<string>
+        );
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [data]);
+
+  React.useEffect(() => {
+    return setData(
+      (localStorage.getItem("language") as SetStateAction<string>)
+        ? (localStorage.getItem("language") as SetStateAction<string>)
+        : "en_EN"
+    );
+  }, []);
   // <Link className="link" target="_blank" href="">
   // <Image className="imageSource" src="" alt="Image" height="125" width="125"/>
   return (
@@ -17,8 +42,17 @@ export default function Projects() {
           <div className="blogPostTitle">
             <h2>Revolt Awareness</h2>
             <div className="blogPostSecondary">
-              <h6 style={{ color: "#a29f9f" }}>Creation: September 23, 2023</h6>{" "}
-              <ToolTip content="Edited Last: December 31, 2023" placement="bottom">
+              <h6 style={{ color: "#a29f9f" }}>
+                {new Translate().get(data, "Blogs.creation")}: September 23,
+                2023
+              </h6>{" "}
+              <ToolTip
+                content={`${new Translate().get(
+                  data,
+                  "Blogs.editedLast"
+                )}: December 31, 2023`}
+                placement="bottom"
+              >
                 <Image
                   id="Edit"
                   style={{ cursor: "pointer" }}

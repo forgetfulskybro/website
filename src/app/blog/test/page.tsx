@@ -1,9 +1,35 @@
 "use client";
+import Translate from "@components/translation";
 import Page from "@/components/pageSecondary";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { SetStateAction } from "react";
 
 export default function Projects() {
+  const [data, setData] = React.useState("");
+
+  React.useEffect(() => {
+    const handleStorageChange = (event: any) => {
+      if ((localStorage.getItem("language") as SetStateAction<string>) !== data)
+        return setData(
+          localStorage.getItem("language") as SetStateAction<string>
+        );
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [data]);
+
+  React.useEffect(() => {
+    return setData(
+      (localStorage.getItem("language") as SetStateAction<string>)
+        ? (localStorage.getItem("language") as SetStateAction<string>)
+        : "en_EN"
+    );
+  }, []);
+
   //  <Link style={{color: '#9A5CB4'}} target="_blank" href="">
   // <Image className="imageSource" src="" alt="Image" height="125" width="125"/>
   return (
@@ -12,7 +38,10 @@ export default function Projects() {
         <div style={{ maxHeight: "80vh" }} className="flexGrid">
           <div className="blogPostTitle">
             <h2>👋 Hello, this is a test</h2>
-            <h6 style={{ color: "#a29f9f" }}>Creation: September 20, 2023</h6>
+            <h6 style={{ color: "#a29f9f" }}>
+              {new Translate().get(data, "Blogs.creation")}: September 20,
+              2023
+            </h6>
           </div>
 
           <div className="divider"></div>
@@ -32,7 +61,7 @@ export default function Projects() {
               arcu felis bibendum ut tristique et. Augue lacus viverra vitae
               congue eu consequat. At auctor urna nunc id.
             </p>
-            <br/>
+            <br />
             <p>
               Hac habitasse platea dictumst quisque sagittis purus sit.
               Pellentesque habitant morbi tristique senectus. Neque vitae tempus
@@ -49,7 +78,7 @@ export default function Projects() {
               Nullam vehicula ipsum a arcu. Aliquam malesuada bibendum arcu
               vitae elementum curabitur vitae.
             </p>
-            <br/>
+            <br />
             <p>
               Sapien pellentesque habitant morbi tristique senectus et. Non quam
               lacus suspendisse faucibus interdum posuere lorem ipsum dolor.
@@ -69,7 +98,7 @@ export default function Projects() {
               Lacinia quis vel eros donec ac odio tempor orci dapibus. Venenatis
               a condimentum vitae sapien pellentesque habitant morbi.
             </p>
-            <br/>
+            <br />
             <p>
               Hac habitasse platea dictumst quisque sagittis purus sit.
               Pellentesque habitant morbi tristique senectus. Neque vitae tempus
@@ -86,7 +115,7 @@ export default function Projects() {
               Nullam vehicula ipsum a arcu. Aliquam malesuada bibendum arcu
               vitae elementum curabitur vitae.
             </p>
-            <br/>
+            <br />
             <p>
               Hac habitasse platea dictumst quisque sagittis purus sit.
               Pellentesque habitant morbi tristique senectus. Neque vitae tempus
@@ -103,7 +132,7 @@ export default function Projects() {
               Nullam vehicula ipsum a arcu. Aliquam malesuada bibendum arcu
               vitae elementum curabitur vitae.
             </p>
-            <br/>
+            <br />
             <p>
               Hac habitasse platea dictumst quisque sagittis purus sit.
               Pellentesque habitant morbi tristique senectus. Neque vitae tempus
