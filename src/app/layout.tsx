@@ -12,11 +12,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
   }) {
-  window.onload = function () {
-    if (localStorage.getItem("theme"))
-      document
-        .querySelector<HTMLElement>(":root")
-        ?.style.setProperty("--card-rgb", localStorage.getItem("theme"));
+  if (typeof window !== "undefined") {
+    window.onload = function () {
+      if (localStorage.getItem("theme"))
+        document
+          .querySelector<HTMLElement>(":root")
+          ?.style.setProperty("--card-rgb", localStorage.getItem("theme"));
+    }
   }
   
   function calcAge(dateString: Date) {
