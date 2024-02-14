@@ -12,10 +12,12 @@ export default function Projects() {
 
   React.useEffect(() => {
     const handleStorageChange = (event: any) => {
-      if ((localStorage.getItem("language") as SetStateAction<string>) !== data)
-        return setData(
-          localStorage.getItem("language") as SetStateAction<string>
-        );
+      if (typeof window !== "undefined") {
+        if ((localStorage.getItem("language") as SetStateAction<string>) !== data)
+          return setData(
+            localStorage.getItem("language") as SetStateAction<string>
+          );
+      }
     };
 
     window.addEventListener("storage", handleStorageChange);
@@ -26,11 +28,13 @@ export default function Projects() {
   }, [data]);
 
   React.useEffect(() => {
-    return setData(
-      (localStorage.getItem("language") as SetStateAction<string>)
-        ? (localStorage.getItem("language") as SetStateAction<string>)
-        : "en_EN"
-    );
+    if (typeof window !== "undefined") {
+      return setData(
+        (localStorage.getItem("language") as SetStateAction<string>)
+          ? (localStorage.getItem("language") as SetStateAction<string>)
+          : "en_EN"
+      );
+    }
   }, []);
 
   const array: {

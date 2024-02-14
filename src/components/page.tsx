@@ -14,11 +14,17 @@ import Link from "next/link";
 export default function Page({ children }: { children: ReactNode }) {
   const [anchor, setAnchor] = useState<HTMLButtonElement | null>(null);
   const [anchorM, setAnchorM] = useState<HTMLButtonElement | null>(null);
-  const [language, setLanguage] = useState(
-    (localStorage.getItem("language") as string)
-      ? (localStorage.getItem("language") as string)
-      : "en_EN"
-  );
+  const [language, setLanguage] = useState("");
+
+  if (typeof window !== "undefined") {
+    window.onload = function () {
+      setLanguage(
+        (localStorage.getItem("language") as string)
+          ? (localStorage.getItem("language") as string)
+          : "en_EN"
+      );
+    };
+  }
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchor(anchor ? null : event.currentTarget);
@@ -29,12 +35,12 @@ export default function Page({ children }: { children: ReactNode }) {
   };
 
   const languageSwitcher = (menuItem: string, popupState: any) => {
-    return () => {
+    if (typeof window !== "undefined") {
       setLanguage(menuItem);
       localStorage.setItem("language", menuItem);
       window.dispatchEvent(new Event("storage"));
       return popupState.close();
-    };
+    }
   };
 
   const colorTheme = (theme: string) => {
