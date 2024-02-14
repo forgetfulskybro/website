@@ -15,9 +15,11 @@ export default function Page({ children }: { children: ReactNode }) {
   const [anchor, setAnchor] = useState<HTMLButtonElement | null>(null);
   const [anchorM, setAnchorM] = useState<HTMLButtonElement | null>(null);
   const [language, setLanguage] = useState(
-    (localStorage.getItem("language") as string)
-      ? (localStorage.getItem("language") as string)
-      : "en_EN"
+    typeof window !== "undefined"
+      ? localStorage.getItem("language")
+        ? localStorage.getItem("language")
+        : "en_EN"
+      : ""
   );
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -53,23 +55,23 @@ export default function Page({ children }: { children: ReactNode }) {
   }[] = [
     {
       small: "en_EN",
-      large: new Translate().get(language, "Comps.page.languages.english"),
+      large: new Translate().get(language!, "Comps.page.languages.english"),
     },
     {
       small: "es_ES",
-      large: new Translate().get(language, "Comps.page.languages.spanish"),
+      large: new Translate().get(language!, "Comps.page.languages.spanish"),
     },
     {
       small: "fr_FR",
-      large: new Translate().get(language, "Comps.page.languages.french"),
+      large: new Translate().get(language!, "Comps.page.languages.french"),
     },
     {
       small: "ds_DS",
-      large: new Translate().get(language, "Comps.page.languages.danSucks"),
+      large: new Translate().get(language!, "Comps.page.languages.danSucks"),
     },
     {
       small: "ec_EC",
-      large: new Translate().get(language, "Comps.page.languages.enchant"),
+      large: new Translate().get(language!, "Comps.page.languages.enchant"),
     },
   ];
 
@@ -80,19 +82,19 @@ export default function Page({ children }: { children: ReactNode }) {
     path: string;
   }[] = [
     {
-      name: new Translate().get(language, "Comps.page.home"),
+      name: new Translate().get(language!, "Comps.page.home"),
       class: "home",
       src: "House",
       path: "/",
     },
     {
-      name: new Translate().get(language, "Comps.page.projects"),
+      name: new Translate().get(language!, "Comps.page.projects"),
       class: "projects",
       src: "Folder",
       path: "/projects",
     },
     {
-      name: new Translate().get(language, "Comps.page.blog"),
+      name: new Translate().get(language!, "Comps.page.blog"),
       class: "blog",
       src: "Blog",
       path: "/blog",
@@ -125,7 +127,10 @@ export default function Page({ children }: { children: ReactNode }) {
                           {...bindTrigger(popupState)}
                           className="button"
                         >
-                          {new Translate().get(language, "Comps.page.language")}{" "}
+                          {new Translate().get(
+                            language!,
+                            "Comps.page.language"
+                          )}{" "}
                           <Image
                             src={`arrow.svg`}
                             width={10}
@@ -168,7 +173,7 @@ export default function Page({ children }: { children: ReactNode }) {
                       >
                         <h3>
                           {new Translate().get(
-                            language,
+                            language!,
                             "Comps.page.colorTheme"
                           )}
                         </h3>
@@ -182,7 +187,10 @@ export default function Page({ children }: { children: ReactNode }) {
                             className="colors card boxes"
                           >
                             <h3>
-                              {new Translate().get(language, "Comps.page.dark")}
+                              {new Translate().get(
+                                language!,
+                                "Comps.page.dark"
+                              )}
                             </h3>
                           </div>
                           <div
@@ -191,7 +199,7 @@ export default function Page({ children }: { children: ReactNode }) {
                           >
                             <h3>
                               {new Translate().get(
-                                language,
+                                language!,
                                 "Comps.page.shrimp"
                               )}
                             </h3>
@@ -205,7 +213,7 @@ export default function Page({ children }: { children: ReactNode }) {
                           >
                             <h3>
                               {new Translate().get(
-                                language,
+                                language!,
                                 "Comps.page.chant"
                               )}
                             </h3>
@@ -219,7 +227,7 @@ export default function Page({ children }: { children: ReactNode }) {
                           >
                             <h3>
                               {new Translate().get(
-                                language,
+                                language!,
                                 "Comps.page.smurf"
                               )}
                             </h3>
@@ -232,7 +240,7 @@ export default function Page({ children }: { children: ReactNode }) {
               </div>
             </Popover>
             <ToolTip
-              content={new Translate().get(language, "Comps.page.settings")}
+              content={new Translate().get(language!, "Comps.page.settings")}
               placement="top"
             >
               <span
@@ -311,7 +319,7 @@ export default function Page({ children }: { children: ReactNode }) {
                             className="button"
                           >
                             {new Translate().get(
-                              language,
+                              language!,
                               "Comps.page.language"
                             )}{" "}
                             <Image
@@ -356,7 +364,7 @@ export default function Page({ children }: { children: ReactNode }) {
                         >
                           <h3>
                             {new Translate().get(
-                              language,
+                              language!,
                               "Comps.page.colorTheme"
                             )}
                           </h3>
@@ -371,7 +379,7 @@ export default function Page({ children }: { children: ReactNode }) {
                             >
                               <h3>
                                 {new Translate().get(
-                                  language,
+                                  language!,
                                   "Comps.page.dark"
                                 )}
                               </h3>
@@ -382,7 +390,7 @@ export default function Page({ children }: { children: ReactNode }) {
                             >
                               <h3>
                                 {new Translate().get(
-                                  language,
+                                  language!,
                                   "Comps.page.shrimp"
                                 )}
                               </h3>
@@ -396,7 +404,7 @@ export default function Page({ children }: { children: ReactNode }) {
                             >
                               <h3>
                                 {new Translate().get(
-                                  language,
+                                  language!,
                                   "Comps.page.chant"
                                 )}
                               </h3>
@@ -410,7 +418,7 @@ export default function Page({ children }: { children: ReactNode }) {
                             >
                               <h3>
                                 {new Translate().get(
-                                  language,
+                                  language!,
                                   "Comps.page.smurf"
                                 )}
                               </h3>

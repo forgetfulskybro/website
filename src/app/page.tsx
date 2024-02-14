@@ -7,14 +7,12 @@ import Link from "next/link";
 import React, { SetStateAction } from "react";
 
 export default function Home() {
-  const [data, setData] = React.useState("");
+  const [data, setData] = React.useState<string | null>("");
 
   React.useEffect(() => {
     const handleStorageChange = (event: any) => {
-      if ((localStorage.getItem("language") as SetStateAction<string>) !== data)
-        return setData(
-          localStorage.getItem("language") as SetStateAction<string>
-        );
+      if (localStorage.getItem("language") !== data)
+        return setData(localStorage.getItem("language"));
     };
 
     window.addEventListener("storage", handleStorageChange);
@@ -25,11 +23,13 @@ export default function Home() {
   }, [data]);
 
   React.useEffect(() => {
-    return setData(
-      (localStorage.getItem("language") as SetStateAction<string>)
-        ? (localStorage.getItem("language") as SetStateAction<string>)
-        : "en_EN"
-    );
+    if (typeof window !== "undefined") {
+      return setData(
+        localStorage.getItem("language")
+          ? localStorage.getItem("language")
+          : "en_EN"
+      );
+  }
   }, []);
 
   const links: { url: string; src: string; alt: string }[] = [
@@ -62,11 +62,11 @@ export default function Home() {
 
   function birthday(date = "Jun 29") {
     if (Date().includes(date)) {
-      return new Translate().get(data, "Misc.page.birthday.today", {
+      return new Translate().get(data!, "Misc.page.birthday.today", {
         age: calcAge(new Date("2004-06-28")),
       });
     } else
-      return new Translate().get(data, "Misc.page.birthday.random", {
+      return new Translate().get(data!, "Misc.page.birthday.random", {
         age: calcAge(new Date("2004-06-28")),
       });
   }
@@ -87,12 +87,12 @@ export default function Home() {
             />
           </div>
           <div className="sizing">
-            {new Translate().get(data, "Misc.page.descHello")}{" "}
+            {new Translate().get(data!, "Misc.page.descHello")}{" "}
             <strong className="Blue">ForGetFulSkyBro</strong>{" "}
-            {new Translate().get(data, "Misc.page.descOr")}{" "}
+            {new Translate().get(data!, "Misc.page.descOr")}{" "}
             <strong className="Blue">Sky</strong>{" "}
-            {new Translate().get(data, "Misc.page.descShort")}. {birthday()}{" "}
-            {new Translate().get(data, "Misc.page.desc", {
+            {new Translate().get(data!, "Misc.page.descShort")}. {birthday()}{" "}
+            {new Translate().get(data!, "Misc.page.desc", {
               date: calcAge(new Date("2019-07-03")),
             })}{" "}
             <Link
@@ -100,7 +100,7 @@ export default function Home() {
               target="_blank"
               href="https://google.com/search?q=turtles"
             >
-              {new Translate().get(data, "Misc.page.turtles")}
+              {new Translate().get(data!, "Misc.page.turtles")}
             </Link>{" "}
             &{" "}
             <Link
@@ -108,7 +108,7 @@ export default function Home() {
               target="_blank"
               href="https://google.com/search?q=capybaras"
             >
-              {new Translate().get(data, "Misc.page.capybaras")}
+              {new Translate().get(data!, "Misc.page.capybaras")}
             </Link>
             .
           </div>

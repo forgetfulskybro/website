@@ -5,14 +5,12 @@ import { usePathname } from "next/navigation";
 import React, { SetStateAction } from "react";
 
 export default function Projects() {
-  const [data, setData] = React.useState("");
+  const [data, setData] = React.useState<string | null>("");
 
   React.useEffect(() => {
     const handleStorageChange = (event: any) => {
-      if ((localStorage.getItem("language") as SetStateAction<string>) !== data)
-        return setData(
-          localStorage.getItem("language") as SetStateAction<string>
-        );
+      if (localStorage.getItem("language") !== data)
+        return setData(localStorage.getItem("language"));
     };
 
     window.addEventListener("storage", handleStorageChange);
@@ -23,13 +21,14 @@ export default function Projects() {
   }, [data]);
 
   React.useEffect(() => {
-    return setData(
-      (localStorage.getItem("language") as SetStateAction<string>)
-        ? (localStorage.getItem("language") as SetStateAction<string>)
-        : "en_EN"
-    );
+    if (typeof window !== "undefined") {
+      return setData(
+        localStorage.getItem("language")
+          ? localStorage.getItem("language")
+          : "en_EN"
+      );
+    }
   }, []);
-
   //  <Link style={{color: '#9A5CB4'}} target="_blank" href="">
   // <Image className="imageSource" src="" alt="Image" height="125" width="125"/>
   return (
@@ -39,8 +38,7 @@ export default function Projects() {
           <div className="blogPostTitle">
             <h2>👋 Hello, this is a test</h2>
             <h6 style={{ color: "#a29f9f" }}>
-              {new Translate().get(data, "Blogs.creation")}: September 20,
-              2023
+              {new Translate().get(data!, "Blogs.creation")}: September 20, 2023
             </h6>
           </div>
 

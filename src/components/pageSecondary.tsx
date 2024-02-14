@@ -8,14 +8,12 @@ import Image from "next/image";
 import React, { SetStateAction } from "react";
 
 export default function Page({ children }: { children: React.ReactNode }) {
-  const [data, setData] = React.useState("");
+  const [data, setData] = React.useState<string | null>("");
 
   React.useEffect(() => {
     const handleStorageChange = (event: any) => {
-      if ((localStorage.getItem("language") as SetStateAction<string>) !== data)
-        return setData(
-          localStorage.getItem("language") as SetStateAction<string>
-        );
+      if (localStorage.getItem("language") !== data)
+        return setData(localStorage.getItem("language"));
     };
 
     window.addEventListener("storage", handleStorageChange);
@@ -26,11 +24,13 @@ export default function Page({ children }: { children: React.ReactNode }) {
   }, [data]);
 
   React.useEffect(() => {
-    return setData(
-      (localStorage.getItem("language") as SetStateAction<string>)
-        ? (localStorage.getItem("language") as SetStateAction<string>)
-        : "en_EN"
-    );
+    if (typeof window !== "undefined") {
+      return setData(
+        localStorage.getItem("language")
+          ? localStorage.getItem("language")
+          : "en_EN"
+      );
+    }
   }, []);
 
   const router = useRouter();
@@ -46,7 +46,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
           >
             <div style={{ cursor: "pointer" }} onClick={() => router.back()}>
               <ToolTip
-                content={new Translate().get(data, "Comps.pageSecondary.back")}
+                content={new Translate().get(data!, "Comps.pageSecondary.back")}
                 placement="top"
               >
                 <span
@@ -77,7 +77,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
           >
             <div style={{ cursor: "pointer" }} onClick={() => router.back()}>
               <ToolTip
-                content={new Translate().get(data, "Comps.pageSecondary.back")}
+                content={new Translate().get(data!, "Comps.pageSecondary.back")}
                 placement="top"
               >
                 <span

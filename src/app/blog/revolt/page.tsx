@@ -9,14 +9,12 @@ import Link from "next/link";
 import React, { SetStateAction } from "react";
 
 export default function Projects() {
-  const [data, setData] = React.useState("");
+  const [data, setData] = React.useState<string | null>("");
 
   React.useEffect(() => {
     const handleStorageChange = (event: any) => {
-      if ((localStorage.getItem("language") as SetStateAction<string>) !== data)
-        return setData(
-          localStorage.getItem("language") as SetStateAction<string>
-        );
+      if (localStorage.getItem("language") !== data)
+        return setData(localStorage.getItem("language"));
     };
 
     window.addEventListener("storage", handleStorageChange);
@@ -27,11 +25,13 @@ export default function Projects() {
   }, [data]);
 
   React.useEffect(() => {
-    return setData(
-      (localStorage.getItem("language") as SetStateAction<string>)
-        ? (localStorage.getItem("language") as SetStateAction<string>)
-        : "en_EN"
-    );
+    if (typeof window !== "undefined") {
+      return setData(
+        localStorage.getItem("language")
+          ? localStorage.getItem("language")
+          : "en_EN"
+      );
+    }
   }, []);
   // <Link className="link" target="_blank" href="">
   // <Image className="imageSource" src="" alt="Image" height="125" width="125"/>
@@ -43,12 +43,12 @@ export default function Projects() {
             <h2>Revolt Awareness</h2>
             <div className="blogPostSecondary">
               <h6 style={{ color: "#a29f9f" }}>
-                {new Translate().get(data, "Blogs.creation")}: September 23,
+                {new Translate().get(data!, "Blogs.creation")}: September 23,
                 2023
               </h6>{" "}
               <ToolTip
                 content={`${new Translate().get(
-                  data,
+                  data!,
                   "Blogs.editedLast"
                 )}: December 31, 2023`}
                 placement="bottom"

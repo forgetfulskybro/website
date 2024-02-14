@@ -8,14 +8,12 @@ import Link from "next/link";
 import React, { SetStateAction } from "react";
 
 export default function Projects() {
-  const [data, setData] = React.useState("");
+  const [data, setData] = React.useState<string | null>("");
 
   React.useEffect(() => {
     const handleStorageChange = (event: any) => {
-      if ((localStorage.getItem("language") as SetStateAction<string>) !== data)
-        return setData(
-          localStorage.getItem("language") as SetStateAction<string>
-        );
+      if (localStorage.getItem("language") !== data)
+        return setData(localStorage.getItem("language"));
     };
 
     window.addEventListener("storage", handleStorageChange);
@@ -26,11 +24,13 @@ export default function Projects() {
   }, [data]);
 
   React.useEffect(() => {
-    return setData(
-      (localStorage.getItem("language") as SetStateAction<string>)
-        ? (localStorage.getItem("language") as SetStateAction<string>)
-        : "en_EN"
-    );
+    if (typeof window !== "undefined") {
+      return setData(
+        localStorage.getItem("language")
+          ? localStorage.getItem("language")
+          : "en_EN"
+      );
+    }
   }, []);
 
   const array: {
@@ -51,7 +51,7 @@ export default function Projects() {
       tags: [{ name: "Discord Bot", color: "#5764F3" }],
       footer: {
         start: "Aug 22, 2022",
-        end: new Translate().get(data, "Projects.footer.endPresent"),
+        end: new Translate().get(data!, "Projects.footer.endPresent"),
       },
       flags: [],
       github: "https://github.com/Would-You-Bot",
@@ -65,7 +65,7 @@ export default function Projects() {
       tags: [{ name: "Discord Bot", color: "#5764F3" }],
       footer: {
         start: "Sep 30, 2022",
-        end: new Translate().get(data, "Projects.footer.endPresent"),
+        end: new Translate().get(data!, "Projects.footer.endPresent"),
       },
       flags: [],
       github: "https://github.com/forgetfulskybro/Support-Bot",
@@ -78,21 +78,21 @@ export default function Projects() {
       image: "https://strafe.chat/favicon.ico",
       tags: [
         {
-          name: new Translate().get(data, "Projects.tags.website"),
+          name: new Translate().get(data!, "Projects.tags.website"),
           color: "#3B3E40",
         },
         {
-          name: new Translate().get(data, "Projects.tags.application"),
+          name: new Translate().get(data!, "Projects.tags.application"),
           color: "#533374",
         },
       ],
       footer: {
         start: "Jul 17, 2023",
-        end: new Translate().get(data, "Projects.footer.endPresent"),
+        end: new Translate().get(data!, "Projects.footer.endPresent"),
       },
       flags: [
         {
-          name: new Translate().get(data, "Projects.flags.contrib"),
+          name: new Translate().get(data!, "Projects.flags.contrib"),
           color: "#4ca6ca",
         },
       ],
@@ -106,13 +106,13 @@ export default function Projects() {
       image: null,
       tags: [
         {
-          name: new Translate().get(data, "Projects.tags.website"),
+          name: new Translate().get(data!, "Projects.tags.website"),
           color: "#3B3E40",
         },
       ],
       footer: {
         start: "Jul 2, 2023",
-        end: new Translate().get(data, "Projects.footer.endPresent"),
+        end: new Translate().get(data!, "Projects.footer.endPresent"),
       },
       flags: [],
       github: "https://github.com/forgetfulskybro/website",
@@ -130,7 +130,7 @@ export default function Projects() {
       },
       flags: [
         {
-          name: new Translate().get(data, "Projects.flags.discon"),
+          name: new Translate().get(data!, "Projects.flags.discon"),
           color: "#CC222A",
         },
       ],
@@ -145,7 +145,7 @@ export default function Projects() {
       tags: [
         { name: "Revolt Bot", color: "#FE4654" },
         {
-          name: new Translate().get(data, "Projects.tags.website"),
+          name: new Translate().get(data!, "Projects.tags.website"),
           color: "#3B3E40",
         },
       ],
@@ -155,7 +155,7 @@ export default function Projects() {
       },
       flags: [
         {
-          name: new Translate().get(data, "Projects.flags.contrib"),
+          name: new Translate().get(data!, "Projects.flags.contrib"),
           color: "#4ca6ca",
         },
       ],
@@ -174,7 +174,7 @@ export default function Projects() {
       },
       flags: [
         {
-          name: new Translate().get(data, "Projects.flags.discon"),
+          name: new Translate().get(data!, "Projects.flags.discon"),
           color: "#CC222A",
         },
       ],
@@ -193,7 +193,7 @@ export default function Projects() {
       },
       flags: [
         {
-          name: new Translate().get(data, "Projects.flags.discon"),
+          name: new Translate().get(data!, "Projects.flags.discon"),
           color: "#CC222A",
         },
       ],
@@ -212,11 +212,11 @@ export default function Projects() {
       },
       flags: [
         {
-          name: new Translate().get(data, "Projects.flags.contrib"),
+          name: new Translate().get(data!, "Projects.flags.contrib"),
           color: "#4ca6ca",
         },
         {
-          name: new Translate().get(data, "Projects.flags.discon"),
+          name: new Translate().get(data!, "Projects.flags.discon"),
           color: "#CC222A",
         },
       ],
@@ -231,21 +231,21 @@ export default function Projects() {
       tags: [
         { name: "Discord Bot", color: "#5764F3" },
         {
-          name: new Translate().get(data, "Projects.tags.website"),
+          name: new Translate().get(data!, "Projects.tags.website"),
           color: "#3B3E40",
         },
       ],
       footer: {
         start: "Dec 10, 2020",
-        end: new Translate().get(data, "Projects.footer.endUnknown"),
+        end: new Translate().get(data!, "Projects.footer.endUnknown"),
       },
       flags: [
         {
-          name: new Translate().get(data, "Projects.flags.contrib"),
+          name: new Translate().get(data!, "Projects.flags.contrib"),
           color: "#4ca6ca",
         },
         {
-          name: new Translate().get(data, "Projects.flags.discon"),
+          name: new Translate().get(data!, "Projects.flags.discon"),
           color: "#CC222A",
         },
       ],
@@ -259,7 +259,7 @@ export default function Projects() {
       image: "/Luau.jpg",
       tags: [
         {
-          name: new Translate().get(data, "Projects.tags.website"),
+          name: new Translate().get(data!, "Projects.tags.website"),
           color: "#3B3E40",
         },
       ],
@@ -269,11 +269,11 @@ export default function Projects() {
       },
       flags: [
         {
-          name: new Translate().get(data, "Projects.flags.contrib"),
+          name: new Translate().get(data!, "Projects.flags.contrib"),
           color: "#4ca6ca",
         },
         {
-          name: new Translate().get(data, "Projects.flags.discon"),
+          name: new Translate().get(data!, "Projects.flags.discon"),
           color: "#CC222A",
         },
       ],
@@ -288,7 +288,7 @@ export default function Projects() {
       tags: [
         { name: "Discord Bot", color: "#5764F3" },
         {
-          name: new Translate().get(data, "Projects.tags.website"),
+          name: new Translate().get(data!, "Projects.tags.website"),
           color: "#3B3E40",
         },
       ],
@@ -298,7 +298,7 @@ export default function Projects() {
       },
       flags: [
         {
-          name: new Translate().get(data, "Projects.flags.discon"),
+          name: new Translate().get(data!, "Projects.flags.discon"),
           color: "#CC222A",
         },
       ],
@@ -342,26 +342,26 @@ export default function Projects() {
                     <Link href={project.community} target="_blank">
                       <button className="button">
                         {new Translate().get(
-                          data,
+                          data!,
                           "Projects.buttons.community"
                         )}
                       </button>
                     </Link>
                   ) : (
                     <button className="button disable" disabled>
-                      {new Translate().get(data, "Projects.buttons.community")}
+                      {new Translate().get(data!, "Projects.buttons.community")}
                     </button>
                   )}
 
                   {project.website ? (
                     <Link href={project.website} target="_blank">
                       <button className="button">
-                        {new Translate().get(data, "Projects.buttons.website")}
+                        {new Translate().get(data!, "Projects.buttons.website")}
                       </button>
                     </Link>
                   ) : (
                     <button className="button disable" disabled>
-                      {new Translate().get(data, "Projects.buttons.website")}
+                      {new Translate().get(data!, "Projects.buttons.website")}
                     </button>
                   )}
                 </div>
@@ -386,7 +386,7 @@ export default function Projects() {
                 </div>
                 <div className="projectDesc">
                   {new Translate().get(
-                    data,
+                    data!,
                     `Projects.list.${project.target}.desc`
                   )}
                 </div>

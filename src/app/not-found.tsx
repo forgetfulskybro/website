@@ -5,14 +5,13 @@ import Image from "next/image";
 import React, { SetStateAction } from "react";
 
 export default function Home() {
-  const [data, setData] = React.useState("");
+  const [data, setData] = React.useState<string | null>("");
+  const ISSERVER = typeof window === "undefined";
 
   React.useEffect(() => {
     const handleStorageChange = (event: any) => {
-      if ((localStorage.getItem("language") as SetStateAction<string>) !== data)
-        return setData(
-          localStorage.getItem("language") as SetStateAction<string>
-        );
+      if (localStorage.getItem("language") !== data)
+        return setData(localStorage.getItem("language"));
     };
 
     window.addEventListener("storage", handleStorageChange);
@@ -23,19 +22,20 @@ export default function Home() {
   }, [data]);
 
   React.useEffect(() => {
-    return setData(
-      (localStorage.getItem("language") as SetStateAction<string>)
-        ? (localStorage.getItem("language") as SetStateAction<string>)
-        : "en_EN"
-    );
+    if (typeof window !== "undefined") {
+      return setData(
+        localStorage.getItem("language")
+          ? localStorage.getItem("language")
+          : "en_EN"
+      );
+    }
   }, []);
   return (
     <main className="main">
       <Page>
         <div className="center flexGrid">
           <div className="sizing">
-            {new Translate().get(data, "Misc.404.forgetful")}{" "}
-            <b>ForGetFul</b>{" "}
+            {new Translate().get(data!, "Misc.404.forgetful")} <b>ForGetFul</b>{" "}
             <Image
               style={{ marginBottom: -7 }}
               src="/trol.png"
