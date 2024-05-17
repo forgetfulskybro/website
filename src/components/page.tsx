@@ -2,7 +2,13 @@
 /* eslint-disable react/no-children-prop */
 "use client";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
-import React, { MouseEvent, ReactNode, useState, Fragment } from "react";
+import React, {
+  MouseEvent,
+  ReactNode,
+  useState,
+  Fragment,
+  useEffect,
+} from "react";
 import TransitionEffect from "@/components/TransitionEffect";
 import { Menu, MenuItem, Popover } from "@mui/material";
 import { usePathname } from "next/navigation";
@@ -101,11 +107,88 @@ export default function Page({ children }: { children: ReactNode }) {
     },
   ];
 
+  useEffect(() => {
+    if (Date().includes("Jun 29")) {
+      for (let i = 0; i < 130; i++) {
+        // Random rotation
+        var randomRotation = Math.floor(Math.random() * 360);
+        // Random Scale
+        var randomScale = Math.random() * 1;
+        // Random width & height between 0 and viewport
+        var randomWidth = Math.floor(
+          Math.random() *
+            Math.max(
+              document.documentElement.clientWidth,
+              window.innerWidth || -10
+            )
+        );
+        var randomHeight = Math.floor(
+          Math.random() *
+            Math.max(
+              document.documentElement.clientHeight,
+              window.innerHeight || 500
+            )
+        );
+
+        // Random animation-delay
+        var randomAnimationDelay = Math.floor(Math.random() * 13);
+        var confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.top = randomHeight + "px";
+        confetti.style.right = randomWidth + "px";
+        confetti.style.backgroundColor =
+          "#" +
+          (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6);
+        confetti.style.transform = "scale(" + randomScale + ")";
+        confetti.style.transform =
+          "skew(15deg) rotate(" + randomRotation + "deg)";
+        confetti.style.animationDelay = randomAnimationDelay + "s";
+        document.getElementById("confetti-wrapper")!.appendChild(confetti);
+      }
+    }
+
+    if (Date().includes("Jun")) {
+      let countDownDate = new Date(
+        `Jun 29, ${new Date().getFullYear()} 00:00:00`
+      ).getTime();
+      let x = setInterval(function () {
+        let now = new Date().getTime();
+        let distance = countDownDate - now;
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        let time = `${days.toString().length < 2 ? `0${days}` : days}:${
+          hours.toString().length < 2 ? `0${hours}` : hours
+        }:${minutes.toString().length < 2 ? `0${minutes}` : minutes}:${
+          seconds.toString().length < 2 ? `0${seconds}` : seconds
+        }`;
+        document.getElementById("bday")!.innerHTML = time;
+        if (distance <= 0) {
+          clearInterval(x);
+          document.getElementById("bday")!.innerHTML = "Today!";
+        }
+      }, 1000);
+    }
+  }, []);
+
   return (
     <TransitionEffect>
+      {Date().includes("Jun") && (
+        <div className="BirthdayDiv">
+          <p>Birthday Countdown</p>
+          <div style={{ backgroundColor: "#4D2424" }} className="divider"></div>
+          <p style={{ fontSize: "15px" }} id="bday"></p>
+        </div>
+      )}
       <div className="parent center">
-        <div className="card boxes">
-          <div className="cardSlider hide center" style={{ marginRight: 10 }}>
+        <div className="card boxes" id="confetti-wrapper">
+          <div
+            className="cardSlider hide center"
+            style={{ marginRight: 10, zIndex: 1000 }}
+          >
             <Popover
               style={{ marginTop: "-5px", marginLeft: "15px" }}
               id={"settings"}
