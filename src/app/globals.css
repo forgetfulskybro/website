@@ -64,6 +64,7 @@ a {
   justify-content: center;
   justify-content: space-between;
   margin: 0 25px 25px;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 .description {
   align-items: inherit;
