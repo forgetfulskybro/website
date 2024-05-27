@@ -120,8 +120,11 @@ export default function Home() {
   return (
     <main className="main">
       <Page>
-        <div style={{ width: 350, marginTop: 25 }}>
-          <div style={{ maxHeight: "80vh", flex: 1 }} className="flexGrid flex">
+        <div style={{ width: 750, marginTop: 15 }}>
+          <div
+            style={{ maxHeight: "30vh", marginBottom: "10px" }}
+            className="flexGrid flex center"
+          >
             <Link href={url ? url : "https://example.com"} target="_blank">
               <div className="gameCard flex">
                 {cover ? (
@@ -166,14 +169,11 @@ export default function Home() {
                       priority={true}
                     />
                     {absoluteDate ? (
-                      <time
-                        className="truncate"
-                        dateTime={absoluteDate.toISOString()}
-                      >
+                      <time dateTime={absoluteDate.toISOString()}>
                         {relativeDate}
                       </time>
                     ) : (
-                      <span className="truncate">
+                      <span>
                         {playing
                           ? `${new Translate().get(data!, "Info.listening")}...`
                           : new Translate().get(data!, "Info.playing")}
@@ -191,18 +191,25 @@ export default function Home() {
                 </div>
               </div>
             </Link>
-            <p>{new Translate().get(data!, "Info.recent")}</p>
+          </div>
+          <div className="boxes">
+            {new Translate().get(data!, "Info.recent")}
+          </div>
+          <div
+            style={{ maxHeight: "80vh", fontSize: 10 }}
+            className="flexGrid flex boxes"
+          >
             {recentGames
               .sort((a, b) => b.myRating - a.myRating)
               .map((game) => (
                 <Link href={game.website} key={game.target} target="_blank">
-                  <div className="gameCard flex">
+                  <div className="gameCard flex boxes">
                     {game.image && (
                       <Image
                         className="gameIcon"
                         src={game.image}
-                        height={100}
-                        width={100}
+                        height={300}
+                        width={300}
                         draggable={false}
                         alt="Game Icon"
                         priority={true}
@@ -234,7 +241,9 @@ export default function Home() {
                         />
                       </div>
                       {game.progress && (
-                        <p className="gameProgress Blue">{new Translate().get(data!, "Info.progress")}</p>
+                        <p className="gameProgress Blue">
+                          {new Translate().get(data!, "Info.progress")}
+                        </p>
                       )}
                     </div>
                     <div className="flex" style={{ flexDirection: "row" }}>
