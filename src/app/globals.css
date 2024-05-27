@@ -14,7 +14,7 @@
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
-  --card-rgb: 100, 100, 100; /* Shrimp: 230, 89, 89 | Dark: 100, 100, 100 | Chant: 63, 41, 90 */
+  --card-rgb: 139, 139, 139; /* Shrimp: 230, 89, 89 | Dark: 100, 100, 100 | Chant: 63, 41, 90 */
   --card-border-rgb: 200, 200, 200;
 }
 
@@ -123,8 +123,8 @@ a {
   background-color: #ff6161;
   transition: 0.25s ease-in-out;
 }
-.blog:hover,
-.blogHigh {
+.info:hover,
+.infoHigh {
   background-color: #1abc9c;
   transition: 0.25s ease-in-out;
 }
@@ -204,53 +204,7 @@ a {
 .flex {
   flex: 1 auto;
 }
-.blogCard {
-  background: #121213;
-  border: 1px solid rgba(var(--card-border-rgb), 0.15);
-  border-radius: 5px;
-  height: 90px;
-  padding: 0.4rem;
-  position: relative;
-  text-align: center;
-  transition: background 0.2s, border 0.2s;
-  width: auto;
-  width: 400px;
-}
-.blogCard:hover {
-  background: rgba(var(--card-rgb), 0.1);
-  cursor: pointer;
-}
-.blogTitle {
-  font-size: 19px;
-  gap: 3px;
-}
-.blogTitle,
-.gamesCard {
-  position: relative;
-  text-align: center;
-}
-.gamesCard {
-  background: #121213;
-  border: 1px solid rgba(var(--card-border-rgb), 0.15);
-  border-radius: 5px;
-  height: 100px;
-  padding: 0.4rem;
-  transition: background 0.2s, border 0.2s;
-  width: auto;
-  width: 240px;
-}
-.gamesCard:hover {
-  background: rgba(var(--card-rgb), 0.1);
-  cursor: pointer;
-}
-.gamesTitle {
-  display: flex;
-  flex-direction: row;
-  font-size: 19px;
-  font-weight: 800;
-  gap: 3px;
-  position: relative;
-}
+
 .projectCard {
   background: #121213;
   border: 1px solid rgba(var(--card-border-rgb), 0.15);
@@ -317,48 +271,81 @@ a {
   position: absolute;
   text-align: left;
 }
-.blogTitle {
-  display: flex;
-  flex-direction: row;
-  font-size: 15px;
-  font-weight: 800;
-  text-align: left;
-  top: 5px;
+
+.gameCard {
+  position: relative;
+  background: #121213;
+  border: 1px solid rgba(var(--card-border-rgb), 0.15);
+  border-radius: 5px;
+  height: 85px;
+  transition: background 0.2s, border 0.2s;
+  height: fit-content;
+  max-width: 97%;
+  width: 335px;
+  padding: 0px 5px 5px 0px;
 }
-.blogHeader {
-  color: #caf964;
-  font-size: 20px;
+
+.gameCard:hover {
+  background: rgba(var(--card-rgb), 0.1);
+  cursor: pointer;
 }
-.blogFooter {
-  color: #6b6a6a;
-  font-size: 10px;
-  position: absolute;
-  top: 53px;
-}
-.blogPostSecondary {
-  display: flex;
-  flex-direction: row;
-  gap: 3px;
-}
-.blogPostBody {
-  color: #dcdbdb;
-  font-size: 15px;
-  margin-right: 5px;
-}
-.imageSource {
-  border-radius: 7px;
+
+.gameIcon {
+  padding: 5px 0px 0px 5px;
+  width: 25%;
+  height: 100%;
   float: left;
-  margin: 5px;
+  border-radius: 12px;
 }
-.link {
-  color: #9a5cb4;
-  text-decoration-line: underline;
+
+.gameTitle {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  margin: 5px 10px 0px 5px;
+  font-size: 15px;
+  float: left;
 }
-.blockquote {
-  border-left: 0.3em solid #8230a5;
-  color: #8230a5;
-  padding-left: 10px;
+
+.gameYear {
+  display: flex;
+  flex-direction: row;
+  margin: 5px 0px 0px 0px;
+  font-size: 12px;
+  float: left;
+  background-color: rgba(var(--card-rgb));
+  padding: 2px;
+  border-radius: 2px;
 }
+
+.gameLink {
+  position: relative;
+  float: right;
+  font-size: 20px;
+  padding: 3px;
+}
+
+.gameRate {
+  float: left;
+  font-size: 13px;
+  margin: 0px 0px 0px 5px;
+}
+
+.gameTag {
+  margin: 5px 0px 0px 5px;
+  font-size: 10px;
+  float: left;
+  background-color: rgba(var(--card-rgb));
+  padding: 2px;
+  border-radius: 2px;
+}
+
+.gameProgress {
+  padding-left: 4px;
+  font-size: 13px;
+}
+
 .divider {
   background-color: hsla(0, 0%, 100%, 0.2);
   height: 1.5px;
@@ -369,6 +356,40 @@ a {
 .Blue {
   color: #4ca6ca;
 }
+
+.spotify {
+  color: #1ed760;
+}
+
+.lastFMTop {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  margin: 5px 10px 0px 5px;
+  font-size: 12px;
+  float: left;
+}
+
+.lastFMTitle {
+  margin: 0px 0px 0px 5px;
+  margin-top: 7px;
+  font-weight: -1000;
+  font-size: 13px;
+}
+
+.lastFMArtist {
+  margin: 0px 0px 0px 5px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #959494
+}
+
+.musicIcon {
+  margin-top: -2px;
+  margin-right: 5px;
+}
+
 @media (max-width: 841px) {
   .sizing {
     text-wrap: pretty;
