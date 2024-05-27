@@ -6,7 +6,6 @@ import React, { SetStateAction } from "react";
 
 export default function Home() {
   const [data, setData] = React.useState<string | null>("");
-  const ISSERVER = typeof window === "undefined";
 
   React.useEffect(() => {
     const handleStorageChange = (event: any) => {

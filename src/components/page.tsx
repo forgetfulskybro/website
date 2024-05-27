@@ -100,10 +100,10 @@ export default function Page({ children }: { children: ReactNode }) {
       path: "/projects",
     },
     {
-      name: new Translate().get(language!, "Comps.page.blog"),
-      class: "blog",
-      src: "Blog",
-      path: "/blog",
+      name: new Translate().get(language!, "Comps.page.info"),
+      class: "info",
+      src: "Info",
+      path: "/info",
     },
   ];
 
