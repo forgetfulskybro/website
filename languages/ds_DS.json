@@ -1,7 +1,9 @@
 {
-  "Blogs": {
-    "creation": "Dan Sucks",
-    "editedLast": "Dan Sucks"
+  "Info": {
+    "listening": "Dan Sucks",
+    "playing": "Dan Sucks",
+    "progress": "Dan Sucks",
+    "recent": "Dan Sucks"
   },
   "Projects": {
     "footer": {

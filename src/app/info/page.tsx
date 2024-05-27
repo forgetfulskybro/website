@@ -2,6 +2,7 @@
 import { formatDistanceToNow, isYesterday } from "date-fns";
 import type { Transition, Variants } from "framer-motion";
 import { AnimatePresence, motion } from "framer-motion";
+import Translate from "@components/translation";
 import { LastFMSong } from "@/hooks/LastFMSong";
 import React, { useMemo } from "react";
 import Page from "@/components/page";
@@ -173,7 +174,9 @@ export default function Home() {
                       </time>
                     ) : (
                       <span className="truncate">
-                        {playing ? "Listening to..." : "Not Playing"}
+                        {playing
+                          ? `${new Translate().get(data!, "Info.listening")}...`
+                          : new Translate().get(data!, "Info.playing")}
                       </span>
                     )}
                   </div>
@@ -188,7 +191,7 @@ export default function Home() {
                 </div>
               </div>
             </Link>
-            <p>Recent Games</p>
+            <p>{new Translate().get(data!, "Info.recent")}</p>
             {recentGames
               .sort((a, b) => b.myRating - a.myRating)
               .map((game) => (
@@ -231,7 +234,7 @@ export default function Home() {
                         />
                       </div>
                       {game.progress && (
-                        <p className="gameProgress Blue"> In Progress</p>
+                        <p className="gameProgress Blue">{new Translate().get(data!, "Info.progress")}</p>
                       )}
                     </div>
                     <div className="flex" style={{ flexDirection: "row" }}>

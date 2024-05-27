@@ -1,7 +1,9 @@
 {
-  "Blogs": {
-    "creation": "Creación",
-    "editedLast": "Última edición"
+  "Info": {
+    "listening": "Escuchar",
+    "playing": "Sin jugar",
+    "progress": "En curso",
+    "recent": "Juegos recientes"
   },
   "Projects": {
     "footer": {
