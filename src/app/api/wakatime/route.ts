@@ -4,7 +4,7 @@ import { wakaData } from "./wakatimeData";
 
 export const runtime = "edge";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET() {
   const data = await wakaData();
   return data
     ? NextResponse.json(data)
