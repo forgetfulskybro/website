@@ -1,9 +1,12 @@
 "use client";
 import { formatDistanceToNow, isYesterday } from "date-fns";
+import { WakaResponse } from "../api/wakatime/wakatimeData";
 import type { Transition, Variants } from "framer-motion";
 import { AnimatePresence, motion } from "framer-motion";
+import { Response } from "../api/lastfm/LastFMData";
 import Translate from "@components/translation";
 import { LastFMSong } from "@/hooks/LastFMSong";
+import { WakaTime } from "@/hooks/WakaTime";
 import React, { useMemo } from "react";
 import Page from "@/components/page";
 import Image from "next/image";
@@ -11,8 +14,9 @@ import Link from "next/link";
 
 export default function Home() {
   const [data, setData] = React.useState<string | null>("");
+  const { seconds } = WakaTime() as WakaResponse;
   const { artist, cover, date, title, year, playing, url } =
-    LastFMSong() as any;
+    LastFMSong() as Response;
 
   React.useEffect(() => {
     const handleStorageChange = (event: any) => {
@@ -189,6 +193,33 @@ export default function Home() {
                 <div className="flex" style={{ flexDirection: "row" }}>
                   <div className="lastFMArtist">{artist}</div>
                 </div>
+              </div>
+            </Link>
+            <Link
+              href={"https://wakatime.com/@ForGetFulSkyBro"}
+              target="_blank"
+            >
+              <div className="wakaCard">
+                <div className="wakaHours">
+                  {Math.round(seconds / 3600).toLocaleString()} hours on
+                  WakaTime
+                </div>
+
+                <AnimatePresence>
+                  <motion.img
+                    alt={`wakatime`}
+                    draggable={false}
+                    animate="visible"
+                    className="wakaBg"
+                    height={100}
+                    width={100}
+                    initial="hidden"
+                    loading="lazy"
+                    src={"/wakatime.png"}
+                    transition={fade}
+                    variants={variants}
+                  />
+                </AnimatePresence>
               </div>
             </Link>
           </div>
