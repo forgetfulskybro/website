@@ -73,9 +73,7 @@ export async function getLatestSong(): Promise<Response | undefined> {
     const response: LastFmResponse = await fetch(LASTFM_ENDPOINT).then(
       (response) => {
         if (!response.ok) {
-          throw new Error(
-            `There was an error while querying the Last.fm API.`
-          );
+          throw new Error(`There was an error while querying the Last.fm API.`);
         }
 
         return response.json();
@@ -93,7 +91,9 @@ export async function getLatestSong(): Promise<Response | undefined> {
       date,
       url: song.url,
       cover:
-        song.image.length > 0
+        song.image.length > 0 &&
+        song.image[3]["#text"] !==
+          "https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png"
           ? song.image[3]["#text"]
           : ((
               await getAlbumCover(

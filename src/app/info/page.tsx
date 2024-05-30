@@ -201,7 +201,7 @@ export default function Home() {
             >
               <div className="wakaCard">
                 <div className="wakaHours">
-                  {Math.round(seconds / 3600).toLocaleString()} hours on
+                  {Math.round(seconds / 3600).toLocaleString() || "0"}+ hours on
                   WakaTime
                 </div>
 
