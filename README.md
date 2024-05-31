@@ -1,1 +1,1 @@
-Personal website. Use as you please :) 
+Personal website. Use any code to help with your website though all I ask is to not directly take the whole site. Of course I can't stop anyone but making your own site will always be better than using someone else's. :)
