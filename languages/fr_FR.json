@@ -3,7 +3,9 @@
     "listening": "À l'écoute",
     "playing": "Ne pas jouer",
     "progress": "En cours",
-    "recent": "Jeux récents"
+    "recent": "Jeux récents",
+    "hours": "heures sur",
+    "yester": "Hier"
   },
   "Projects": {
     "footer": {
@@ -70,7 +72,7 @@
       "descHello": "Bonjour, je m'appelle",
       "descOr": "ou",
       "descShort": "pour faire court",
-      "desc": "et je code depuis {date} ans. J'aime créer des projets open source sur mon temps libre ou quand je ne suis pas paresseux. J'aime aussi",
+      "desc": "et je code depuis {date} ans. J'aime créer des projets open source sur mon temps libre ou quand je ne suis pas paresseux.",
       "turtles": "tortues",
       "capybaras": "capybaras"
     },

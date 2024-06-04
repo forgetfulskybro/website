@@ -3,7 +3,9 @@
     "listening": "Dan Sucks",
     "playing": "Dan Sucks",
     "progress": "Dan Sucks",
-    "recent": "Dan Sucks"
+    "recent": "Dan Sucks",
+    "hours": "Dan Sucks",
+    "yester": "Dan Sucks"
   },
   "Projects": {
     "footer": {
@@ -70,7 +72,7 @@
       "descHello": "Dan Sucks, Dan Sucks Dan",
       "descOr": "Sucks",
       "descShort": "Dan Sucks",
-      "desc": "Dan Sucks Dan Sucks Dan {date} Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks",
+      "desc": "Dan Sucks Dan Sucks Dan {date} Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan.",
       "turtles": "Dan",
       "capybaras": "Sucks"
     },

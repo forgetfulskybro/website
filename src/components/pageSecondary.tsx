@@ -1,37 +1,15 @@
 /* eslint-disable react/no-children-prop */
 "use client";
 import TransitionEffect from "@/components/TransitionEffect";
+import { LangSelect } from "@/components/LanguageSelect";
 import { useRouter } from "next/navigation";
 import ToolTip from "@/components/ToolTip";
 import Translate from "./translation";
 import Image from "next/image";
-import React, { SetStateAction, useEffect } from "react";
+import React, { useEffect } from "react";
 
 export default function Page({ children }: { children: React.ReactNode }) {
-  const [data, setData] = React.useState<string | null>("");
-
-  React.useEffect(() => {
-    const handleStorageChange = (event: any) => {
-      if (localStorage.getItem("language") !== data)
-        return setData(localStorage.getItem("language"));
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, [data]);
-
-  React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      return setData(
-        localStorage.getItem("language")
-          ? localStorage.getItem("language")
-          : "en_EN"
-      );
-    }
-  }, []);
+  const data = LangSelect();
 
   useEffect(() => {
     if (Date().includes("Jun 29")) {

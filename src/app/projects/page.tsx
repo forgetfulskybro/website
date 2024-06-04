@@ -1,37 +1,15 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { LangSelect } from "@/components/LanguageSelect";
 import ToolTip from "@/components/ToolTipCover";
 import Translate from "@components/translation";
+import { usePathname } from "next/navigation";
 import Page from "@/components/page";
 import Image from "next/image";
 import Link from "next/link";
-import React, { SetStateAction } from "react";
+import React from "react";
 
 export default function Projects() {
-  const [data, setData] = React.useState<string | null>("");
-
-  React.useEffect(() => {
-    const handleStorageChange = (event: any) => {
-      if (localStorage.getItem("language") !== data)
-        return setData(localStorage.getItem("language"));
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, [data]);
-
-  React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      return setData(
-        localStorage.getItem("language")
-          ? localStorage.getItem("language")
-          : "en_EN"
-      );
-    }
-  }, []);
+  const data = LangSelect();
 
   const array: {
     target: string;

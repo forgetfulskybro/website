@@ -3,7 +3,9 @@
     "listening": "Listening to",
     "playing": "Not Playing",
     "progress": "In Progress",
-    "recent": "Recent Games"
+    "recent": "Recent Games",
+    "hours": "hours on",
+    "yester": "Yesterday"
   },
   "Projects": {
     "footer": {
@@ -70,7 +72,7 @@
       "descHello": "Hello, my name is",
       "descOr": "or",
       "descShort": "for short",
-      "desc": "and I've been coding for {date} years. I enjoy creating open source projects on my free time or whenever I'm not lazy. Also I like",
+      "desc": "and I've been coding for {date} years. I enjoy creating open source projects on my free time or whenever I'm not lazy.",
       "turtles": "turtles",
       "capybaras": "capybaras"
     },

@@ -1,36 +1,14 @@
 "use client";
+import { LangSelect } from "@/components/LanguageSelect";
 import Translate from "@components/translation";
 import ToolTip from "@/components/ToolTip";
 import Page from "@/components/page";
 import Image from "next/image";
 import Link from "next/link";
-import React, { SetStateAction } from "react";
+import React from "react";
 
 export default function Home() {
-  const [data, setData] = React.useState<string | null>("");
-
-  React.useEffect(() => {
-    const handleStorageChange = (event: any) => {
-      if (localStorage.getItem("language") !== data)
-        return setData(localStorage.getItem("language"));
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, [data]);
-
-  React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      return setData(
-        localStorage.getItem("language")
-          ? localStorage.getItem("language")
-          : "en_EN"
-      );
-  }
-  }, []);
+  const data = LangSelect();
 
   const links: { url: string; src: string; alt: string }[] = [
     {
@@ -94,23 +72,7 @@ export default function Home() {
             {new Translate().get(data!, "Misc.page.descShort")}. {birthday()}{" "}
             {new Translate().get(data!, "Misc.page.desc", {
               date: calcAge(new Date("2019-07-03")),
-            })}{" "}
-            <Link
-              className="link"
-              target="_blank"
-              href="https://google.com/search?q=turtles"
-            >
-              {new Translate().get(data!, "Misc.page.turtles")}
-            </Link>{" "}
-            &{" "}
-            <Link
-              className="link"
-              target="_blank"
-              href="https://google.com/search?q=capybaras"
-            >
-              {new Translate().get(data!, "Misc.page.capybaras")}
-            </Link>
-            .
+            })}
           </div>
           <div style={{ marginTop: "20px" }} className="flexGrid centered">
             {links.map((item) => (

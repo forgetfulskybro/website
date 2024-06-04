@@ -1,34 +1,12 @@
 "use client";
+import { LangSelect } from "@/components/LanguageSelect";
 import Translate from "@components/translation";
 import Page from "@/components/pageSecondary";
 import Image from "next/image";
-import React, { SetStateAction } from "react";
+import React from "react";
 
 export default function Home() {
-  const [data, setData] = React.useState<string | null>("");
-
-  React.useEffect(() => {
-    const handleStorageChange = (event: any) => {
-      if (localStorage.getItem("language") !== data)
-        return setData(localStorage.getItem("language"));
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, [data]);
-
-  React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      return setData(
-        localStorage.getItem("language")
-          ? localStorage.getItem("language")
-          : "en_EN"
-      );
-    }
-  }, []);
+  const data = LangSelect();
   return (
     <main className="main">
       <Page>

@@ -86,7 +86,7 @@ export async function getLatestSong(): Promise<Response | undefined> {
 
     return {
       title: capitalize(song.name),
-      artist: song.artist["#text"],
+      artist: capitalize(song.artist["#text"]),
       year,
       date,
       url: song.url,
