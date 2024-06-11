@@ -42,6 +42,7 @@ export default function ToolTipCover({
         TransitionComponent={Zoom}
         title={content}
         placement={placement}
+        disableFocusListener
       >
         {children}
       </Tooltip>
