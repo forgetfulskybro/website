@@ -51,7 +51,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
       }
     }
 
-    if (Date().includes("Jun")) {
+    if (Date().includes("Jun") && !Date().includes("Jun 30")) {
       let countDownDate = new Date(
         `Jun 29, ${new Date().getFullYear()} 00:00:00`
       ).getTime();
@@ -81,7 +81,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   return (
     <TransitionEffect>
-      {Date().includes("Jun") && (
+      {Date().includes("Jun") && !Date().includes("Jun 30") && (
         <div className="BirthdayDiv">
           <p>Birthday Countdown</p>
           <div style={{ backgroundColor: "#4D2424" }} className="divider"></div>
