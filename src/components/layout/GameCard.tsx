@@ -13,7 +13,7 @@ export const GameCard: React.FC<GamesProp> = ({ data, games }) => {
   return (
     <>
       {games
-        ?.sort((a: GameType, b: GameType) => b.myRating - a.myRating)
+        ?.sort((a: GameType, b: GameType) => b.myRating! - a.myRating!)
         .map((game: GameType) => (
           <Link href={game.website} key={game.target} target="_blank">
             <div className="gameCard flex boxes">
@@ -33,25 +33,31 @@ export const GameCard: React.FC<GamesProp> = ({ data, games }) => {
               </div>
               <div className="flex" style={{ flexDirection: "row" }}>
                 <div className="gameRate">
-                  {game.myRating}
-                  {""}
-                  <Image
-                    src={`/star.svg`}
-                    width={11}
-                    height={11}
-                    draggable={false}
-                    alt={"Link"}
-                    priority
-                  />
-                  /10{""}
-                  <Image
-                    src={`/star.svg`}
-                    width={11}
-                    height={11}
-                    draggable={false}
-                    alt={"Link"}
-                    priority
-                  />
+                  {game.myRating ? (
+                    <>
+                      {game.myRating}
+                      {""}
+                      <Image
+                        src={`/star.svg`}
+                        width={11}
+                        height={11}
+                        draggable={false}
+                        alt={"Link"}
+                        priority
+                      />
+                      /10{""}
+                      <Image
+                        src={`/star.svg`}
+                        width={11}
+                        height={11}
+                        draggable={false}
+                        alt={"Link"}
+                        priority
+                      />
+                    </>
+                  ) : (
+                    <p style={{ color: "#9F2AAA" }}>Unrated</p>
+                  )}
                 </div>
                 {game.progress && (
                   <p className="gameProgress Blue">

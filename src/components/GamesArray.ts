@@ -4,12 +4,32 @@ export interface GameType {
   progress: boolean;
   completed: boolean;
   image: string | null;
-  myRating: number;
+  myRating: number | null;
   tags: any[];
   website: string;
 }
 
 const Games: GameType[] = [
+  {
+    target: "dl2",
+    title: "Dying Light 2",
+    progress: true,
+    completed: false,
+    image: "/DL2.png",
+    myRating: null,
+    tags: ["Open World", "Zombies", "Parkour", "Horror"],
+    website: "https://dyinglightgame.com",
+  },
+  {
+    target: "got",
+    title: "Ghost of Tsushima",
+    progress: true,
+    completed: false,
+    image: "/ghost.jpg",
+    myRating: 8.9,
+    tags: ["Story Rich", "Open World", "Adventure", "Action"],
+    website: "https://www.suckerpunch.com/category/games/ghostoftsushima/",
+  },
   {
     target: "cy",
     title: "Cyberpunk 2077",
@@ -29,16 +49,6 @@ const Games: GameType[] = [
     myRating: 7.4,
     tags: ["Post-apocalyptic", "Singleplayer", "Open World", "FPS"],
     website: "https://www.metrothegame.com/en-us/",
-  },
-  {
-    target: "got",
-    title: "Ghost of Tsushima",
-    progress: true,
-    completed: false,
-    image: "/ghost.jpg",
-    myRating: 8.9,
-    tags: ["Story Rich", "Open World", "Adventure", "Action"],
-    website: "https://www.suckerpunch.com/category/games/ghostoftsushima/",
   },
 ];
 
