@@ -11,6 +11,16 @@ export interface GameType {
 
 const Games: GameType[] = [
   {
+    target: "tlou",
+    title: "The Last of Us",
+    progress: true,
+    completed: false,
+    image: "/tlou.png",
+    myRating: null,
+    tags: ["Post-apocalyptic", "Story Rich", "shooter", "Horror"],
+    website: "https://www.playstation.com/en-us/the-last-of-us/",
+  },
+  {
     target: "dl2",
     title: "Dying Light 2",
     progress: true,
@@ -54,11 +64,9 @@ const Games: GameType[] = [
 
 export function recentGames() {
   let games: typeof Games = [];
-  Games.map((g, i = 0) => {
-    i++;
-    if (i == 4) return;
-    else games.push(g);
-  });
+  for (let i = 0; i < 3; i++) {
+    games.push(Games[i]);
+  }
 
   return games;
 }
