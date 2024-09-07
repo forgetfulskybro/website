@@ -28,7 +28,7 @@ export const MoreGames: React.FC<GameProps> = ({ data }) => {
 
   return (
     <Link href={"/info/games"}>
-      <div className="mgCard">
+      <div className="wakaCard">
         <div className="mgDesc">
           {new Translate().get(data!, "Info.moreGames")}
         </div>

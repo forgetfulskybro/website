@@ -1,3 +1,7 @@
+/*
+  Credit: https://github.com/vimfn/www
+*/
+
 import { getAlbumCover } from "./SpotifyAlbum";
 const LASTFM_API = "https://ws.audioscrobbler.com/2.0";
 const LASTFM_USERNAME = "ForGetFulSkyBro";

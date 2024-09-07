@@ -1,3 +1,7 @@
+/*
+  Credit: https://github.com/vimfn/www
+*/
+
 const ENDPOINT = "https://api.spotify.com/v1/search?q=";
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID as string;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET as string;

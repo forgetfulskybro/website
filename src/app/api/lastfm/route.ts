@@ -1,3 +1,7 @@
+/*
+  Credit: https://github.com/vimfn/www
+*/
+
 import { NextResponse } from "next/server";
 import { getLatestSong } from "./LastFMData";
 
