@@ -17,7 +17,7 @@ const Games: GameType[] = [
     completed: false,
     image: "/tlou.png",
     myRating: null,
-    tags: ["Post-apocalyptic", "Story Rich", "shooter", "Horror"],
+    tags: ["Post-apocalyptic", "Story Rich", "Shooter", "Horror"],
     website: "https://www.playstation.com/en-us/the-last-of-us/",
   },
   {
