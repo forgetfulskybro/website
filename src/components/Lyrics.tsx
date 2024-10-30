@@ -1,6 +1,8 @@
 "use client";
 import { LastFMSong } from "@/hooks/LastFMSong";
 import React, { useState, useEffect } from "react";
+import ToolTip from "@/components/ToolTip";
+import Link from "next/link";
 import {
   Dialog,
   DialogTitle,
@@ -8,7 +10,6 @@ import {
   DialogContentText,
   Typography,
 } from "@mui/material";
-import Link from "next/link";
 
 export default function Lyrics({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -106,7 +107,7 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
                 gap: "6px",
               }}
             >
-              {duration && started && (
+              {duration && duration != 0 && started ? (
                 <>
                   <span style={{ color: "#642D8E", marginRight: "6px" }}>
                     {elapsedTime}
@@ -138,6 +139,12 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
                     {formatDuration(duration)}
                   </span>
                 </>
+              ) : (
+                <>
+                  <ToolTip content={"Unknown Duration"} placement="bottom">
+                    <span style={{ color: "#642D8E" }}>00:00</span>
+                  </ToolTip>
+                </>
               )}
               {duration && listeners && (
                 <svg
@@ -154,15 +161,17 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
                 </svg>
               )}
               {listeners && (
-                <span style={{ color: "#9664D1" }}>
-                  {listeners > 999
-                    ? listeners > 999999
-                      ? `${(listeners / 1000000).toFixed(1)}M`
-                      : `${(listeners / 1000).toFixed(1)}K`
-                    : listeners
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                </span>
+                <ToolTip content={"Listeners"} placement="bottom">
+                  <span style={{ color: "#9664D1" }}>
+                    {listeners > 999
+                      ? listeners > 999999
+                        ? `${(listeners / 1000000).toFixed(1)}M`
+                        : `${(listeners / 1000).toFixed(1)}K`
+                      : listeners
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </span>
+                </ToolTip>
               )}
               {listeners && playcount && (
                 <svg
@@ -179,15 +188,17 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
                 </svg>
               )}
               {playcount && (
-                <span style={{ color: "#A78BFA" }}>
-                  {playcount > 999
-                    ? playcount > 999999
-                      ? `${(playcount / 1000000).toFixed(1)}M`
-                      : `${(playcount / 1000).toFixed(1)}K`
-                    : playcount
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                </span>
+                <ToolTip content={"Scrobbles"} placement="bottom">
+                  <span style={{ color: "#A78BFA" }}>
+                    {playcount > 999
+                      ? playcount > 999999
+                        ? `${(playcount / 1000000).toFixed(1)}M`
+                        : `${(playcount / 1000).toFixed(1)}K`
+                      : playcount
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </span>
+                </ToolTip>
               )}
             </Typography>
           </DialogTitle>
