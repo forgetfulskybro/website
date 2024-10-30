@@ -3,6 +3,7 @@ import { GameType } from "../GamesArray";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import ToolTip from "../ToolTip";
 
 interface GamesProp {
   data: string;
@@ -59,11 +60,11 @@ export const GameCard: React.FC<GamesProp> = ({ data, games }) => {
                     <p style={{ color: "#9F2AAA" }}>Unrated</p>
                   )}
                 </div>
-                {game.progress && (
+                <ToolTip content={game.progress} placement="top">
                   <p className="gameProgress Blue">
-                    {new Translate().get(data!, "Info.progress")}
+                    Progress
                   </p>
-                )}
+                </ToolTip>
               </div>
               <div className="flex" style={{ flexDirection: "row" }}>
                 <div>

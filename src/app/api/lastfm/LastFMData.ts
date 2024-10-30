@@ -62,8 +62,17 @@ export interface Response {
   artist: string;
   cover?: string;
   date?: number;
+  duration: number;
+  listeners: number;
+  playcount: number;
+  started: Date | undefined;
+  tags?: {
+    name: string;
+    url: string; 
+  }[];
   playing: boolean;
   title: string;
+  lyrics: string | null;
   url: string;
   year?: number;
 }
@@ -85,12 +94,50 @@ export async function getLatestSong(): Promise<Response | undefined> {
     );
 
     const song = response.recenttracks?.track?.[0];
+
+    const LASTFM_TRACK = `${LASTFM_API}?method=track.getInfo&api_key=${
+      process.env.LASTFM_API_TOKEN
+    }&format=json&artist=${song.artist["#text"].replaceAll(
+      " ",
+      "%20"
+    )}&track=${song.name.replaceAll(" ", "%20")}`;
+
+    const trackResponse = await fetch(LASTFM_TRACK).then((response) => {
+      if (!response.ok) {
+        throw new Error(`There was an error while querying the Last.fm API.`);
+      }
+      return response.json();
+    });
+
+    const track = trackResponse.track;
+    let lyrics;
+
+    try {
+      lyrics = await fetch(
+        `https://lyrist.vercel.app/api/${song.artist["#text"]}/${song.name}`
+      ).then((response) => {
+        if (!response.ok) {
+          throw new Error(`There was an error while querying the Lyrist API.`);
+        }
+
+        return response.json();
+      });
+    } catch {
+      lyrics = null; 
+    }
+
     const date = song.date?.uts ? Number(song.date?.uts) : undefined;
     let year: number | undefined;
 
     return {
       title: capitalize(song.name),
       artist: capitalize(song.artist["#text"]),
+      lyrics: lyrics?.lyrics || null,
+      duration: track?.duration || 0,
+      listeners: track?.listeners || 0,
+      playcount: track?.playcount || 0,
+      tags: track?.toptags.tag || [],
+      started: new Date(new Date().getTime()),
       year,
       date,
       url: song.url,
@@ -99,13 +146,13 @@ export async function getLatestSong(): Promise<Response | undefined> {
         song.image[3]["#text"] !==
           "https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png"
           ? song.image[3]["#text"]
-          : ((
+          : (
               await getAlbumCover(
                 `track: ${capitalize(song.name)} artist: ${
                   song.artist["#text"]
                 }`
               )
-            ).coverArt.url as string),
+            ).coverArt.url,
       playing: Boolean(song["@attr"]?.nowplaying) ?? !date,
     };
   } catch (error) {

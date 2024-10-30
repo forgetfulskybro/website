@@ -1,10 +1,9 @@
 export interface GameType {
   target: string;
   title: string;
-  progress: boolean;
-  completed: boolean;
   image: string | null;
   myRating: number | null;
+  progress: string;
   tags: any[];
   website: string;
 }
@@ -13,18 +12,16 @@ const Games: GameType[] = [
   {
     target: "tlou",
     title: "The Last of Us",
-    progress: true,
-    completed: false,
     image: "/tlou.png",
-    myRating: null,
+    progress: "Completed",
+    myRating: 6.8,
     tags: ["Post-apocalyptic", "Story Rich", "Shooter", "Horror"],
     website: "https://www.playstation.com/en-us/the-last-of-us/",
   },
   {
     target: "dl2",
     title: "Dying Light 2",
-    progress: true,
-    completed: false,
+    progress: "Around 25% (untracked)",
     image: "/DL2.png",
     myRating: null,
     tags: ["Open World", "Zombies", "Parkour", "Horror"],
@@ -33,9 +30,8 @@ const Games: GameType[] = [
   {
     target: "got",
     title: "Ghost of Tsushima",
-    progress: true,
-    completed: false,
     image: "/ghost.jpg",
+    progress: "Around 47% (untracked)",
     myRating: 8.9,
     tags: ["Story Rich", "Open World", "Adventure", "Action"],
     website: "https://www.suckerpunch.com/category/games/ghostoftsushima/",
@@ -43,9 +39,8 @@ const Games: GameType[] = [
   {
     target: "cy",
     title: "Cyberpunk 2077",
-    progress: false,
-    completed: false,
     image: "/cyberpunk.ico",
+    progress: "Around 36% (2nd Playthrough)",
     myRating: 8.7,
     tags: ["Cyberpunk", "Open World", "Sci-fi", "FPS", "RPG"],
     website: "https://www.cyberpunk.net/us/en/",
@@ -53,9 +48,8 @@ const Games: GameType[] = [
   {
     target: "m",
     title: "Metro Exodus",
-    progress: false,
-    completed: false,
     image: "/metro.png",
+    progress: "Around 50% (2nd Playthrough)",
     myRating: 7.4,
     tags: ["Post-apocalyptic", "Singleplayer", "Open World", "FPS"],
     website: "https://www.metrothegame.com/en-us/",

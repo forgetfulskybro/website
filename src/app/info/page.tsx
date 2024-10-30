@@ -1,9 +1,10 @@
 "use client";
 import { RecentGames } from "@/components/layout/RecentGames";
+import { LangSelect } from "@/components/LanguageSelect";
 import { LastFM } from "@/components/layout/LastFM";
 import { Waka } from "@/components/layout/WakaTime";
-import { LangSelect } from "@/components/LanguageSelect";
 import Translate from "@components/translation";
+import Lyrics from "@/components/Lyrics";
 import Page from "@/components/page";
 import React from "react";
 
@@ -17,7 +18,9 @@ export default function Home() {
             style={{ maxHeight: "30vh", marginBottom: "10px" }}
             className="flexGrid flex center"
           >
-            <LastFM data={data!} />
+            <Lyrics>
+              <LastFM data={data!} />
+            </Lyrics>
             <Waka data={data!} />
           </div>
           <div className="boxes">

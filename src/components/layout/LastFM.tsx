@@ -54,69 +54,98 @@ export const LastFM: React.FC<LastFMProps> = ({ data }) => {
   };
 
   return (
-    <Link href={url ? url : "https://example.com"} target="_blank">
-      <div className="gameCard flex">
-        {cover ? (
-          <AnimatePresence>
-            {cover && (
-              <motion.img
-                alt={`${title} by ${artist}`}
-                draggable={false}
-                animate="visible"
-                className="gameIcon"
-                height={100}
-                width={100}
-                initial="hidden"
-                key={`${artist} ${title}`}
-                loading="lazy"
-                src={cover}
-                transition={fade}
-                variants={variants}
-              />
-            )}
-          </AnimatePresence>
-        ) : (
-          <Image
-            className="gameIcon"
-            src={"/music.png"}
-            height={100}
-            width={100}
-            draggable={false}
-            alt="Skele"
-            priority={true}
-          />
-        )}
-        <div className="flex" style={{ flexDirection: "row" }}>
-          <div className="lastFMTop">
-            <Image
-              src={"/music.svg"}
-              className="musicIcon"
-              height={20}
-              width={20}
+    <div className="gameCard flex">
+      {cover ? (
+        <AnimatePresence>
+          {cover && (
+            <motion.img
+              alt={`${title} by ${artist}`}
               draggable={false}
-              alt="Music"
-              priority={true}
+              animate="visible"
+              className="gameIcon"
+              height={100}
+              width={100}
+              initial="hidden"
+              key={`${artist} ${title}`}
+              loading="lazy"
+              src={cover}
+              transition={fade}
+              variants={variants}
             />
-            {absoluteDate ? (
-              <time dateTime={absoluteDate.toISOString()}>{relativeDate}</time>
-            ) : (
-              <span>
-                {playing
-                  ? `${new Translate().get(data!, "Info.listening")}...`
-                  : new Translate().get(data!, "Info.playing")}
-              </span>
-            )}
-          </div>
-        </div>
-        <div className="flex" style={{ flexDirection: "row" }}>
-          <div className="lastFMTitle">
-            <b>{title}</b>
-          </div>
-        </div>
-        <div className="flex" style={{ flexDirection: "row" }}>
-          <div className="lastFMArtist">{artist}</div>
+          )}
+        </AnimatePresence>
+      ) : (
+        <Image
+          className="gameIcon"
+          src={"/music.png"}
+          height={100}
+          width={100}
+          draggable={false}
+          alt="Skele"
+          priority={true}
+        />
+      )}
+      <div className="flex" style={{ flexDirection: "row" }}>
+        <div className="lastFMTop">
+          {playing && (
+            <>
+              <Image
+                src={"/music.svg"}
+                className="musicIcon"
+                height={20}
+                width={20}
+                draggable={false}
+                alt="Music"
+                priority={true}
+              />
+            </>
+          )}
+          {absoluteDate ? (
+            <time dateTime={absoluteDate.toISOString()}>{relativeDate}</time>
+          ) : (
+            <span>
+              {playing ? (
+                `${new Translate().get(data!, "Info.listening")}...`
+              ) : (
+                <>
+                  <svg
+                    className="container"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 50 31.25"
+                    height="31.25"
+                    width="50"
+                    preserveAspectRatio="xMidYMid meet"
+                  >
+                    <path
+                      className="track"
+                      strokeWidth="4"
+                      fill="none"
+                      pathLength="100"
+                      d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
+                    />
+                    <path
+                      className="car"
+                      strokeWidth="4"
+                      fill="none"
+                      pathLength="100"
+                      d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
+                    />
+                  </svg>
+                </>
+              )}
+            </span>
+          )}
         </div>
       </div>
-    </Link>
+      <div className="flex" style={{ flexDirection: "row" }}>
+        <div className="lastFMTitle">
+          <b>{title?.slice(0, 55)}</b>
+        </div>
+      </div>
+      <div className="flex" style={{ flexDirection: "row" }}>
+        <div className="lastFMArtist">{artist}</div>
+      </div>
+    </div>
   );
 };
