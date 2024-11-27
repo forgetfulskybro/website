@@ -7,7 +7,6 @@ import { LastFMSong } from "@/hooks/LastFMSong";
 import { es, fr } from "date-fns/locale";
 import { useMemo } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 interface LastFMProps {
@@ -29,6 +28,7 @@ export const LastFM: React.FC<LastFMProps> = ({ data }) => {
 
     return new Date(date * 1000);
   }, [date]);
+
   const relativeDate = useMemo(() => {
     if (!absoluteDate) return;
 
@@ -40,16 +40,20 @@ export const LastFM: React.FC<LastFMProps> = ({ data }) => {
   const variants: Variants = {
     hidden: {
       opacity: 0,
+
       zIndex: 0,
     },
+
     visible: {
       opacity: 1,
+
       zIndex: 100,
     },
   };
 
   const fade: Transition = {
     ease: "easeInOut",
+
     duration: 0.6,
   };
 
@@ -85,20 +89,19 @@ export const LastFM: React.FC<LastFMProps> = ({ data }) => {
           priority={true}
         />
       )}
+
       <div className="flex" style={{ flexDirection: "row" }}>
         <div className="lastFMTop">
           {playing && (
-            <>
-              <Image
-                src={"/music.svg"}
-                className="musicIcon"
-                height={20}
-                width={20}
-                draggable={false}
-                alt="Music"
-                priority={true}
-              />
-            </>
+            <Image
+              src="/music.svg"
+              className="musicIcon"
+              height={20}
+              width={20}
+              draggable={false}
+              alt="Music"
+              priority={true}
+            />
           )}
           {absoluteDate ? (
             <time dateTime={absoluteDate.toISOString()}>{relativeDate}</time>
@@ -107,42 +110,43 @@ export const LastFM: React.FC<LastFMProps> = ({ data }) => {
               {playing ? (
                 `${new Translate().get(data!, "Info.listening")}...`
               ) : (
-                <>
-                  <svg
-                    className="container"
-                    x="0px"
-                    y="0px"
-                    viewBox="0 0 50 31.25"
-                    height="31.25"
-                    width="50"
-                    preserveAspectRatio="xMidYMid meet"
-                  >
-                    <path
-                      className="track"
-                      strokeWidth="4"
-                      fill="none"
-                      pathLength="100"
-                      d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
-                    />
-                    <path
-                      className="car"
-                      strokeWidth="4"
-                      fill="none"
-                      pathLength="100"
-                      d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
-                    />
-                  </svg>
-                </>
+                <svg
+                  className="container"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 50 31.25"
+                  height="31.25"
+                  width="50"
+                  preserveAspectRatio="xMidYMid meet"
+                >
+                  <path
+                    className="track"
+                    strokeWidth="4"
+                    fill="none"
+                    pathLength="100"
+                    d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
+                  />
+
+                  <path
+                    className="car"
+                    strokeWidth="4"
+                    fill="none"
+                    pathLength="100"
+                    d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
+                  />
+                </svg>
               )}
             </span>
           )}
         </div>
       </div>
+
       <div className="flex" style={{ flexDirection: "row" }}>
         <div className="lastFMTitle">
           <b>{title?.slice(0, 55)}</b>
         </div>
       </div>
+
       <div className="flex" style={{ flexDirection: "row" }}>
         <div className="lastFMArtist">{artist}</div>
       </div>

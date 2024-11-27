@@ -90,12 +90,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
       )}
       <div className="parent center">
         <div className="card boxes flexGrid" id="confetti-wrapper">
-          <div
-            style={{
-              height: "48px",
-            }}
-            className="cardSlider hide"
-          >
+          <div className="sliderSideSecondary">
             <div style={{ cursor: "pointer" }} onClick={() => router.back()}>
               <ToolTip
                 content={new Translate().get(data!, "Comps.pageSecondary.back")}
@@ -103,11 +98,9 @@ export default function Page({ children }: { children: React.ReactNode }) {
               >
                 <span
                   id="tooltip"
-                  style={{ marginTop: 8 }}
                   className="dot home homeHigh"
                 >
                   <Image
-                    style={{ marginTop: 7 }}
                     src="../backward.svg"
                     width={17}
                     height={17}
@@ -118,37 +111,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
               </ToolTip>
             </div>
           </div>
-
           <div className="description">{children}</div>
-
-          <div
-            style={{
-              height: "48px",
-            }}
-            className="sliderSideSecondary hiding"
-          >
-            <div style={{ cursor: "pointer" }} onClick={() => router.back()}>
-              <ToolTip
-                content={new Translate().get(data!, "Comps.pageSecondary.back")}
-                placement="top"
-              >
-                <span
-                  id="tooltip"
-                  style={{ marginTop: 8 }}
-                  className="dot home homeHigh"
-                >
-                  <Image
-                    style={{ marginTop: 7 }}
-                    src="../backward.svg"
-                    width={17}
-                    height={17}
-                    draggable={false}
-                    alt="Go back"
-                  />
-                </span>
-              </ToolTip>
-            </div>
-          </div>
         </div>
       </div>
     </TransitionEffect>

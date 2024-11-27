@@ -54,6 +54,10 @@ export default class TranslationHandler {
     if (!c) return path;
 
     if (data) {
+      if (!c || typeof c !== "string") {
+        console.error(`Translation ${path} not found`);
+        return `Error`;
+      }
       return c?.replace(
         /{(\w+)}/g,
         (match: string, key: string) => data[key] ?? match

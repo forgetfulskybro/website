@@ -11,7 +11,7 @@ export default function Projects() {
     <main key={usePathname()} className="main">
       <Page>
         <div
-          style={{ marginRight: 10, maxHeight: "80vh" }}
+          style={{ marginRight: 10, maxHeight: "80vh", overflowY: "auto" }}
           className="flexGrid"
         >
           <ProjectCards data={data!} />

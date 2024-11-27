@@ -99,7 +99,10 @@
       "dark": "Oscuro",
       "shrimp": "Gambas",
       "chant": "Canto",
-      "smurf": "Smurf"
+      "smurf": "Smurf",
+      "custom": "Personalizado",
+      "customColor": "Color Personalizado",
+      "apply": "Aplicar"
     },
     "pageSecondary": {
       "back": "Volver atrás"

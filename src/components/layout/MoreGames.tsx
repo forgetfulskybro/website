@@ -1,54 +1,60 @@
 "use client";
-import type { Transition, Variants } from "framer-motion";
-import { AnimatePresence, motion } from "framer-motion";
 import Translate from "@components/translation";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 
 interface GameProps {
   data: string;
 }
 
 export const MoreGames: React.FC<GameProps> = ({ data }) => {
-
-  const variants: Variants = {
-    hidden: {
-      opacity: 0,
-      zIndex: 0,
-    },
-    visible: {
-      opacity: 1,
-      zIndex: 100,
-    },
-  };
-
-  const fade: Transition = {
-    ease: "easeInOut",
-    duration: 0.6,
-  };
-
   return (
     <Link href={"/info/games"}>
-      <div className="wakaCard">
-        <div className="mgDesc">
+      <motion.div 
+        className="gameCard flex boxes" 
+        style={{ 
+          width: 335, 
+          height: 93.5,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '8px'
+        }}
+        whileHover="hover"
+      >
+        <div className="gameTitle" style={{ textAlign: 'center', display: 'flex', alignItems: 'center' }}>
           {new Translate().get(data!, "Info.moreGames")}
         </div>
-
-        <AnimatePresence>
-          <motion.img
-            alt={`More games`}
-            draggable={false}
-            animate="visible"
-            className="mgBg"
-            height={100}
-            width={100}
-            initial="hidden"
-            loading="lazy"
-            src={"/moregames.png"}
-            transition={fade}
-            variants={variants}
+        <motion.div
+          style={{ 
+            position: 'relative',
+            top: '10px',
+            padding: '4px'
+          }}
+          variants={{
+            hover: {
+              rotate: 360,
+              transition: {
+                duration: 0.6,
+                ease: "easeInOut"
+              }
+            }
+          }}
+        >
+          <Image
+            src="/arrow.svg"
+            width={20}
+            height={20}
+            alt="Arrow"
+            priority
+            style={{ 
+              transform: 'rotate(-90deg) translateX(6px)',
+            }}
           />
-        </AnimatePresence>
-      </div>
+        </motion.div>
+      </motion.div>
     </Link>
   );
 };

@@ -9,6 +9,22 @@ interface ProjectProps {
 }
 
 export const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
+  const darkenColor = (color: string) => {
+    // Remove the '#' and split into RGB components
+    const hex = color.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+
+    // Darken by reducing each component by 30%
+    const darkerR = Math.floor(r * 0.7);
+    const darkerG = Math.floor(g * 0.7);
+    const darkerB = Math.floor(b * 0.7);
+
+    // Convert back to hex
+    return `#${darkerR.toString(16).padStart(2, '0')}${darkerG.toString(16).padStart(2, '0')}${darkerB.toString(16).padStart(2, '0')}`;
+  };
+
   const array: {
     target: string;
     title: string;
@@ -181,7 +197,7 @@ export const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
       target: "D",
       title: "Durchie",
       image: "/Durchie.png",
-      tags: [{ name: "Discord Bot", color: "#5764F3" }],
+      tags: [{ name: "Discord Bot", color: "#5764F3" }],  
       footer: {
         start: "Jun 1, 2021",
         end: "Jun 9,2022",
@@ -291,49 +307,42 @@ export const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
           key={project.target}
           placement="top"
           content={
-            <div
-              style={{
-                backgroundColor: "#595959",
-                border: "2px 2px 2px 2px #595959",
-                borderRadius: "5px",
-              }}
-              className="flexGrid center"
-            >
+            <div className="projectTooltip">
               {project.github ? (
                 <Link href={project.github} target="_blank">
-                  <button className="button">GitHub</button>
+                  <button className="tooltipButton">GitHub</button>
                 </Link>
               ) : (
-                <button className="button disable" disabled>
+                <button className="tooltipButton" disabled>
                   GitHub
                 </button>
               )}
               {project.community ? (
                 <Link href={project.community} target="_blank">
-                  <button className="button">
+                  <button className="tooltipButton">
                     {new Translate().get(data!, "Projects.buttons.community")}
                   </button>
                 </Link>
               ) : (
-                <button className="button disable" disabled>
+                <button className="tooltipButton" disabled>
                   {new Translate().get(data!, "Projects.buttons.community")}
                 </button>
               )}
               {project.website ? (
                 <Link href={project.website} target="_blank">
-                  <button className="button">
+                  <button className="tooltipButton">
                     {new Translate().get(data!, "Projects.buttons.website")}
                   </button>
                 </Link>
               ) : (
-                <button className="button disable" disabled>
+                <button className="tooltipButton" disabled>
                   {new Translate().get(data!, "Projects.buttons.website")}
                 </button>
               )}
             </div>
           }
         >
-          <div className="projectCard flex">
+          <div className="projectCard flex relative">
             <div className="projectTitle">
               {project.image && (
                 <Image
@@ -358,7 +367,11 @@ export const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
               {project.tags.map((tag) => (
                 <div
                   key={tag.name}
-                  style={{ backgroundColor: tag.color, padding: "0.2rem" }}
+                  style={{ 
+                    backgroundColor: darkenColor(tag.color),
+                    padding: '0.35rem',
+                    borderRadius: '5px'
+                  }}
                   className="projectTags"
                 >
                   {tag.name}
@@ -370,20 +383,34 @@ export const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
               <a style={{ color: "white", fontWeight: 1000 }}>
                 {project.footer.end}
               </a>
-              {project.flags.length > 0 &&
-                project.flags.map((e) => (
-                  <a
-                    key={e.name}
-                    style={{
-                      color: e.color,
-                      fontWeight: 1000,
-                      marginLeft: 10,
-                    }}
-                  >
-                    {e.name}
-                  </a>
-                ))}
             </div>
+            {project.flags.length > 0 && (
+              <>
+                {project.flags.map((flag, index) => {
+                  const isContrib = flag.name === new Translate().get(data!, "Projects.flags.contrib");
+                  const isDiscon = flag.name === new Translate().get(data!, "Projects.flags.discon");
+                  return (
+                    <span
+                      key={flag.name}
+                      style={{
+                        color: flag.color,
+                        fontWeight: 1000,
+                        position: 'absolute',
+                        right: '0.75rem',
+                        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                        padding: '0.15rem 0.4rem',
+                        borderRadius: '4px',
+                        fontSize: '0.7rem',
+                        ...(isContrib ? { top: '0.75rem' } : {}),
+                        ...(isDiscon ? { bottom: '0.75rem' } : {}),
+                      }}
+                    >
+                      {flag.name}
+                    </span>
+                  );
+                })}
+              </>
+            )}
           </div>
         </ToolTip>
       ))}

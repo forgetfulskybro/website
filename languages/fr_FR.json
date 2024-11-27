@@ -99,7 +99,10 @@
       "dark": "Sombre",
       "shrimp": "Crevettes",
       "chant": "Chant",
-      "smurf": "Smurf"
+      "smurf": "Smurf",
+      "custom": "Personnaliser",
+      "customColor": "Couleur Personnalisée",
+      "apply": "Appliquer"
     },
     "pageSecondary": {
       "back": "Retourner"

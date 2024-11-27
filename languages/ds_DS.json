@@ -99,7 +99,10 @@
       "dark": "Dan",
       "shrimp": "Sucks",
       "chant": "Dan",
-      "smurf": "Sucks"
+      "smurf": "Sucks",
+      "custom": "Dan",
+      "customColor": "Dan Sucks",
+      "apply": "Dan"
     },
     "pageSecondary": {
       "back": "Dan Sucks"

@@ -23,7 +23,7 @@ export default function Home() {
     },
     {
       url: "https://x.com/ForGetFulSkyBro",
-      src: "/X.jpg",
+      src: "/X.svg",
       alt: "X.com",
     },
     {
@@ -74,17 +74,22 @@ export default function Home() {
               date: calcAge(new Date("2019-07-03")),
             })}
           </div>
-          <div style={{ marginTop: "20px" }} className="flexGrid centered">
+          <div style={{ marginTop: "20px", marginLeft: "10px" }} className="flexGrid centered">
             {links.map((item) => (
               <Link key={item.alt} href={item.url} target="_blank">
                 <ToolTip content={item.alt} placement="bottom">
-                  <div className="cardSocials flex">
+                  <div 
+                    className="cardSocials" 
+                    data-platform={item.alt}
+                    style={item.alt === "X.com" ? {
+                      borderRadius: '8px',
+                      overflow: 'hidden'
+                    } : undefined}
+                  >
                     <Image
-                      className="img"
-                      style={{ marginTop: 5 }}
                       src={item.src}
-                      width={37}
-                      height={37}
+                      width={28}
+                      height={28}
                       draggable={false}
                       alt={item.alt}
                       priority
@@ -101,6 +106,7 @@ export default function Home() {
           src="/Me.png"
           height={240}
           width={240}
+          style={{ height: "auto", width: 240 }}
           draggable={false}
           alt="Avatar"
           priority

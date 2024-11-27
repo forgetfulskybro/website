@@ -22,8 +22,8 @@ export const GameCard: React.FC<GamesProp> = ({ data, games }) => {
                 <Image
                   className="gameIcon"
                   src={game.image}
-                  height={300}
-                  width={300}
+                  height={150}
+                  width={150}
                   draggable={false}
                   alt="Game Icon"
                   priority={true}
@@ -43,8 +43,8 @@ export const GameCard: React.FC<GamesProp> = ({ data, games }) => {
                         width={11}
                         height={11}
                         draggable={false}
-                        alt={"Link"}
-                        priority
+                        alt="Rating star"
+                        priority={false}
                       />
                       /10{""}
                       <Image
@@ -52,8 +52,8 @@ export const GameCard: React.FC<GamesProp> = ({ data, games }) => {
                         width={11}
                         height={11}
                         draggable={false}
-                        alt={"Link"}
-                        priority
+                        alt="Rating star"
+                        priority={false}
                       />
                     </>
                   ) : (

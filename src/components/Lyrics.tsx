@@ -1,28 +1,15 @@
 "use client";
 import { LastFMSong } from "@/hooks/LastFMSong";
 import React, { useState, useEffect } from "react";
-import ToolTip from "@/components/ToolTip";
-import Link from "next/link";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  Typography,
-} from "@mui/material";
+import { Dialog, DialogContent, DialogContentText } from "@mui/material";
+import { defaultColors, generateColorVariants } from "./Lyrics/theme";
+import { formatDuration } from "./Lyrics/utils";
+import { DialogHeader } from "./Lyrics/DialogHeader";
+import { useTimeTracking } from "./Lyrics/useTimeTracking";
 
 export default function Lyrics({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
-  const [elapsedTime, setElapsedTime] = useState("00:00");
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+  const [themeColors, setThemeColors] = useState(defaultColors);
   const {
     artist,
     title,
@@ -35,319 +22,167 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
     started,
   } = LastFMSong();
 
-  const formatDuration = (duration: number | undefined) => {
-    const minutes = Math.floor(duration! / 60000);
-    const seconds = Math.floor((duration! % 60000) / 1000);
-    return `${minutes.toString().padStart(2, "0")}:${seconds
-      .toString()
-      .padStart(2, "0")}`;
-  };
+  const startedString = started instanceof Date ? started.toISOString() : started;
+
+  const {
+    elapsedTime,
+    startTimeTracking,
+    getProgress,
+    animationFrameRef,
+    startTimeRef,
+    isVisibleRef,
+    currentSongRef,
+    updateElapsedTime
+  } = useTimeTracking(startedString, duration);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (open && started) {
-      const startTime = new Date(started).getTime();
-      interval = setInterval(() => {
-        const elapsedSeconds = Math.floor(
-          (new Date().getTime() - startTime) / 1000
-        );
-        setElapsedTime(formatDuration(elapsedSeconds * 1000));
-        if (
-          formatDuration(elapsedSeconds * 1000) === formatDuration(duration)
-        ) {
-          clearInterval(interval);
-        }
-      }, 1000);
+    if (started && duration) {
+      const songId = `${artist}-${title}`;
+      if (currentSongRef.current !== songId) {
+        currentSongRef.current = songId;
+        startTimeRef.current = new Date(started).getTime();
+      }
+      startTimeTracking();
     }
-    return () => clearInterval(interval);
-  }, [open, started, duration]);
+    
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [started, duration, startTimeTracking, artist, title, animationFrameRef, currentSongRef, startTimeRef]);
 
-  <span style={{ color: "#642D8E", marginRight: "6px" }}>{elapsedTime}</span>;
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      const isVisible = document.visibilityState === 'visible';
+      isVisibleRef.current = isVisible;
+      
+      if (isVisible && open && started && duration) {
+        animationFrameRef.current = requestAnimationFrame(updateElapsedTime);
+      } else if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
 
-  if (lyrics)
-    return (
-      <>
-        <div onClick={handleClickOpen}>{children}</div>
-        <Dialog
-          sx={{ maxHeight: "90vh", top: 36 }}
-          fullWidth={true}
-          maxWidth={"sm"}
-          open={open}
-          onClose={handleClose}
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [open, started, duration, updateElapsedTime, animationFrameRef, isVisibleRef]);
+
+  useEffect(() => {
+    if (open && started && duration) {
+      startTimeTracking();
+    }
+    
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [open, started, duration, startTimeTracking, animationFrameRef]);
+
+  useEffect(() => {
+    const updateThemeColor = () => {
+      try {
+        const storedTheme = localStorage.getItem('theme');
+        const customColor = localStorage.getItem('customColor');
+        
+        let baseColor = defaultColors.main;
+        
+        if (customColor) {
+          baseColor = customColor;
+        } else if (storedTheme) {
+          const theme = JSON.parse(storedTheme);
+          baseColor = theme.primary;
+        }
+        
+        setThemeColors(generateColorVariants(baseColor));
+      } catch (error) {
+        console.error("Error updating theme color:", error);
+        setThemeColors(defaultColors);
+      }
+    };
+
+    updateThemeColor();
+    const checkInterval = setInterval(updateThemeColor, 7500);
+
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'theme' || e.key === 'customColor') {
+        updateThemeColor();
+      }
+    });
+
+    return () => {
+      clearInterval(checkInterval);
+    };
+  }, []);
+
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const dialogContent = (
+    <Dialog
+      sx={{ 
+        maxHeight: "90vh", 
+        top: 36,
+        '& .MuiDialog-paper': {
+          backgroundColor: 'rgba(23,23,23,0.7)',
+          backdropFilter: 'blur(12px)',
+          borderRadius: '16px',
+          border: '1px solid rgba(255,255,255,0.1)',
+          boxShadow: `0 8px 32px ${themeColors.dark}40`,
+        }
+      }}
+      fullWidth={true}
+      maxWidth={"sm"}
+      open={open}
+      onClose={handleClose}
+    >
+      <DialogHeader
+        themeColors={themeColors}
+        url={url || ""}
+        artist={artist || ""}
+        title={title || ""}
+        tags={tags || []}
+        listeners={listeners}
+        playcount={playcount}
+        elapsedTime={elapsedTime}
+        duration={duration}
+        started={startedString}
+        getProgress={getProgress}
+        formatDuration={formatDuration}
+      />
+      <DialogContent sx={{ backgroundColor: 'transparent' }}>
+        <DialogContentText
+          sx={{ 
+            color: "#fff", 
+            whiteSpace: "pre-line", 
+            marginTop: "20px",
+            opacity: 0.9,
+            lineHeight: 1.6,
+            '& strong, & b': {
+              color: themeColors.lighter,
+              fontWeight: 600
+            }
+          }}
         >
-          <DialogTitle sx={{ backgroundColor: "#0E0E0E", color: "#642D8E" }}>
-            <Link href={url ? url : "https://example.com"} target="_blank">
-              {title ? `${artist} - ${title}` : "Loading Song"}
-            </Link>
-            <Typography
-              variant="inherit"
-              sx={{ color: "#fff", marginLeft: "-4px" }}
-            >
-              {tags?.map((tag) => (
-                <>
-                  <a
-                    key={tag?.name}
-                    href={tag?.url}
-                    target="_blank"
-                    className="songTag"
-                  >
-                    {tag?.name}
-                  </a>
-                </>
-              ))}
-            </Typography>
+          {lyrics ? lyrics : "Loading Lyrics..."}
+        </DialogContentText>
+      </DialogContent>
+    </Dialog>
+  );
 
-            <Typography
-              variant="caption"
-              sx={{
-                marginTop: "10px",
-                color: "#fff",
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-              }}
-            >
-              {duration && duration != 0 && started ? (
-                <>
-                  <span style={{ color: "#642D8E", marginRight: "6px" }}>
-                    {elapsedTime}
-                  </span>
-                  <div
-                    style={{
-                      marginLeft: "-5px",
-                      width: "80px",
-                      height: "4px",
-                      backgroundColor: "#642D8E",
-                      borderRadius: "2px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: `${
-                          ((new Date().getTime() -
-                            new Date(started).getTime()) /
-                            duration) *
-                          100
-                        }%`,
-                        height: "4px",
-                        backgroundColor: "#9664D1",
-                        borderRadius: "2px",
-                      }}
-                    />
-                  </div>
-                  <span style={{ color: "#642D8E" }}>
-                    {formatDuration(duration)}
-                  </span>
-                </>
-              ) : (
-                <>
-                  <ToolTip content={"Unknown Duration"} placement="bottom">
-                    <span style={{ color: "#642D8E" }}>00:00</span>
-                  </ToolTip>
-                </>
-              )}
-              {duration && listeners && (
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8 15.5V0.5H7.5V15.5H8ZM10.5 15.5H11V0.5H10.5V15.5Z"
-                    fill="#642D8E"
-                  />
-                </svg>
-              )}
-              {listeners && (
-                <ToolTip content={"Listeners"} placement="bottom">
-                  <span style={{ color: "#9664D1" }}>
-                    {listeners > 999
-                      ? listeners > 999999
-                        ? `${(listeners / 1000000).toFixed(1)}M`
-                        : `${(listeners / 1000).toFixed(1)}K`
-                      : listeners
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                  </span>
-                </ToolTip>
-              )}
-              {listeners && playcount && (
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8 15.5V0.5H7.5V15.5H8ZM10.5 15.5H11V0.5H10.5V15.5Z"
-                    fill="#9664D1"
-                  />
-                </svg>
-              )}
-              {playcount && (
-                <ToolTip content={"Scrobbles"} placement="bottom">
-                  <span style={{ color: "#A78BFA" }}>
-                    {playcount > 999
-                      ? playcount > 999999
-                        ? `${(playcount / 1000000).toFixed(1)}M`
-                        : `${(playcount / 1000).toFixed(1)}K`
-                      : playcount
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                  </span>
-                </ToolTip>
-              )}
-            </Typography>
-          </DialogTitle>
-          <DialogContent sx={{ backgroundColor: "#1e1e1e" }}>
-            <DialogContentText
-              sx={{ color: "#fff", whiteSpace: "pre-line", marginTop: "20px" }}
-            >
-              {lyrics ? lyrics : "Loading Lyrics"}
-            </DialogContentText>
-          </DialogContent>
-        </Dialog>
-      </>
-    );
-  else
-    return (
-      <>
-        <div onClick={handleClickOpen}>{children}</div>
-        <Dialog
-          sx={{ maxHeight: "90vh", top: 36 }}
-          fullWidth={true}
-          maxWidth={"sm"}
-          open={open}
-          onClose={handleClose}
-        >
-          <DialogTitle sx={{ backgroundColor: "#0E0E0E", color: "#642D8E" }}>
-            <Link href={url ? url : "https://example.com"} target="_blank">
-              {title ? `${artist} - ${title}` : "Loading Song"}
-            </Link>
-            <Typography
-              variant="inherit"
-              sx={{ color: "#fff", marginLeft: "-4px" }}
-            >
-              {tags?.map((tag) => (
-                <>
-                  <a
-                    key={tag?.name}
-                    href={tag?.url}
-                    target="_blank"
-                    className="songTag"
-                  >
-                    {tag?.name}
-                  </a>
-                </>
-              ))}
-            </Typography>
-
-            <Typography
-              variant="caption"
-              sx={{
-                marginTop: "10px",
-                color: "#fff",
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-              }}
-            >
-              {duration && started && (
-                <>
-                  <span style={{ color: "#642D8E", marginRight: "6px" }}>
-                    {elapsedTime}
-                  </span>
-                  <div
-                    style={{
-                      marginLeft: "-5px",
-                      width: "80px",
-                      height: "4px",
-                      backgroundColor: "#642D8E",
-                      borderRadius: "2px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: `${
-                          ((new Date().getTime() -
-                            new Date(started).getTime()) /
-                            duration) *
-                          100
-                        }%`,
-                        height: "4px",
-                        backgroundColor: "#9664D1",
-                        borderRadius: "2px",
-                      }}
-                    />
-                  </div>
-                  <span style={{ color: "#642D8E" }}>
-                    {formatDuration(duration)}
-                  </span>
-                </>
-              )}
-              {duration && listeners && (
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8 15.5V0.5H7.5V15.5H8ZM10.5 15.5H11V0.5H10.5V15.5Z"
-                    fill="#642D8E"
-                  />
-                </svg>
-              )}
-              {listeners && (
-                <span style={{ color: "#9664D1" }}>
-                  {listeners > 999
-                    ? listeners > 999999
-                      ? `${(listeners / 1000000).toFixed(1)}M`
-                      : `${(listeners / 1000).toFixed(1)}K`
-                    : listeners
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                </span>
-              )}
-              {listeners && playcount && (
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8 15.5V0.5H7.5V15.5H8ZM10.5 15.5H11V0.5H10.5V15.5Z"
-                    fill="#9664D1"
-                  />
-                </svg>
-              )}
-              {playcount && (
-                <span style={{ color: "#A78BFA" }}>
-                  {playcount > 999
-                    ? playcount > 999999
-                      ? `${(playcount / 1000000).toFixed(1)}M`
-                      : `${(playcount / 1000).toFixed(1)}K`
-                    : playcount
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                </span>
-              )}
-            </Typography>
-          </DialogTitle>
-          <DialogContent sx={{ backgroundColor: "#1e1e1e" }}>
-            <DialogContentText
-              sx={{ color: "#fff", whiteSpace: "pre-line", marginTop: "20px" }}
-            >
-              Loading Lyrics...
-            </DialogContentText>
-          </DialogContent>
-        </Dialog>
-      </>
-    );
+  return (
+    <>
+      <div onClick={handleClickOpen}>{children}</div>
+      {dialogContent}
+      <style jsx global>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 0.3; transform: scale(0.8); }
+          50% { opacity: 1; transform: scale(1); }
+        }
+      `}</style>
+    </>
+  );
 }

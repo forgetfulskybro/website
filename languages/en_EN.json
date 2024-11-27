@@ -99,7 +99,10 @@
       "dark": "Dark", 
       "shrimp": "Shrimp",
       "chant": "Chant",
-      "smurf": "Smurf"
+      "smurf": "Smurf",
+      "custom": "Custom",
+      "customColor": "Custom Color",
+      "apply": "Apply"
     },
     "pageSecondary": {
       "back": "Go Back"

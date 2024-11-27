@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,7 +11,7 @@
   "dependencies": {
     "@mui/material": "^5.15.7",
     "@vercel/analytics": "^1.1.1",
-    "@vercel/speed-insights": "^1.0.9",
+    "@vercel/speed-insights": "^1.1.0",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.0.3",
     "material-ui-popup-state": "^5.0.10",
