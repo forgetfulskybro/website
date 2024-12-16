@@ -114,15 +114,15 @@ export async function getLatestSong(): Promise<Response | undefined> {
 
     try {
       lyrics = await fetch(
-        `https://lyrist.vercel.app/api/${song.artist["#text"]}/${song.name}`
+        `https://lyrist.vercel.app/api/${song.name}/${song.artist["#text"]}`
       ).then((response) => {
         if (!response.ok) {
           throw new Error(`There was an error while querying the Lyrist API.`);
         }
 
-        return response.json();
+        return response.json(); 
       });
-    } catch {
+    } catch (e: any) { 
       lyrics = null; 
     }
 

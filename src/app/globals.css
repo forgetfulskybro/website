@@ -699,16 +699,6 @@ a {
   cursor: pointer;
 }
 
-.MuiMenu-paper {
-  background-color: #121213 !important;
-  color: white !important;
-}
-.MuiMenuItem-root:hover {
-  border-radius: 3px !important;
-  background-color: #222226 !important;
-  transition: 0.4s, border 0.4s !important;
-}
-
 .BirthdayDiv {
   color: white;
   z-index: 1000;

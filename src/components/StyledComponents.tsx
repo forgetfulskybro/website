@@ -100,22 +100,23 @@ export const LanguageButton = styled(Button)(({ theme }) => ({
 }));
 
 export const StyledMenu = styled(Menu)(({ theme }) => ({
-  '& .MuiPaper-root': {
-    backgroundColor: 'transparent',
-    boxShadow: 'none',
-    backgroundImage: 'none',
+  "& .MuiPaper-root": {
+    marginTop: "5px",
+    color: "rgba(255,255,255,0.9)",
+    backgroundColor: "transparent",
+    boxShadow: "none",
+    backgroundImage: "none",
   },
-  '& .MuiMenu-list': {
-    backgroundColor: 'rgba(23,23,23,0.7)',
-    backdropFilter: 'blur(12px)',
-    borderRadius: '16px',
-    border: '1px solid rgba(255,255,255,0.1)',
-    padding: '8px',
-    '& .MuiMenuItem-root': {
-      borderRadius: '8px',
-      margin: '2px 0',
-      '&:hover': {
-        backgroundColor: 'rgba(255,255,255,0.1)',
+  "& .MuiMenu-list": {
+    color: "rgba(255,255,255,0.9)",
+    borderRadius: "8px",
+    border: "0.002px solid rgba(255,255,255,0.1)",
+    padding: "8px",
+    "& .MuiMenuItem-root": {
+      borderRadius: "8px",
+      margin: "2px 0",
+      "&:hover": {
+        backgroundColor: "rgba(255,255,255,0.1)",
       },
     },
   },
