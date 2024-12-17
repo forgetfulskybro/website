@@ -30,6 +30,7 @@ html {
   user-select: none;
 }
 body {
+  font-family: var(--font-mono);
   background: linear-gradient(to bottom, transparent, var(--background-main))
     rgb(var(--background-start-rgb));
   color: rgb(var(--foreground-rgb));
