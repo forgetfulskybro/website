@@ -14,11 +14,8 @@ export default function Page({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (Date().includes("Jun 29")) {
       for (let i = 0; i < 130; i++) {
-        // Random rotation
         var randomRotation = Math.floor(Math.random() * 360);
-        // Random Scale
         var randomScale = Math.random() * 1;
-        // Random width & height between 0 and viewport
         var randomWidth = Math.floor(
           Math.random() *
             Math.max(
@@ -34,7 +31,6 @@ export default function Page({ children }: { children: React.ReactNode }) {
             )
         );
 
-        // Random animation-delay
         var randomAnimationDelay = Math.floor(Math.random() * 13);
         var confetti = document.createElement("div");
         confetti.className = "confetti";

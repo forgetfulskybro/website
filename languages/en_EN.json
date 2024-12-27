@@ -15,7 +15,9 @@
     },
     "tags": {
       "website": "Website",
-      "application": "Application"
+      "application": "Application",
+      "discord": "Discord Bot",
+      "revolt": "Revolt Bot"
     },
     "flags": {
       "contrib": "Contribution",

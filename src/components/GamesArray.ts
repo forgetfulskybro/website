@@ -14,7 +14,7 @@ const Games: GameType[] = [
     title: "Indiana Jones",
     image: "/ij.png",
     progress: "Around 34%",
-    myRating: 7.7, 
+    myRating: 7.4, 
     tags: ["Action-Adventure", "First Person", "Puzzle", "Story Rich"],
     website: "https://indianajones.bethesda.net/",
   },
@@ -93,14 +93,9 @@ const Games: GameType[] = [
 ];
 
 export function recentGames() {
-  let games: typeof Games = [];
-  for (let i = 0; i < 3; i++) {
-    games.push(Games[i]);
-  }
-
-  return games;
+  return Games.slice(0, 3);
 }
 
 export function allGames() {
-  return Games;
+  return Games; 
 }

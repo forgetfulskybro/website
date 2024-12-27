@@ -1,19 +1,43 @@
 "use client";
 import { RecentGames } from "@/components/layout/RecentGames";
 import { LangSelect } from "@/components/LanguageSelect";
+import ToolTipCover from "@/components/ToolTipCover";
 import { LastFM } from "@/components/layout/LastFM";
 import { Waka } from "@/components/layout/WakaTime";
 import Translate from "@components/translation";
 import Lyrics from "@/components/Lyrics";
 import Page from "@/components/page";
-import React from "react";
+import Image from "next/image";
+import React, { useState, useEffect } from "react";
+import GameDrawer from "@/components/GameDrawer";
 
 export default function Home() {
   const data = LangSelect();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const handleRecentGamesClick = () => {
+    setDrawerOpen(true);
+  };
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 869);
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <main className="main">
       <Page>
         <div style={{ width: 750, marginTop: 15 }}>
+          {isMobile && (
+            <GameDrawer
+              open={drawerOpen}
+              onClose={() => setDrawerOpen(false)}
+            />
+          )}{" "}
           <div
             style={{ maxHeight: "30vh", marginBottom: "10px" }}
             className="flexGrid flex center"
@@ -23,9 +47,37 @@ export default function Home() {
             </Lyrics>
             <Waka data={data!} />
           </div>
-          <div className="boxes">
-            {new Translate().get(data!, "Info.recent")}
-          </div>
+          <ToolTipCover
+            placement="top"
+            content={
+              <div className="ratingsContainer">
+                <h3>Game Rating Guide</h3>
+                <dl className="ratingList">
+                  {" "}
+                  <dt>1</dt> <dd>Awful</dd>
+                  <dt>5</dt> <dd>Mid/Average</dd>
+                  <dt>10</dt> <dd>Amazing</dd>
+                </dl>
+              </div>
+            }
+          >
+            <div
+              className="boxes"
+              style={{ display: "flex", alignItems: "center" }}
+              onClick={handleRecentGamesClick}
+            >
+              {new Translate().get(data!, "Info.recent")}
+              <Image
+                style={{ opacity: 0.8, marginLeft: 5 }}
+                src={`Info.svg`}
+                width={15}
+                height={15}
+                draggable={false}
+                alt={"Info"}
+                priority
+              />
+            </div>
+          </ToolTipCover>
           <div
             style={{ maxHeight: "80vh", fontSize: 10 }}
             className="flexGrid flex boxes"
