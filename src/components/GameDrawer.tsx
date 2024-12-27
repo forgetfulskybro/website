@@ -13,16 +13,17 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   padding: theme.spacing(0, 1),
   ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
+  justifyContent: "center",
 }));
 
 const StyledDrawer = styled(Drawer)(({ theme }) => ({
   "& .MuiPaper-root": {
-    backgroundColor: "rgba(30, 30, 30, 0.9)", 
-    boxShadow: theme.shadows[5],
-    borderRadius: "8px",
-    border: "1px solid rgba(50, 50, 50, 0.5)", 
-    color: '#fff' 
+    backgroundColor: "rgba(34, 34, 38, 0.3)", 
+    backdropFilter: "blur(12px)", 
+    border: "1px solid rgba(255, 255, 255, 0.05)",
+    color: "#fff",
+    borderRadius: "8px 8px 0 0", 
+    padding: "12px", 
   },
 }));
 
@@ -57,7 +58,7 @@ export default function TemporaryDrawer({ open, onClose }: { open: boolean; onCl
   const list = () => (
     <Container>
       <DrawerHeader>
-        <h2>Game Rating Guide</h2>
+        <Typography variant="h5" align="center">Game Rating Guide</Typography>
       </DrawerHeader>
       <Divider />
       <ListContainer>

@@ -12,17 +12,19 @@ import ThemeSelector from "./ThemeSelector";
 import LanguageMenu from "./LanguageMenu";
 import Navigation from "./Navigation";
 import MobileNavigation from "./MobileNavigation";
+import SettingsDrawer from "./SettingsDrawer";
 
 const themes: Theme[] = [
-  { name: 'dark', primary: '#131314', color: '19, 19, 20' },
-  { name: 'shrimp', primary: '#FF8C82', color: '255, 140, 130' },
-  { name: 'chant', primary: '#3F295A', color: '63, 41, 90' },
-  { name: 'smurf', primary: '#62C3ED', color: '98, 195, 237' },
+  { name: "dark", primary: "#131314", color: "19, 19, 20" },
+  { name: "shrimp", primary: "#FF8C82", color: "255, 140, 130" },
+  { name: "chant", primary: "#3F295A", color: "63, 41, 90" },
+  { name: "smurf", primary: "#62C3ED", color: "98, 195, 237" },
 ];
 
 export default function Page({ children }: { children: ReactNode }) {
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
   const [anchorM, setAnchorM] = useState<HTMLElement | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const pathname = usePathname();
   const [language, setLanguage] = useState<string | null>(
     typeof window !== "undefined"
@@ -30,36 +32,41 @@ export default function Page({ children }: { children: ReactNode }) {
       : ""
   );
   const [customColor, setCustomColor] = useState<string>(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('customColor') || '#131314';
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("customColor") || "#131314";
     }
-    return '#131314';
+    return "#131314";
   });
+    const handleProjectClick = () => {
+      setDrawerOpen(true);
+    };
   const [showCustomPicker, setShowCustomPicker] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<Theme>(() => {
-    if (typeof window !== 'undefined') {
-      const themePreference = localStorage.getItem('themePreference');
-      const savedThemeName = localStorage.getItem('themeName');
-      
-      if (themePreference === 'custom') {
-        const savedCustomColor = localStorage.getItem('customColor');
-        const savedCustomColorRGB = localStorage.getItem('customColorRGB');
+    if (typeof window !== "undefined") {
+      const themePreference = localStorage.getItem("themePreference");
+      const savedThemeName = localStorage.getItem("themeName");
+
+      if (themePreference === "custom") {
+        const savedCustomColor = localStorage.getItem("customColor");
+        const savedCustomColorRGB = localStorage.getItem("customColorRGB");
         if (savedCustomColor && savedCustomColorRGB) {
           return {
-            name: 'custom',
+            name: "custom",
             primary: savedCustomColor,
-            color: savedCustomColorRGB
+            color: savedCustomColorRGB,
           };
         }
       }
-      
+
       if (savedThemeName) {
-        const savedTheme = themes.find(theme => theme.name === savedThemeName);
+        const savedTheme = themes.find(
+          (theme) => theme.name === savedThemeName
+        );
         if (savedTheme) {
           return savedTheme;
         }
       }
-      
+
       return themes[0];
     }
     return themes[0];
@@ -73,7 +80,10 @@ export default function Page({ children }: { children: ReactNode }) {
     setAnchorM(anchorM ? null : event.currentTarget);
   };
 
-  const languageSwitcher = (menuItem: string, popupState: { close: () => void }): (() => void) => {
+  const languageSwitcher = (
+    menuItem: string,
+    popupState: { close: () => void }
+  ): (() => void) => {
     return () => {
       try {
         setLanguage(menuItem);
@@ -89,10 +99,12 @@ export default function Page({ children }: { children: ReactNode }) {
   const colorTheme = (theme: string): void => {
     try {
       const root = document.documentElement;
-      const currentTheme = getComputedStyle(root).getPropertyValue("--card-rgb").trim();
-      
+      const currentTheme = getComputedStyle(root)
+        .getPropertyValue("--card-rgb")
+        .trim();
+
       if (currentTheme === theme) return;
-      
+
       root.style.setProperty("--card-rgb", theme);
       localStorage.setItem("theme", theme);
     } catch (error) {
@@ -103,9 +115,9 @@ export default function Page({ children }: { children: ReactNode }) {
   const handleThemeClick = (theme: Theme) => {
     setShowCustomPicker(false);
     setCurrentTheme(theme);
-    colorTheme(theme.color || '19, 19, 20');
-    localStorage.setItem('themePreference', 'default');
-    localStorage.setItem('themeName', theme.name);
+    colorTheme(theme.color || "19, 19, 20");
+    localStorage.setItem("themePreference", "default");
+    localStorage.setItem("themeName", theme.name);
   };
 
   const handleCustomColorChange = () => {
@@ -114,30 +126,32 @@ export default function Page({ children }: { children: ReactNode }) {
       if (rgbColor) {
         const rgbString = `${rgbColor.r}, ${rgbColor.g}, ${rgbColor.b}`;
         const customTheme: Theme = {
-          name: 'custom',
+          name: "custom",
           primary: customColor,
-          color: rgbString
+          color: rgbString,
         };
         setCurrentTheme(customTheme);
         colorTheme(rgbString);
-        localStorage.setItem('customColor', customColor);
-        localStorage.setItem('customColorRGB', rgbString);
-        localStorage.setItem('themePreference', 'custom');
-        localStorage.removeItem('themeName');
+        localStorage.setItem("customColor", customColor);
+        localStorage.setItem("customColorRGB", rgbString);
+        localStorage.setItem("themePreference", "custom");
+        localStorage.removeItem("themeName");
         setShowCustomPicker(false);
       }
     } catch (error) {
-      console.error('Error saving custom color:', error);
+      console.error("Error saving custom color:", error);
     }
   };
 
   const hexToRgb = (hex: string) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
-    } : null;
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : null;
   };
 
   const menuArray: MenuItem[] = [
@@ -185,34 +199,34 @@ export default function Page({ children }: { children: ReactNode }) {
   ];
 
   useEffect(() => {
-    const themePreference = localStorage.getItem('themePreference');
-    const savedThemeName = localStorage.getItem('themeName');
-    
-    if (themePreference === 'custom') {
-      const savedCustomColor = localStorage.getItem('customColor');
-      const savedCustomColorRGB = localStorage.getItem('customColorRGB');
-      
+    const themePreference = localStorage.getItem("themePreference");
+    const savedThemeName = localStorage.getItem("themeName");
+
+    if (themePreference === "custom") {
+      const savedCustomColor = localStorage.getItem("customColor");
+      const savedCustomColorRGB = localStorage.getItem("customColorRGB");
+
       if (savedCustomColor && savedCustomColorRGB) {
-        const savedTheme: Theme = { 
-          name: 'custom', 
-          primary: savedCustomColor, 
-          color: savedCustomColorRGB 
+        const savedTheme: Theme = {
+          name: "custom",
+          primary: savedCustomColor,
+          color: savedCustomColorRGB,
         };
         setCurrentTheme(savedTheme);
         colorTheme(savedCustomColorRGB);
       }
     } else if (savedThemeName) {
-      const savedTheme = themes.find(theme => theme.name === savedThemeName);
+      const savedTheme = themes.find((theme) => theme.name === savedThemeName);
       if (savedTheme) {
         setCurrentTheme(savedTheme);
-        colorTheme(savedTheme.color || '19, 19, 20');
+        colorTheme(savedTheme.color || "19, 19, 20");
       }
     }
   }, []);
 
   const renderSettingsContent = () => (
     <SettingsCard>
-      <LanguageMenu 
+      <LanguageMenu
         language={language}
         menuArray={menuArray}
         onLanguageSwitch={languageSwitcher}
@@ -241,12 +255,14 @@ export default function Page({ children }: { children: ReactNode }) {
                 aria-describedby="settings"
                 onClick={handleClick}
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'relative'
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  position: "relative",
                 }}
-                className={Boolean(anchor) ? "dot settings settingsHigh" : "dot settings"}
+                className={
+                  Boolean(anchor) ? "dot settings settingsHigh" : "dot settings"
+                }
               >
                 <Image
                   style={{ opacity: 0.8 }}
@@ -265,7 +281,7 @@ export default function Page({ children }: { children: ReactNode }) {
                 width: "60%",
                 height: "1px",
                 backgroundColor: "rgba(255,255,255,0.05)",
-                margin: "15px 0"
+                margin: "15px 0",
               }}
             ></div>
             <Navigation items={navItems} pathname={pathname} />
@@ -280,11 +296,11 @@ export default function Page({ children }: { children: ReactNode }) {
               }}
               PaperProps={{
                 sx: {
-                  backgroundColor: 'transparent',
-                  boxShadow: 'none',
-                  backgroundImage: 'none',
-                  overflow: 'visible'
-                }
+                  backgroundColor: "transparent",
+                  boxShadow: "none",
+                  backgroundImage: "none",
+                  overflow: "visible",
+                },
               }}
             >
               {renderSettingsContent()}
@@ -293,19 +309,32 @@ export default function Page({ children }: { children: ReactNode }) {
 
           <div className="hiding flexGrid center">
             <div className="description">{children}</div>
-            <div className="hiding" style={{ position: 'fixed', bottom: 20, left: '50%', transform: 'translateX(-50%)', zIndex: 9999 }}>
+            <div
+              className="hiding"
+              style={{
+                position: "fixed",
+                bottom: 20,
+                left: "50%",
+                transform: "translateX(-50%)",
+                zIndex: 9999,
+              }}
+            >
               <div className="mobileSliderSide">
                 <ToolTip content="Settings" placement="top">
                   <span
                     aria-describedby="settingsM"
-                    onClick={handleClickM}
+                    onClick={handleProjectClick}
                     style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      position: 'relative'
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      position: "relative",
                     }}
-                    className={Boolean(anchorM) ? "dot settings settingsHigh" : "dot settings"}
+                    className={
+                      Boolean(anchorM)
+                        ? "dot settings settingsHigh"
+                        : "dot settings"
+                    }
                   >
                     <Image
                       style={{ opacity: 0.8 }}
@@ -324,42 +353,23 @@ export default function Page({ children }: { children: ReactNode }) {
                     width: "1px",
                     height: "60%",
                     backgroundColor: "rgba(255,255,255,0.05)",
-                    margin: "0 15px"
+                    margin: "0 15px",
                   }}
                 ></div>
-                  <MobileNavigation items={navItems} pathname={pathname} />
-                <Popover
-                  id={"settingsM"}
-                  open={Boolean(anchorM)}
-                  anchorEl={anchorM}
-                  onClose={handleClickM}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "center",
-                  }}
-                  transformOrigin={{
-                    vertical: "bottom",
-                    horizontal: "center",
-                  }}
-                  PaperProps={{
-                    sx: {
-                      backgroundColor: 'transparent',
-                      boxShadow: 'none',
-                      backgroundImage: 'none',
-                      overflow: 'visible',
-                      '& .MuiPaper-root': {
-                        backgroundColor: 'rgba(23,23,23,0.3)',
-                        backdropFilter: 'blur(12px)',
-                        border: '1px solid rgba(255,255,255,0.05)',
-                        borderRadius: '16px',
-                      }
-                    }
-                  }}
-                >
-                  {renderSettingsContent()}
-                </Popover>
+                <MobileNavigation items={navItems} pathname={pathname} />
               </div>
             </div>
+            <SettingsDrawer
+              open={drawerOpen}
+              onClose={() => setDrawerOpen(false)}
+              language={language}
+              onLanguageSwitch={languageSwitcher}
+              themes={themes}
+              currentTheme={currentTheme}
+              customColor={customColor}
+              onThemeClick={handleThemeClick}
+              onCustomColorChange={handleCustomColorChange}
+            />
           </div>
         </div>
       </div>
