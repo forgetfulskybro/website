@@ -1,6 +1,6 @@
 "use client";
 import { LangSelect } from "@/components/LanguageSelect";
-import { AllGames } from "@/components/Layout/AllGames";
+import { AllGames } from "@/components/layout/AllGames";
 import { usePathname } from "next/navigation";
 import Page from "@/components/pageSecondary";
 import React from "react";

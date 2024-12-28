@@ -1,6 +1,6 @@
 "use client";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import EmbedMeta from "@/components/Layout/EmbedMeta";
+import EmbedMeta from "@/components/layout/EmbedMeta";
 import { Analytics } from "@vercel/analytics/react";
 import { Fira_Code } from "next/font/google";
 import React from "react";

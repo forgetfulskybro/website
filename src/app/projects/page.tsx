@@ -1,6 +1,6 @@
 "use client";
 import { LangSelect } from "@/components/LanguageSelect";
-import ProjectCards from "@/components/Layout/Projects";
+import ProjectCards from "@/components/layout/Projects";
 import { usePathname } from "next/navigation";
 import Page from "@/components/page";
 import React from "react";

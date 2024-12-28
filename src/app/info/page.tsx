@@ -1,10 +1,10 @@
 "use client";
-import { RecentGames } from "@/components/Layout/RecentGames";
+import { RecentGames } from "@/components/layout/RecentGames";
 import { LangSelect } from "@/components/LanguageSelect";
 import GameDrawer from "@/components/Drawers/GameDrawer";
 import ToolTipCover from "@/components/ToolTipCover";
-import { LastFM } from "@/components/Layout/LastFM";
-import { Waka } from "@/components/Layout/WakaTime";
+import { LastFM } from "@/components/layout/LastFM";
+import { Waka } from "@/components/layout/WakaTime";
 import React, { useState, useEffect } from "react";
 import Translate from "@components/translation";
 import Lyrics from "@/components/Lyrics";
