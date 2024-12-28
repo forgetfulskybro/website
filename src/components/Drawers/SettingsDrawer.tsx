@@ -1,54 +1,19 @@
-import * as React from "react";
-import {  useEffect } from "react";
-import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
+import {
+  DrawerHeader,
+  StyledDrawer,
+  SettingsCard,
+  Container,
+} from "./DrawerStyles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
-import LanguageMenu from "./LanguageMenu";
-import ThemeSelector from "./ThemeSelector";
-import { Theme, MenuItem } from "./types";
-import Translate from "./translation";
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-  justifyContent: "center",
-}));
-
-const StyledDrawer = styled(Drawer)(({ theme }) => ({
-  "& .MuiPaper-root": {
-    backgroundColor: "rgba(23, 23, 23, 0.3)",
-    backdropFilter: "blur(12px)",
-    border: "1px solid rgba(255, 255, 255, 0.05)",
-    color: "#fff",
-    borderRadius: "16px",
-    padding: "12px",
-  },
-}));
-
-const SettingsCard = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(2),
-  width: "300px",
-  maxWidth: "100%",
-  margin: "0 auto",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-}));
-
-const Container = styled(Box)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  height: "100%",
-  width: "100%",
-  justifyContent: "center",
-}));
+import ThemeSelector from "../ThemeSelector";
+import Divider from "@mui/material/Divider";
+import LanguageMenu from "../LanguageMenu";
+import { Theme, MenuItem } from "../types";
+import Translate from "../translation";
+import { useEffect } from "react";
+import * as React from "react";
 
 export default function SettingsDrawer({
   open,

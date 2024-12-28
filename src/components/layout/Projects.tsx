@@ -6,7 +6,7 @@ import projects, {
 } from "@components/Projects";
 import React, { useEffect, useState } from "react";
 import Translate from "@components/translation";
-import ProjectDrawer from "@components/ProjectDrawer";
+import ProjectDrawer from "@components/Drawers/ProjectDrawer";
 import ToolTip from "@components/ToolTipCover";
 import Image from "next/image";
 import Link from "next/link";

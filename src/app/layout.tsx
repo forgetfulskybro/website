@@ -1,10 +1,10 @@
 "use client";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import EmbedMeta from "@/components/Layout/EmbedMeta";
 import { Analytics } from "@vercel/analytics/react";
 import { Fira_Code } from "next/font/google";
 import React from "react";
 import "./globals.css";
-import EmbedMeta from "@/components/layout/EmbedMeta";
 
 const Fira = Fira_Code({ subsets: ["latin"] });
 

@@ -12,7 +12,7 @@ import ThemeSelector from "./ThemeSelector";
 import LanguageMenu from "./LanguageMenu";
 import Navigation from "./Navigation";
 import MobileNavigation from "./MobileNavigation";
-import SettingsDrawer from "./SettingsDrawer";
+import SettingsDrawer from "./Drawers/SettingsDrawer";
 
 const themes: Theme[] = [
   { name: "dark", primary: "#131314", color: "19, 19, 20" },
@@ -37,9 +37,9 @@ export default function Page({ children }: { children: ReactNode }) {
     }
     return "#131314";
   });
-    const handleProjectClick = () => {
-      setDrawerOpen(true);
-    };
+  const handleProjectClick = () => {
+    setDrawerOpen(true);
+  };
   const [showCustomPicker, setShowCustomPicker] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<Theme>(() => {
     if (typeof window !== "undefined") {

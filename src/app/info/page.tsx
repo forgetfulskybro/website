@@ -1,15 +1,15 @@
 "use client";
-import { RecentGames } from "@/components/layout/RecentGames";
+import { RecentGames } from "@/components/Layout/RecentGames";
 import { LangSelect } from "@/components/LanguageSelect";
+import GameDrawer from "@/components/Drawers/GameDrawer";
 import ToolTipCover from "@/components/ToolTipCover";
-import { LastFM } from "@/components/layout/LastFM";
-import { Waka } from "@/components/layout/WakaTime";
+import { LastFM } from "@/components/Layout/LastFM";
+import { Waka } from "@/components/Layout/WakaTime";
+import React, { useState, useEffect } from "react";
 import Translate from "@components/translation";
 import Lyrics from "@/components/Lyrics";
 import Page from "@/components/page";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
-import GameDrawer from "@/components/GameDrawer";
 
 export default function Home() {
   const data = LangSelect();
