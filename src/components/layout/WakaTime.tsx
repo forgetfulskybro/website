@@ -1,8 +1,8 @@
 "use client";
 import { WakaResponse } from "../../app/api/wakatime/wakatimeData";
-import { motion } from "framer-motion";
 import Translate from "@components/translation";
 import { WakaTime } from "@/hooks/WakaTime";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import React from "react";
 

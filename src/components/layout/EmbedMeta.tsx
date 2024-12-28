@@ -16,13 +16,11 @@ export default function EmbedMeta({ title, description, imageUrl }: EmbedMetaPro
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       
-      {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description || ''} />
       <meta name="twitter:image" content={imageUrl} />
       
-      {/* Additional Meta */}
       <meta name="theme-color" content="#4ca6ca" />
       <meta name="msapplication-TileColor" content="#4ca6ca" />
       <meta name="robots" content="index, follow" />

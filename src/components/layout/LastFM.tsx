@@ -14,7 +14,7 @@ interface LastFMProps {
 }
 
 export const LastFM: React.FC<LastFMProps> = ({ data }) => {
-  const { artist, cover, date, title, playing, url } = LastFMSong();
+  const { artist, cover, date, title, playing } = LastFMSong();
 
   function capitalize(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);

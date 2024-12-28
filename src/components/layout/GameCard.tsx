@@ -1,9 +1,8 @@
-import Translate from "@components/translation";
 import { GameType } from "../GamesArray";
+import ToolTip from "../ToolTip";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import ToolTip from "../ToolTip";
 
 interface GamesProp {
   data: string;
