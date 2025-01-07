@@ -1,4 +1,4 @@
-import Translate from "@components/translation";
+import Translate from "@/components/translation";
 
 enum TagType {
   DiscordBot = "Discord Bot",
@@ -184,10 +184,7 @@ const useProjects = (data: any): ProjectData[] => {
         start: "Jun 1, 2021",
         end: "Jun 9,2022",
       },
-      flags: [
-        { name: FlagType.Contribution },
-        { name: FlagType.Discontinued },
-      ],
+      flags: [{ name: FlagType.Contribution }, { name: FlagType.Discontinued }],
       github: null,
       community: "https://discord.gg/utilibots-618115853178634240",
       website: null,
@@ -201,10 +198,7 @@ const useProjects = (data: any): ProjectData[] => {
         start: "Dec 10, 2020",
         end: translate.get(data, "Projects.footer.endUnknown"),
       },
-      flags: [
-        { name: FlagType.Contribution },
-        { name: FlagType.Discontinued },
-      ],
+      flags: [{ name: FlagType.Contribution }, { name: FlagType.Discontinued }],
       github: "https://github.com/AYB-Archive",
       community: null,
       website: null,
@@ -218,11 +212,8 @@ const useProjects = (data: any): ProjectData[] => {
         start: "Apr 1, 2022",
         end: "Apr 1, 2022",
       },
-      flags: [
-        { name: FlagType.Contribution },
-        { name: FlagType.Discontinued },
-      ],
-      github: "https://github.com/SamOphis",
+      flags: [{ name: FlagType.Contribution }, { name: FlagType.Discontinued }],
+      github: "https://github.com/luaugg",
       community: null,
       website: null,
     },

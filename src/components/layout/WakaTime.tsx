@@ -1,6 +1,6 @@
 "use client";
 import { WakaResponse } from "../../app/api/wakatime/wakatimeData";
-import Translate from "@components/translation";
+import Translate from "@/components/translation";
 import { WakaTime } from "@/hooks/WakaTime";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -15,55 +15,66 @@ export const Waka: React.FC<WakaProps> = ({ data }) => {
 
   return (
     <Link href={"https://wakatime.com/@ForGetFulSkyBro"} target="_blank">
-      <motion.div 
-        className="gameCard flex boxes" 
-        style={{ 
-          width: 335, 
+      <motion.div
+        className="gameCard flex boxes"
+        style={{
+          width: 335,
           height: 98,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative'
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "relative",
         }}
         whileHover="hover"
       >
-        <div className="gameTitle" style={{ textAlign: 'center', display: 'flex', gap: '4px', color: 'white' }}>
+        <div
+          className="gameTitle"
+          style={{
+            textAlign: "center",
+            display: "flex",
+            gap: "4px",
+            color: "white",
+          }}
+        >
           <motion.span
-            style={{ background: 'transparent' }}
-            initial={{ color: 'rgb(255, 255, 255)' }}
+            style={{ background: "transparent" }}
+            initial={{ color: "rgb(255, 255, 255)" }}
             variants={{
               hover: {
                 color: [
-                  'rgb(255, 0, 0)',
-                  'rgb(255, 127, 0)',
-                  'rgb(255, 255, 0)',
-                  'rgb(0, 255, 0)',
-                  'rgb(0, 0, 255)',
-                  'rgb(75, 0, 130)',
-                  'rgb(143, 0, 255)',
-                  'rgb(255, 0, 0)'
+                  "rgb(255, 0, 0)",
+                  "rgb(255, 127, 0)",
+                  "rgb(255, 255, 0)",
+                  "rgb(0, 255, 0)",
+                  "rgb(0, 0, 255)",
+                  "rgb(75, 0, 130)",
+                  "rgb(143, 0, 255)",
+                  "rgb(255, 0, 0)",
                 ],
                 transition: {
                   duration: 2,
                   repeat: Infinity,
-                  ease: "linear"
-                }
-              }
+                  ease: "linear",
+                },
+              },
             }}
           >
-            {!isNaN(seconds) ? Math.round(seconds / 3600).toLocaleString() : "0"}+
+            {!isNaN(seconds)
+              ? Math.round(seconds / 3600).toLocaleString()
+              : "0"}
+            +
           </motion.span>
-          {new Translate().get(data!, "Info.hours")}{" "}WakaTime
+          {new Translate().get(data!, "Info.hours")} WakaTime
         </div>
         <motion.div
           style={{
-            position: 'absolute',
+            position: "absolute",
             top: 8,
             right: 8,
-            display: 'flex',
-            alignItems: 'center',
-            gap: '4px',
-            opacity: 0.8
+            display: "flex",
+            alignItems: "center",
+            gap: "4px",
+            opacity: 0.8,
           }}
         >
           <motion.svg
@@ -75,12 +86,12 @@ export const Waka: React.FC<WakaProps> = ({ data }) => {
             animate={{
               rotate: [0, 10, 0],
               scale: [1, 1.1, 1],
-              opacity: [0.8, 1, 0.8]
+              opacity: [0.8, 1, 0.8],
             }}
             transition={{
               duration: 2,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: "easeInOut",
             }}
           >
             <path

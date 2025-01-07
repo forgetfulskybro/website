@@ -32,7 +32,7 @@ export const ButtonContainer = styled(Stack)(({ theme }) => ({
 
 export const StyledButton = styled(
   ({ disabled, href, ...other }: { disabled: boolean; href: string } & any) => (
-    <Link href={href} {...other} /> // Use the MUI Link component
+    <Link href={href} {...other} />
   )
 )(({ theme, disabled }) => ({
   width: "100%",
@@ -43,11 +43,11 @@ export const StyledButton = styled(
   color: "#fff",
   padding: theme.spacing(1.5),
   "&:hover": {
-    backgroundColor: disabled ? "grey" : "#a0a0a0",
+    backgroundColor: disabled ? "grey" : "#7E7B7B",
   },
   opacity: disabled ? 0.5 : 1,
   pointerEvents: disabled ? "none" : "auto",
-  backgroundColor: disabled ? "grey" : "#606060",
+  backgroundColor: disabled ? "rgba(34, 34, 38, 0.9)" : "rgba(34, 34, 38)",
 }));
 
 export const RatingItem = styled(ListItem)(({ theme }) => ({

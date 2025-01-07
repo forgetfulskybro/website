@@ -1,34 +1,51 @@
 "use client";
 import { LangSelect } from "@/components/LanguageSelect";
-import Translate from "@components/translation";
+import { DiscordIcon, GithubIcon, SteamIcon, XIcon } from "@/icons/icons";
+import Translate from "@/components/translation";
 import ToolTip from "@/components/ToolTip";
 import Page from "@/components/page";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { ReactElement } from "react";
 
 export default function Home() {
   const data = LangSelect();
 
-  const links: { url: string; src: string; alt: string }[] = [
+  const links: { url: string; src: ReactElement; alt: string }[] = [
     {
       url: "https://discord.gg/ty6Rsua",
-      src: "Discord.svg",
+      src: (
+        <>
+          <DiscordIcon />
+        </>
+      ),
       alt: "Discord",
     },
     {
       url: "https://github.com/forgetfulskybro",
-      src: "Github.svg",
+      src: (
+        <>
+          <GithubIcon />
+        </>
+      ),
       alt: "GitHub",
     },
     {
       url: "https://x.com/ForGetFulSkyBro",
-      src: "/X.svg",
+      src: (
+        <>
+          <XIcon />
+        </>
+      ),
       alt: "X.com",
     },
     {
       url: "https://steamcommunity.com/profiles/76561198827011761/",
-      src: "Steam.svg",
+      src: (
+        <>
+          <SteamIcon />
+        </>
+      ),
       alt: "Steam",
     },
   ];
@@ -74,26 +91,18 @@ export default function Home() {
               date: calcAge(new Date("2019-07-03")),
             })}
           </div>
-          <div style={{ marginTop: "20px", marginLeft: "10px" }} className="flexGrid centered">
+          <div
+            style={{ marginTop: "20px", marginLeft: "10px" }}
+            className="flexGrid centered"
+          >
             {links.map((item) => (
               <Link key={item.alt} href={item.url} target="_blank">
                 <ToolTip content={item.alt} placement="bottom">
-                  <div 
-                    className="cardSocials" 
+                  <div
+                    className="cardSocials"
                     data-platform={item.alt}
-                    style={item.alt === "X.com" ? {
-                      borderRadius: '8px',
-                      overflow: 'hidden'
-                    } : undefined}
                   >
-                    <Image
-                      src={item.src}
-                      width={28}
-                      height={28}
-                      draggable={false}
-                      alt={item.alt}
-                      priority
-                    />
+                    {item.src}
                   </div>
                 </ToolTip>
               </Link>

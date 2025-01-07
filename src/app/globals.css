@@ -143,6 +143,7 @@ a {
 }
 
 .cardSocials {
+  aspect-ratio: 1 / 1;
   background-color: rgba(34, 34, 38, 0.3);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.05);
@@ -1049,7 +1050,7 @@ a {
 }
 
 .tooltipButton {
-  background-color: rgba(34, 34, 38, 0.3);
+  background-color: rgba(44, 44, 49, 0.8);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.05);
   border-radius: 8px;
@@ -1186,42 +1187,39 @@ a {
   }
 }
 
-/* page.module.css */
 .ratingsContainer {
-  background-color: #303030; /* Dark gray background */
-  padding: 10px; /* Add padding for better spacing, adjust as needed */
-  border-radius: 8px; /* Optional: add rounded corners */
-  color: white; /* Adjust text color if needed */
+  background-color: #303030; 
+  padding: 10px; 
+  border-radius: 8px; 
+  color: white;
 }
 
 .ratingsContainer h3 {
   margin-bottom: 15px;
-  color: white; /* Darker text color for better contrast */
+  color: white; 
 }
 
-
 .ratingList {
-  list-style: none; /* Remove default bullet points */
+  list-style: none; 
   padding: 0;
   margin: 0;
-  display: grid; /* Use grid for better layout */
-  grid-template-columns: repeat(2, minmax(0, 1fr)); /* Two columns */
-  gap: 10px; /* Space between items */
+  display: grid; 
+  grid-template-columns: repeat(2, minmax(0, 1fr)); 
+  gap: 10px; 
 }
 
 .ratingList dt {
-  font-weight: bold; /* Make rating numbers bold */
-  color: #007bff; /* Blue color for emphasis */
+  font-weight: bold;
+  color: #007bff; 
 }
 
 .ratingList dd {
-  margin-left: 0; /* Remove default left margin for dd */
-  color: white; /* Slightly lighter text for descriptions */
+  margin-left: 0; 
+  color: white; 
 }
 
-/* Optional: Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
   .ratingList {
-    grid-template-columns: 1fr; /* Single column on smaller screens */
+    grid-template-columns: 1fr; 
   }
 }

@@ -26,15 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/Me.png" type="image/png" sizes="any" />
-        <EmbedMeta
-          title="Sky 🐢"
-          description={null}
-          imageUrl={
-            process?.env?.NODE_ENV! === "development"
-              ? "http://localhost:3000/api/og"
-              : "https://forgetful.vercel.app/api/og"
-          }
-        />
+        <EmbedMeta title="Sky 🐢" description={null} imageUrl={"/api/og"} />
         <meta name="theme-color" content="#4ca6ca" />
         <meta name="msapplication-TileColor" content="#4ca6ca" />
         <meta name="robots" content="index, follow" />

@@ -3,11 +3,11 @@ import projects, {
   TagTypeConvert,
   ProjectData,
   FlagType,
-} from "@components/Projects";
-import ProjectDrawer from "@components/Drawers/ProjectDrawer";
+} from "@/components/Projects";
+import ProjectDrawer from "@/components/Drawers/ProjectDrawer";
 import React, { useEffect, useState } from "react";
-import Translate from "@components/translation";
-import ToolTip from "@components/ToolTipCover";
+import Translate from "@/components/translation";
+import ToolTip from "@/components/ToolTipCover";
 import Image from "next/image";
 import Link from "next/link";
 

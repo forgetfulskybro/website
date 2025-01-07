@@ -4,7 +4,7 @@ import {
   ButtonContainer,
   StyledButton,
 } from "./DrawerStyles";
-import Translate from "@components/translation";
+import Translate from "@/components/translation";
 import { Typography } from "@mui/material";
 import { ProjectData } from "../Projects";
 import Box from "@mui/material/Box";

@@ -6,7 +6,7 @@ import ToolTipCover from "@/components/ToolTipCover";
 import { LastFM } from "@/components/layout/LastFM";
 import { Waka } from "@/components/layout/WakaTime";
 import React, { useState, useEffect } from "react";
-import Translate from "@components/translation";
+import Translate from "@/components/translation";
 import Lyrics from "@/components/Lyrics";
 import Page from "@/components/page";
 import Image from "next/image";

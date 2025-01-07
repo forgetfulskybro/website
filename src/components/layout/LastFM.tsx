@@ -2,7 +2,7 @@
 import { formatDistanceToNow, isYesterday, setDefaultOptions } from "date-fns";
 import type { Transition, Variants } from "framer-motion";
 import { AnimatePresence, motion } from "framer-motion";
-import Translate from "@components/translation";
+import Translate from "@/components/translation";
 import { LastFMSong } from "@/hooks/LastFMSong";
 import { es, fr } from "date-fns/locale";
 import { useMemo } from "react";
