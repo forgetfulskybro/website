@@ -167,7 +167,7 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
             }
           }}
         >
-          {lyrics ? lyrics : "Loading Lyrics..."}
+          {lyrics ? lyrics : "Lyrics API is down currently."}
         </DialogContentText>
       </DialogContent>
     </Dialog>

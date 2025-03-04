@@ -10,11 +10,29 @@ export interface GameType {
 
 const Games: GameType[] = [
   {
+    target: "kcdII",
+    title: "Kingdom Come Deliverance II",
+    image: "/kcdII.png",
+    progress: "Around 15%",
+    myRating: null,
+    tags: ["RPG", "Medieval", "Open-World", "Singleplayer"],
+    website: "https://kingdomcomerpg.com/",
+  },
+  {
+    target: "hogleg",
+    title: "Hogwarts Legacy",
+    image: "/hogleg.jpg??",
+    progress: "14%",
+    myRating: null,
+    tags: ["Magic", "Open-World", "Fantasy", "Singleplayer"],
+    website: "https://www.hogwartslegacy.com/",
+  },
+  {
     target: "ijatgc",
     title: "Indiana Jones",
     image: "/ij.png",
     progress: "Around 34%",
-    myRating: 7.4, 
+    myRating: 7.4,
     tags: ["Action-Adventure", "First Person", "Puzzle", "Story Rich"],
     website: "https://indianajones.bethesda.net/",
   },
@@ -67,7 +85,7 @@ const Games: GameType[] = [
     target: "m",
     title: "Metro Exodus",
     image: "/metro.png",
-    progress: "Around 15% (2nd Playthrough)",
+    progress: "Completed Twice",
     myRating: 8.7,
     tags: ["Post-apocalyptic", "Singleplayer", "Open World", "FPS"],
     website: "https://www.metrothegame.com/en-us/",
@@ -99,3 +117,14 @@ export function recentGames() {
 export function allGames() {
   return Games; 
 }
+
+  // Example layout
+  // {
+  //   target: "",
+  //   title: "",
+  //   image: "/",
+  //   progress: "",
+  //   myRating: 0,
+  //   tags: ["", "", "", ""],
+  //   website: "",
+  // },

@@ -60,9 +60,7 @@ export const GameCard: React.FC<GamesProp> = ({ data, games }) => {
                   )}
                 </div>
                 <ToolTip content={game.progress} placement="top">
-                  <p className="gameProgress Blue">
-                    Progress
-                  </p>
+                  <p className="gameProgress Blue">Progress</p>
                 </ToolTip>
               </div>
               <div className="flex" style={{ flexDirection: "row" }}>

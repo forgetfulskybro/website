@@ -68,7 +68,7 @@ export interface Response {
   started: Date | undefined;
   tags?: {
     name: string;
-    url: string; 
+    url: string;
   }[];
   playing: boolean;
   title: string;
@@ -114,16 +114,15 @@ export async function getLatestSong(): Promise<Response | undefined> {
 
     try {
       lyrics = await fetch(
-        `https://lyrist.vercel.app/api/${song.name}/${song.artist["#text"]}`
+        `http://localhost:3000/api/lyrics/${encodeURIComponent(
+          song.name
+        )}/${encodeURIComponent(song.artist["#text"])}`
       ).then((response) => {
-        if (!response.ok) {
-          throw new Error(`There was an error while querying the Lyrist API.`);
-        }
-
-        return response.json(); 
+        return response.json();
       });
-    } catch (e: any) { 
-      lyrics = null; 
+    } catch (e: any) {
+      console.error("Lyrics API Error:", e.message);
+      lyrics = null;
     }
 
     const date = song.date?.uts ? Number(song.date?.uts) : undefined;
