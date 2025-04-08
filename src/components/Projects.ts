@@ -142,10 +142,10 @@ const useProjects = (data: any): ProjectData[] => {
         start: "Apr 12, 2023",
         end: "Sep 19, 2023",
       },
-      flags: [{ name: FlagType.Contribution }],
+      flags: [{ name: FlagType.Contribution }, {  name: FlagType.Discontinued } ],
       github: "https://github.com/BrydenIsNotSmart/Revolt-Bot-List",
-      community: "https://revoltbots.org/server",
-      website: "https://revoltbots.org",
+      community: null,
+      website: null,
     },
     {
       target: "RM",
