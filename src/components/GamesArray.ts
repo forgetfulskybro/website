@@ -10,6 +10,24 @@ export interface GameType {
 
 const Games: GameType[] = [
   {
+    target: "tg",
+    title: "Tainted Grail",
+    image: "/tg.png",
+    progress: "Around 15%",
+    myRating: null,
+    tags: ["RPG", "Adventure", "Open-World", "Datk Fantasy"],
+    website: "https://www.taintedgrail.com/",
+  },
+  {
+    target: "di2",
+    title: "Dead Island 2",
+    image: "/di2.png",
+    progress: "Around 45%",
+    myRating: null,
+    tags: ["Zombies", "First Person", "Gore", "Adventure"],
+    website: "https://deadisland.com/",
+  },
+  {
     target: "kcdII",
     title: "Kingdom Come Deliverance II",
     image: "/kcdII.png",
