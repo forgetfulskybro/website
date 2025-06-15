@@ -386,7 +386,7 @@ export default function Page({ children }: { children: ReactNode }) {
                 bottom: 20,
                 left: "50%",
                 transform: "translateX(-50%)",
-                zIndex: 9999,
+                zIndex: 999,
               }}
             >
               <div className="mobileSliderSide">
