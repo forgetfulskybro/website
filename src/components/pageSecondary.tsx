@@ -79,9 +79,10 @@ export default function Page({ children }: { children: React.ReactNode }) {
     <TransitionEffect>
       {Date().includes("Jun") && !Date().includes("Jun 30") && (
         <div className="BirthdayDiv">
-          <p>Birthday Countdown</p>
-          <div style={{ backgroundColor: "#4D2424" }} className="divider"></div>
-          <p style={{ fontSize: "15px" }} id="bday"></p>
+          <p style={{ fontSize: "16px" }}>Birthday</p>
+          <p style={{ fontSize: "14px" }} id="bday">
+            ??:??:??:??
+          </p>
         </div>
       )}
       <div className="parent center">
@@ -92,10 +93,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
                 content={new Translate().get(data!, "Comps.pageSecondary.back")}
                 placement="top"
               >
-                <span
-                  id="tooltip"
-                  className="dot home homeHigh"
-                >
+                <span id="tooltip" className="dot home homeHigh">
                   <Image
                     src="../backward.svg"
                     width={17}

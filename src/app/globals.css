@@ -702,9 +702,9 @@ a {
   padding: 15px 5px 15px 5px;
   margin-left: 10.5px;
   margin-top: 44px;
+  width: fit-content;
   position: absolute;
   border-radius: 7px;
-  max-width: fit-content;
   max-height: fit-content;
   opacity: 0.85;
   background: #121213;

@@ -15,7 +15,7 @@ import MobileNavigation from "./MobileNavigation";
 import SettingsDrawer from "./Drawers/SettingsDrawer";
 
 const themes: Theme[] = [
-  { name: "dark", primary: "#131314", color: "19, 19, 20" },
+  { name: "dark", primary: "#626264", color: "98, 98, 100" },
   { name: "shrimp", primary: "#FF8C82", color: "255, 140, 130" },
   { name: "chant", primary: "#3F295A", color: "63, 41, 90" },
   { name: "smurf", primary: "#62C3ED", color: "98, 195, 237" },
@@ -309,9 +309,10 @@ export default function Page({ children }: { children: ReactNode }) {
     <TransitionEffect>
       {Date().includes("Jun") && !Date().includes("Jun 30") && (
         <div className="BirthdayDiv">
-          <p>Birthday Countdown</p>
-          <div style={{ backgroundColor: "#4D2424" }} className="divider"></div>
-          <p style={{ fontSize: "15px" }} id="bday"></p>
+          <p style={{ fontSize: "16px" }}>Birthday</p>
+          <p style={{ fontSize: "14px" }} id="bday">
+            ??:??:??:??
+          </p>
         </div>
       )}
       <div className="parent center">
