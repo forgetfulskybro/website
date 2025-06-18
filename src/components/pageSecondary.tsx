@@ -79,7 +79,16 @@ export default function Page({ children }: { children: React.ReactNode }) {
     <TransitionEffect>
       {Date().includes("Jun") && !Date().includes("Jun 30") && (
         <div className="BirthdayDiv">
-          <p style={{ fontSize: "16px" }}>Birthday</p>
+          <b
+            style={{
+              fontSize: "16px",
+              backgroundImage: "linear-gradient(to right, #83a5d7, #684179)",
+              color: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            Birthday
+          </b>
           <p style={{ fontSize: "14px" }} id="bday">
             ??:??:??:??
           </p>
