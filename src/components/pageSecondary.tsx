@@ -2,6 +2,7 @@
 "use client";
 import TransitionEffect from "@/components/TransitionEffect";
 import { LangSelect } from "@/components/LanguageSelect";
+import { Birthday } from "./layout/Birthday";
 import { useRouter } from "next/navigation";
 import ToolTip from "@/components/ToolTip";
 import Translate from "./translation";
@@ -77,23 +78,7 @@ export default function Page({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   return (
     <TransitionEffect>
-      {Date().includes("Jun") && !Date().includes("Jun 30") && (
-        <div className="BirthdayDiv">
-          <b
-            style={{
-              fontSize: "16px",
-              backgroundImage: "linear-gradient(to right, #83a5d7, #684179)",
-              color: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Birthday
-          </b>
-          <p style={{ fontSize: "14px" }} id="bday">
-            ??:??:??:??
-          </p>
-        </div>
-      )}
+      {Birthday({})}
       <div className="parent center">
         <div className="card boxes flexGrid" id="confetti-wrapper">
           <div className="sliderSideSecondary">

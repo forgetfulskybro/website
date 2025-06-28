@@ -102,7 +102,7 @@ a {
   justify-content: center;
   background-color: rgba(34, 34, 38, 0.3);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   height: 30px;
   width: 30px;
@@ -146,7 +146,7 @@ a {
   aspect-ratio: 1 / 1;
   background-color: rgba(34, 34, 38, 0.3);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 6px;
   margin: 4px;
@@ -243,7 +243,7 @@ a {
 .projectCard {
   background-color: rgba(34, 34, 38, 0.3);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   height: 150px;
   width: 320px;
@@ -341,7 +341,7 @@ a {
   position: relative;
   background-color: rgba(34, 34, 38, 0.3);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   height: fit-content;
   max-width: 97%;
@@ -356,10 +356,12 @@ a {
   cursor: pointer;
 }
 
-.recentGamesBox, .lyricsBox, .wakaBox {
+.recentGamesBox,
+.lyricsBox,
+.wakaBox {
   background-color: rgba(34, 34, 38, 0.3);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 16px;
   margin: 10px;
@@ -532,7 +534,9 @@ a {
   width: 99%;
 }
 .Blue {
-  color: #4ca6ca;
+  background-image: linear-gradient(to right, #83a5d7, #684179);
+  color: transparent;
+  background-clip: text; 
 }
 
 .spotify {
@@ -608,23 +612,23 @@ a {
     justify-content: center;
     background-color: transparent;
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.05);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     border-radius: 16px;
     width: 50px;
     margin-bottom: 5px;
     padding: 5px 0;
     position: relative;
   }
-  
+
   .sliderSideSecondary::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(23,23,23,0.3);
+    background-color: rgba(23, 23, 23, 0.3);
     border-radius: 16px;
     z-index: -1;
   }
@@ -756,7 +760,8 @@ a {
     gap: 8px;
   }
 
-  .lyricsBox, .wakaBox {
+  .lyricsBox,
+  .wakaBox {
     width: 100%;
     overflow: hidden;
   }
@@ -777,7 +782,7 @@ a {
   margin-left: 65px;
   margin-top: 15px;
   --uib-size: 45px;
-  --uib-color: #8E44AD;
+  --uib-color: #8e44ad;
   --uib-speed: 1.75s;
   --uib-bg-opacity: 0.1;
   height: 40px;
@@ -834,8 +839,8 @@ a {
   margin: 5px 0px 0px 5px;
   font-size: 10px;
   float: left;
-  text-decoration:solid;
-  background-color: #1E1E1E;
+  text-decoration: solid;
+  background-color: #1e1e1e;
   padding: 2px;
   border-radius: 2px;
 }
@@ -847,8 +852,8 @@ a {
   justify-content: center;
   background-color: transparent;
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.05);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
   width: 60px;
   margin-right: 10px;
@@ -857,13 +862,13 @@ a {
 }
 
 .sliderSide::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(23,23,23,0.3);
+  background-color: rgba(23, 23, 23, 0.3);
   border-radius: 16px;
   z-index: -1;
 }
@@ -872,7 +877,12 @@ a {
   position: absolute;
   width: 30px;
   height: 1.5px;
-  background: linear-gradient(90deg,rgba(56,189,248,0),#38bdf8 51.56%,rgba(56,189,248,0));
+  background: linear-gradient(
+    90deg,
+    rgba(56, 189, 248, 0),
+    #38bdf8 51.56%,
+    rgba(56, 189, 248, 0)
+  );
   border-radius: 20px;
   transform: translateY(-50%);
   top: 50%;
@@ -894,8 +904,8 @@ a {
   justify-content: center;
   background-color: transparent;
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.05);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
   width: 60px;
   height: 50px;
@@ -916,13 +926,13 @@ a {
 }
 
 .sliderSideSecondary::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(23,23,23,0.3);
+  background-color: rgba(23, 23, 23, 0.3);
   border-radius: 16px;
   z-index: -1;
 }
@@ -945,7 +955,7 @@ a {
   justify-content: center;
   background-color: rgba(34, 34, 38, 0.3);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   height: 30px;
   width: 30px;
@@ -1000,15 +1010,15 @@ a {
   .sliderSide {
     display: none;
   }
-  
+
   .mobileSliderSide {
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: transparent;
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.05);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     border-radius: 16px;
     width: 200px;
     height: 50px;
@@ -1031,13 +1041,13 @@ a {
   }
 
   .mobileSliderSide::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(23,23,23,0.3);
+    background-color: rgba(23, 23, 23, 0.3);
     border-radius: 16px;
     z-index: -1;
   }
@@ -1052,7 +1062,7 @@ a {
 .tooltipButton {
   background-color: rgba(44, 44, 49, 0.8);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   padding: 6px 12px;
   color: rgba(255, 255, 255, 0.9);
@@ -1085,15 +1095,17 @@ a {
     gap: 8px;
   }
 
-  .lyricsBox, .wakaBox {
+  .lyricsBox,
+  .wakaBox {
     width: 100%;
   }
 }
 
-.lyricsBox, .wakaBox {
+.lyricsBox,
+.wakaBox {
   background-color: rgba(34, 34, 38, 0.3);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 12px;
   flex: 1;
@@ -1104,7 +1116,7 @@ a {
 .recentGamesBox {
   background-color: rgba(34, 34, 38, 0.3);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 12px;
   margin-bottom: 8px;
@@ -1188,38 +1200,38 @@ a {
 }
 
 .ratingsContainer {
-  background-color: #303030; 
-  padding: 10px; 
-  border-radius: 8px; 
+  background-color: #303030;
+  padding: 10px;
+  border-radius: 8px;
   color: white;
 }
 
 .ratingsContainer h3 {
   margin-bottom: 15px;
-  color: white; 
+  color: white;
 }
 
 .ratingList {
-  list-style: none; 
+  list-style: none;
   padding: 0;
   margin: 0;
-  display: grid; 
-  grid-template-columns: repeat(2, minmax(0, 1fr)); 
-  gap: 10px; 
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
 }
 
 .ratingList dt {
   font-weight: bold;
-  color: #007bff; 
+  color: #007bff;
 }
 
 .ratingList dd {
-  margin-left: 0; 
-  color: white; 
+  margin-left: 0;
+  color: white;
 }
 
 @media (max-width: 600px) {
   .ratingList {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
   }
 }

@@ -1,18 +1,19 @@
 "use client";
 import React, { MouseEvent, ReactNode, useState, useEffect } from "react";
 import TransitionEffect from "@/components/TransitionEffect";
-import { Popover } from "@mui/material";
+import SettingsDrawer from "./Drawers/SettingsDrawer";
+import { Theme, MenuItem, NavItem } from "./types";
+import { SettingsCard } from "./StyledComponents";
+import MobileNavigation from "./MobileNavigation";
 import { usePathname } from "next/navigation";
+import { Birthday } from "./layout/Birthday";
+import ThemeSelector from "./ThemeSelector";
+import LanguageMenu from "./LanguageMenu";
+import { Popover } from "@mui/material";
+import Navigation from "./Navigation";
 import Translate from "./translation";
 import ToolTip from "./ToolTip";
 import Image from "next/image";
-import { Theme, MenuItem, NavItem } from "./types";
-import { SettingsCard } from "./StyledComponents";
-import ThemeSelector from "./ThemeSelector";
-import LanguageMenu from "./LanguageMenu";
-import Navigation from "./Navigation";
-import MobileNavigation from "./MobileNavigation";
-import SettingsDrawer from "./Drawers/SettingsDrawer";
 
 const themes: Theme[] = [
   { name: "dark", primary: "#626264", color: "98, 98, 100" },
@@ -242,88 +243,9 @@ export default function Page({ children }: { children: ReactNode }) {
     </SettingsCard>
   );
 
-   useEffect(() => {
-      if (Date().includes("Jun 29")) {
-        for (let i = 0; i < 130; i++) {
-          var randomRotation = Math.floor(Math.random() * 360);
-          var randomScale = Math.random() * 1;
-          var randomWidth = Math.floor(
-            Math.random() *
-              Math.max(
-                document.documentElement.clientWidth,
-                window.innerWidth || -10
-              )
-          );
-          var randomHeight = Math.floor(
-            Math.random() *
-              Math.max(
-                document.documentElement.clientHeight,
-                window.innerHeight || 500
-              )
-          );
-  
-          var randomAnimationDelay = Math.floor(Math.random() * 13);
-          var confetti = document.createElement("div");
-          confetti.className = "confetti";
-          confetti.style.top = randomHeight + "px";
-          confetti.style.right = randomWidth + "px";
-          confetti.style.backgroundColor =
-            "#" +
-            (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6);
-          confetti.style.transform = "scale(" + randomScale + ")";
-          confetti.style.transform =
-            "skew(15deg) rotate(" + randomRotation + "deg)";
-          confetti.style.animationDelay = randomAnimationDelay + "s";
-          document.getElementById("confetti-wrapper")!.appendChild(confetti);
-        }
-      }
-  
-      if (Date().includes("Jun") && !Date().includes("Jun 30")) {
-        let countDownDate = new Date(
-          `Jun 29, ${new Date().getFullYear()} 00:00:00`
-        ).getTime();
-        let x = setInterval(function () {
-          let now = new Date().getTime();
-          let distance = countDownDate - now;
-          let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-          let hours = Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-          );
-          let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-          let time = `${days.toString().length < 2 ? `0${days}` : days}:${
-            hours.toString().length < 2 ? `0${hours}` : hours
-          }:${minutes.toString().length < 2 ? `0${minutes}` : minutes}:${
-            seconds.toString().length < 2 ? `0${seconds}` : seconds
-          }`;
-          document.getElementById("bday")!.innerHTML = time;
-          if (distance <= 0) {
-            clearInterval(x);
-            document.getElementById("bday")!.innerHTML = "Today!";
-          }
-        }, 1000);
-      }
-    }, []);
-
   return (
     <TransitionEffect>
-      {Date().includes("Jun") && !Date().includes("Jun 30") && (
-        <div className="BirthdayDiv">
-          <b
-            style={{
-              fontSize: "16px",
-              backgroundImage: "linear-gradient(to right, #83a5d7, #684179)",
-              color: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Birthday
-          </b>
-          <p style={{ fontSize: "14px" }} id="bday">
-            ??:??:??:??
-          </p>
-        </div>
-      )}
+      {Birthday({})}
       <div className="parent center">
         <div className="card boxes" id="confetti-wrapper">
           <div className="sliderSide boxes">
