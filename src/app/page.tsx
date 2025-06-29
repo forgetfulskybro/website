@@ -58,7 +58,7 @@ export default function Home() {
   function birthday(date = "Jun 29") {
     if (Date().includes(date)) {
       return new Translate().get(data!, "Misc.page.birthday.today", {
-        age: calcAge(new Date("2004-06-29")),
+        age: calcAge(new Date("2004-06-29")) + 1,
       });
     } else
       return new Translate().get(data!, "Misc.page.birthday.random", {
