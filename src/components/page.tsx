@@ -38,9 +38,11 @@ export default function Page({ children }: { children: ReactNode }) {
     }
     return "#131314";
   });
+  
   const handleProjectClick = () => {
     setDrawerOpen(true);
   };
+
   const [showCustomPicker, setShowCustomPicker] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<Theme>(() => {
     if (typeof window !== "undefined") {
