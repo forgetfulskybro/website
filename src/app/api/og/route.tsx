@@ -4,6 +4,48 @@ export const runtime = "edge";
 
 export async function GET() {
   try {
+    const numTurtles = Math.floor(Math.random() * 6) + 1;
+    const turtles = [];
+    const textAreaX1 = 300;
+    const textAreaX2 = 900;
+    const textAreaY1 = 200;
+    const textAreaY2 = 430;
+
+    for (let i = 0; i < numTurtles; i++) {
+      let x, y;
+
+      do {
+        x = Math.floor(Math.random() * 1100) + 50;
+        y = Math.floor(Math.random() * 530) + 50;
+      } while (
+        x > textAreaX1 &&
+        x < textAreaX2 &&
+        y > textAreaY1 &&
+        y < textAreaY2
+      );
+
+      const size = Math.floor(Math.random() * 30) + 30;
+      const rotation = Math.floor(Math.random() * 360);
+      const opacity = (Math.random() * 0.3 + 0.2).toFixed(2);
+
+      turtles.push(
+        <div
+          key={`turtle-${i}`}
+          style={{
+            position: "absolute",
+            left: `${x}px`,
+            top: `${y}px`,
+            fontSize: `${size}px`,
+            transform: `rotate(${rotation}deg)`,
+            opacity: opacity,
+            zIndex: 0,
+          }}
+        >
+          🐢
+        </div>
+      );
+    }
+
     return new ImageResponse(
       (
         <div
@@ -46,6 +88,8 @@ export async function GET() {
             }}
           />
 
+          {turtles}
+
           <div
             style={{
               display: "flex",
@@ -60,7 +104,7 @@ export async function GET() {
               style={{
                 fontSize: "80px",
                 fontWeight: "bold",
-                background: "linear-gradient(135deg, #4ca6ca, #8364e8)",
+                background: "linear-gradient(135deg, #83a5d7, #684179)",
                 backgroundClip: "text",
                 color: "transparent",
                 textShadow: "0 2px 20px rgba(76, 166, 202, 0.3)",
