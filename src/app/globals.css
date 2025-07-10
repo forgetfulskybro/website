@@ -213,7 +213,7 @@ a {
   display: flex;
   flex: 1 auto;
   flex-flow: wrap;
-  height: 100vh;
+  height: 100dvh;
 }
 .boxes {
   justify-content: center;
@@ -223,6 +223,9 @@ a {
   display: none;
 }
 @media screen and (max-width: 869px) {
+  .card {
+    height: 100dvh;
+  }
   .hide {
     display: none;
   }
@@ -536,7 +539,7 @@ a {
 .Blue {
   background-image: linear-gradient(to right, #83a5d7, #684179);
   color: transparent;
-  background-clip: text; 
+  background-clip: text;
 }
 
 .spotify {
