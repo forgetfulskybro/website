@@ -9,10 +9,9 @@ interface GamesProps {
 }
 
 export const RecentGames: React.FC<GamesProps> = ({ data }) => {
-  const games = recentGames();
   return (
     <>
-      <GameCard data={data!} games={games} />
+      <GameCard games={recentGames()} />
       <MoreGames data={data} />
     </>
   );

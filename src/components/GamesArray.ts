@@ -10,6 +10,15 @@ export interface GameType {
 
 const Games: GameType[] = [
   {
+    target: "dl1",
+    title: "Dying Light",
+    progress: "Around 10% (2nd Playthrough)",
+    image: "/DL1.png",
+    myRating: 7.7,
+    tags: ["Open World", "Zombies", "Parkour", "Horror"],
+    website: "https://dyinglightgame.com",
+  },
+  {
     target: "tg",
     title: "Tainted Grail",
     image: "/tg.png",
