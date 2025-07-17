@@ -3,15 +3,11 @@ import { allGames } from "../GamesArray";
 import { GameCard } from "./GameCard";
 import React from "react";
 
-interface GamesProps {
-  data: string;
-}
-
-export const AllGames: React.FC<GamesProps> = ({ data }) => {
+export const AllGames: React.FC<any> = () => {
   const games = allGames();
   return (
     <>
-      <GameCard data={data!} games={games} />
+      <GameCard games={games} />
     </>
   );
 };
