@@ -250,7 +250,7 @@ export default function Page({ children }: { children: ReactNode }) {
       {Birthday({})}
       <div className="parent center">
         <div className="card boxes" id="confetti-wrapper">
-          <div className="sliderSide boxes">
+          <div className="sliderSide">
             <ToolTip
               content={new Translate().get(language!, "Comps.page.settings")}
               placement="top"
