@@ -14,7 +14,7 @@ export const useShootingStars = () => {
     let angle = Math.random() * 2 * Math.PI;
     const radiusX = 20 + Math.random() * 30;
     const radiusY = 15 + Math.random() * 20;
-    const speed = 0.001 + Math.random() * 0.002; 
+    const speed = 0.001 + Math.random() * 0.002;
     const centerX = 50;
     const centerY = 50;
 
@@ -29,7 +29,6 @@ export const useShootingStars = () => {
 
     animateMoon();
 
-    // Create Shooting Star
     const createStar = () => {
       const star = document.createElement("div");
       star.className = "shootingStar";
@@ -55,12 +54,13 @@ export const useShootingStars = () => {
 
       const top = -10 - Math.random() * 20;
       const left = Math.random() * 100;
+      const right = Math.random() * -100;
+      comet.style.right = `${right}vw`;
       comet.style.top = `${top}vh`;
       comet.style.left = `${left}vw`;
 
-      const angle = 315; 
+      const angle = 200;
       comet.style.transform = `rotate(${angle}deg)`;
-      comet.style.background = `linear-gradient(${angle}deg, rgba(0, 0, 255, 0) 0%, rgba(95, 145, 255, 0.5) 50%, rgba(95, 145, 255, 1) 100%)`;
 
       const width = 300 + Math.random() * 200;
       comet.style.width = `${width}px`;

@@ -43,6 +43,7 @@ a {
 }
 ::-webkit-scrollbar-track {
   border-radius: 0 5px 5px 0;
+  box-shadow: inset 0 0 5px #4ca6ca;
 }
 ::-webkit-scrollbar-thumb {
   background: #626267;
@@ -100,6 +101,7 @@ a {
   align-items: center;
   justify-content: center;
   background-color: rgba(34, 34, 38, 0.3);
+
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   height: 30px;
@@ -114,12 +116,14 @@ a {
 .homeHigh,
 .home:hover {
   background-color: rgba(142, 68, 173, 0.3) !important;
+
   transition: 0.25s ease-in-out;
 }
 
 .settingsHigh,
 .settings:hover {
   background-color: rgba(0, 0, 0, 0.3) !important;
+
   cursor: pointer;
   transition: 0.25s ease-in-out;
 }
@@ -127,18 +131,21 @@ a {
 .projectsHigh,
 .projects:hover {
   background-color: rgba(255, 97, 97, 0.3) !important;
+
   transition: 0.25s ease-in-out;
 }
 
 .infoHigh,
 .info:hover {
   background-color: rgba(26, 188, 156, 0.3) !important;
+
   transition: 0.25s ease-in-out;
 }
 
 /* .cardSocials {
   aspect-ratio: 1 / 1;
   background-color: rgba(34, 34, 38, 0.3);
+
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 6px;
@@ -238,6 +245,7 @@ a {
 
 .projectCard {
   background-color: rgba(34, 34, 38, 0.3);
+
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   height: 150px;
@@ -292,6 +300,7 @@ a {
   margin-top: 4px;
   padding: 4px 8px;
   background-color: rgba(0, 0, 0, 0.2);
+
   transition: opacity 0.25s ease-in-out;
 }
 
@@ -328,11 +337,13 @@ a {
   font-size: 12px;
   font-weight: 500;
   background-color: rgba(0, 0, 0, 0.2);
+
 }
 
 .gameCard {
   position: relative;
   background-color: rgba(34, 34, 38, 0.3);
+
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   height: fit-content;
@@ -352,6 +363,7 @@ a {
 .lyricsBox,
 .wakaBox {
   background-color: rgba(34, 34, 38, 0.3);
+
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 16px;
@@ -603,6 +615,7 @@ a {
     align-items: center;
     justify-content: center;
     background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
     width: 50px;
     margin-bottom: 5px;
@@ -617,7 +630,7 @@ a {
     left: 0;
     right: 0;
     bottom: 0;
-    /* background-color: rgba(23, 23, 23, 0.3); */
+    background-color: rgba(23, 23, 23, 0.3);
     border-radius: 16px;
     z-index: -1;
   }
@@ -855,7 +868,7 @@ a {
   left: 0;
   right: 0;
   bottom: 0;
-  /* background-color: rgba(23, 23, 23, 0.3); */
+  background-color: rgba(23, 23, 23, 0.3);
   border-radius: 16px;
   z-index: -1;
 }
@@ -864,12 +877,12 @@ a {
   position: absolute;
   width: 30px;
   height: 1.5px;
-  /* background: linear-gradient(
+  background: linear-gradient(
     90deg,
     rgba(56, 189, 248, 0),
     #38bdf8 51.56%,
     rgba(56, 189, 248, 0)
-  ); */
+  );
   border-radius: 20px;
   transform: translateY(-50%);
   top: 50%;
@@ -890,7 +903,7 @@ a {
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  /* border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 16px;
   width: 60px;
   height: 50px;
@@ -917,7 +930,7 @@ a {
   left: 0;
   right: 0;
   bottom: 0;
-  /* background-color: rgba(23, 23, 23, 0.3); */
+  background-color: rgba(23, 23, 23, 0.3);
   border-radius: 16px;
   z-index: -1;
 }
@@ -938,8 +951,9 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-color: rgba(34, 34, 38, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.05); */
+  background-color: rgba(34, 34, 38, 0.3);
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   height: 30px;
   width: 30px;
@@ -953,18 +967,21 @@ a {
 .dot.high,
 .dot:hover {
   background-color: rgba(142, 68, 173, 0.3);
+
   transition: 0.25s ease-in-out;
 }
 
 .home.high,
 .home:hover {
   background-color: rgba(142, 68, 173, 0.3);
+
   transition: 0.25s ease-in-out;
 }
 
 .settings.high,
 .settings:hover {
   background-color: rgba(29, 28, 28, 0.3);
+
   cursor: pointer;
   transition: 0.25s ease-in-out;
 }
@@ -972,12 +989,14 @@ a {
 .projects.high,
 .projects:hover {
   background-color: rgba(255, 97, 97, 0.3);
+
   transition: 0.25s ease-in-out;
 }
 
 .info.high,
 .info:hover {
   background-color: rgba(26, 188, 156, 0.3);
+
   transition: 0.25s ease-in-out;
 }
 
@@ -1019,7 +1038,7 @@ a {
   left: 0;
   right: 0;
   bottom: 0;
-    /* background-color: rgba(23, 23, 23, 0.3); */
+  background-color: rgba(23, 23, 23, 0.3);
   border-radius: 16px;
   z-index: -1;
 }
@@ -1034,6 +1053,7 @@ a {
     align-items: center;
     justify-content: center;
     background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
     width: 200px;
     height: 50px;
@@ -1062,7 +1082,7 @@ a {
     left: 0;
     right: 0;
     bottom: 0;
-    /* background-color: rgba(23, 23, 23, 0.3); */
+    background-color: rgba(23, 23, 23, 0.3);
     border-radius: 16px;
     z-index: -1;
   }
@@ -1076,6 +1096,7 @@ a {
 
 .tooltipButton {
   background-color: rgba(44, 44, 49, 0.8);
+
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   padding: 6px 12px;
@@ -1118,6 +1139,7 @@ a {
 .lyricsBox,
 .wakaBox {
   background-color: rgba(34, 34, 38, 0.3);
+
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 12px;
@@ -1128,6 +1150,7 @@ a {
 
 .recentGamesBox {
   background-color: rgba(34, 34, 38, 0.3);
+
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 12px;
@@ -1329,16 +1352,16 @@ a {
 
 .comet {
   position: absolute;
-  height: 4px; 
+  height: 7px; 
   width: 300px; 
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0) 0%, 
-    rgba(162, 105, 184, 0.7) 40%,
+    rgba(162, 105, 184, 0.7) 50%,
     rgb(115, 53, 145) 100% 
   );
   border-radius: 999px;
-  filter: drop-shadow(0 0 6px rgba(105, 155, 255, 1)); 
+  filter: drop-shadow(0 0 6px rgb(188, 105, 255)); 
   animation: cometFlight linear forwards;
   opacity: 0;
 }
@@ -1346,14 +1369,14 @@ a {
 @keyframes cometFlight {
   0% {
     opacity: 1;
-    transform: translateX(0) translateY(0) rotate(200deg);
+    transform: translateX(0) translateY(0) rotate(390deg);
   }
   10% {
     opacity: 1;
   }
   100% {
     opacity: 0;
-    transform: translateX(100vw) translateY(100vh) rotate(200deg); 
+    transform: translateX(100vw) translateY(100vh) rotate(390deg); 
   }
 }
 
@@ -1381,58 +1404,4 @@ a {
   .moon {
     display: none;
   }
-}
-
-/* components/MoonModal.module.css */
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modalContent {
-  background-color: #1a1a1a;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 600px;
-  width: 90%;
-  max-height: 80vh;
-  overflow-y: auto;
-  color: #fff;
-  position: relative;
-}
-
-.closeButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.modalContent h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.craterTable {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-}
-
-.craterTable th,
-.craterTable td {
-  border: 1px solid #444;
-  padding: 8px;
 }
