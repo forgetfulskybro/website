@@ -1,4 +1,5 @@
 "use client";
+import { useShootingStars } from "@/components/ShootingStars";
 import { LangSelect } from "@/components/LanguageSelect";
 import { AllGames } from "@/components/layout/AllGames";
 import { usePathname } from "next/navigation";
@@ -10,6 +11,9 @@ export default function Projects() {
 
   return (
     <main key={usePathname()} className="main">
+      <div className="starryBackground" />
+      <div className="shootingStarContainer" ref={useShootingStars()}></div>
+
       <Page>
         <div
           style={{ maxHeight: "80vh", fontSize: 10 }}

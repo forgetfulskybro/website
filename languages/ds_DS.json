@@ -69,13 +69,22 @@
   "Misc": {
     "page": {
       "birthday": {
-        "today": "Dan Sucks Dan Sucks, Dan {age} Sucks Dan",
-        "random": "Sucks Dan {age} Sucks Dan"
+        "today": {
+          "before": "Dan Sucks Dan Sucks Dan! Dan Sucks ",
+          "after": " Dan Sucks."
+        },
+        "random": {
+          "before": "Dan Sucks ",
+          "after": " Dan Sucks"
+        }
       },
       "descHello": "Dan Sucks, Dan Sucks Dan",
       "descOr": "Sucks",
       "descShort": "Dan Sucks",
-      "desc": "Dan Sucks Dan Sucks Dan {date} Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan.",
+      "desc": {
+        "before": "Dan Sucks Dan Sucks Dan ",
+        "after": " Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks."
+      },
       "turtles": "Dan",
       "capybaras": "Sucks"
     },
@@ -97,7 +106,7 @@
       "home": "Dan",
       "projects": "Sucks",
       "colorTheme": "Dan Sucks",
-      "info": "Info",
+      "info": "Sucks",
       "dark": "Dan",
       "shrimp": "Sucks",
       "chant": "Dan",

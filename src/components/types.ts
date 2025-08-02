@@ -15,3 +15,9 @@ export interface NavItem {
   src: string;
   path: string;
 }
+
+export interface SocialItem {
+  alt: string;
+  url: string;
+  src: string;
+}

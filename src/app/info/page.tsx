@@ -1,4 +1,5 @@
 "use client";
+import { useShootingStars } from "@/components/ShootingStars";
 import { RecentGames } from "@/components/layout/RecentGames";
 import { LangSelect } from "@/components/LanguageSelect";
 import GameDrawer from "@/components/Drawers/GameDrawer";
@@ -30,6 +31,9 @@ export default function Home() {
 
   return (
     <main className="main">
+      <div className="starryBackground" />
+      <div className="shootingStarContainer" ref={useShootingStars()}></div>
+
       <Page>
         <div style={{ width: 750, marginTop: 15 }}>
           {isMobile && (

@@ -1,4 +1,5 @@
 "use client";
+import { useShootingStars } from "@/components/ShootingStars";
 import { LangSelect } from "@/components/LanguageSelect";
 import ProjectCards from "@/components/layout/Projects";
 import { usePathname } from "next/navigation";
@@ -9,6 +10,9 @@ export default function Projects() {
   const data = LangSelect();
   return (
     <main key={usePathname()} className="main">
+      <div className="starryBackground" />
+      <div className="shootingStarContainer" ref={useShootingStars()}></div>
+
       <Page>
         <div
           style={{ marginRight: 10, maxHeight: "80vh", overflowY: "auto" }}

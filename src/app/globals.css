@@ -101,7 +101,6 @@ a {
   align-items: center;
   justify-content: center;
   background-color: rgba(34, 34, 38, 0.3);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   height: 30px;
@@ -116,14 +115,12 @@ a {
 .homeHigh,
 .home:hover {
   background-color: rgba(142, 68, 173, 0.3) !important;
-  backdrop-filter: blur(12px);
   transition: 0.25s ease-in-out;
 }
 
 .settingsHigh,
 .settings:hover {
   background-color: rgba(0, 0, 0, 0.3) !important;
-  backdrop-filter: blur(12px);
   cursor: pointer;
   transition: 0.25s ease-in-out;
 }
@@ -131,27 +128,24 @@ a {
 .projectsHigh,
 .projects:hover {
   background-color: rgba(255, 97, 97, 0.3) !important;
-  backdrop-filter: blur(12px);
   transition: 0.25s ease-in-out;
 }
 
 .infoHigh,
 .info:hover {
   background-color: rgba(26, 188, 156, 0.3) !important;
-  backdrop-filter: blur(12px);
   transition: 0.25s ease-in-out;
 }
 
-.cardSocials {
+/* .cardSocials {
   aspect-ratio: 1 / 1;
   background-color: rgba(34, 34, 38, 0.3);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 6px;
   margin: 4px;
   transition: all 0.25s ease-in-out;
-}
+} */
 
 .cardSocials[data-platform="Discord"]:hover {
   background-color: rgba(88, 101, 242, 0.3) !important;
@@ -166,7 +160,7 @@ a {
 }
 
 .cardSocials[data-platform="Steam"]:hover {
-  background-color: rgba(0, 174, 255, 0.3) !important;
+  background-color: rgba(19, 27, 48, 1) !important;
 }
 
 .cardSocials img {
@@ -245,7 +239,6 @@ a {
 
 .projectCard {
   background-color: rgba(34, 34, 38, 0.3);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   height: 150px;
@@ -300,7 +293,6 @@ a {
   margin-top: 4px;
   padding: 4px 8px;
   background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(8px);
   transition: opacity 0.25s ease-in-out;
 }
 
@@ -337,13 +329,11 @@ a {
   font-size: 12px;
   font-weight: 500;
   background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(8px);
 }
 
 .gameCard {
   position: relative;
   background-color: rgba(34, 34, 38, 0.3);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   height: fit-content;
@@ -363,7 +353,6 @@ a {
 .lyricsBox,
 .wakaBox {
   background-color: rgba(34, 34, 38, 0.3);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 16px;
@@ -582,6 +571,7 @@ a {
     margin-right: 1.5px;
     text-align: center;
   }
+
   .projectTags {
     align-items: center;
     border-radius: 3px;
@@ -614,7 +604,6 @@ a {
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     border-radius: 16px;
@@ -854,7 +843,6 @@ a {
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
@@ -906,7 +894,6 @@ a {
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
@@ -957,7 +944,6 @@ a {
   align-items: center;
   justify-content: center;
   background-color: rgba(34, 34, 38, 0.3);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   height: 30px;
@@ -972,21 +958,18 @@ a {
 .dot.high,
 .dot:hover {
   background-color: rgba(142, 68, 173, 0.3);
-  backdrop-filter: blur(12px);
   transition: 0.25s ease-in-out;
 }
 
 .home.high,
 .home:hover {
   background-color: rgba(142, 68, 173, 0.3);
-  backdrop-filter: blur(12px);
   transition: 0.25s ease-in-out;
 }
 
 .settings.high,
 .settings:hover {
   background-color: rgba(29, 28, 28, 0.3);
-  backdrop-filter: blur(12px);
   cursor: pointer;
   transition: 0.25s ease-in-out;
 }
@@ -994,19 +977,57 @@ a {
 .projects.high,
 .projects:hover {
   background-color: rgba(255, 97, 97, 0.3);
-  backdrop-filter: blur(12px);
   transition: 0.25s ease-in-out;
 }
 
 .info.high,
 .info:hover {
   background-color: rgba(26, 188, 156, 0.3);
-  backdrop-filter: blur(12px);
   transition: 0.25s ease-in-out;
 }
 
 .mobileSliderSide {
   display: none;
+}
+
+.socialLinks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  width: 200px;
+  height: 50px;
+  margin: 0 auto;
+  padding: 0 10px;
+  position: relative;
+}
+
+.socialLinks {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.socialLinks > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.socialLinks::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(23, 23, 23, 0.3);
+  border-radius: 16px;
+  z-index: -1;
 }
 
 @media (max-width: 869px) {
@@ -1019,7 +1040,6 @@ a {
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     border-radius: 16px;
@@ -1064,7 +1084,6 @@ a {
 
 .tooltipButton {
   background-color: rgba(44, 44, 49, 0.8);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   padding: 6px 12px;
@@ -1107,7 +1126,6 @@ a {
 .lyricsBox,
 .wakaBox {
   background-color: rgba(34, 34, 38, 0.3);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 12px;
@@ -1118,7 +1136,6 @@ a {
 
 .recentGamesBox {
   background-color: rgba(34, 34, 38, 0.3);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 12px;
@@ -1156,7 +1173,6 @@ a {
   right: 20px;
   z-index: 1000;
   background: rgba(23, 23, 23, 0.3);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
@@ -1237,4 +1253,195 @@ a {
   .ratingList {
     grid-template-columns: 1fr;
   }
+}
+
+.starryBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  background-image: 
+    radial-gradient(circle, rgba(255,255,255,0.2) 0.5px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 2px),
+    radial-gradient(circle, rgba(255,255,255,0.4) 1.5px, transparent 3px),
+    radial-gradient(circle, rgba(255,255,255,0.15) 0.3px, transparent 0.6px),
+    radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 2px);
+  background-size: 
+    100px 100px, 
+    150px 150px, 
+    200px 200px, 
+    80px 80px,
+    300px 300px;
+  background-position: 
+    0 0, 
+    50px 20px, 
+    100px 80px, 
+    30px 40px, 
+    150px 60px;
+  z-index: -2;
+}
+
+.shootingStarContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.shootingStar {
+  position: absolute;
+  height: 2px;
+  width: 100px;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 255, 0) 0%,
+    rgba(95, 145, 255, 0.5) 50%,
+    rgba(95, 145, 255, 1) 100%
+  );
+  border-radius: 999px;
+  filter: drop-shadow(0 0 6px rgba(105, 155, 255, 1));
+  transform: rotate(135deg);
+  animation: shooting 2500ms linear forwards;
+  opacity: 0;
+}
+
+.moon {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  background: radial-gradient(
+    circle at 60% 40%,
+    #f8f8f8 8%, 
+    #d8d8d8 25%, 
+    #b8b8b8 45%, 
+    #989898 65%, 
+    #787878 85% 
+  );
+  border-radius: 50%;
+  box-shadow: 
+    0 0 25px rgba(255, 255, 255, 0.35),
+    inset 3px 3px 6px rgba(0, 0, 0, 0.25),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.15);
+  background-image: 
+    radial-gradient(circle at 30% 30%, rgba(80, 80, 80, 0.35) 4px, transparent 5px),
+    radial-gradient(circle at 70% 20%, rgba(80, 80, 80, 0.3) 2.5px, transparent 3.5px),
+    radial-gradient(circle at 20% 80%, rgba(80, 80, 80, 0.25) 3px, transparent 4px), 
+    radial-gradient(circle at 80% 70%, rgba(80, 80, 80, 0.2) 1.5px, transparent 2.5px), 
+    radial-gradient(circle at 50% 50%, rgba(80, 80, 80, 0.15) 2px, transparent 3px); 
+  z-index: 0;
+}
+
+.comet {
+  position: absolute;
+  height: 4px; 
+  width: 300px; 
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(162, 105, 184, 0.7) 40%,
+    rgb(115, 53, 145) 100% 
+  );
+  border-radius: 999px;
+  filter: drop-shadow(0 0 6px rgba(105, 155, 255, 1)); 
+  animation: cometFlight linear forwards;
+  opacity: 0;
+}
+
+@keyframes cometFlight {
+  0% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) rotate(200deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100vw) translateY(100vh) rotate(200deg); 
+  }
+}
+
+@keyframes shooting {
+  0% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) rotate(135deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-500px) translateY(500px) rotate(135deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shootingStar {
+    animation: none;
+  }
+  .comet {
+    animation: none;
+  }
+  .moon {
+    display: none;
+  }
+}
+
+/* components/MoonModal.module.css */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  color: #fff;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modalContent h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.craterTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.craterTable th,
+.craterTable td {
+  border: 1px solid #444;
+  padding: 8px;
 }

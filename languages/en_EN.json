@@ -69,13 +69,22 @@
   "Misc": {
     "page": {
       "birthday": {
-        "today": "Today is my birthday, turning {age} years old",
-        "random": "I'm currently {age} years old"
+        "today": {
+          "before": "Today is my birthday! I am ",
+          "after": " years old."
+        },
+        "random": {
+          "before": "I'm currently ",
+          "after": " years old"
+        }
       },
       "descHello": "Hello, my name is",
       "descOr": "or",
       "descShort": "for short",
-      "desc": "and I've been coding for {date} years. I enjoy creating open source projects on my free time or whenever I'm not lazy.",
+      "desc": {
+        "before": "and I've been coding for ",
+        "after": " years. I enjoy creating open source projects on my free time or whenever I'm not lazy."
+      },
       "turtles": "turtles",
       "capybaras": "capybaras"
     },

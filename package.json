@@ -16,7 +16,7 @@
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "date-fns": "^4.1.0",
-    "framer-motion": "^12.6.3",
+    "framer-motion": "^12.23.12",
     "genius-lyrics": "^4.4.7",
     "material-ui-popup-state": "^5.3.4",
     "next": "^15.2.4",
