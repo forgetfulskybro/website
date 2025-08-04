@@ -39,7 +39,7 @@ export default function Home() {
           {after}
         </>
       );
-    } 
+    }
   }
 
   const descBefore = translate.get(data!, "Misc.page.desc.before");
@@ -49,7 +49,7 @@ export default function Home() {
   return (
     <main className="main">
       <div className="starryBackground" />
-      <div className="shootingStarContainer" ref={useShootingStars()}></div>
+      <div className="shootingStarContainer" ref={useShootingStars()} />
 
       <Page>
         <div style={{ width: 550, marginTop: 25 }}>

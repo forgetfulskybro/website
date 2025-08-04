@@ -26,8 +26,15 @@ export const useShootingStars = () => {
       moon.style.top = `${y}vh`;
       requestAnimationFrame(animateMoon);
     };
-
     animateMoon();
+
+    const planet1 = document.createElement("div");
+    planet1.className = "planet planet1";
+    container.appendChild(planet1);
+
+    const planet2 = document.createElement("div");
+    planet2.className = "planet planet2";
+    container.appendChild(planet2);
 
     const createStar = () => {
       const star = document.createElement("div");
@@ -51,20 +58,16 @@ export const useShootingStars = () => {
     const createComet = () => {
       const comet = document.createElement("div");
       comet.className = "comet";
-
       const top = -10 - Math.random() * 20;
       const left = Math.random() * 100;
       const right = Math.random() * -100;
       comet.style.right = `${right}vw`;
       comet.style.top = `${top}vh`;
       comet.style.left = `${left}vw`;
-
       const angle = 200;
       comet.style.transform = `rotate(${angle}deg)`;
-
       const width = 300 + Math.random() * 200;
       comet.style.width = `${width}px`;
-
       const duration = 5000 + Math.random() * 3000;
       comet.style.animationDuration = `${duration}ms`;
       comet.style.animationDelay = `0ms`;
@@ -73,6 +76,30 @@ export const useShootingStars = () => {
       setTimeout(() => {
         comet.remove();
       }, duration);
+    };
+
+    const createDustCloud = () => {
+      const dust = document.createElement("div");
+      dust.className = "dust-cloud";
+      dust.style.left = `${Math.random() * 100}vw`;
+      dust.style.top = `${Math.random() * 100}vh`;
+      dust.style.width = `${20 + Math.random() * 30}px`;
+      dust.style.height = `${10 + Math.random() * 20}px`;
+      dust.style.opacity = `${0.05 + Math.random() * 0.1}`;
+      dust.style.animationDelay = `${Math.random() * 20}s`;
+      dust.style.animationDuration = `${30 + Math.random() * 20}s`;
+      container.appendChild(dust);
+
+      dust.addEventListener("animationend", () => dust.remove());
+    };
+
+    for (let i = 0; i < 4; i++) {
+      createDustCloud();
+    }
+
+    const respawnDust = () => {
+      createDustCloud();
+      setTimeout(respawnDust, 10000 + Math.random() * 10000);
     };
 
     const spawnStars = () => {
@@ -94,6 +121,7 @@ export const useShootingStars = () => {
 
     spawnStars();
     spawnComet();
+    respawnDust();
 
     return () => {
       container.innerHTML = "";

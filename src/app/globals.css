@@ -337,7 +337,6 @@ a {
   font-size: 12px;
   font-weight: 500;
   background-color: rgba(0, 0, 0, 0.2);
-
 }
 
 .gameCard {
@@ -1276,25 +1275,47 @@ a {
   width: 100%;
   height: 100%;
   background-color: #000;
-  background-image: 
-    radial-gradient(circle, rgba(255,255,255,0.2) 0.5px, transparent 1px),
-    radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 2px),
-    radial-gradient(circle, rgba(255,255,255,0.4) 1.5px, transparent 3px),
-    radial-gradient(circle, rgba(255,255,255,0.15) 0.3px, transparent 0.6px),
-    radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 2px);
-  background-size: 
-    100px 100px, 
-    150px 150px, 
-    200px 200px, 
-    80px 80px,
-    300px 300px;
-  background-position: 
-    0 0, 
-    50px 20px, 
-    100px 80px, 
-    30px 40px, 
-    150px 60px;
+  background-image: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.2) 0.5px,
+      transparent 1px
+    ),
+    radial-gradient(circle, rgba(255, 255, 255, 0.3) 1px, transparent 2px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.4) 1.5px, transparent 3px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.15) 0.3px, transparent 0.6px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.5) 1px, transparent 2px);
+  background-size: 100px 100px, 150px 150px, 200px 200px, 80px 80px, 300px 300px;
+  background-position: 0 0, 50px 20px, 100px 80px, 30px 40px, 150px 60px;
   z-index: -2;
+}
+
+.starryBackground::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.5) 1px,
+    transparent 2px
+  );
+  background-size: 200px 200px;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.starryBackground::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0.5px,
+    transparent 1px
+  );
+  background-size: 400px 400px;
+  opacity: 0.7;
+  z-index: -1;
 }
 
 .shootingStarContainer {
@@ -1330,78 +1351,245 @@ a {
   height: 45px;
   background: radial-gradient(
     circle at 60% 40%,
-    #f8f8f8 8%, 
-    #d8d8d8 25%, 
-    #b8b8b8 45%, 
-    #989898 65%, 
-    #787878 85% 
+    #f8f8f8 8%,
+    #d8d8d8 25%,
+    #b8b8b8 45%,
+    #989898 65%,
+    #787878 85%
   );
   border-radius: 50%;
-  box-shadow: 
-    0 0 25px rgba(255, 255, 255, 0.35),
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.35),
     inset 3px 3px 6px rgba(0, 0, 0, 0.25),
     inset -3px -3px 6px rgba(255, 255, 255, 0.15);
-  background-image: 
-    radial-gradient(circle at 30% 30%, rgba(80, 80, 80, 0.35) 4px, transparent 5px),
-    radial-gradient(circle at 70% 20%, rgba(80, 80, 80, 0.3) 2.5px, transparent 3.5px),
-    radial-gradient(circle at 20% 80%, rgba(80, 80, 80, 0.25) 3px, transparent 4px), 
-    radial-gradient(circle at 80% 70%, rgba(80, 80, 80, 0.2) 1.5px, transparent 2.5px), 
-    radial-gradient(circle at 50% 50%, rgba(80, 80, 80, 0.15) 2px, transparent 3px); 
+  background-image: radial-gradient(
+      circle at 30% 30%,
+      rgba(80, 80, 80, 0.35) 4px,
+      transparent 5px
+    ),
+    radial-gradient(
+      circle at 70% 20%,
+      rgba(80, 80, 80, 0.3) 2.5px,
+      transparent 3.5px
+    ),
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(80, 80, 80, 0.25) 3px,
+      transparent 4px
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(80, 80, 80, 0.2) 1.5px,
+      transparent 2.5px
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(80, 80, 80, 0.15) 2px,
+      transparent 3px
+    );
   z-index: 0;
 }
 
 .comet {
   position: absolute;
-  height: 7px; 
-  width: 300px; 
+  height: 7px;
+  width: 300px;
   background: linear-gradient(
     to right,
-    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0) 0%,
     rgba(162, 105, 184, 0.7) 50%,
-    rgb(115, 53, 145) 100% 
+    rgb(115, 53, 145) 100%
   );
   border-radius: 999px;
-  filter: drop-shadow(0 0 6px rgb(188, 105, 255)); 
+  filter: drop-shadow(0 0 6px rgb(188, 105, 255));
   animation: cometFlight linear forwards;
   opacity: 0;
 }
 
-@keyframes cometFlight {
-  0% {
-    opacity: 1;
-    transform: translateX(0) translateY(0) rotate(390deg);
-  }
-  10% {
-    opacity: 1;
-  }
+.planet1 {
+  width: 60px;
+  height: 60px;
+  top: 70vh;
+  left: 80vw;
+  background: radial-gradient(
+    circle at 40% 40%,
+    #4a90e2 10%,
+    #2e6ba5 25%,
+    #1e4a73 40%,
+    #0a2a43 60%,
+    transparent 80%
+  );
+  position: relative;
+  box-shadow: 0 0 20px rgba(74, 144, 226, 0.5);
+  border-radius: 50%;
+  z-index: -1;
+  animation: planetRotate 60s linear infinite;
+}
+
+.planet1::before {
+  content: '';
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%, rgba(255, 255, 255, 0.5) 10%, transparent 20%
+  ), radial-gradient(
+    circle at 70% 20%, rgba(255, 255, 255, 0.4) 8%, transparent 18%
+  ), radial-gradient(
+    circle at 20% 70%, rgba(255, 255, 255, 0.3) 7%, transparent 16%
+  );
+  z-index: 1;
+  animation: cloudShift 20s linear infinite;
+}
+
+.planet1::after {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 40%, rgba(34, 139, 34, 0.4) 12%,
+    rgba(139, 69, 19, 0.3) 30%,
+    transparent 50%
+  ), radial-gradient(
+    circle at 70% 60%, rgba(34, 139, 34, 0.3) 10%, transparent 25%
+  );
+  z-index: 2;
+  animation: landShift 25s linear infinite;
+}
+
+.planet2 {
+  width: 80px;
+  height: 80px;
+  top: 20vh;
+  left: 15vw;
+  background: radial-gradient(
+    circle at 40% 40%,
+    #d2691e 10%,
+    #a0522d 30%,
+    #8b4513 50%,
+    #5c2e0a 70%,
+    transparent 80%
+  );
+  box-shadow: 0 0 25px rgba(210, 105, 30, 0.6);
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  animation: planetRotate 75s linear infinite;
+  z-index: 0;
+}
+
+.planet2::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 25px;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 215, 0, 0.1) 30%,
+    rgba(255, 255, 255, 0.05) 60%,
+    transparent 80%
+  ), radial-gradient(
+    ellipse at 30% 50%,
+    rgba(255, 165, 0, 0.08) 0%,
+    transparent 50%
+  );
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50% / 100% 100% 8% 8%;
+  transform: translate(-50%, -50%) rotate(20deg);
+  filter: blur(3px);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+  z-index: -2;
+  animation: ringRotate 30s linear infinite reverse;
+}
+
+.dust-cloud {
+  position: absolute;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(200, 200, 200, 0.05) 50%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  z-index: -1; 
+  filter: blur(2px); 
+  animation: driftCloud 40s linear infinite;
+}
+
+@keyframes planetRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes cloudShift {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+  25% { transform: translate(-5%, 5%) scale(1.02); opacity: 0.25; }
+  50% { transform: translate(5%, -5%) scale(1); opacity: 0.3; }
+  75% { transform: translate(0, 0) scale(0.98); opacity: 0.35; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+}
+
+@keyframes landShift {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+  25% { transform: translate(3%, -3%) scale(1.01); opacity: 0.15; }
+  50% { transform: translate(-3%, 3%) scale(1); opacity: 0.2; }
+  75% { transform: translate(0, 0) scale(0.99); opacity: 0.18; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+}
+
+@keyframes driftCloud {
+  0% { transform: translate(-60vw, -20vh) rotate(0deg); }
+  25% { transform: translate(20vw, 10vh) rotate(15deg); }
+  50% { transform: translate(60vw, -10vh) rotate(30deg); }
+  75% { transform: translate(100vw, 20vh) rotate(45deg); }
+  100% { transform: translate(160vw, 0) rotate(60deg); }
+}
+
+@keyframes planetRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes ringRotate {
+  0% { transform: translate(-50%, -50%) rotate(20deg); }
+  100% { transform: translate(-50%, -50%) rotate(380deg); }
+}
+
+@keyframes twinkle {
+  0%,
   100% {
-    opacity: 0;
-    transform: translateX(100vw) translateY(100vh) rotate(390deg); 
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
   }
 }
 
-@keyframes shooting {
-  0% {
-    opacity: 1;
-    transform: translateX(0) translateY(0) rotate(135deg);
-  }
-  10% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(-500px) translateY(500px) rotate(135deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .shootingStar {
-    animation: none;
-  }
-  .comet {
-    animation: none;
-  }
+@media (max-width: 600px) {
   .moon {
-    display: none;
+    width: 30px;
+    height: 30px;
+  }
+  .planet1 {
+    width: 40px;
+    height: 40px;
+  }
+  .planet2 {
+    width: 50px;
+    height: 50px;
+  }
+  .planet2::after {
+    width: 80px;
+    height: 15px;
   }
 }
+
