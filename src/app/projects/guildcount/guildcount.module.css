@@ -65,21 +65,21 @@
 .filterButton {
   background-color: #40444b;
   border: none;
-  padding: 6px 10px; /* Smaller padding for compact buttons */
+  padding: 6px 10px;
   border-radius: 6px;
   color: #dcddde;
-  font-size: 13px; /* Smaller font for compact look */
+  font-size: 13px;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .filterButton:hover {
-  background-color: #5865f2; /* Blurple on hover */
+  background-color: #5865f2;
   color: #ffffff;
 }
 
 .filterButton.active {
-  background-color: #3ba55c; /* Discord green for active state */
+  background-color: #3ba55c;
   color: #ffffff;
 }
 
@@ -100,24 +100,49 @@
 
 .guildList {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
   max-height: 70vh;
   overflow-y: auto;
+  padding: 10px;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 600px) {
+  .guildList {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    padding: 8px 8px calc(40px + env(safe-area-inset-bottom)) 8px;
+    box-sizing: border-box;
+  }
 }
 
 .guildCard {
   user-select: text;
   background-color: #36393f;
-  padding: 15px;
+  padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 180px;
-  height: 220px;
+  width: 100%;
+  min-height: 160px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  transition: transform 0.2s ease;
+}
+
+.guildCard:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+  .guildCard {
+    min-height: 140px;
+    padding: 8px;
+  }
 }
 
 .guildInfo {
@@ -125,24 +150,24 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   flex-grow: 1;
   overflow: visible;
 }
 
 .guildName {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   color: #ffffff;
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  line-height: 1.2;
+  line-height: 1.3;
   position: relative;
 }
 
-.guildName:hover::after {
+.guildName::after {
   content: attr(title);
   position: absolute;
   background-color: #202225;
@@ -156,42 +181,54 @@
   transform: translateX(-50%);
   white-space: nowrap;
   pointer-events: none;
-  opacity: 1;
+  opacity: 0;
   transition: opacity 0.2s ease-in-out;
 }
 
-.guildName:not(:hover)::after {
-  opacity: 0;
+.guildName:active::after {
+  opacity: 1;
 }
 
 .guildMeta {
-  font-size: 12px;
+  font-size: 11px;
   color: #b9bbbe;
-  margin-top: 5px;
+  margin-top: 4px;
   max-width: 100%;
   overflow: hidden;
 }
 
-.guildIcon {
-  width: 64px;
-  height: 64px;
+.guildIcon,
+.noIcon {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   object-fit: cover;
 }
 
 .noIcon {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
   background-color: #5865f2;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
   color: #ffffff;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 18px;
+}
+
+.toggleButton {
+  padding: 6px 10px;
+  font-size: 12px;
+  background-color: #5865f2;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.toggleButton:active {
+  background-color: #4752c4;
 }
 
 .badge {
@@ -244,21 +281,6 @@
   padding: 2px 6px 2px 16px;
 }
 
-.toggleButton {
-  background-color: #5865f2;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-  width: 100%;
-}
-
-.toggleButton:hover {
-  background-color: #4752c4;
-}
-
 .modal {
   user-select: text;
   position: fixed;
@@ -266,16 +288,19 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.6
-  );
+  background-color: rgba(0, 0, 0, 0.6);
   display: none;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   z-index: 1000;
+  padding: 10px;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 601px) {
+  .modal {
+    align-items: center;
+  }
 }
 
 .modal.visible {
@@ -283,21 +308,44 @@
 }
 
 .modalContent {
-  background-color: #2f3136; /* Darker Discord-like background */
-  padding: 24px;
+  background-color: #2f3136;
+  padding: 16px;
   border-radius: 8px;
-  width: 450px; /* Consistent width */
-  max-height: 600px; /* Increased to fit both sections comfortably */
+  width: 100%;
+  max-width: 400px;
+  max-height: 80vh;
   overflow-y: auto;
-  color: #dcddde; /* Lighter text for better contrast */
+  color: #dcddde;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 600px) {
+  .modalContent {
+    max-width: 90%;
+    max-height: 85vh;
+    padding: 12px;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #b9bbbe;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.close:active {
+  color: #ffffff;
 }
 
 .modalContent h2 {
-  font-size: 20px; /* Slightly larger title */
-  margin: 0 0 20px 0;
+  font-size: 18px;
+  margin: 0 0 16px 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -306,73 +354,73 @@
 
 .modalBody {
   display: flex;
-  flex-direction: column; /* Stack sections vertically */
-  gap: 20px; /* Space between features and permissions */
+  flex-direction: column;
+  gap: 16px;
 }
 
 .featuresSection {
-  max-height: 200px; /* Equal height for both sections */
+  max-height: 150px;
   overflow-y: auto;
-  padding-right: 10px;
-  flex: 1; /* Ensure equal sizing */
+  padding-right: 8px;
+  flex: 1;
 }
 
 .featuresSection strong {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .featuresList {
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 13px; /* Consistent font size */
+  font-size: 12px;
   color: #b9bbbe;
 }
 
 .featuresList li {
-  padding: 4px 0; /* Consistent padding */
-  border-left: 2px solid #4f545c; /* Consistent border */
-  padding-left: 8px;
+  padding: 3px 0;
+  border-left: 2px solid #4f545c;
+  padding-left: 6px;
   margin-bottom: 2px;
 }
 
-.featuresList li:hover {
-  background-color: #3a3c41; /* Consistent hover effect */
-  border-left-color: #7289da; /* Consistent highlight */
+.featuresList li:active {
+  background-color: #3a3c41;
+  border-left-color: #7289da;
 }
 
 .permissionsSection {
-  max-height: 200px; /* Equal height for both sections */
+  max-height: 150px;
   overflow-y: auto;
-  padding-left: 10px;
-  flex: 1; /* Ensure equal sizing */
+  padding-left: 8px;
+  flex: 1;
 }
 
 .permissionsSection strong {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .permissionsGrouped {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Space between permission groups */
+  gap: 12px;
 }
 
 .permissionGroup {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .groupTitle {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  color: #7289da; /* Discord blurple for group titles */
-  margin-bottom: 8px;
+  color: #7289da;
+  margin-bottom: 6px;
   text-transform: uppercase;
 }
 
@@ -380,20 +428,20 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 13px; /* Consistent with features */
+  font-size: 12px;
   color: #b9bbbe;
 }
 
 .permissionsList li {
-  padding: 4px 0; /* Consistent padding */
-  border-left: 2px solid #4f545c; /* Consistent border */
-  padding-left: 8px;
+  padding: 3px 0;
+  border-left: 2px solid #4f545c;
+  padding-left: 6px;
   margin-bottom: 2px;
 }
 
-.permissionsList li:hover {
-  background-color: #3a3c41; /* Consistent hover effect */
-  border-left-color: #7289da; /* Consistent highlight */
+.permissionsList li:active {
+  background-color: #3a3c41;
+  border-left-color: #7289da;
 }
 
 .close {

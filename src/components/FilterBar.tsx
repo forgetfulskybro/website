@@ -306,7 +306,6 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
     );
   };
 
-  // Memoized filtered guilds
   const filteredGuilds = useMemo(() => {
     const searchLower = search.toLowerCase();
     return guildsWithPermissions.filter((guild: Guild) => {
@@ -324,7 +323,8 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
           p.toLowerCase().includes(searchLower)
         );
 
-      const isAdmin = (parseInt(guild.permissions) & 0x8) === 0x8;
+      const isAdmin =
+        !guild.owner && (parseInt(guild.permissions) & 0x8) === 0x8;
 
       const matchesFilters =
         filters.length === 0 ||
