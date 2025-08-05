@@ -108,7 +108,7 @@ const useProjects = (data: any): ProjectData[] => {
     {
       target: "W",
       title: "Personal Website",
-      image: null,
+      image: "/Me.png",
       tags: [{ name: TagType.Website }],
       footer: {
         start: "Jul 2, 2023",
@@ -118,6 +118,20 @@ const useProjects = (data: any): ProjectData[] => {
       github: "https://github.com/forgetfulskybro/website",
       community: "https://discord.gg/ty6Rsua",
       website: "/",
+    },
+    {
+      target: "GC",
+      title: "Guild Count",
+      image: "/guildcount.png",
+      tags: [{ name: TagType.Website }],
+      footer: {
+        start: "June 5, 2021",
+        end: translate.get(data, "Projects.footer.endPresent"),
+      },
+      flags: [],
+      github: "https://github.com/forgetfulskybro/website",
+      community: "https://discord.gg/ty6Rsua",
+      website: "/projects/guildcount",
     },
     {
       target: "F",
@@ -142,7 +156,7 @@ const useProjects = (data: any): ProjectData[] => {
         start: "Apr 12, 2023",
         end: "Sep 19, 2023",
       },
-      flags: [{ name: FlagType.Contribution }, {  name: FlagType.Discontinued } ],
+      flags: [{ name: FlagType.Contribution }, { name: FlagType.Discontinued }],
       github: "https://github.com/BrydenIsNotSmart/Revolt-Bot-List",
       community: null,
       website: null,

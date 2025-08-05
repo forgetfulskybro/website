@@ -78,30 +78,6 @@ export const useShootingStars = () => {
       }, duration);
     };
 
-    const createDustCloud = () => {
-      const dust = document.createElement("div");
-      dust.className = "dust-cloud";
-      dust.style.left = `${Math.random() * 100}vw`;
-      dust.style.top = `${Math.random() * 100}vh`;
-      dust.style.width = `${20 + Math.random() * 30}px`;
-      dust.style.height = `${10 + Math.random() * 20}px`;
-      dust.style.opacity = `${0.05 + Math.random() * 0.1}`;
-      dust.style.animationDelay = `${Math.random() * 20}s`;
-      dust.style.animationDuration = `${30 + Math.random() * 20}s`;
-      container.appendChild(dust);
-
-      dust.addEventListener("animationend", () => dust.remove());
-    };
-
-    for (let i = 0; i < 4; i++) {
-      createDustCloud();
-    }
-
-    const respawnDust = () => {
-      createDustCloud();
-      setTimeout(respawnDust, 10000 + Math.random() * 10000);
-    };
-
     const spawnStars = () => {
       const starCount = Math.floor(Math.random() * 4);
       for (let i = 0; i < starCount; i++) {
@@ -121,7 +97,6 @@ export const useShootingStars = () => {
 
     spawnStars();
     spawnComet();
-    respawnDust();
 
     return () => {
       container.innerHTML = "";

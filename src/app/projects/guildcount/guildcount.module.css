@@ -1,0 +1,451 @@
+.pageWrapper {
+  background-color: #2f3136;
+  min-height: 100vh;
+  padding: 20px;
+  color: #b9bbbe;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.header p {
+  font-size: 16px;
+}
+
+.filterBar {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  background: #2f3136;
+  border-radius: 2px;
+  border-bottom: 1.4px solid #40444b;
+}
+
+.filterInput {
+  background-color: #40444b;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: #dcddde;
+  width: 220px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.filterInput:focus {
+  outline: none;
+}
+
+.filterButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filterButton {
+  background-color: #40444b;
+  border: none;
+  padding: 6px 10px; /* Smaller padding for compact buttons */
+  border-radius: 6px;
+  color: #dcddde;
+  font-size: 13px; /* Smaller font for compact look */
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.filterButton:hover {
+  background-color: #5865f2; /* Blurple on hover */
+  color: #ffffff;
+}
+
+.filterButton.active {
+  background-color: #3ba55c; /* Discord green for active state */
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .filterBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterInput {
+    width: 100%;
+  }
+
+  .filterButtons {
+    justify-content: flex-start;
+  }
+}
+
+.guildList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.guildCard {
+  user-select: text;
+  background-color: #36393f;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 180px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.guildInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 10px;
+  flex-grow: 1;
+  overflow: visible;
+}
+
+.guildName {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.2;
+  position: relative;
+}
+
+.guildName:hover::after {
+  content: attr(title);
+  position: absolute;
+  background-color: #202225;
+  color: #ffffff;
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 3px;
+  z-index: 100;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.guildName:not(:hover)::after {
+  opacity: 0;
+}
+
+.guildMeta {
+  font-size: 12px;
+  color: #b9bbbe;
+  margin-top: 5px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.guildIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+.noIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #5865f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.badge {
+  display: inline-block;
+  margin: 5px 3px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.badge {
+  display: inline-block;
+  margin: 5px 3px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.badge.owner {
+  background-color: #f25858;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%23FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11l-10 7-10-7V5l10 7 10-7z"></path></svg>');
+  background-repeat: no-repeat;
+  background-position: left 2px center;
+  padding: 2px 6px 2px 16px;
+}
+
+.badge.verified {
+  background-color: #5865f2;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%23FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"></path><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path></svg>');
+  background-repeat: no-repeat;
+  background-position: left 2px center;
+  padding: 2px 6px 2px 16px;
+}
+
+.badge.partnered {
+  background-color: #8b43ff;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%23FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>');
+  background-repeat: no-repeat;
+  background-position: left 2px center;
+  padding: 2px 6px 2px 16px;
+}
+
+.badge.admin {
+  background-color: #f28958;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%23FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2m7.5-10a3 3 0 0 1 0-6 3 3 0 0 1 0 6z"></path></svg>');
+  background-repeat: no-repeat;
+  background-position: left 2px center;
+  padding: 2px 6px 2px 16px;
+}
+
+.toggleButton {
+  background-color: #5865f2;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.toggleButton:hover {
+  background-color: #4752c4;
+}
+
+.modal {
+  user-select: text;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.6
+  );
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal.visible {
+  display: flex;
+}
+
+.modalContent {
+  background-color: #2f3136; /* Darker Discord-like background */
+  padding: 24px;
+  border-radius: 8px;
+  width: 450px; /* Consistent width */
+  max-height: 600px; /* Increased to fit both sections comfortably */
+  overflow-y: auto;
+  color: #dcddde; /* Lighter text for better contrast */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+}
+
+.modalContent h2 {
+  font-size: 20px; /* Slightly larger title */
+  margin: 0 0 20px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.modalBody {
+  display: flex;
+  flex-direction: column; /* Stack sections vertically */
+  gap: 20px; /* Space between features and permissions */
+}
+
+.featuresSection {
+  max-height: 200px; /* Equal height for both sections */
+  overflow-y: auto;
+  padding-right: 10px;
+  flex: 1; /* Ensure equal sizing */
+}
+
+.featuresSection strong {
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13px; /* Consistent font size */
+  color: #b9bbbe;
+}
+
+.featuresList li {
+  padding: 4px 0; /* Consistent padding */
+  border-left: 2px solid #4f545c; /* Consistent border */
+  padding-left: 8px;
+  margin-bottom: 2px;
+}
+
+.featuresList li:hover {
+  background-color: #3a3c41; /* Consistent hover effect */
+  border-left-color: #7289da; /* Consistent highlight */
+}
+
+.permissionsSection {
+  max-height: 200px; /* Equal height for both sections */
+  overflow-y: auto;
+  padding-left: 10px;
+  flex: 1; /* Ensure equal sizing */
+}
+
+.permissionsSection strong {
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.permissionsGrouped {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between permission groups */
+}
+
+.permissionGroup {
+  margin-bottom: 10px;
+}
+
+.groupTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #7289da; /* Discord blurple for group titles */
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.permissionsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13px; /* Consistent with features */
+  color: #b9bbbe;
+}
+
+.permissionsList li {
+  padding: 4px 0; /* Consistent padding */
+  border-left: 2px solid #4f545c; /* Consistent border */
+  padding-left: 8px;
+  margin-bottom: 2px;
+}
+
+.permissionsList li:hover {
+  background-color: #3a3c41; /* Consistent hover effect */
+  border-left-color: #7289da; /* Consistent highlight */
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+  font-size: 24px;
+  color: #b9bbbe;
+  transition: color 0.2s;
+}
+
+.close:hover {
+  color: #ffffff;
+}
+
+.featureTag {
+  background-color: #4f545c;
+  color: #ffffff;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.logoutButton {
+  background-color: #ed4245;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background-color: #c63538;
+}
+
+.error {
+  background-color: #36393f;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.error p {
+  color: #ed4245;
+  font-size: 18px;
+}
+
+.error a {
+  color: #5865f2;
+  text-decoration: none;
+}
+
+.error a:hover {
+  text-decoration: underline;
+}

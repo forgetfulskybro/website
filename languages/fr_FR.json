@@ -40,6 +40,9 @@
       "W": {
         "desc": "Un site Web personnel sur lequel j'ajoute littéralement tout ce qui me concerne pour que les autres le sachent."
       },
+      "GC": {
+        "desc": "Un site web simple pour vérifier le nombre de serveurs Discord auxquels vous êtes connecté."
+      },
       "F": {
         "desc": "Revolt bot qui permet de créer des cadeaux, des sondages et des rôles de réaction."
       },
