@@ -387,7 +387,7 @@
   margin-bottom: 2px;
 }
 
-.featuresList li:active {
+.featuresList li:hover {
   background-color: #3a3c41;
   border-left-color: #7289da;
 }
@@ -439,7 +439,7 @@
   margin-bottom: 2px;
 }
 
-.permissionsList li:active {
+.permissionsList li:hover {
   background-color: #3a3c41;
   border-left-color: #7289da;
 }
