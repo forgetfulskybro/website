@@ -1511,18 +1511,32 @@ a {
   animation: ringRotate 30s linear infinite reverse;
 }
 
-.dust-cloud {
-  position: absolute;
-  background: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(200, 200, 200, 0.05) 50%,
-    transparent 100%
-  );
-  border-radius: 50%;
-  z-index: -1; 
-  filter: blur(2px); 
-  animation: driftCloud 40s linear infinite;
+@keyframes cometFlight {
+  0% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) rotate(390deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100vw) translateY(100vh) rotate(390deg); 
+  }
+}
+
+@keyframes shooting {
+  0% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) rotate(135deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-500px) translateY(500px) rotate(135deg);
+  }
 }
 
 @keyframes planetRotate {
@@ -1544,14 +1558,6 @@ a {
   50% { transform: translate(-3%, 3%) scale(1); opacity: 0.2; }
   75% { transform: translate(0, 0) scale(0.99); opacity: 0.18; }
   100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
-}
-
-@keyframes driftCloud {
-  0% { transform: translate(-60vw, -20vh) rotate(0deg); }
-  25% { transform: translate(20vw, 10vh) rotate(15deg); }
-  50% { transform: translate(60vw, -10vh) rotate(30deg); }
-  75% { transform: translate(100vw, 20vh) rotate(45deg); }
-  100% { transform: translate(160vw, 0) rotate(60deg); }
 }
 
 @keyframes planetRotate {
@@ -1590,6 +1596,21 @@ a {
   .planet2::after {
     width: 80px;
     height: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shootingStar {
+    animation: none;
+  }
+  .comet {
+    animation: none;
+  }
+  .moon {
+    display: none;
+  }
+  .planet1, .planet2 {
+    animation: none;
   }
 }
 
