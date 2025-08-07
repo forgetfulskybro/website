@@ -9,7 +9,6 @@ export default function GuildCard({ guild, permissions }: { guild: Guild, permis
   const modalRef = useRef<HTMLDivElement>(null);
   const isAdmin = !guild.owner && (parseInt(guild.permissions.toString()) & 0x8) === 0x8;
 
-  // Decode guild ID to creation date
   const getCreationDate = (guildId: string): string => {
     try {
       const timestamp = (BigInt(guildId) >> BigInt(22)) + BigInt(1420070400000);
