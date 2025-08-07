@@ -7,7 +7,24 @@ import Image from "next/image";
 export default function GuildCard({ guild, permissions }: { guild: Guild, permissions: any }) {
   const [showDetails, setShowDetails] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
-  const isAdmin = !guild.owner && (parseInt(guild.permissions) & 0x8) === 0x8;
+  const isAdmin = !guild.owner && (parseInt(guild.permissions.toString()) & 0x8) === 0x8;
+
+  // Decode guild ID to creation date
+  const getCreationDate = (guildId: string): string => {
+    try {
+      const timestamp = (BigInt(guildId) >> BigInt(22)) + BigInt(1420070400000);
+      const date = new Date(Number(timestamp));
+      return new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      }).format(date);
+    } catch {
+      return "Unknown";
+    }
+  };
+
+  const creationDate = getCreationDate(guild.id);
 
   const badges = [];
   if (guild.owner) badges.push("owner");
@@ -21,10 +38,7 @@ export default function GuildCard({ guild, permissions }: { guild: Guild, permis
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
         setShowDetails(false);
       }
     };
@@ -51,20 +65,25 @@ export default function GuildCard({ guild, permissions }: { guild: Guild, permis
               alt={`${guild.name} icon`}
             />
           ) : (
-            <div className={styles.noIcon}>{guild.name[0].toUpperCase()}</div>
+            <div className={styles.noIcon}>
+              {guild.name ? guild.name[0].toUpperCase() : "?"}
+            </div>
           )}
           <span className={styles.guildName} title={guild.name}>
             {guild.name}
           </span>
           <div className={styles.guildMeta}>
-            <span>ID: {guild.id}</span>
+            <span><strong>ID</strong>: {guild.id}</span>
+            <br />
+            <span>
+              <strong>Created</strong>: {creationDate}
+            </span>
             {badges.length > 0 && (
               <>
                 <br />
                 {badges.map((badge, index) => (
                   <span
                     key={index}
-                    style={{ marginTop: "0.25rem" }}
                     className={`${styles.badge} ${styles[badge]}`}
                   >
                     {badge.charAt(0).toUpperCase() + badge.slice(1)}
@@ -113,9 +132,11 @@ export default function GuildCard({ guild, permissions }: { guild: Guild, permis
                             {group.charAt(0).toUpperCase() + group.slice(1)}
                           </h3>
                           <ul className={styles.permissionsList}>
-                            {permissions[group].map((perm: string, index: number) => (
-                              <li key={index}>{perm}</li>
-                            ))}
+                            {permissions[group].map(
+                              (perm: string, index: number) => (
+                                <li key={index}>{perm}</li>
+                              )
+                            )}
                           </ul>
                         </div>
                       ) : null

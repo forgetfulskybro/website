@@ -1,4 +1,3 @@
-
 import FilterBar from "@/components/FilterBar";
 import styles from "./guildcount.module.css";
 import { redirect } from "next/navigation";
@@ -18,7 +17,6 @@ export type Guild = {
 };
 
 async function fetchGuilds(accessToken: string): Promise<Guild[]> {
-  //await new Promise((resolve) => setTimeout(resolve, 350));
   const res = await fetch("https://discord.com/api/v10/users/@me/guilds", {
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -26,29 +24,6 @@ async function fetchGuilds(accessToken: string): Promise<Guild[]> {
   });
   if (!res.ok) throw new Error("Failed to fetch guilds");
   const guilds: Guild[] = await res.json();
-
-  //   const detailedGuilds = await Promise.all(
-  //     guilds.map(async (guild) => {
-  //       const detailRes = await fetch(
-  //         `https://discord.com/api/v10/guilds/${guild.id}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${accessToken}`,
-  //           },
-  //         }
-  //       );
-  //       if (detailRes.ok) {
-  //         const detail = await detailRes.json();
-  //         return {
-  //           ...guild,
-  //           ownerId: detail.owner_id,
-  //           member_count: detail.approximate_member_count,
-  //         };
-  //       }
-  //       return guild;
-  //     })
-  //   );
-
   return guilds;
 }
 
