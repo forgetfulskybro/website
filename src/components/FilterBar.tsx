@@ -1,9 +1,16 @@
 "use client";
 import styles from "../app/projects/guildcount/guildcount.module.css";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Guild } from "../app/projects/guildcount/page";
 import { motion, AnimatePresence } from "framer-motion";
-import { useCallback, useMemo, useState } from "react";
-import { debounce } from "@mui/material";
+import {
+  Button,
+  Menu,
+  MenuItem,
+  Checkbox,
+  ListItemText,
+  debounce,
+} from "@mui/material";
 import GuildCard from "./GuildCard";
 
 const permissionMap = {
@@ -267,6 +274,31 @@ const permissionMap = {
 export default function FilterBar({ guilds }: { guilds: Guild[] }) {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState<string[]>([]);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const filterOptions = [
+    { value: "owner", label: "Owner" },
+    { value: "admin", label: "Admin" },
+    { value: "verified", label: "Verified" },
+    { value: "partnered", label: "Partnered" },
+    { value: "staff", label: "Discord Staff" },
+  ];
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleFilterChange = (filter: string) => {
+    setFilters((prev) =>
+      prev.includes(filter)
+        ? prev.filter((f) => f !== filter)
+        : [...prev, filter]
+    );
+  };
 
   const guildsWithPermissions = useMemo(() => {
     return guilds.map((guild: Guild) => {
@@ -275,7 +307,7 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
         text: [],
         voice: [],
       } as any;
-      const permValue = parseInt(guild.permissions);
+      const permValue = parseInt(guild.permissions.toString());
       for (const [bit, info] of Object.entries(permissionMap)) {
         if (permValue & info.bitwise) {
           permissions[info.group].push(info.name);
@@ -293,19 +325,6 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
     []
   );
 
-  const filterOptions = [
-    { value: "owner", label: "Owner" },
-    { value: "admin", label: "Admin" },
-    { value: "verified", label: "Verified" },
-    { value: "partnered", label: "Partnered" },
-  ];
-
-  const toggleFilter = (value: string) => {
-    setFilters((prev) =>
-      prev.includes(value) ? prev.filter((f) => f !== value) : [...prev, value]
-    );
-  };
-
   const filteredGuilds = useMemo(() => {
     const searchLower = search.toLowerCase();
     return guildsWithPermissions.filter((guild: Guild) => {
@@ -313,33 +332,48 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
         guild.name.toLowerCase().includes(searchLower) ||
         guild.id.includes(search) ||
         guild.features.some((f) => f.toLowerCase().includes(searchLower)) ||
-        guild.permissionsObj.general.some((p: string) =>
-          p.toLowerCase().includes(searchLower)
-        ) ||
-        guild.permissionsObj.text.some((p: string) =>
-          p.toLowerCase().includes(searchLower)
-        ) ||
-        guild.permissionsObj.voice.some((p: string) =>
-          p.toLowerCase().includes(searchLower)
+        [
+          guild.permissionsObj.general,
+          guild.permissionsObj.text,
+          guild.permissionsObj.voice,
+        ].some((perms) =>
+          perms.some((perm: string) => perm.toLowerCase().includes(searchLower))
         );
-
-      const isAdmin =
-        !guild.owner && (parseInt(guild.permissions) & 0x8) === 0x8;
 
       const matchesFilters =
         filters.length === 0 ||
         filters.every((filter) => {
-          if (filter === "owner") return guild.owner;
-          if (filter === "admin") return isAdmin;
-          if (filter === "verified") return guild.features.includes("VERIFIED");
-          if (filter === "partnered")
-            return guild.features.includes("PARTNERED");
-          return true;
+          switch (filter) {
+            case "owner":
+              return guild.owner;
+            case "admin":
+              return (
+                !guild.owner &&
+                (parseInt(guild.permissions.toString()) & 0x8) === 0x8
+              );
+            case "verified":
+              return guild.features.includes("VERIFIED");
+            case "partnered":
+              return guild.features.includes("PARTNERED");
+            case "staff":
+              return (
+                guild.features.includes("INTERNAL_EMPLOYEE_ONLY") ||
+                guild.features.includes(
+                  "STAFF_LEVEL_RESTRICTED_COLLABORATOR_REQUIRED"
+                )
+              );
+            default:
+              return true;
+          }
         });
 
       return matchesSearch && matchesFilters;
     });
   }, [guildsWithPermissions, search, filters]);
+
+  const buttonLabel = filters.length
+    ? `Filters (${filters.length})`
+    : "Filters";
 
   return (
     <>
@@ -350,20 +384,68 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
           onChange={(e) => debouncedSetSearch(e.target.value)}
           className={styles.filterInput}
         />
-        <div className={styles.filterButtons}>
+        <Button
+          variant="contained"
+          onClick={handleClick}
+          className={styles.filterButton}
+          sx={{
+            backgroundColor: "#40444b",
+            color: "#dcddde",
+            "&:hover": {
+              backgroundColor: "#5865f2",
+              color: "#ffffff",
+            },
+          }}
+        >
+          {buttonLabel}
+        </Button>
+        <Menu
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          sx={{
+            "& .MuiPaper-root": {
+              backgroundColor: "#2f3136",
+              color: "#ffffff",
+              borderRadius: "8px",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
+              marginTop: "4px",
+              "& .MuiMenuItem-root": {
+                padding: "8px 16px",
+                "&:hover": {
+                  backgroundColor: "#40444b",
+                },
+              },
+            },
+          }}
+        >
           {filterOptions.map((option) => (
-            <button
+            <MenuItem
               key={option.value}
-              className={`${styles.filterButton} ${
-                filters.includes(option.value) ? styles.active : ""
-              } ${styles[option.value]}`}
-              onClick={() => toggleFilter(option.value)}
-              type="button"
+              onClick={() => handleFilterChange(option.value)}
+              sx={{ padding: "4px 16px" }}
             >
-              {option.label}
-            </button>
+              <Checkbox
+                checked={filters.includes(option.value)}
+                sx={{
+                  color: "#ffffff",
+                  "&.Mui-checked": {
+                    color: "#5865f2",
+                  },
+                }}
+              />
+              <ListItemText primary={option.label} />
+            </MenuItem>
           ))}
-        </div>
+        </Menu>
       </div>
       <div className={styles.guildList}>
         <AnimatePresence>

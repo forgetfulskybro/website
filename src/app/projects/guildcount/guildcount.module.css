@@ -28,6 +28,50 @@
   font-size: 16px;
 }
 
+.userProfile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #36393f;
+  padding: 6px 10px;
+  border-radius: 16px;
+  border: 1px solid #5865f2;
+  cursor: pointer;
+}
+
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userInfo {
+  position: relative;
+}
+
+.username {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .username {
+    max-width: 200px;
+  }
+}
+
 .filterBar {
   margin-bottom: 16px;
   display: flex;
@@ -54,12 +98,6 @@
 
 .filterInput:focus {
   outline: none;
-}
-
-.filterButtons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
 }
 
 .filterButton {
@@ -155,7 +193,7 @@
 }
 
 .guildName {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: bold;
   color: #ffffff;
   max-width: 100%;
@@ -270,6 +308,14 @@
 .badge.admin {
   background-color: #f28958;
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%23FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2m7.5-10a3 3 0 0 1 0-6 3 3 0 0 1 0 6z"></path></svg>');
+  background-repeat: no-repeat;
+  background-position: left 2px center;
+  padding: 2px 6px 2px 16px;
+}
+
+.badge.staff {
+  background-color: #7289da;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%23FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path><path d="M9.5 11.5l1.5-1.5L15.5 14l3-3"></path></svg>');
   background-repeat: no-repeat;
   background-position: left 2px center;
   padding: 2px 6px 2px 16px;
@@ -461,19 +507,6 @@
   padding: 3px 6px;
   border-radius: 4px;
   font-size: 12px;
-}
-
-.logoutButton {
-  background-color: #ed4245;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.logoutButton:hover {
-  background-color: #c63538;
 }
 
 .error {

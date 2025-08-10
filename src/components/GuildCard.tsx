@@ -4,19 +4,26 @@ import type { Guild } from "../app/projects/guildcount/page";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
-export default function GuildCard({ guild, permissions }: { guild: Guild, permissions: any }) {
+export default function GuildCard({
+  guild,
+  permissions,
+}: {
+  guild: Guild;
+  permissions: any;
+}) {
   const [showDetails, setShowDetails] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
-  const isAdmin = !guild.owner && (parseInt(guild.permissions.toString()) & 0x8) === 0x8;
+  const isAdmin =
+    !guild.owner && (parseInt(guild.permissions.toString()) & 0x8) === 0x8;
 
   const getCreationDate = (guildId: string): string => {
     try {
       const timestamp = (BigInt(guildId) >> BigInt(22)) + BigInt(1420070400000);
       const date = new Date(Number(timestamp));
-      return new Intl.DateTimeFormat('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
+      return new Intl.DateTimeFormat("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
       }).format(date);
     } catch {
       return "Unknown";
@@ -30,6 +37,11 @@ export default function GuildCard({ guild, permissions }: { guild: Guild, permis
   if (guild.features.includes("VERIFIED")) badges.push("verified");
   if (guild.features.includes("PARTNERED")) badges.push("partnered");
   if (isAdmin) badges.push("admin");
+  if (
+    guild.features.includes("INTERNAL_EMPLOYEE_ONLY") ||
+    guild.features.includes("STAFF_LEVEL_RESTRICTED_COLLABORATOR_REQUIRED")
+  )
+    badges.push("staff");
 
   const toggleModal = () => {
     setShowDetails(!showDetails);
@@ -37,7 +49,10 @@ export default function GuildCard({ guild, permissions }: { guild: Guild, permis
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
         setShowDetails(false);
       }
     };
@@ -72,7 +87,9 @@ export default function GuildCard({ guild, permissions }: { guild: Guild, permis
             {guild.name}
           </span>
           <div className={styles.guildMeta}>
-            <span><strong>ID</strong>: {guild.id}</span>
+            <span>
+              <strong>ID</strong>: {guild.id}
+            </span>
             <br />
             <span>
               <strong>Created</strong>: {creationDate}

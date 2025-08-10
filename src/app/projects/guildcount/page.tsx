@@ -1,3 +1,4 @@
+import UserProfile from "@/components/UserProfile";
 import FilterBar from "@/components/FilterBar";
 import styles from "./guildcount.module.css";
 import { redirect } from "next/navigation";
@@ -9,7 +10,8 @@ export type Guild = {
   icon: string | null;
   owner: boolean;
   features: string[];
-  permissions: string;
+  permissions: string | number;
+  permissions_new?: string;
   badges?: string[];
   member_count?: number;
   ownerId?: string;
@@ -27,6 +29,17 @@ async function fetchGuilds(accessToken: string): Promise<Guild[]> {
   return guilds;
 }
 
+async function fetchUser(accessToken: string) {
+  const res = await fetch("https://discord.com/api/v10/users/@me", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (!res.ok) throw new Error("Failed to fetch user");
+  const user = await res.json();
+  return user;
+}
+
 export default async function GuildCount() {
   const clientId = process.env.DISCORD_CLIENT_ID;
   const redirectUri = `${process.env.NEXT_PUBLIC_BASE_URL}/api/discord`;
@@ -39,19 +52,25 @@ export default async function GuildCount() {
   }
 
   let guilds: Guild[] = [];
+  let user = null;
   try {
     guilds = await fetchGuilds(accessToken);
+    user = await fetchUser(accessToken);
   } catch (error) {
-    console.error("Error in fetchGuilds:", error);
+    console.error("Error in fetch:", error);
     return (
       <div className={styles.pageWrapper}>
         <div className={styles.error}>
-          <p>Error fetching guilds. Please try again.</p>
+          <p>Error fetching data. Please try again.</p>
           <a href="/">Go back</a>
         </div>
       </div>
     );
   }
+
+  const avatarUrl = user.avatar
+    ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
+    : "/default-avatar.png";
 
   return (
     <div className={styles.pageWrapper}>
@@ -61,11 +80,7 @@ export default async function GuildCount() {
             <h1>Your Discord Guilds</h1>
             <p>Total Guilds: {guilds.length}</p>
           </div>
-          <form action="/api/discord/logout" method="POST">
-            <button type="submit" className={styles.logoutButton}>
-              Logout
-            </button>
-          </form>
+          <UserProfile username={user.username} avatarUrl={avatarUrl} />
         </div>
         <FilterBar guilds={guilds} />
       </div>
