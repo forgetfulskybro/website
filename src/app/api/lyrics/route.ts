@@ -2,15 +2,12 @@ import { NextResponse } from "next/server";
 import { Client } from "genius-lyrics";
 
 const nullishQueries = ["None", "N/A", "null", "undefined"];
-
-// Initialize Genius client once to reuse across requests
 const client = new Client(process.env.GENIUS_TOKEN);
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.getAll("query");
 
-  // Validate query parameters
   if (
     !query.length ||
     query.length > 2 ||
@@ -57,7 +54,7 @@ export async function GET(request: Request) {
   } catch (error) {
     console.error("Error fetching lyrics:", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: `Internal server error: ${error}`},
       { status: 500 }
     );
   }
