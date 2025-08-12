@@ -1,3 +1,4 @@
+"use client";
 import {
   DrawerHeader,
   StyledDrawer,
@@ -16,6 +17,7 @@ import ToolTip from "@/components/ToolTip";
 import * as React from "react";
 import Image from "next/image";
 import Box from "@mui/material/Box";
+import { DialogContent, DialogContentText } from "@mui/material";
 
 interface MusicDrawerProps {
   open: boolean;
@@ -35,6 +37,7 @@ interface MusicDrawerProps {
   formatDuration: (duration: number | undefined) => string;
   data: string;
   date?: number;
+  lyrics: string | null | undefined;
 }
 
 export default function MusicDrawer({
@@ -55,6 +58,7 @@ export default function MusicDrawer({
   formatDuration,
   data,
   date,
+  lyrics,
 }: MusicDrawerProps) {
   function capitalize(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -115,7 +119,6 @@ export default function MusicDrawer({
                     pathLength="100"
                     d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
                   />
-
                   <path
                     className="car"
                     strokeWidth="4"
@@ -130,8 +133,8 @@ export default function MusicDrawer({
         </Typography>
       </DrawerHeader>
       <Divider />
-      <SettingsCard sx={{ width: "100%", maxWidth: "500px" }}>
-        <Box sx={{ width: "100%", mb: 2 }}>
+      <SettingsCard sx={{ width: "100%", maxWidth: "500px", p: 2 }}>
+        <Box sx={{ width: "100%" }}>
           <Link
             href={url || "https://example.com"}
             target="_blank"
@@ -144,7 +147,7 @@ export default function MusicDrawer({
               justifyContent: "center",
               display: "block",
               textAlign: "center",
-              width: "100%"
+              width: "100%",
             }}
           >
             {title ? `${artist} - ${title}` : "Loading Song"}
@@ -185,84 +188,6 @@ export default function MusicDrawer({
                 </a>
               </div>
             ))}
-          </Box>
-
-          <Box
-            sx={{
-              mt: 2,
-              color: "#fff",
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            {duration && started ? (
-              <>
-                <span
-                  style={{
-                    color: themeColors.light,
-                    fontWeight: 500,
-                  }}
-                >
-                  {elapsedTime}
-                </span>
-                <div
-                  style={{
-                    position: "relative",
-                    width: "120px",
-                    height: "4px",
-                    marginLeft: "4px",
-                  }}
-                >
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      backgroundColor: themeColors.dark,
-                      borderRadius: "2px",
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      backgroundColor: themeColors.lighter,
-                      borderRadius: "2px",
-                      transform: `scaleX(${getProgress()})`,
-                      transformOrigin: "left",
-                      transition: "transform 0.5s linear",
-                    }}
-                  />
-                </div>
-                <span
-                  style={{
-                    color: themeColors.light,
-                    fontWeight: 500,
-                  }}
-                >
-                  {formatDuration(duration)}
-                </span>
-              </>
-            ) : (
-              <ToolTip content={"Unknown Duration"} placement="bottom">
-                <span
-                  style={{
-                    color: themeColors.light,
-                    fontWeight: 500,
-                  }}
-                >
-                  00:00
-                </span>
-              </ToolTip>
-            )}
           </Box>
 
           <Box
@@ -356,6 +281,139 @@ export default function MusicDrawer({
                   </span>
                 </div>
               </ToolTip>
+            )}
+          </Box>
+
+          <Box
+            sx={{
+              mt: 2,
+              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            {duration && started ? (
+              <>
+                <span
+                  style={{
+                    color: themeColors.light,
+                    fontWeight: 500,
+                  }}
+                >
+                  {elapsedTime}
+                </span>
+                <div
+                  style={{
+                    position: "relative",
+                    width: "120px",
+                    height: "4px",
+                    marginLeft: "4px",
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      backgroundColor: themeColors.dark,
+                      borderRadius: "2px",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      backgroundColor: themeColors.lighter,
+                      borderRadius: "2px",
+                      transform: `scaleX(${getProgress()})`,
+                      transformOrigin: "left",
+                      transition: "transform 0.5s linear",
+                    }}
+                  />
+                </div>
+                <span
+                  style={{
+                    color: themeColors.light,
+                    fontWeight: 500,
+                  }}
+                >
+                  {formatDuration(duration)}
+                </span>
+              </>
+            ) : (
+              <ToolTip content={"Unknown Duration"} placement="bottom">
+                <span
+                  style={{
+                    color: themeColors.light,
+                    fontWeight: 500,
+                  }}
+                >
+                  00:00
+                </span>
+              </ToolTip>
+            )}
+          </Box>
+
+          <Box
+            sx={{
+              mt: 3,
+              maxHeight: "40vh",
+              overflowY: "auto",
+              bgcolor: `${themeColors.dark}20`,
+              borderRadius: "8px",
+              p: 2,
+              border: `1px solid ${themeColors.dark}40`,
+            }}
+          >
+            {lyrics ? (
+              <DialogContentText
+                sx={{
+                  color: "#fff",
+                  whiteSpace: "pre-line",
+                  opacity: 0.9,
+                  lineHeight: 1.6,
+                  fontSize: "0.9rem",
+                  "& strong, & b": {
+                    color: themeColors.lighter,
+                    fontWeight: 600,
+                  },
+                  "&::-webkit-scrollbar": {
+                    width: "8px",
+                  },
+                  "&::-webkit-scrollbar-track": {
+                    background: `${themeColors.dark}20`,
+                    borderRadius: "4px",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    background: themeColors.lighter,
+                    borderRadius: "4px",
+                    "&:hover": {
+                      background: `${themeColors.lighter}cc`,
+                    },
+                  },
+                }}
+              >
+                {lyrics}
+              </DialogContentText>
+            ) : (
+              <Typography
+                sx={{
+                  color: themeColors.light,
+                  opacity: 0.7,
+                  textAlign: "center",
+                  fontStyle: "italic",
+                }}
+              >
+                Can&apos;t find lyrics for this song.
+              </Typography>
             )}
           </Box>
         </Box>

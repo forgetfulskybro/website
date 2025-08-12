@@ -211,7 +211,7 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
             },
           }}
         >
-          {lyrics ? lyrics : "Lyrics API is down currently."}
+          {lyrics ? lyrics : "Can't find lyrics for this song."}
         </DialogContentText>
       </DialogContent>
     </Dialog>
@@ -254,6 +254,7 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
           formatDuration={formatDuration}
           data={data!}
           date={date}
+          lyrics={lyrics}
         />
       )}
     </>
