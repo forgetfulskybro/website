@@ -3,6 +3,8 @@ import FilterBar from "@/components/FilterBar";
 import styles from "./guildcount.module.css";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { Metadata } from "next";
+import Image from "next/image"
 
 export type Guild = {
   id: string;
@@ -16,6 +18,15 @@ export type Guild = {
   member_count?: number;
   ownerId?: string;
   permissionsObj?: any;
+};
+
+export const metadata: Metadata = {
+  title: "Guild Count",
+  description: "A simple tool to check how many Discord servers you're in.",
+  keywords: ["Guild Count", "Discord Guilds Counter", "guildcount"],
+  openGraph: {
+    images: [{ url: "/guildcount.png" }],
+  },
 };
 
 async function fetchGuilds(accessToken: string): Promise<Guild[]> {
@@ -77,7 +88,19 @@ export default async function GuildCount() {
       <div className={styles.container}>
         <div className={styles.header}>
           <div>
-            <h1>Your Discord Guilds</h1>
+            <div className={styles.icon}>
+              <Image
+                className={styles.userAvatar}
+                src="/guildcount.png"
+                alt="Guild Count"
+                height={40}
+                width={40}
+                draggable={false}
+              />
+              <h2>
+                <strong>Guild Count</strong>
+              </h2>
+            </div>
             <p>Total Guilds: {guilds.length}</p>
           </div>
           <UserProfile username={user.username} avatarUrl={avatarUrl} />

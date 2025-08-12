@@ -40,10 +40,16 @@
   cursor: pointer;
 }
 
+.icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .userAvatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
   object-fit: cover;
 }
 
@@ -88,10 +94,10 @@
 .filterInput {
   background-color: #40444b;
   border: none;
-  padding: 10px 12px;
+  padding: 11px 13px;
   border-radius: 6px;
   color: #dcddde;
-  width: 220px;
+  width: 370px;
   font-size: 14px;
   transition: border-color 0.2s ease;
 }
@@ -103,7 +109,6 @@
 .filterButton {
   background-color: #40444b;
   border: none;
-  padding: 6px 10px;
   border-radius: 6px;
   color: #dcddde;
   font-size: 13px;

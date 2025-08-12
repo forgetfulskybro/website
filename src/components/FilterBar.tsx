@@ -274,8 +274,14 @@ const permissionMap = {
 export default function FilterBar({ guilds }: { guilds: Guild[] }) {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState<string[]>([]);
+  const [sort, setSort] = useState<{ value: string; label: string }>({
+    value: "nameAscend",
+    label: "Name Ascending",
+  });
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const open2 = Boolean(anchorEl2);
 
   const filterOptions = [
     { value: "owner", label: "Owner" },
@@ -284,12 +290,30 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
     { value: "partnered", label: "Partnered" },
     { value: "staff", label: "Discord Staff" },
   ];
+
+  const sortOptions = [
+    { value: "nameAscend", label: "Name Ascending" },
+    { value: "nameDescend", label: "Name Descending" },
+    { value: "createAscend", label: "Created Ascending" },
+    { value: "createDescend", label: "Created Descending" },
+  ];
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleClick2 = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl2(event.currentTarget);
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
+    setAnchorEl2(null);
+  };
+
+  const handleSort = (option: { value: string; label: string }) => {
+    setSort({ value: option.value, label: option.label });
+    setAnchorEl2(null);
   };
 
   const handleFilterChange = (filter: string) => {
@@ -324,10 +348,10 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
     }, 300),
     []
   );
-
+  
   const filteredGuilds = useMemo(() => {
     const searchLower = search.toLowerCase();
-    return guildsWithPermissions.filter((guild: Guild) => {
+    let result = guildsWithPermissions.filter((guild: Guild) => {
       const matchesSearch =
         guild.name.toLowerCase().includes(searchLower) ||
         guild.id.includes(search) ||
@@ -369,7 +393,36 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
 
       return matchesSearch && matchesFilters;
     });
-  }, [guildsWithPermissions, search, filters]);
+
+    function date(g: string) {
+      return new Date(
+        Number((BigInt(g) >> BigInt(22)) + BigInt(1420070400000))
+      );
+    }
+
+    result.sort((a: Guild, b: Guild) => {
+      switch (sort.value) {
+        case "nameAscend":
+          return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+        case "nameDescend":
+          return b.name.toLowerCase().localeCompare(a.name.toLowerCase());
+        case "createAscend":
+          return (
+            (date(a.id) ? new Date(date(a.id)).getTime() : 0) -
+            (date(b.id) ? new Date(date(b.id)).getTime() : 0)
+          );
+        case "createDescend":
+          return (
+            (date(b.id) ? new Date(date(b.id)).getTime() : 0) -
+            (date(a.id) ? new Date(date(a.id)).getTime() : 0)
+          );
+        default:
+          return 0;
+      }
+    });
+
+    return result;
+  }, [guildsWithPermissions, search, filters, sort]);
 
   const buttonLabel = filters.length
     ? `Filters (${filters.length})`
@@ -380,7 +433,7 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
       <div className={styles.filterBar}>
         <input
           type="text"
-          placeholder="Search name, ID, feat, or perm"
+          placeholder="Search for Names, IDs, Features, or Permissions"
           onChange={(e) => debouncedSetSearch(e.target.value)}
           className={styles.filterInput}
         />
@@ -389,6 +442,7 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
           onClick={handleClick}
           className={styles.filterButton}
           sx={{
+            textTransform: "none",
             backgroundColor: "#40444b",
             color: "#dcddde",
             "&:hover": {
@@ -419,7 +473,7 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
               boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
               marginTop: "4px",
               "& .MuiMenuItem-root": {
-                padding: "8px 16px",
+                padding: "0px 12px",
                 "&:hover": {
                   backgroundColor: "#40444b",
                 },
@@ -431,7 +485,7 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
             <MenuItem
               key={option.value}
               onClick={() => handleFilterChange(option.value)}
-              sx={{ padding: "4px 16px" }}
+              sx={{ padding: "2px 12px" }}
             >
               <Checkbox
                 checked={filters.includes(option.value)}
@@ -442,6 +496,64 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
                   },
                 }}
               />
+              <ListItemText
+                sx={{ fontSize: "10px" }}
+                primary={option.label}
+              />
+            </MenuItem>
+          ))}
+        </Menu>
+
+        <Button
+          variant="contained"
+          onClick={handleClick2}
+          className={styles.filterButton}
+          sx={{
+            textTransform: "none",
+            backgroundColor: "#40444b",
+            color: "#dcddde",
+            "&:hover": {
+              backgroundColor: "#5865f2",
+              color: "#ffffff",
+            },
+          }}
+        >
+          {sort.label}
+        </Button>
+        <Menu
+          anchorEl={anchorEl2}
+          open={open2}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          sx={{
+            "& .MuiPaper-root": {
+              backgroundColor: "#2f3136",
+              color: "#ffffff",
+              borderRadius: "8px",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
+              marginTop: "4px",
+              "& .MuiMenuItem-root": {
+                padding: "6px 12px",
+                "&:hover": {
+                  backgroundColor: "#40444b",
+                },
+              },
+            },
+          }}
+        >
+          {sortOptions.map((option) => (
+            <MenuItem
+              key={option.value}
+              onClick={() => handleSort(option)}
+              sx={{ padding: "4px 16px" }}
+            >
               <ListItemText primary={option.label} />
             </MenuItem>
           ))}
