@@ -54,7 +54,7 @@ export async function GET(request: Request) {
   } catch (error: any) {
     console.error("Error fetching lyrics:", error);
     return NextResponse.json(
-      { error: `Internal server error: ${error}\nStatus: ${error.status}`},
+      { error },
       { status: 500 }
     );
   }
