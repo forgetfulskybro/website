@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { Client } from "genius-lyrics";
 
 const nullishQueries = ["None", "N/A", "null", "undefined"];
-const client = new Client(process.env.GENIUS_TOKEN);
+const client = new Client(process.env.GENIUS);
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -51,10 +51,10 @@ export async function GET(request: Request) {
         },
       }
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching lyrics:", error);
     return NextResponse.json(
-      { error: `Internal server error: ${error}`},
+      { error: `Internal server error: ${error}\nStatus: ${error.status}`},
       { status: 500 }
     );
   }
