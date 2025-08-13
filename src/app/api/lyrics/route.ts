@@ -54,7 +54,7 @@ export async function GET(request: Request) {
   } catch (error: any) {
     console.error("Error fetching lyrics:", error);
     return NextResponse.json(
-      { error },
+      { error: "Lyrics API doesn't work because Genius blocked Vercel :)" },
       { status: 500 }
     );
   }
