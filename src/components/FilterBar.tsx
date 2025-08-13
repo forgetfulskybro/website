@@ -271,6 +271,27 @@ const permissionMap = {
   },
 };
 
+interface RoleArray {
+  [key: string]: string[] | undefined;
+  owner?: string[];
+  admin?: string[];
+  verified?: string[];
+  partnered?: string[];
+  staff?: string[];
+}
+
+const indexMap = {
+  owner: 0,
+  admin: 1,
+  verified: 2,
+  partnered: 3,
+  staff: 4,
+} as any;
+
+function date(g: string) {
+  return new Date(Number((BigInt(g) >> BigInt(22)) + BigInt(1420070400000)));
+}
+
 export default function FilterBar({ guilds }: { guilds: Guild[] }) {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState<string[]>([]);
@@ -280,8 +301,13 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
   });
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const open2 = Boolean(anchorEl2);
+  const [arr, setArr] = useState<RoleArray[]>([
+    { owner: [] as string[] },
+    { admin: [] as string[] },
+    { verified: [] as string[] },
+    { partnered: [] as string[] },
+    { staff: [] as string[] },
+  ]);
 
   const filterOptions = [
     { value: "owner", label: "Owner" },
@@ -327,9 +353,9 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
   const guildsWithPermissions = useMemo(() => {
     return guilds.map((guild: Guild) => {
       const permissions = {
-        general: [],
-        text: [],
-        voice: [],
+        general: [] as string[],
+        text: [] as string[],
+        voice: [] as string[],
       } as any;
       const permValue = parseInt(guild.permissions.toString());
       for (const [bit, info] of Object.entries(permissionMap)) {
@@ -341,6 +367,42 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
     });
   }, [guilds]);
 
+  useEffect(() => {
+    const newArr = [
+      { owner: [] as string[] },
+      { admin: [] as string[] },
+      { verified: [] as string[] },
+      { partnered: [] as string[] },
+      { staff: [] as string[] },
+    ];
+
+    guildsWithPermissions.forEach((guild: Guild) => {
+      if (guild.owner) {
+        newArr[indexMap.owner].owner!.push(guild.id);
+      }
+      if (
+        !guild.owner &&
+        (parseInt(guild.permissions.toString()) & 0x8) === 0x8
+      ) {
+        newArr[indexMap.admin].admin!.push(guild.id);
+      }
+      if (guild.features.includes("VERIFIED")) {
+        newArr[indexMap.verified].verified!.push(guild.id);
+      }
+      if (guild.features.includes("PARTNERED")) {
+        newArr[indexMap.partnered].partnered!.push(guild.id);
+      }
+      if (
+        guild.features.includes("INTERNAL_EMPLOYEE_ONLY") ||
+        guild.features.includes("STAFF_LEVEL_RESTRICTED_COLLABORATOR_REQUIRED")
+      ) {
+        newArr[indexMap.staff].staff!.push(guild.id);
+      }
+    });
+
+    setArr(newArr);
+  }, [guildsWithPermissions]);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSetSearch = useCallback(
     debounce((value: string) => {
@@ -348,7 +410,7 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
     }, 300),
     []
   );
-  
+
   const filteredGuilds = useMemo(() => {
     const searchLower = search.toLowerCase();
     let result = guildsWithPermissions.filter((guild: Guild) => {
@@ -393,12 +455,6 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
 
       return matchesSearch && matchesFilters;
     });
-
-    function date(g: string) {
-      return new Date(
-        Number((BigInt(g) >> BigInt(22)) + BigInt(1420070400000))
-      );
-    }
 
     result.sort((a: Guild, b: Guild) => {
       switch (sort.value) {
@@ -455,7 +511,7 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
         </Button>
         <Menu
           anchorEl={anchorEl}
-          open={open}
+          open={Boolean(anchorEl)}
           onClose={handleClose}
           anchorOrigin={{
             vertical: "bottom",
@@ -498,7 +554,16 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
               />
               <ListItemText
                 sx={{ fontSize: "10px" }}
-                primary={option.label}
+                primary={`${option.label} - ${
+                  guilds.length > 0
+                    ? (
+                        ((arr[indexMap[option.value]][option.value]?.length ||
+                          0) /
+                          guilds.length) *
+                        100
+                      ).toFixed(2)
+                    : 0
+                }%`}
               />
             </MenuItem>
           ))}
@@ -522,7 +587,7 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
         </Button>
         <Menu
           anchorEl={anchorEl2}
-          open={open2}
+          open={Boolean(anchorEl2)}
           onClose={handleClose}
           anchorOrigin={{
             vertical: "bottom",

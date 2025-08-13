@@ -325,7 +325,6 @@
   background-position: left 2px center;
   padding: 2px 6px 2px 16px;
 }
-
 .modal {
   user-select: text;
   position: fixed;
@@ -333,144 +332,143 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: none;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
   justify-content: center;
   align-items: flex-start;
   z-index: 1000;
-  padding: 10px;
+  padding: 16px;
   -webkit-overflow-scrolling: touch;
 }
 
-@media (min-width: 601px) {
+@media (min-width: 768px) {
   .modal {
     align-items: center;
   }
 }
 
-.modal.visible {
-  display: flex;
-}
-
 .modalContent {
-  background-color: #2f3136;
-  padding: 16px;
-  border-radius: 8px;
+  background-color: #36393f;
+  padding: 20px;
+  border-radius: 12px;
   width: 100%;
-  max-width: 400px;
-  max-height: 80vh;
+  max-width: 500px;
+  max-height: 85vh;
   overflow-y: auto;
   color: #dcddde;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  border: 1px solid #4f545c;
+  position: relative;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .modalContent {
-    max-width: 90%;
-    max-height: 85vh;
-    padding: 12px;
+    max-width: 95%;
+    max-height: 90vh;
+    padding: 16px;
   }
 }
 
 .close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 16px;
+  right: 16px;
   font-size: 24px;
   color: #b9bbbe;
   cursor: pointer;
   padding: 8px;
+  transition: color 0.2s;
+  line-height: 1;
 }
 
+.close:hover,
 .close:active {
   color: #ffffff;
 }
 
 .modalContent h2 {
-  font-size: 18px;
-  margin: 0 0 16px 0;
+  font-size: 20px;
+  margin: 0 0 20px 0;
+  font-weight: 600;
+  color: #ffffff;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-weight: 600;
 }
 
 .modalBody {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .featuresSection {
-  max-height: 150px;
+  max-height: 200px;
   overflow-y: auto;
-  padding-right: 8px;
+  padding-right: 12px;
   flex: 1;
 }
 
 .featuresSection strong {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  color: #ffffff;
 }
 
 .featuresList {
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 12px;
+  font-size: 13px;
   color: #b9bbbe;
 }
 
 .featuresList li {
-  padding: 3px 0;
+  padding: 4px 0;
   border-left: 2px solid #4f545c;
-  padding-left: 6px;
-  margin-bottom: 2px;
+  padding-left: 8px;
+  margin-bottom: 4px;
+  transition: background-color 0.2s, border-left-color 0.2s;
 }
 
 .featuresList li:hover {
-  background-color: #3a3c41;
-  border-left-color: #7289da;
-}
-
-.lineBetween {
-  height: 1px;
   background-color: #40444b;
-  margin: 16px 0;
+  border-left-color: #5865f2;
 }
 
 .permissionsSection {
-  max-height: 150px;
+  max-height: 200px;
   overflow-y: auto;
   flex: 1;
 }
 
 .permissionsSection strong {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  color: #ffffff;
 }
 
 .permissionsGrouped {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .permissionGroup {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .groupTitle {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
-  color: #7289da;
-  margin-bottom: 6px;
+  color: #5865f2;
+  margin-bottom: 8px;
   text-transform: uppercase;
 }
 
@@ -478,39 +476,28 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 12px;
+  font-size: 13px;
   color: #b9bbbe;
 }
 
 .permissionsList li {
-  padding: 3px 0;
+  padding: 4px 0;
   border-left: 2px solid #4f545c;
-  padding-left: 6px;
-  margin-bottom: 2px;
+  padding-left: 8px;
+  margin-bottom: 4px;
+  transition: background-color 0.2s, border-left-color 0.2s;
 }
 
 .permissionsList li:hover {
-  background-color: #3a3c41;
-  border-left-color: #7289da;
-}
-
-.close {
-  float: right;
-  cursor: pointer;
-  font-size: 24px;
-  color: #b9bbbe;
-  transition: color 0.2s;
-}
-
-.close:hover {
-  color: #ffffff;
+  background-color: #40444b;
+  border-left-color: #5865f2;
 }
 
 .featureTag {
   background-color: #4f545c;
   color: #ffffff;
-  padding: 3px 6px;
-  border-radius: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
   font-size: 12px;
 }
 

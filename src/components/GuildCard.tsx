@@ -3,6 +3,7 @@ import styles from "../app/projects/guildcount/guildcount.module.css";
 import type { Guild } from "../app/projects/guildcount/page";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function GuildCard({
   guild,
@@ -113,59 +114,74 @@ export default function GuildCard({
           View Details
         </button>
       </div>
-      {showDetails && (
-        <div className={`${styles.modal} ${showDetails ? styles.visible : ""}`}>
-          <div className={styles.modalContent} ref={modalRef}>
-            <span className={styles.close} onClick={toggleModal}>
-              &times;
-            </span>
-            <h2>{guild.name}</h2>
-            <div className={styles.modalBody}>
-              <div className={styles.featuresSection}>
-                <strong>Features:</strong>
-                {guild.features.length > 0 ? (
-                  <ul className={styles.featuresList}>
-                    {guild.features.map((feature, index) => (
-                      <li key={index} className={styles.featureItem}>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p>No special features</p>
-                )}
+      <AnimatePresence>
+        {showDetails && (
+          <motion.div
+            className={styles.modal}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div
+              className={styles.modalContent}
+              ref={modalRef}
+              initial={{ scale: 0.7, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.7, opacity: 0, y: 50 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              <span className={styles.close} onClick={toggleModal}>
+                &times;
+              </span>
+              <h2>{guild.name}</h2>
+              <div className={styles.modalBody}>
+                <div className={styles.featuresSection}>
+                  <strong>Features:</strong>
+                  {guild.features.length > 0 ? (
+                    <ul className={styles.featuresList}>
+                      {guild.features.map((feature, index) => (
+                        <li key={index} className={styles.featureItem}>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No special features</p>
+                  )}
+                </div>
+                <div className={styles.permissionsSection}>
+                  <strong>Permissions:</strong>
+                  {Object.keys(permissions).some(
+                    (group) => permissions[group].length > 0
+                  ) ? (
+                    <div className={styles.permissionsGrouped}>
+                      {["general", "text", "voice"].map((group) =>
+                        permissions[group].length > 0 ? (
+                          <div key={group} className={styles.permissionGroup}>
+                            <h3 className={styles.groupTitle}>
+                              {group.charAt(0).toUpperCase() + group.slice(1)}
+                            </h3>
+                            <ul className={styles.permissionsList}>
+                              {permissions[group].map(
+                                (perm: string, index: number) => (
+                                  <li key={index}>{perm}</li>
+                                )
+                              )}
+                            </ul>
+                          </div>
+                        ) : null
+                      )}
+                    </div>
+                  ) : (
+                    <p>No permissions</p>
+                  )}
+                </div>
               </div>
-              <div className={styles.permissionsSection}>
-                <strong>Permissions:</strong>
-                {Object.keys(permissions).some(
-                  (group) => permissions[group].length > 0
-                ) ? (
-                  <div className={styles.permissionsGrouped}>
-                    {["general", "text", "voice"].map((group) =>
-                      permissions[group].length > 0 ? (
-                        <div key={group} className={styles.permissionGroup}>
-                          <h3 className={styles.groupTitle}>
-                            {group.charAt(0).toUpperCase() + group.slice(1)}
-                          </h3>
-                          <ul className={styles.permissionsList}>
-                            {permissions[group].map(
-                              (perm: string, index: number) => (
-                                <li key={index}>{perm}</li>
-                              )
-                            )}
-                          </ul>
-                        </div>
-                      ) : null
-                    )}
-                  </div>
-                ) : (
-                  <p>No permissions</p>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
