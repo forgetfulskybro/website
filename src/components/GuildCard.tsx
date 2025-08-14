@@ -101,8 +101,6 @@ export default function GuildCard({
             src={`https://cdn.discordapp.com/banners/${guild.id}/${guild.banner}.png?size=1024`}
             alt={`${guild.name} banner`}
           />
-        ) : guild.icon ? (
-          <div className={styles.guildBanner} style={gradientStyle} />
         ) : (
           <div className={styles.guildBanner} style={gradientStyle} />
         )}
