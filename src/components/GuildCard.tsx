@@ -4,6 +4,7 @@ import type { Guild } from "../app/projects/guildcount/page";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { extractColors } from "./colorExtractor";
 
 export default function GuildCard({
   guild,
@@ -13,9 +14,22 @@ export default function GuildCard({
   permissions: any;
 }) {
   const [showDetails, setShowDetails] = useState(false);
+  const [colors, setColors] = useState<string[]>(["#5b65f04e"]);
   const modalRef = useRef<HTMLDivElement>(null);
   const isAdmin =
     !guild.owner && (parseInt(guild.permissions.toString()) & 0x8) === 0x8;
+
+  useEffect(() => {
+    const fetchColors = async () => {
+      if (guild.icon && !guild.banner) {
+        const iconUrl = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`;
+        const extractedColors = await extractColors(iconUrl);
+        setColors(extractedColors);
+      }
+    };
+
+    fetchColors();
+  }, [guild.icon, guild.banner, guild.id]);
 
   const getCreationDate = (guildId: string): string => {
     try {
@@ -67,9 +81,31 @@ export default function GuildCard({
     };
   }, [showDetails]);
 
+  const gradientStyle =
+    colors.length > 1
+      ? {
+          background: `linear-gradient(130deg, ${colors[0]}, ${
+            colors[1] || colors[0]
+          }, ${colors[1] || colors[0]})`,
+        }
+      : { backgroundColor: colors[0] };
+
   return (
     <>
       <div className={styles.guildCard}>
+        {guild.banner ? (
+          <Image
+            className={styles.guildBanner}
+            width={300}
+            height={120}
+            src={`https://cdn.discordapp.com/banners/${guild.id}/${guild.banner}.png?size=1024`}
+            alt={`${guild.name} banner`}
+          />
+        ) : guild.icon ? (
+          <div className={styles.guildBanner} style={gradientStyle} />
+        ) : (
+          <div className={styles.guildBanner} style={gradientStyle} />
+        )}
         <div className={styles.guildInfo}>
           {guild.icon ? (
             <Image

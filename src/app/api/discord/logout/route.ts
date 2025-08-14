@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const redirectUrl = new URL("/projects", request.url).toString();
+    const redirectUrl = new URL("/projects/guildcount", request.url).toString();
     const response = NextResponse.redirect(redirectUrl, 302);
     response.cookies.set("discord_access_token", "", {
       maxAge: 0,

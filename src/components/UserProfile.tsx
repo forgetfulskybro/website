@@ -1,17 +1,20 @@
 "use client";
 import styles from "../app/projects/guildcount/guildcount.module.css";
 import { Button, Menu, MenuItem } from "@mui/material";
-import Image from "next/image";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
 
 interface UserProfileProps {
-  username: string;
+  username: string | null;
   avatarUrl: string;
 }
 
 export default function UserProfile({ username, avatarUrl }: UserProfileProps) {
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -26,31 +29,48 @@ export default function UserProfile({ username, avatarUrl }: UserProfileProps) {
     handleClose();
   };
 
+  const handleLogin = () => {
+    const discordAuth = `https://discord.com/api/oauth2/authorize?client_id=1402036729791250522&redirect_uri=${`${baseURL}/api/discord`}&response_type=code&scope=identify%20guilds`;
+    router.push(discordAuth);
+    handleClose();
+  };
+
   return (
     <div className={styles.userProfile} onClick={handleClick}>
-      <Image
-        src={avatarUrl}
-        alt="User Avatar"
-        width={32}
-        height={32}
-        className={styles.userAvatar}
-      />
+      {username ? (
+        <Image
+          src={avatarUrl}
+          alt="User Avatar"
+          width={32}
+          height={32}
+          className={styles.userAvatar}
+        />
+      ) : (
+        <div className={styles.uIcon}>U</div>
+      )}
       <div className={styles.userInfo}>
         <Button
           className={styles.username}
-          sx={{ padding: 0, minWidth: 0, textTransform: "none", color: "#ffffff" }}
+          sx={{
+            padding: 0,
+            minWidth: 0,
+            textTransform: "none",
+            color: "#ffffff",
+          }}
           disableRipple
         >
-          {username}
+          {username || "Unknown"}
         </Button>
-        <form
-          action="/api/discord/logout"
-          method="POST"
-          name="logoutForm"
-          style={{ display: "none" }}
-        >
-          <button type="submit">Logout</button>
-        </form>
+        {username && (
+          <form
+            action="/api/discord/logout"
+            method="POST"
+            name="logoutForm"
+            style={{ display: "none" }}
+          >
+            <button type="submit">Logout</button>
+          </form>
+        )}
         <Menu
           anchorEl={anchorEl}
           open={open}
@@ -81,7 +101,9 @@ export default function UserProfile({ username, avatarUrl }: UserProfileProps) {
             },
           }}
         >
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          <MenuItem onClick={username ? handleLogout : handleLogin}>
+            {username ? "Logout" : "Login"}
+          </MenuItem>
         </Menu>
       </div>
     </div>

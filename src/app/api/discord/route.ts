@@ -33,6 +33,7 @@ export async function GET(request: Request) {
     const response = NextResponse.redirect(
       new URL("/projects/guildcount", request.url)
     );
+    
     response.cookies.set("discord_access_token", access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

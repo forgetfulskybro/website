@@ -407,7 +407,7 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
   const debouncedSetSearch = useCallback(
     debounce((value: string) => {
       setSearch(value);
-    }, 300),
+    }, 50),
     []
   );
 
