@@ -1,4 +1,9 @@
+const colorCache = new Map<string, string[]>();
 export const extractColors = (imageSrc: string): Promise<string[]> => {
+  if (colorCache.has(imageSrc)) {
+    return Promise.resolve(colorCache.get(imageSrc)!);
+  }
+
   return new Promise((resolve) => {
     const img = new Image();
     img.crossOrigin = "Anonymous";
@@ -7,91 +12,92 @@ export const extractColors = (imageSrc: string): Promise<string[]> => {
     img.onload = () => {
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
-      if (!ctx) return resolve(["#36393f"]);
+      if (!ctx) return resolve(["#5b65f04e"]);
 
-      canvas.width = img.width;
-      canvas.height = img.height;
+      const maxSize = 100;
+      const scale = Math.min(maxSize / img.width, maxSize / img.height);
+      canvas.width = Math.floor(img.width * scale);
+      canvas.height = Math.floor(img.height * scale);
+
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const data = imageData.data;
-      const colorMap: Record<string, { count: number; vibrancy: number }> = {};
 
-      let mostVibrantColor = "";
+      const colorMap = new Map<number, { count: number; vibrancy: number }>();
+
+      let mostVibrantColor = 0;
       let maxVibrancy = 0;
-      let mostUsedColor = "";
+      let mostUsedColor = 0;
       let maxCount = 0;
 
-      for (let i = 0; i < data.length; i += 4 * 50) {
+      for (let i = 0; i < data.length; i += 4 * 16) {
         const r = data[i];
         const g = data[i + 1];
         const b = data[i + 2];
         const a = data[i + 3];
 
         if (a < 50 || r + g + b < 30) continue;
-
-        const [h, s, l] = rgbToHsl(r, g, b);
-        const vibrancy = s * l;
-
-        const color = `rgb(${r},${g},${b})`;
-        if (!colorMap[color]) {
-          colorMap[color] = { count: 0, vibrancy };
+        const vibrancy = calculateVibrancy(r, g, b);
+        const colorKey = (r << 16) | (g << 8) | b;
+        const existing = colorMap.get(colorKey);
+        if (existing) {
+          existing.count += 1;
+        } else {
+          colorMap.set(colorKey, { count: 1, vibrancy });
         }
-        colorMap[color].count += 1;
 
+        const currentEntry = colorMap.get(colorKey)!;
         if (vibrancy > maxVibrancy) {
           maxVibrancy = vibrancy;
-          mostVibrantColor = color;
-          }
-          
-        if (colorMap[color].count > maxCount) {
-          maxCount = colorMap[color].count;
-          mostUsedColor = color;
+          mostVibrantColor = colorKey;
+        }
+
+        if (currentEntry.count > maxCount) {
+          maxCount = currentEntry.count;
+          mostUsedColor = colorKey;
         }
       }
 
-      const result =
-        mostVibrantColor === mostUsedColor
-          ? [mostVibrantColor]
-          : [mostVibrantColor, mostUsedColor].filter(Boolean);
+      const result: string[] = [];
+      if (mostVibrantColor) {
+        result.push(colorKeyToRgb(mostVibrantColor));
+      }
+      if (mostUsedColor && mostUsedColor !== mostVibrantColor) {
+        result.push(colorKeyToRgb(mostUsedColor));
+      }
 
-      resolve(result.length ? result : ["#36393f"]);
+      const finalResult = result.length ? result : ["#5b65f04e"];
+      colorCache.set(imageSrc, finalResult);
+      resolve(finalResult);
     };
 
-    img.onerror = () => resolve(["#36393f"]);
+    img.onerror = () => resolve(["#5b65f04e"]);
   });
 };
 
-const rgbToHsl = (
-  r: number,
-  g: number,
-  b: number
-): [number, number, number] => {
-  r /= 255;
-  g /= 255;
-  b /= 255;
+const calculateVibrancy = (r: number, g: number, b: number): number => {
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
-  let h = 0,
-    s = 0,
-    l = (max + min) / 2;
+  const diff = max - min;
+  const sum = max + min;
 
-  if (max !== min) {
-    const d = max - min;
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    switch (max) {
-      case r:
-        h = (g - b) / d + (g < b ? 6 : 0);
-        break;
-      case g:
-        h = (b - r) / d + 2;
-        break;
-      case b:
-        h = (r - g) / d + 4;
-        break;
-    }
-    h /= 6;
+  if (max === 0) return 0;
+
+  const saturation = diff / max;
+  const lightness = sum / 510;
+  return saturation * (1 - Math.abs(lightness - 0.5) * 2);
+};
+
+const colorKeyToRgb = (colorKey: number): string => {
+  const r = (colorKey >> 16) & 0xff;
+  const g = (colorKey >> 8) & 0xff;
+  const b = colorKey & 0xff;
+  return `rgb(${r},${g},${b})`;
+};
+
+export const clearColorCache = () => {
+  if (colorCache.size > 100) {
+    colorCache.clear();
   }
-
-  return [h, s, l];
 };
