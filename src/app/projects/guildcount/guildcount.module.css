@@ -177,10 +177,6 @@
   transition: transform 0.2s ease;
 }
 
-.guildCard:active {
-  transform: scale(0.98);
-}
-
 @media (max-width: 600px) {
   .guildCard {
     min-height: 140px;
@@ -322,11 +318,12 @@
   font-weight: 500;
   color: #ffffff;
   background-repeat: no-repeat;
-  background-position: left 3px center;
+  background-position: 3px center;
   background-size: 10px 10px;
   min-height: 16px;
   line-height: 1.2;
   letter-spacing: 0.3px;
+  position: relative;
 }
 
 .badge.verified {
@@ -351,7 +348,7 @@
 
 .badge.owner {
   background-color: #ed4245d1;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 100 80" fill="none"><rect x="10" y="55" width="80" height="15" fill="%23FFFFFF" stroke="%23ED4245" stroke-width="1"/><polygon points="10,55 25,25 40,45 50,15 60,45 75,25 90,55" fill="%23FFFFFF" stroke="%23ED4245" stroke-width="1"/><circle cx="30" cy="40" r="2" fill="%23ED4245"/><circle cx="50" cy="30" r="3" fill="%23ED4245"/><circle cx="70" cy="40" r="2" fill="%23ED4245"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"><rect x="2" y="14" width="20" height="4" fill="%23FFFFFF" stroke="%23ED4245" stroke-width="0.5"/><polygon points="2,14 6,6 10,11 12,4 14,11 18,6 22,14" fill="%23FFFFFF" stroke="%23ED4245" stroke-width="0.5"/><circle cx="7" cy="10" r="0.8" fill="%23ED4245"/><circle cx="12" cy="7" r="1" fill="%23ED4245"/><circle cx="17" cy="10" r="0.8" fill="%23ED4245"/></svg>');
 }
 
 .modal {
