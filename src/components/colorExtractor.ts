@@ -28,10 +28,8 @@ export const extractColors = (imageSrc: string): Promise<string[]> => {
         const b = data[i + 2];
         const a = data[i + 3];
 
-        // Skip transparent or near-transparent pixels and very dark colors
         if (a < 50 || r + g + b < 30) continue;
 
-        // Calculate vibrancy using HSL (saturation * lightness)
         const [h, s, l] = rgbToHsl(r, g, b);
         const vibrancy = s * l;
 
@@ -41,20 +39,17 @@ export const extractColors = (imageSrc: string): Promise<string[]> => {
         }
         colorMap[color].count += 1;
 
-        // Track most vibrant color
         if (vibrancy > maxVibrancy) {
           maxVibrancy = vibrancy;
           mostVibrantColor = color;
-        }
-
-        // Track most used color
+          }
+          
         if (colorMap[color].count > maxCount) {
           maxCount = colorMap[color].count;
           mostUsedColor = color;
         }
       }
 
-      // Return most vibrant and most used colors (deduplicate if same)
       const result =
         mostVibrantColor === mostUsedColor
           ? [mostVibrantColor]
@@ -67,7 +62,6 @@ export const extractColors = (imageSrc: string): Promise<string[]> => {
   });
 };
 
-// Helper function to convert RGB to HSL
 const rgbToHsl = (
   r: number,
   g: number,
