@@ -72,12 +72,6 @@
   margin: 0;
 }
 
-@media (min-width: 768px) {
-  .username {
-    max-width: 200px;
-  }
-}
-
 .filterBar {
   margin-bottom: 16px;
   display: flex;
@@ -126,21 +120,6 @@
   color: #ffffff;
 }
 
-@media (max-width: 600px) {
-  .filterBar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .filterInput {
-    width: 100%;
-  }
-
-  .filterButtons {
-    justify-content: flex-start;
-  }
-}
-
 .guildList {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -151,17 +130,6 @@
   -webkit-overflow-scrolling: touch;
 }
 
-@media (max-width: 600px) {
-  .guildList {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    max-height: calc(100vh - 160px);
-    overflow-y: auto;
-    padding: 8px 8px calc(40px + env(safe-area-inset-bottom)) 8px;
-    box-sizing: border-box;
-  }
-}
-
 .guildCard {
   user-select: text;
   background-color: #36393f;
@@ -169,19 +137,12 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 98%;
-  min-height: 210px;
+  min-height: 180px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
   transition: transform 0.2s ease;
-}
-
-@media (max-width: 600px) {
-  .guildCard {
-    min-height: 140px;
-    padding: 8px;
-  }
 }
 
 .guildBanner {
@@ -208,6 +169,21 @@
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
+.guildNameWrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.badgeContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
 .guildName {
   font-size: 13px;
   font-weight: bold;
@@ -219,6 +195,7 @@
   line-height: 1.3;
   position: relative;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  text-align: left;
 }
 
 .guildName::after {
@@ -311,44 +288,59 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  margin: 2px;
-  padding: 2px 6px 2px 14px;
+  width: 16px;
+  height: 16px;
   border-radius: 4px;
-  font-size: 11px;
-  font-weight: 500;
-  color: #ffffff;
+  background-color: transparent;
   background-repeat: no-repeat;
-  background-position: 3px center;
-  background-size: 10px 10px;
-  min-height: 16px;
-  line-height: 1.2;
-  letter-spacing: 0.3px;
-  position: relative;
+  background-position: center;
+  background-size: 12px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.badge:hover {
+  background-color: inherit;
 }
 
 .badge.verified {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="%23FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+}
+
+.badge.verified:hover {
   background-color: #57f288c1;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="%23FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>');
 }
 
 .badge.partnered {
-  background-color: #5865F2;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M8 12h8M12 8v8" stroke="%23FFFFFF" stroke-width="2" stroke-linecap="round"/><circle cx="7" cy="12" r="3" stroke="%23FFFFFF" stroke-width="2" fill="none"/><circle cx="17" cy="12" r="3" stroke="%23FFFFFF" stroke-width="2" fill="none"/><path d="M10 12h4" stroke="%23FFFFFF" stroke-width="3" stroke-linecap="round"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M8 12h8M12 8v8" stroke="%23FFFFFF" stroke-width="2" stroke-linecap="round"/><circle cx="7" cy="12" r="3" stroke="%23FFFFFF" stroke-width="2" fill="none"/><circle cx="17" cy="12" r="3" stroke="%23FFFFFF" stroke-width="2" fill="none"/><path d="M10 12h4" stroke="%23FFFFFF" stroke-width="3" stroke-linecap="round"/></svg>');
+}
+
+.badge.partnered:hover {
+  background-color: #5865f2;
 }
 
 .badge.admin {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6l-8-4z" stroke="%23FFFFFF" stroke-width="2" fill="none"/></svg>');
+}
+
+.badge.admin:hover {
   background-color: #7289da;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6l-8-4z" stroke="%23FFFFFF" stroke-width="2" fill="none"/></svg>');
 }
 
 .badge.staff {
-  background-color: #5865F2;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="%23FFFFFF" stroke-width="2" fill="none"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="%23FFFFFF" stroke-width="2" fill="none"/></svg>');
+}
+
+.badge.staff:hover {
+  background-color: #5865f2;
 }
 
 .badge.owner {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="2" y="14" width="20" height="4" fill="%23FFFFFF" stroke="%23FFFFFF" stroke-width="0.5"/><polygon points="2,14 6,6 10,11 12,4 14,11 18,6 22,14" fill="%23FFFFFF" stroke="%23FFFFFF" stroke-width="0.5"/><circle cx="7" cy="10" r="0.8" fill="%23FFFFFF"/><circle cx="12" cy="7" r="1" fill="%23FFFFFF"/><circle cx="17" cy="10" r="0.8" fill="%23FFFFFF"/></svg>');
+}
+
+.badge.owner:hover {
   background-color: #ed4245d1;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"><rect x="2" y="14" width="20" height="4" fill="%23FFFFFF" stroke="%23ED4245" stroke-width="0.5"/><polygon points="2,14 6,6 10,11 12,4 14,11 18,6 22,14" fill="%23FFFFFF" stroke="%23ED4245" stroke-width="0.5"/><circle cx="7" cy="10" r="0.8" fill="%23ED4245"/><circle cx="12" cy="7" r="1" fill="%23ED4245"/><circle cx="17" cy="10" r="0.8" fill="%23ED4245"/></svg>');
 }
 
 .modal {
@@ -387,14 +379,6 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   border: 1px solid #4f545c;
   position: relative;
-}
-
-@media (max-width: 767px) {
-  .modalContent {
-    max-width: 95%;
-    max-height: 90vh;
-    padding: 16px;
-  }
 }
 
 .close {
@@ -546,4 +530,38 @@
 
 .error a:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .filterBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .username {
+    max-width: 200px;
+  }
+
+  .filterInput {
+    width: 100%;
+  }
+
+  .filterButtons {
+    justify-content: flex-start;
+  }
+
+  .guildList {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    padding: 8px 8px calc(40px) 8px;
+    box-sizing: border-box;
+  }
+
+  .modalContent {
+    max-width: 95%;
+    max-height: 90vh;
+    padding: 16px;
+  }
 }

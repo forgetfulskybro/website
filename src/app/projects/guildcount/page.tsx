@@ -561,7 +561,9 @@ export default async function GuildCount() {
             </div>
             <p>Total Guilds: {guilds.length}</p>
             {!user && (
-              <strong>These are placeholder servers. Login to view your servers.</strong>
+              <>
+                <strong>Login to view your servers</strong>
+              </>
             )}
           </div>
           <UserProfile

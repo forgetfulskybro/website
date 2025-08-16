@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { extractColors } from "./colorExtractor";
+import ToolTip from "./ToolTip";
 
 export default function GuildCard({
   guild,
@@ -110,7 +111,7 @@ export default function GuildCard({
               className={styles.guildIcon}
               width={64}
               height={64}
-              src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`}
+              src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png?size=1024`}
               alt={`${guild.name} icon`}
             />
           ) : (
@@ -118,9 +119,26 @@ export default function GuildCard({
               {guild.name ? guild.name[0].toUpperCase() : "?"}
             </div>
           )}
-          <span className={styles.guildName} title={guild.name}>
-            {guild.name}
-          </span>
+          <div className={styles.guildNameWrapper}>
+            {badges.length > 0 && (
+              <div className={styles.badgeContainer}>
+                {badges.map((badge, index) => (
+                  <ToolTip
+                    key={index}
+                    content={badge.replace(/(^|\s)[a-z]/gi, (l) =>
+                      l.toUpperCase()
+                    )}
+                    placement="top"
+                  >
+                    <span className={`${styles.badge} ${styles[badge]}`} />
+                  </ToolTip>
+                ))}
+              </div>
+            )}
+            <ToolTip content={guild.name} placement="top">
+              <span className={styles.guildName}>{guild.name}</span>
+            </ToolTip>
+          </div>
           <div className={styles.guildMeta}>
             <span>
               <strong>ID</strong>: {guild.id}
@@ -129,19 +147,6 @@ export default function GuildCard({
             <span>
               <strong>Created</strong>: {creationDate}
             </span>
-            {badges.length > 0 && (
-              <>
-                <br />
-                {badges.map((badge, index) => (
-                  <span
-                    key={index}
-                    className={`${styles.badge} ${styles[badge]}`}
-                  >
-                    {badge.charAt(0).toUpperCase() + badge.slice(1)}
-                  </span>
-                ))}
-              </>
-            )}
           </div>
         </div>
         <button onClick={toggleModal} className={styles.toggleButton}>
