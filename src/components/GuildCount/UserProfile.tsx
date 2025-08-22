@@ -1,5 +1,5 @@
 "use client";
-import styles from "../app/projects/guildcount/guildcount.module.css";
+import styles from "../../app/projects/guildcount/guildcount.module.css";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
