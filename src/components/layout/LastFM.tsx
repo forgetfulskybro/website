@@ -40,25 +40,23 @@ export const LastFM: React.FC<LastFMProps> = ({ data }) => {
   const variants: Variants = {
     hidden: {
       opacity: 0,
-
+      y: 10,
       zIndex: 0,
     },
-
     visible: {
       opacity: 1,
-
+      y: 0,
       zIndex: 100,
     },
   };
 
   const fade: Transition = {
     ease: "easeInOut",
-
     duration: 0.6,
   };
 
   return (
-    <div className="gameCard flex">
+    <div style={{ cursor: "pointer" }} className="gameCard flex">
       {cover ? (
         <AnimatePresence>
           {cover && (
@@ -142,13 +140,35 @@ export const LastFM: React.FC<LastFMProps> = ({ data }) => {
       </div>
 
       <div className="flex" style={{ flexDirection: "row" }}>
-        <div className="lastFMTitle">
-          <b>{title?.slice(0, 55)}</b>
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            className="lastFMTitle"
+            animate="visible"
+            initial="hidden"
+            exit="hidden"
+            key={`${artist} ${title}-title`}
+            transition={fade}
+            variants={variants}
+          >
+            <b>{title?.slice(0, 55)}</b>
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       <div className="flex" style={{ flexDirection: "row" }}>
-        <div className="lastFMArtist">{artist}</div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            className="lastFMArtist"
+            animate="visible"
+            initial="hidden"
+            exit="hidden"
+            key={`${artist} ${title}-artist`}
+            transition={fade}
+            variants={variants}
+          >
+            {artist}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

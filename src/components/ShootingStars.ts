@@ -88,7 +88,7 @@ export const useShootingStars = () => {
     };
 
     const spawnComet = () => {
-      if (Math.random() < 0.3) {
+      if (Math.random() < 0.2) {
         createComet();
       }
       const nextCometDelay = 5000 + Math.random() * 10000;

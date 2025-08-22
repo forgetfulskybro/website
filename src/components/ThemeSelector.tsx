@@ -1,10 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { Box, Typography, IconButton, Popover, Menu } from '@mui/material';
+import { Box, Typography, IconButton, Menu } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import ReactDOM from 'react-dom';
+import Translate from "./translation";
 import { Theme } from './types';
 import ToolTip from './ToolTip';
-import Translate from './translation';
 
 const ColorSquare = styled(Box)(({ theme }) => ({
   width: '100%',

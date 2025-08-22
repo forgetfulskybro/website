@@ -25,6 +25,14 @@ const darkenColor = (color: string): string => {
     .padStart(2, "0")}${Math.floor(b).toString(16).padStart(2, "0")}`;
 };
 
+export const renderButtons = (href: string | null, text: string): JSX.Element => (
+  <Link href={href || "#"} target="_blank">
+    <button className="tooltipButton" disabled={!href}>
+      {text}
+    </button>
+  </Link>
+);
+
 const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
   const projectList = projects(data);
   const [isMobile, setIsMobile] = useState(false);
@@ -45,14 +53,6 @@ const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  const renderButtons = (href: string | null, text: string): JSX.Element => (
-    <Link href={href || "#"} target="_blank">
-      <button className="tooltipButton" disabled={!href}>
-        {text}
-      </button>
-    </Link>
-  );
 
   const renderProject = (project: ProjectData) => {
     const projectDesc = translate.get(
@@ -131,7 +131,7 @@ const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
       key={project.target}
       placement="top"
       content={
-        <div className="projectTooltip">
+        <div className="tooltip">
           {renderButtons(project.github, "GitHub")}
           {renderButtons(
             project.community,

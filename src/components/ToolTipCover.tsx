@@ -42,7 +42,6 @@ export default function ToolTipCover({
       title={content}
       placement={placement}
       disableFocusListener
-      arrow={false}
     >
       {children}
     </StyledTooltip>

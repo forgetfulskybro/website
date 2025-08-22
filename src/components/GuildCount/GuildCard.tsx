@@ -1,11 +1,11 @@
 "use client";
 import styles from "../app/projects/guildcount/guildcount.module.css";
-import type { Guild } from "../app/projects/guildcount/page";
-import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
+import type { Guild } from "../../app/projects/guildcount/page";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
 import { extractColors } from "./colorExtractor";
-import ToolTip from "./ToolTip";
+import ToolTip from "../ToolTip";
+import Image from "next/image";
 
 export default function GuildCard({
   guild,

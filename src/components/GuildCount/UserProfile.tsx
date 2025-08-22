@@ -1,7 +1,7 @@
 "use client";
 import styles from "../app/projects/guildcount/guildcount.module.css";
 import { Button, Menu, MenuItem } from "@mui/material";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 

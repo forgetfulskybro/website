@@ -130,28 +130,31 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
         if (customColor) {
           baseColor = customColor;
         } else if (storedTheme) {
-          const theme = JSON.parse(storedTheme);
-          baseColor = theme.primary;
+          try {
+            const theme = JSON.parse(storedTheme);
+            baseColor = theme?.primary || defaultColors.main;
+          } catch (parseError) {
+            console.error("Error parsing theme JSON:", parseError);
+            baseColor = defaultColors.main;
+          }
         }
-
-        setThemeColors(generateColorVariants(baseColor));
       } catch (error) {
         console.error("Error updating theme color:", error);
         setThemeColors(defaultColors);
       }
-    };
 
-    updateThemeColor();
-    const checkInterval = setInterval(updateThemeColor, 7500);
+      updateThemeColor();
+      const checkInterval = setInterval(updateThemeColor, 7500);
 
-    window.addEventListener("storage", (e) => {
-      if (e.key === "theme" || e.key === "customColor") {
-        updateThemeColor();
-      }
-    });
+      window.addEventListener("storage", (e) => {
+        if (e.key === "theme" || e.key === "customColor") {
+          updateThemeColor();
+        }
+      });
 
-    return () => {
-      clearInterval(checkInterval);
+      return () => {
+        clearInterval(checkInterval);
+      };
     };
   }, []);
 
@@ -175,7 +178,6 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
           backdropFilter: "blur(12px)",
           borderRadius: "16px",
           border: "1px solid rgba(255,255,255,0.1)",
-          boxShadow: `0 8px 32px ${themeColors.dark}40`,
         },
       }}
       fullWidth={true}

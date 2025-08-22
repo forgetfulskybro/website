@@ -1,5 +1,5 @@
-import UserProfile from "@/components/UserProfile";
-import FilterBar from "@/components/FilterBar";
+import UserProfile from "@/components/GuildCount/UserProfile";
+import FilterBar from "@/components/GuildCount/FilterBar";
 import styles from "./guildcount.module.css";
 import { cookies } from "next/headers";
 import { Metadata } from "next";

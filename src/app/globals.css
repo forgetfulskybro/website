@@ -38,21 +38,22 @@ a {
     color-scheme: dark;
   }
 }
+
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px; /* Slim for a minimalist space vibe */
 }
+
 ::-webkit-scrollbar-track {
-  border-radius: 0 5px 5px 0;
-  box-shadow: inset 0 0 5px #4ca6ca;
+  background: radial-gradient(circle at center, #0a0a1f 0%, #000000 100%); /* Starry night sky effect */
+  border-radius: 0 3px 3px 0;
+  box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.15); /* Subtle star-like shimmer */
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #626267;
-  border-radius: 0 5px 5px 0;
+  background: linear-gradient(90deg, #7d3bf6a2 0%, #7f60fa52 100%); /* Blue glow like a comet or spaceship */
+  border-radius: 0 3px 3px 0;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #4ca6ca;
-  border-radius: 0 5px 5px 0;
-}
+
 .main {
   display: flex;
   flex-direction: column;
@@ -141,17 +142,6 @@ a {
 
   transition: 0.25s ease-in-out;
 }
-
-/* .cardSocials {
-  aspect-ratio: 1 / 1;
-  background-color: rgba(34, 34, 38, 0.3);
-
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 6px;
-  margin: 4px;
-  transition: all 0.25s ease-in-out;
-} */
 
 .cardSocials[data-platform="Discord"]:hover {
   background-color: rgba(88, 101, 242, 0.3) !important;
@@ -342,7 +332,6 @@ a {
 .gameCard {
   position: relative;
   background-color: rgba(34, 34, 38, 0.3);
-
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   height: fit-content;
@@ -351,11 +340,6 @@ a {
   padding: 6px;
   margin: 4px;
   transition: all 0.25s ease-in-out;
-}
-
-.gameCard:hover {
-  background-color: rgba(26, 188, 156, 0.2);
-  cursor: pointer;
 }
 
 .recentGamesBox,
@@ -448,6 +432,15 @@ a {
 .gameProgress {
   width: 90px;
   font-size: 13px;
+  cursor: pointer;
+}
+
+.review {
+  position:absolute;
+  margin-top: 7px;
+  margin-left: 190px;
+  font-size: 13px;
+  cursor: pointer;
 }
 
 .wakaCard {
@@ -742,25 +735,7 @@ a {
   overflow: hidden !important;
 }
 
-.infoContainer {
-  width: 750px;
-  margin-top: 12px;
-  padding-left: 24px;
-}
-
 @media (max-width: 869px) {
-  .infoContainer {
-    width: calc(100% - 24px);
-    max-width: 500px;
-    margin: 12px auto;
-    padding-left: 0;
-  }
-
-  .topBoxesContainer {
-    flex-direction: column;
-    gap: 8px;
-  }
-
   .lyricsBox,
   .wakaBox {
     width: 100%;
@@ -770,13 +745,6 @@ a {
   .boxContent {
     overflow-x: auto;
   }
-}
-
-.topBoxesContainer {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 12px;
-  width: 100%;
 }
 
 .container {
@@ -1087,15 +1055,57 @@ a {
   }
 }
 
-.projectTooltip {
+.tooltip {
   display: flex;
   gap: 8px;
-  padding: 4px;
+  padding: 1px;
+}
+
+.tooltip-drawer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 90%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.tooltip-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+}
+
+.tooltip-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tooltip-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.tooltip-text {
+  font-size: 12px;
+  color: #cccccc;
+  margin: 0;
+  line-height: 1.4;
 }
 
 .tooltipButton {
   background-color: rgba(44, 44, 49, 0.8);
-
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   padding: 6px 12px;
@@ -1116,19 +1126,7 @@ a {
   background-color: rgba(34, 34, 38, 0.15);
 }
 
-.topBoxesContainer {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 12px;
-  width: 100%;
-}
-
 @media (max-width: 869px) {
-  .topBoxesContainer {
-    flex-direction: column;
-    gap: 8px;
-  }
-
   .lyricsBox,
   .wakaBox {
     width: 100%;
@@ -1232,41 +1230,63 @@ a {
 }
 
 .ratingsContainer {
-  background-color: #303030;
-  padding: 10px;
+  background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+  padding: 12px;
   border-radius: 8px;
-  color: white;
+  color: #ffffff;
+  max-width: 240px;
+  transition: transform 0.2s ease;
 }
 
-.ratingsContainer h3 {
-  margin-bottom: 15px;
-  color: white;
+.ratingsTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  text-align: center;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
 }
 
 .ratingList {
-  list-style: none;
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   margin: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ratingItem {
+  display: flex;
+  align-items: center;
   gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
 }
 
-.ratingList dt {
-  font-weight: bold;
-  color: #007bff;
+.ratingItem:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.ratingList dd {
-  margin-left: 0;
-  color: white;
+.ratingScore {
+  font-size: 14px;
+  font-weight: 600;
+  color: #00aaff;
+  min-width: 20px;
+  text-align: center;
+  background: rgba(0, 170, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
-@media (max-width: 600px) {
-  .ratingList {
-    grid-template-columns: 1fr;
-  }
+.ratingDescription {
+  font-size: 12px;
+  color: #e0e0e0;
+  margin: 0;
+  line-height: 1.4;
 }
+
 
 .starryBackground {
   position: fixed;

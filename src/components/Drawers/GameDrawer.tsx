@@ -20,26 +20,34 @@ export default function TemporaryDrawer({
   const list = () => (
     <Container>
       <DrawerHeader>
-        <Typography variant="h5" align="center">
+        <Typography variant="h6" align="center" className="drawerTitle">
           Game Rating Guide
         </Typography>
       </DrawerHeader>
-      <Divider />
+      <Divider className="drawerDivider" />
       <ListContainer>
         <RatingItem>
-          <BlueTypography variant="h6">1</BlueTypography>{" "}
-          <Typography>Awful</Typography>
+          <BlueTypography variant="h6" className="ratingScore">
+            1
+          </BlueTypography>
+          <Typography className="ratingDescription">
+            Awful - Major flaws
+          </Typography>
         </RatingItem>
         <RatingItem>
-          <BlueTypography variant="h6">5</BlueTypography>{" "}
-          <Typography>Mid/Average</Typography>
+          <BlueTypography variant="h6" className="ratingScore">
+            5
+          </BlueTypography>
+          <Typography className="ratingDescription">Average - Solid</Typography>
         </RatingItem>
         <RatingItem>
-          <BlueTypography variant="h6">10</BlueTypography>{" "}
-          <Typography>Amazing</Typography>
+          <BlueTypography variant="h6" className="ratingScore">
+            10
+          </BlueTypography>
+          <Typography className="ratingDescription">Masterpiece</Typography>
         </RatingItem>
       </ListContainer>
-      <Divider />
+      <Divider className="drawerDivider" />
     </Container>
   );
 

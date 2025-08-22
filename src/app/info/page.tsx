@@ -15,12 +15,11 @@ import Image from "next/image";
 export default function Home() {
   const data = LangSelect();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const handleRecentGamesClick = () => {
     setDrawerOpen(true);
   };
-
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 869);
@@ -33,7 +32,6 @@ export default function Home() {
     <main className="main">
       <div className="starryBackground" />
       <div className="shootingStarContainer" ref={useShootingStars()}></div>
-
       <Page>
         <div style={{ width: 750, marginTop: 15 }}>
           {isMobile && (
@@ -41,7 +39,7 @@ export default function Home() {
               open={drawerOpen}
               onClose={() => setDrawerOpen(false)}
             />
-          )}{" "}
+          )}
           <div
             style={{ maxHeight: "30vh", marginBottom: "10px" }}
             className="flexGrid flex center"
@@ -55,12 +53,20 @@ export default function Home() {
             placement="top"
             content={
               <div className="ratingsContainer">
-                <h3>Game Rating Guide</h3>
+                <h3 className="ratingsTitle">Game Rating Guide</h3>
                 <dl className="ratingList">
-                  {" "}
-                  <dt>1</dt> <dd>Awful</dd>
-                  <dt>5</dt> <dd>Mid/Average</dd>
-                  <dt>10</dt> <dd>Amazing</dd>
+                  <div className="ratingItem">
+                    <dt className="ratingScore">1</dt>
+                    <dd className="ratingDescription">Awful - Major flaws</dd>
+                  </div>
+                  <div className="ratingItem">
+                    <dt className="ratingScore">5</dt>
+                    <dd className="ratingDescription">Average - Solid</dd>
+                  </div>
+                  <div className="ratingItem">
+                    <dt className="ratingScore">10</dt>
+                    <dd className="ratingDescription">Masterpiece</dd>
+                  </div>
                 </dl>
               </div>
             }

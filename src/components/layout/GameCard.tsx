@@ -1,22 +1,39 @@
+import React, { useEffect, useState } from "react";
 import { GameType } from "../GamesArray";
-import ToolTip from "../ToolTip";
+import ToolTipCover from "../ToolTipCover";
+import { renderButtons } from "./Projects";
 import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import GameCardDrawer from "../Drawers/GameCardDrawer";
 
 interface GamesProp {
   games: GameType[];
 }
 
 export const GameCard: React.FC<GamesProp> = ({ games }) => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedGame, setSelectedGame] = useState<GameType | null>(null);
+
   const sortedGames = [...games].sort(
     (a, b) => (b.myRating || 0) - (a.myRating || 0)
   );
 
+  const handleClick = (game: GameType) => {
+    setSelectedGame(game);
+    setDrawerOpen(true);
+  };
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 869);
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       {sortedGames.map((game: GameType) => (
-        <Link href={game.website} key={game.target} target="_blank">
+        <div key={game.target} onClick={() => handleClick(game)}>
           <div className="gameCard flex boxes">
             {game.image && (
               <Image
@@ -31,12 +48,43 @@ export const GameCard: React.FC<GamesProp> = ({ games }) => {
             )}
             <div className="flex" style={{ flexDirection: "row" }}>
               <div className="gameTitle">{game.title}</div>
+              <ToolTipCover
+                content={
+                  <div className="tooltip-container">
+                    <div className="tooltip-section">
+                      <h3 className="tooltip-title">Review</h3>
+                      <div
+                        className="tooltip-text-container"
+                        style={{
+                          maxHeight: "150px",
+                          overflowY: "auto",
+                        }}
+                      >
+                        <p className="tooltip-text">
+                          {game.review
+                            ? game.review
+                            : "There is no review for this game."}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="tooltip-section">
+                      <h3 className="tooltip-title">Progress</h3>
+                      <p className="tooltip-text">{game.progress}</p>
+                    </div>
+                    <div className="tooltip-section center">
+                      {renderButtons(game.website, "Visit Website")}
+                    </div>
+                  </div>
+                }
+                placement="top"
+              >
+                <p className="review Blue">Review</p>
+              </ToolTipCover>
             </div>
             <div className="flex" style={{ flexDirection: "row" }}>
               <div className="gameRate">
                 {game.myRating ? (
                   <>
-                    {game.myRating}
                     <Image
                       src="/star.svg"
                       width={11}
@@ -45,15 +93,13 @@ export const GameCard: React.FC<GamesProp> = ({ games }) => {
                       alt="Rating star"
                       priority={false}
                     />
+                    {game.myRating}
                     /10
                   </>
                 ) : (
                   <p style={{ color: "#9F2AAA" }}>Unrated</p>
                 )}
               </div>
-              <ToolTip content={game.progress} placement="top">
-                <p className="gameProgress Blue">Progress</p>
-              </ToolTip>
             </div>
             <div className="flex" style={{ flexDirection: "row" }}>
               <div>
@@ -65,8 +111,16 @@ export const GameCard: React.FC<GamesProp> = ({ games }) => {
               </div>
             </div>
           </div>
-        </Link>
+        </div>
       ))}
+
+      {isMobile && (
+        <GameCardDrawer
+          open={drawerOpen}
+          onClose={() => setDrawerOpen(false)}
+          selectedGame={selectedGame}
+        />
+      )}
     </>
   );
 };

@@ -1,5 +1,5 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants, Transition } from "framer-motion";
 import { usePathname } from "next/navigation";
 import React from "react";
 
@@ -8,57 +8,46 @@ export default function TransitionEffect({
 }: {
   children: React.ReactNode;
 }) {
-  const variants = {
-    in: {
-      scale: 0.8,
-      y: 100,
-      x: "100%",
-      transition: {
-        duration: 0.4,
-      },
+  const transition: Transition = {
+    duration: 0.6,
+    ease: [0.4, 0, 0.2, 1],
+  };
+
+  const variants: Variants = {
+    initial: {
+      opacity: 0,
+      rotateX: 20,
+      y: 50,
+      transition,
     },
-    center: {
-      x: 0,
-      scale: 0.8,
-      transition: {
-        duration: 0.4,
-      },
-    },
-    scaleUp: {
-      scale: 1,
+    animate: {
+      opacity: 1,
+      rotateX: 0,
       y: 0,
       transition: {
-        duration: 0.4,
-        delay: 0.5,
+        ...transition,
+        delay: 0.2,
       },
     },
-    scaleDown: {
-      y: 100,
-      transition: {
-        duration: 0.4,
-        delay: 0.5,
-      },
-    },
-    out: {
-      scale: 0.8,
-      x: "-100%",
-      transition: {
-        duration: 0.4,
-      },
+    exit: {
+      opacity: 0,
+      rotateX: -20,
+      y: -50,
+      transition,
     },
   };
+
   return (
-    <>
-      <AnimatePresence mode="sync">
-        <motion.div
-          key={usePathname()}
-          variants={variants}
-          initial={["in"]}
-          animate={["center", "scaleUp"]}
-          exit={["scaleDown", "out"]}>
-          {children}
-        </motion.div>
-      </AnimatePresence>
-    </>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={usePathname()}
+        variants={variants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        {children}
+      </motion.div>
+    </AnimatePresence>
   );
 }
