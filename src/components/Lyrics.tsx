@@ -1,15 +1,22 @@
 "use client";
-import { LastFMSong } from "@/hooks/LastFMSong";
-import React, { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogContentText } from "@mui/material";
 import { defaultColors, generateColorVariants } from "./Lyrics/theme";
-import { formatDuration } from "./Lyrics/utils";
-import { DialogHeader } from "./Lyrics/DialogHeader";
 import { useTimeTracking } from "./Lyrics/useTimeTracking";
+import { motion, AnimatePresence } from "framer-motion";
+import { Response } from "@/app/api/lastfm/LastFMData";
+import { DialogHeader } from "./Lyrics/DialogHeader";
+import React, { useState, useEffect } from "react";
+import { formatDuration } from "./Lyrics/utils";
 import MusicDrawer from "./Drawers/MusicDrawer";
 import { LangSelect } from "./LanguageSelect";
 
-export default function Lyrics({ children }: { children: React.ReactNode }) {
+export default function Lyrics({
+  children,
+  lastFMSongData,
+}: {
+  children: React.ReactNode;
+  lastFMSongData: Response;
+}) {
   const data = LangSelect();
   const [open, setOpen] = useState(false);
   const [themeColors, setThemeColors] = useState(defaultColors);
@@ -25,7 +32,8 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
     started,
     playing,
     date,
-  } = LastFMSong();
+    cover,
+  } = lastFMSongData;
 
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -119,44 +127,66 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
     };
   }, [open, started, duration, startTimeTracking, animationFrameRef]);
 
-  useEffect(() => {
-    const updateThemeColor = () => {
-      try {
-        const storedTheme = localStorage.getItem("theme");
-        const customColor = localStorage.getItem("customColor");
+useEffect(() => {
+  const updateThemeColor = () => {
+    try {
+      const storedTheme = localStorage.getItem("theme");
+      const customColor = localStorage.getItem("customColor");
+      let baseColor = defaultColors.main;
 
-        let baseColor = defaultColors.main;
-
-        if (customColor) {
-          baseColor = customColor;
-        } else if (storedTheme) {
+      if (customColor) {
+        console.log("Using customColor:", customColor);
+        baseColor = customColor;
+      } else if (storedTheme) {
+        if (typeof storedTheme === "string" && storedTheme.trim() !== "") {
           try {
-            const theme = JSON.parse(storedTheme);
-            baseColor = theme?.primary || defaultColors.main;
+            const parsed = JSON.parse(storedTheme);
+            baseColor = parsed?.primary || defaultColors.main;
           } catch (parseError) {
-            console.error("Error parsing theme JSON:", parseError);
-            baseColor = defaultColors.main;
+            const colorRegex = /^(\d{1,3},\s*\d{1,3},\s*\d{1,3})$/;
+            if (colorRegex.test(storedTheme.trim())) {
+              console.log("Using storedTheme as RGB color:", storedTheme);
+              baseColor = `rgb(${storedTheme})`;
+            } else {
+              console.error(
+                "Error parsing theme JSON, not a valid color:",
+                parseError,
+                "Raw value:",
+                storedTheme
+              );
+              baseColor = defaultColors.main;
+            }
           }
+        } else {
+          console.warn(
+            "Stored theme is empty or invalid, using default color. Raw value:",
+            storedTheme
+          );
+          baseColor = defaultColors.main;
         }
-      } catch (error) {
-        console.error("Error updating theme color:", error);
-        setThemeColors(defaultColors);
       }
+      setThemeColors(generateColorVariants(baseColor));
+    } catch (error) {
+      setThemeColors(defaultColors);
+    }
+  };
 
+  updateThemeColor();
+  const checkInterval = setInterval(updateThemeColor, 7500);
+
+  const storageHandler = (e: StorageEvent) => {
+    if (e.key === "theme" || e.key === "customColor") {
       updateThemeColor();
-      const checkInterval = setInterval(updateThemeColor, 7500);
+    }
+  };
 
-      window.addEventListener("storage", (e) => {
-        if (e.key === "theme" || e.key === "customColor") {
-          updateThemeColor();
-        }
-      });
+  window.addEventListener("storage", storageHandler);
 
-      return () => {
-        clearInterval(checkInterval);
-      };
-    };
-  }, []);
+  return () => {
+    clearInterval(checkInterval);
+    window.removeEventListener("storage", storageHandler);
+  };
+}, []);
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -168,6 +198,8 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const songKey = `${artist}-${title}`;
+
   const dialogContent = (
     <Dialog
       sx={{
@@ -178,6 +210,20 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
           backdropFilter: "blur(12px)",
           borderRadius: "16px",
           border: "1px solid rgba(255,255,255,0.1)",
+          "&::-webkit-scrollbar": {
+            width: "8px",
+          },
+          "&::-webkit-scrollbar-track": {
+            background: `${themeColors.dark}20`,
+            borderRadius: "4px",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            background: themeColors.lighter,
+            borderRadius: "4px",
+            "&:hover": {
+              background: `${themeColors.lighter}cc`,
+            },
+          },
         },
       }}
       fullWidth={true}
@@ -185,37 +231,80 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
       open={open}
       onClose={handleClose}
     >
-      <DialogHeader
-        themeColors={themeColors}
-        url={url || ""}
-        artist={artist || ""}
-        title={title || ""}
-        tags={tags || []}
-        listeners={listeners}
-        playcount={playcount}
-        elapsedTime={elapsedTime}
-        duration={duration}
-        started={startedString}
-        getProgress={getProgress}
-        formatDuration={formatDuration}
-      />
-      <DialogContent sx={{ backgroundColor: "transparent" }}>
-        <DialogContentText
-          sx={{
-            color: "#fff",
-            whiteSpace: "pre-line",
-            marginTop: "20px",
-            opacity: 0.9,
-            lineHeight: 1.6,
-            "& strong, & b": {
-              color: themeColors.lighter,
-              fontWeight: 600,
-            },
-          }}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={songKey}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          {lyrics ? lyrics : "Can't find lyrics for this song."}
-        </DialogContentText>
-      </DialogContent>
+          <DialogHeader
+            themeColors={themeColors}
+            url={url || ""}
+            artist={artist || ""}
+            title={title || ""}
+            tags={tags || []}
+            listeners={listeners}
+            playcount={playcount}
+            FALLBACK_DURATION={190000}
+            elapsedTime={elapsedTime}
+            duration={duration}
+            started={startedString}
+            getProgress={getProgress}
+            formatDuration={formatDuration}
+            cover={cover}
+          />
+          <DialogContent
+            sx={{ backgroundColor: "transparent", padding: "0 24px 24px" }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={songKey + "-lyrics"}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                style={{
+                  maxHeight: "40vh",
+                  overflowY: "auto",
+                }}
+              >
+                <DialogContentText
+                  sx={{
+                    color: "#fff",
+                    whiteSpace: "pre-line",
+                    marginTop: "20px",
+                    opacity: 0.9,
+                    lineHeight: 1.6,
+                    fontSize: "0.9rem",
+                    "& strong, & b": {
+                      color: themeColors.lighter,
+                      fontWeight: 600,
+                    },
+                    "&::-webkit-scrollbar": {
+                      width: "8px",
+                    },
+                    "&::-webkit-scrollbar-track": {
+                      background: `${themeColors.dark}20`,
+                      borderRadius: "4px",
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      background: themeColors.lighter,
+                      borderRadius: "4px",
+                      "&:hover": {
+                        background: `${themeColors.lighter}cc`,
+                      },
+                    },
+                  }}
+                >
+                  {lyrics ? lyrics : "Can't find lyrics for this song."}
+                </DialogContentText>
+              </motion.div>
+            </AnimatePresence>
+          </DialogContent>
+        </motion.div>
+      </AnimatePresence>
     </Dialog>
   );
 
@@ -257,6 +346,7 @@ export default function Lyrics({ children }: { children: React.ReactNode }) {
           data={data!}
           date={date}
           lyrics={lyrics}
+          cover={cover}
         />
       )}
     </>

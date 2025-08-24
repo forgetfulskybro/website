@@ -8,6 +8,7 @@ import { LastFM } from "@/components/layout/LastFM";
 import { Waka } from "@/components/layout/WakaTime";
 import React, { useState, useEffect } from "react";
 import Translate from "@/components/translation";
+import { LastFMSong } from "@/hooks/LastFMSong"; 
 import Lyrics from "@/components/Lyrics";
 import Page from "@/components/page";
 import Image from "next/image";
@@ -16,6 +17,7 @@ export default function Home() {
   const data = LangSelect();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const lastFMSongData = LastFMSong();
 
   const handleRecentGamesClick = () => {
     setDrawerOpen(true);
@@ -44,8 +46,8 @@ export default function Home() {
             style={{ maxHeight: "30vh", marginBottom: "10px" }}
             className="flexGrid flex center"
           >
-            <Lyrics>
-              <LastFM data={data!} />
+            <Lyrics lastFMSongData={lastFMSongData}>
+              <LastFM data={data!} lastFMSongData={lastFMSongData} />
             </Lyrics>
             <Waka data={data!} />
           </div>

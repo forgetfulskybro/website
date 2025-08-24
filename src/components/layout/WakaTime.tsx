@@ -3,6 +3,7 @@ import { WakaResponse } from "../../app/api/wakatime/wakatimeData";
 import Translate from "@/components/translation";
 import { WakaTime } from "@/hooks/WakaTime";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -28,43 +29,36 @@ export const Waka: React.FC<WakaProps> = ({ data }) => {
         whileHover="hover"
       >
         <div
-          className="gameTitle"
           style={{
-            textAlign: "center",
             display: "flex",
-            gap: "4px",
-            color: "white",
+            alignItems: "center",
+            gap: "12px",
           }}
         >
-          <motion.span
-            style={{ background: "transparent" }}
-            initial={{ color: "rgb(255, 255, 255)" }}
-            variants={{
-              hover: {
-                color: [
-                  "rgb(255, 0, 0)",
-                  "rgb(255, 127, 0)",
-                  "rgb(255, 255, 0)",
-                  "rgb(0, 255, 0)",
-                  "rgb(0, 0, 255)",
-                  "rgb(75, 0, 130)",
-                  "rgb(143, 0, 255)",
-                  "rgb(255, 0, 0)",
-                ],
-                transition: {
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "linear",
-                },
-              },
+          <Image
+            src="/wakatime.png"
+            alt="WakaTime Logo"
+            width={40}
+            height={40}
+          />
+          <div
+            style={{
+              textAlign: "left",
+              color: "white",
             }}
           >
-            {!isNaN(seconds)
-              ? Math.round(seconds / 3600).toLocaleString()
-              : "0"}
-            +
-          </motion.span>
-          {new Translate().get(data!, "Info.hours")} WakaTime
+            <span
+              style={{ fontSize: "18px", fontWeight: "bold", display: "block" }}
+            >
+              {!isNaN(seconds)
+                ? Math.round(seconds / 3600).toLocaleString()
+                : "0"}
+              + {new Translate().get(data!, "Info.hours")}
+            </span>
+            <span style={{ fontSize: "14px", opacity: 0.8, display: "block" }}>
+              on WakaTime
+            </span>
+          </div>
         </div>
         <motion.div
           style={{
@@ -76,6 +70,16 @@ export const Waka: React.FC<WakaProps> = ({ data }) => {
             gap: "4px",
             opacity: 0.8,
           }}
+          animate={{
+            rotate: [0, 10, 0],
+            scale: [1, 1.1, 1],
+            opacity: [0.8, 1, 0.8],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
         >
           <motion.svg
             width="16"
@@ -83,16 +87,6 @@ export const Waka: React.FC<WakaProps> = ({ data }) => {
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            animate={{
-              rotate: [0, 10, 0],
-              scale: [1, 1.1, 1],
-              opacity: [0.8, 1, 0.8],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
           >
             <path
               d="M14 5C13.4477 5 13 4.55228 13 4C13 3.44772 13.4477 3 14 3H20C20.5523 3 21 3.44772 21 4V10C21 10.5523 20.5523 11 20 11C19.4477 11 19 10.5523 19 10V6.41421L10.7071 14.7071C10.3166 15.0976 9.68342 15.0976 9.29289 14.7071C8.90237 14.3166 8.90237 13.6834 9.29289 13.2929L17.5858 5H14Z"

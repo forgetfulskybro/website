@@ -59,21 +59,21 @@ interface LastFmResponse {
 }
 
 export interface Response {
-  artist: string;
+  artist?: string;
   cover?: string;
   date?: number;
-  duration: number;
-  listeners: number;
-  playcount: number;
-  started: Date | undefined;
+  duration?: number;
+  listeners?: number;
+  playcount?: number;
+  started?: Date | undefined;
   tags?: {
-    name: string;
-    url: string;
+    name?: string;
+    url?: string;
   }[];
-  playing: boolean;
-  title: string;
-  lyrics: string | null;
-  url: string;
+  playing?: boolean;
+  title?: string;
+  lyrics?: string | null;
+  url?: string;
   year?: number;
 }
 

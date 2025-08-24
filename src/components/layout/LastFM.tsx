@@ -2,8 +2,8 @@
 import { formatDistanceToNow, isYesterday, setDefaultOptions } from "date-fns";
 import type { Transition, Variants } from "framer-motion";
 import { AnimatePresence, motion } from "framer-motion";
+import { Response } from "@/app/api/lastfm/LastFMData";
 import Translate from "@/components/translation";
-import { LastFMSong } from "@/hooks/LastFMSong";
 import { es, fr } from "date-fns/locale";
 import { useMemo } from "react";
 import Image from "next/image";
@@ -11,10 +11,11 @@ import React from "react";
 
 interface LastFMProps {
   data: string;
+  lastFMSongData: Response
 }
 
-export const LastFM: React.FC<LastFMProps> = ({ data }) => {
-  const { artist, cover, date, title, playing } = LastFMSong();
+export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
+  const { artist, cover, date, title, playing } = lastFMSongData;
 
   function capitalize(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);

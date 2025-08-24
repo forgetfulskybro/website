@@ -11,6 +11,12 @@ async function fetcher<JSON = any>(
 }
 
 export function WakaTime(): Partial<WakaResponse> {
-  const { data } = useSWR<WakaResponse>("/api/wakatime", fetcher);
+  const { data } = useSWR<WakaResponse>("/api/wakatime", fetcher, {
+    refreshInterval: 1000000,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    revalidateIfStale: true,
+    dedupingInterval: 10000,
+  });
   return data ?? {};
 }

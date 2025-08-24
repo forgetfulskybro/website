@@ -21,7 +21,17 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "i.scdn.co",
-        pathname: "**"
+        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "lastfm.freetls.fastly.net",
+        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+        pathname: "**",
       },
     ],
   },

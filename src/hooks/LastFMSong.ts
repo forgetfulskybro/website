@@ -1,7 +1,7 @@
 "use client";
 import useSWR from "swr";
 import type { Response } from "../app/api/lastfm/LastFMData";
-import React from 'react';
+import React from "react";
 
 async function fetcher<JSON = any>(
   input: RequestInfo,
@@ -12,19 +12,25 @@ async function fetcher<JSON = any>(
 }
 
 export function LastFMSong(): Partial<Response> {
-  const { data, mutate } = useSWR<Response>("/api/lastfm", fetcher);
+  const { data, mutate } = useSWR<Response>("/api/lastfm", fetcher, {
+    refreshInterval: 30000,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    revalidateIfStale: true,
+    dedupingInterval: 10000,
+  });
 
   React.useEffect(() => {
     const checkNewSong = async () => {
       const newData = await mutate();
       if (newData) {
-        window.dispatchEvent(new Event('resetTime'));
+        window.dispatchEvent(new Event("resetTime"));
       }
     };
 
-    window.addEventListener('checkNewSong', checkNewSong);
+    window.addEventListener("checkNewSong", checkNewSong);
     return () => {
-      window.removeEventListener('checkNewSong', checkNewSong);
+      window.removeEventListener("checkNewSong", checkNewSong);
     };
   }, [mutate]);
 
