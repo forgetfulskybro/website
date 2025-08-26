@@ -19,7 +19,7 @@ export default function Projects() {
           style={{ maxHeight: "80vh", fontSize: 10 }}
           className="flexGrid flex boxes"
         >
-          <AllGames />
+          <AllGames data={data!} />
         </div>
       </Page>
     </main>

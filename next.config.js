@@ -28,11 +28,6 @@ const nextConfig = {
         hostname: "lastfm.freetls.fastly.net",
         pathname: "**",
       },
-      {
-        protocol: "https",
-        hostname: "upload.wikimedia.org",
-        pathname: "**",
-      },
     ],
   },
 };
