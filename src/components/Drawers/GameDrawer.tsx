@@ -1,11 +1,4 @@
-import {
-  DrawerHeader,
-  StyledDrawer,
-  RatingItem,
-  BlueTypography,
-  Container,
-  ListContainer,
-} from "./DrawerStyles";
+import { DrawerHeader, StyledDrawer, RatingItem, BlueTypography, Container, ListContainer } from "./DrawerStyles";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import * as React from "react";

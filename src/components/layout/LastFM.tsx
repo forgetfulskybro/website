@@ -11,10 +11,12 @@ import React from "react";
 
 interface LastFMProps {
   data: string;
-  lastFMSongData: Response
+  lastFMSongData: Response;
 }
 
 export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const translate = new Translate();
   const { artist, cover, date, title, playing } = lastFMSongData;
 
   function capitalize(string: string) {
@@ -34,9 +36,9 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
     if (!absoluteDate) return;
 
     return isYesterday(absoluteDate)
-      ? new Translate().get(data!, "Info.yester")
+      ? translate.get(data!, "Info.yester")
       : capitalize(formatDistanceToNow(absoluteDate, { addSuffix: true }));
-  }, [absoluteDate, data]);
+  }, [absoluteDate, data, translate]);
 
   const variants: Variants = {
     hidden: {
@@ -55,6 +57,8 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
     ease: "easeInOut",
     duration: 0.6,
   };
+
+  const MotionImage = motion(Image);
 
   return (
     <div style={{ cursor: "pointer" }} className="gameCard flex">
@@ -91,52 +95,82 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
 
       <div className="flex" style={{ flexDirection: "row" }}>
         <div className="lastFMTop">
-          {playing && (
-            <Image
-              src="/music.svg"
-              className="musicIcon"
-              height={20}
-              width={20}
-              draggable={false}
-              alt="Music"
-              priority={true}
-            />
-          )}
-          {absoluteDate ? (
-            <time dateTime={absoluteDate.toISOString()}>{relativeDate}</time>
-          ) : (
-            <span>
-              {playing ? (
-                `${new Translate().get(data!, "Info.listening")}...`
-              ) : (
-                <svg
-                  className="container"
-                  x="0px"
-                  y="0px"
-                  viewBox="0 0 50 31.25"
-                  height="31.25"
-                  width="50"
-                  preserveAspectRatio="xMidYMid meet"
-                >
-                  <path
-                    className="track"
-                    strokeWidth="4"
-                    fill="none"
-                    pathLength="100"
-                    d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
-                  />
+          <AnimatePresence>
+            {playing && (
+              <MotionImage
+                src="/music.svg"
+                className="musicIcon"
+                height={20}
+                width={20}
+                draggable={false}
+                alt="Music"
+                priority={true}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={variants}
+                transition={fade}
+              />
+            )}
+          </AnimatePresence>
+          <AnimatePresence mode="wait">
+            {absoluteDate ? (
+              <motion.time
+                dateTime={absoluteDate.toISOString()}
+                animate="visible"
+                initial="hidden"
+                exit="hidden"
+                key={`date-${date}`}
+                transition={fade}
+                variants={variants}
+              >
+                {relativeDate}
+              </motion.time>
+            ) : playing ? (
+              <motion.span
+                animate="visible"
+                initial="hidden"
+                exit="hidden"
+                key="listening"
+                transition={fade}
+                variants={variants}
+              >
+                {`${translate.get(data!, "Info.listening")}...`}
+              </motion.span>
+            ) : (
+              <motion.svg
+                className="container"
+                x="0px"
+                y="0px"
+                viewBox="0 0 50 31.25"
+                height="31.25"
+                width="50"
+                preserveAspectRatio="xMidYMid meet"
+                animate="visible"
+                initial="hidden"
+                exit="hidden"
+                key="equalizer"
+                transition={fade}
+                variants={variants}
+              >
+                <path
+                  className="track"
+                  strokeWidth="4"
+                  fill="none"
+                  pathLength="100"
+                  d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
+                />
 
-                  <path
-                    className="car"
-                    strokeWidth="4"
-                    fill="none"
-                    pathLength="100"
-                    d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
-                  />
-                </svg>
-              )}
-            </span>
-          )}
+                <path
+                  className="car"
+                  strokeWidth="4"
+                  fill="none"
+                  pathLength="100"
+                  d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
+                />
+              </motion.svg>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 

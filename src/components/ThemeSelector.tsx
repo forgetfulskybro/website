@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
 import { Box, Typography, IconButton, Menu } from '@mui/material';
+import React, { useState, useRef } from "react";
 import { styled } from '@mui/material/styles';
 import Translate from "./translation";
 import { Theme } from './types';
@@ -101,6 +101,7 @@ export default function ThemeSelector({
   onThemeClick,
   onCustomColorChange,
 }: ThemeSelectorProps) {
+  const translate = new Translate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [hexValue, setHexValue] = useState(customColor);
   const [pickerPosition, setPickerPosition] = useState<{ x: number; y: number } | null>(null);
@@ -218,7 +219,7 @@ export default function ThemeSelector({
         {themes.map((theme) => (
           <ToolTip
             key={theme.name}
-            content={new Translate().get(language!, `Comps.page.${theme.name}`)}
+            content={translate.get(language!, `Comps.page.${theme.name}`)}
             placement="top"
           >
             <IconButton
@@ -240,7 +241,7 @@ export default function ThemeSelector({
                   transform: 'translate(-50%, -50%)',
                   width: '14px',
                   height: '14px',
-                  backgroundImage: 'url("check.svg")',
+                  backgroundImage: 'url("/check.svg")',
                   backgroundSize: 'contain',
                   backgroundRepeat: 'no-repeat',
                   filter: 'brightness(0) invert(1)',
@@ -250,7 +251,7 @@ export default function ThemeSelector({
           </ToolTip>
         ))}
         <ToolTip
-          content={new Translate().get(language!, "Comps.page.custom")}
+          content={translate.get(language!, "Comps.page.custom")}
           placement="top"
         >
           <IconButton
@@ -272,7 +273,7 @@ export default function ThemeSelector({
                 transform: 'translate(-50%, -50%)',
                 width: '14px',
                 height: '14px',
-                backgroundImage: 'url("check.svg")',
+                backgroundImage: 'url("/check.svg")',
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
                 filter: 'brightness(0) invert(1)',
@@ -323,7 +324,7 @@ export default function ThemeSelector({
         }}
       >
         <Typography variant="subtitle2" sx={{ mb: 1, color: 'rgba(255,255,255,0.9)' }}>
-          {new Translate().get(language!, "Comps.page.customColor")}
+          {translate.get(language!, "Comps.page.customColor")}
         </Typography>
 
         <Box sx={{ position: 'relative', width: '100%' }}>

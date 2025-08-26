@@ -55,7 +55,7 @@ export default function LanguageMenu({
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: '100%' }}>
                     <Box sx={{ visibility: language === m.small ? 'visible' : 'hidden', width: 20 }}>
                       <Image
-                        src={`check.svg`}
+                        src={`/check.svg`}
                         width={15}
                         height={15}
                         draggable={false}

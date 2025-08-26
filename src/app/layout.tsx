@@ -1,30 +1,38 @@
+"use client";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import EmbedMeta from "@/components/layout/EmbedMeta";
 import { Analytics } from "@vercel/analytics/react";
 import { Fira_Code } from "next/font/google";
-import { Metadata } from "next";
-import React from "react";
+import React, { useEffect } from "react";
 import "./globals.css";
 
 const Fira = Fira_Code({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Sky",
-};
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  if (typeof window !== "undefined") {
-    window.onload = function () {
-      if (localStorage.getItem("theme"))
-        document
-          .querySelector<HTMLElement>(":root")
-          ?.style.setProperty("--card-rgb", localStorage.getItem("theme"));
-    };
-  }
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      try {
+        const rgbRegex = /^\d{1,3},\s*\d{1,3},\s*\d{1,3}$/;
+        if (rgbRegex.test(storedTheme)) {
+          document.documentElement.style.setProperty("--card-rgb", storedTheme);
+        } else {
+          console.warn("Invalid theme format in localStorage:", storedTheme);
+          document.documentElement.style.setProperty(
+            "--card-rgb",
+            "98, 98, 100"
+          );
+        }
+      } catch (error) {
+        console.error("Error processing theme from localStorage:", error);
+        document.documentElement.style.setProperty("--card-rgb", "98, 98, 100");
+      }
+    }
+  }, []);
 
   return (
     <html lang="en">

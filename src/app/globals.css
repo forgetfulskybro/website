@@ -424,7 +424,6 @@ a {
   margin: 5px 0px 0px 5px;
   font-size: 10px;
   float: left;
-  background-color: rgba(var(--card-rgb));
   padding: 2px;
   border-radius: 2px;
 }
@@ -438,7 +437,6 @@ a {
 .review {
   position:absolute;
   margin-top: 7px;
-  margin-left: 190px;
   font-size: 13px;
   cursor: pointer;
 }
@@ -971,6 +969,10 @@ a {
   display: none;
 }
 
+.mobileSliderSideSecondary {
+  display: none;
+}
+
 .socialLinks {
   display: flex;
   align-items: center;
@@ -1043,6 +1045,45 @@ a {
   }
 
   .mobileSliderSide::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(23, 23, 23, 0.3);
+    border-radius: 16px;
+    z-index: -1;
+  }
+  
+  .mobileSliderSideSecondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    width: 120px;
+    height: 50px;
+    margin: 0 auto;
+    padding: 0 10px;
+    position: relative;
+  }
+
+  .mobileSliderSideSecondary .navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
+  .mobileSliderSideSecondary .navigation > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobileSliderSideSecondary::before {
     content: "";
     position: absolute;
     top: 0;

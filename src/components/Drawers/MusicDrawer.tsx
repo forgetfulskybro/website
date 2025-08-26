@@ -1,24 +1,19 @@
 "use client";
-import {
-  DrawerHeader,
-  StyledDrawer,
-  Container,
-  SettingsCard,
-} from "./DrawerStyles";
+import { DrawerHeader, StyledDrawer, Container, SettingsCard } from "./DrawerStyles";
 import { formatDistanceToNow, isYesterday, setDefaultOptions } from "date-fns";
-import { es, fr } from "date-fns/locale";
+import { motion, AnimatePresence } from "framer-motion";
+import { DialogContentText } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import Link from "next/link";
 import Translate from "@/components/translation";
-import { ThemeColors } from "../Lyrics/theme";
 import { formatNumber } from "../Lyrics/utils";
+import { ThemeColors } from "../Lyrics/theme";
+import Divider from "@mui/material/Divider";
 import ToolTip from "@/components/ToolTip";
+import { es, fr } from "date-fns/locale";
+import Box from "@mui/material/Box";
 import * as React from "react";
 import Image from "next/image";
-import Box from "@mui/material/Box";
-import { DialogContentText } from "@mui/material";
-import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 interface MusicDrawerProps {
   open: boolean;
@@ -63,7 +58,8 @@ export default function MusicDrawer({
   lyrics,
   cover,
 }: MusicDrawerProps) {
-  const [height, setHeight] = React.useState(300);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const translate = new Translate();
   function capitalize(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -81,9 +77,9 @@ export default function MusicDrawer({
     if (!absoluteDate) return;
 
     return isYesterday(absoluteDate)
-      ? new Translate().get(data!, "Info.yester")
+      ? translate.get(data!, "Info.yester")
       : capitalize(formatDistanceToNow(absoluteDate, { addSuffix: true }));
-  }, [absoluteDate, data]);
+  }, [absoluteDate, data, translate]);
 
   const songKey = `${artist}-${title}`;
 
@@ -115,7 +111,7 @@ export default function MusicDrawer({
             ) : (
               <span>
                 {playing ? (
-                  `${new Translate().get(data!, "Info.listening")}...`
+                  `${translate.get(data!, "Info.listening")}...`
                 ) : (
                   <svg
                     className="container"
@@ -367,7 +363,7 @@ export default function MusicDrawer({
                   justifyContent: "center",
                 }}
               >
-                {duration && started ? (
+                {duration && started && (
                   <>
                     <span
                       style={{
@@ -421,17 +417,6 @@ export default function MusicDrawer({
                       {formatDuration(duration)}
                     </span>
                   </>
-                ) : (
-                  <ToolTip content={"Unknown Duration"} placement="bottom">
-                    <span
-                      style={{
-                        color: themeColors.light,
-                        fontWeight: 500,
-                      }}
-                    >
-                      00:00
-                    </span>
-                  </ToolTip>
                 )}
               </Box>
             </motion.div>

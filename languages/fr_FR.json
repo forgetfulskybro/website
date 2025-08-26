@@ -5,8 +5,13 @@
     "progress": "En cours",
     "recent": "Jeux récents",
     "hours": "heures",
+    "on": "fr",
     "yester": "Hier",
-    "moreGames": "Cliquez pour voir d'autres jeux"
+    "moreGames": "Cliquez pour voir d'autres jeux",
+    "gameRating": "Guide de classification des jeux",
+    "awful": "Horrible - Défauts majeurs",
+    "mid": "Moyenne - Solide",
+    "top": "Chef-d'œuvre"
   },
   "Projects": {
     "footer": {
@@ -120,6 +125,68 @@
     },
     "pageSecondary": {
       "back": "Retourner"
+    }
+  },
+  "Games": {
+    "visit": "Visiter le site web",
+    "noReview": "Il n'y a pas d'avis sur ce jeu.",
+    "review": "Révision",
+    "progress": "Progrès",
+    "dl1": {
+      "review": "Dying Light est un jeu de survie zombie palpitant avec une histoire captivante qui vous tient en haleine. Je l'ai rejoué plusieurs fois et je m'apprête à me replonger dans la mise à jour 2025, qui promet d'être tout aussi passionnante. Le récit haletant combiné à la montée d'adrénaline provoquée par le massacre des zombies en font un jeu hors du commun. Je recommande vivement Dying Light à tous ceux qui aiment les jeux d'horreur et de survie bourrés d'action.",
+      "progress": "Environ 10% (2e partie)"
+    },
+    "tg": {
+      "review": "",
+      "progress": "Environ 15%"
+    },
+    "di2": {
+      "review": "",
+      "progress": "Environ 45%"
+    },
+    "kcdII": {
+      "review": "",
+      "progress": "Environ 15%"
+    },
+    "hogleg": {
+      "review": "",
+      "progress": "14%"
+    },
+    "ijatgc": {
+      "review": "",
+      "progress": "Terminé"
+    },
+    "dl2": {
+      "review": "",
+      "progress": "Environ 25% (sans piste)"
+    },
+    "stalker": {
+      "review": "",
+      "progress": "Environ 25%"
+    },
+    "tlou": {
+      "review": "The Last of Us est un classique intemporel qui n'a plus besoin d'être présenté. Son histoire reste captivante même des années après sa sortie, se démarquant dans le genre zombie avec sa touche unique d'humains infestés de champignons qui sont hantés par la vie. Contrairement aux récits de zombies typiques, ce jeu offre une expérience fraîche et chargée d'émotions. J'ai choisi de me concentrer sur le premier jeu, car la suite semble trop longue et embrouille l'histoire, en particulier avec l'incapacité frustrante de confronter le second personnage principal pour ses actions après avoir vaincu d'innombrables ennemis. Malgré cela, The Last of Us reste un jeu incontournable pour sa narration inoubliable et son approche originale du genre.",
+      "progress": "Terminé"
+    },
+    "got": {
+      "review": "Ghost of Tsushima est une perle rare, le genre de jeu qui n'arrive qu'une fois dans la lune. Il tisse une histoire captivante, magnifiquement conçue, qui vous attire et ne vous lâche plus. Au-delà de sa narration exceptionnelle, le style artistique du jeu est à couper le souffle, avec des graphismes tout simplement spectaculaires. Je recommande de tout cœur Ghost of Tsushima à tous ceux qui aiment les jeux narratifs. C'est l'un de mes jeux préférés de tous les temps, au même titre que ma série Metro bien-aimée.",
+      "progress": "Environ 78% (non suivi)"
+    },
+    "cy": {
+      "review": "Il s'agit de l'un de ces jeux qui ont été lancés avec d'importantes lacunes, mais qui ont depuis évolué vers une expérience impressionnante grâce à des mises à jour dédiées. Bien qu'il soit décevant de voir un jeu démarrer dans des conditions difficiles, les développeurs ont déployé des efforts considérables pour corriger le tir et offrir aux fans l'expérience riche et immersive qu'ils attendaient en 2020. Leur engagement à peaufiner le jeu s'est avéré payant, ce qui en fait un jeu incontournable pour les fans de RPG en monde ouvert.",
+      "progress": "Environ 78% (2ème partie)"
+    },
+    "m": {
+      "review": "La série Metro est ma préférée de tous les temps, et Metro Exodus ne fait pas exception. Dès le premier jeu, je suis tombé amoureux de son style artistique envoûtant et de son histoire captivante et immersive. La narration sombre et sinistre offre une expérience glaçante, parfaite pour les fans de jeux d'horreur. Si Metro Exodus est aussi captivant, je ne peux qu'imaginer à quel point les livres doivent être incroyables. Je recommande vivement ce jeu à tous ceux qui aiment les jeux d'horreur avec une histoire et un univers riche en atmosphères.",
+      "progress": "Terminé deux fois"
+    },
+    "mll": {
+      "review": "Deuxième volet de la série Metro, il marque un tournant dans son histoire captivante. Il s'appuie sur les fondations du premier jeu, insufflant une nouvelle vie à l'histoire tout en approfondissant l'univers sombre et atmosphérique. Les personnages que l'on apprend à aimer dans ce jeu deviennent encore plus fascinants au moment où l'on atteint le chapitre final de la trilogie. Je recommande sans réserve Metro Last Light à tous ceux qui aiment les jeux d'horreur avec un scénario obsédant et sinistre qui vous tient en haleine du début à la fin.",
+      "progress": "Terminé deux fois"
+    },
+    "m2023": {
+      "review": "Metro 2033 ouvre la voie avec une introduction inoubliable. Premier jeu de la trilogie, il lance le voyage d'Artyom avec une histoire d'une beauté envoûtante qui pose les bases du monde sombre et immersif de la série. Le récit sinistre et atmosphérique captive du début à la fin, et je suis ravi qu'il se poursuive à travers deux autres jeux incroyables. Je recommande vivement Metro 2033 à tous ceux qui aiment les jeux d'horreur au scénario profond, sombre et captivant.",
+      "progress": "Terminé deux fois"
     }
   }
 }

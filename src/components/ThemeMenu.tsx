@@ -1,8 +1,8 @@
 import { Box, Typography, IconButton } from "@mui/material";
-import ToolTip from "./ToolTip";
-import Translate from "./translation";
-import { Theme } from "./types";
 import { CustomColorPicker } from "./StyledComponents";
+import Translate from "./translation";
+import ToolTip from "./ToolTip";
+import { Theme } from "./types";
 
 interface ThemeMenuProps {
   themes: Theme[];
@@ -27,16 +27,17 @@ export default function ThemeMenu({
   onCustomColorChange,
   setCustomColor,
 }: ThemeMenuProps) {
+  const translate = new Translate();
   return (
     <Box sx={{ mt: 3 }}>
       <Typography variant="subtitle2" sx={{ mb: 1.5, fontSize: '0.9rem', opacity: 0.9 }}>
-        {new Translate().get(language!, "Comps.page.colorTheme")}
+        {translate.get(language!, "Comps.page.colorTheme")}
       </Typography>
       <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 1, mb: 1 }}>
         {themes.map((theme) => (
           <ToolTip
             key={theme.name}
-            content={new Translate().get(language!, `Comps.page.${theme.name}`)}
+            content={translate.get(language!, `Comps.page.${theme.name}`)}
             placement="top"
           >
             <IconButton
@@ -54,7 +55,7 @@ export default function ThemeMenu({
           </ToolTip>
         ))}
         <ToolTip
-          content={new Translate().get(language!, "Comps.page.custom")}
+          content={translate.get(language!, "Comps.page.custom")}
           placement="top"
         >
           <IconButton
@@ -84,7 +85,7 @@ export default function ThemeMenu({
           marginBottom: '8px',
         }}>
           <Typography variant="caption" sx={{ mb: 1, display: 'block', color: '#fff' }}>
-            {new Translate().get(language!, "Comps.page.customColor")}
+            {translate.get(language!, "Comps.page.customColor")}
           </Typography>
           <Box sx={{ display: 'flex', gap: 1 }}>
             <input
@@ -117,7 +118,7 @@ export default function ThemeMenu({
                 cursor: 'pointer'
               }}
             >
-              {new Translate().get(language!, "Comps.page.apply")}
+              {translate.get(language!, "Comps.page.apply")}
             </button>
           </Box>
         </CustomColorPicker>

@@ -5,11 +5,12 @@ export interface ThemeColors {
   light: string;
   lighter: string;
   dark: string;
+  darker: string;
 }
 
 export const defaultTheme: Theme = {
   name: "dark",
-  primary: "rgb(100, 45, 142)", 
+  primary: "rgb(100, 100, 100)", 
 };
 
 export function adjustColor(color: string, amount: number): string {
@@ -39,6 +40,7 @@ export function generateColorVariants(baseColor: string): ThemeColors {
     light: adjustColor(baseColor, 30),
     lighter: adjustColor(baseColor, 60),
     dark: adjustColor(baseColor, -30),
+    darker: adjustColor(baseColor, -60),
   };
 }
 

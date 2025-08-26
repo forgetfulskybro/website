@@ -1,7 +1,7 @@
+import { NavItem } from "../types";
+import ToolTip from "../ToolTip";
 import Image from "next/image";
 import Link from "next/link";
-import ToolTip from "./ToolTip";
-import { NavItem } from "./types";
 import React from "react";
 
 interface NavigationProps {
@@ -13,22 +13,27 @@ export default function MobileNavigation({ items, pathname }: NavigationProps) {
   return (
     <>
       {items.map((item, index) => (
-        <div key={item.src} style={{ marginRight: index < items.length - 1 ? '12px' : '0' }}>
+        <div
+          key={item.src}
+          style={{ marginRight: index < items.length - 1 ? "12px" : "0" }}
+        >
           <Link href={item.path}>
             <ToolTip content={item.name} placement="top">
               <span
-                style={{ 
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: 'transparent',
-                  border: '1px solid rgba(255,255,255,0.05)',
-                  borderRadius: '35%',
-                  height: '30px',
-                  width: '30px',
-                  transition: 'all 0.25s ease-in-out'
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "transparent",
+                  border: "1px solid rgba(255,255,255,0.05)",
+                  borderRadius: "35%",
+                  height: "30px",
+                  width: "30px",
+                  transition: "all 0.25s ease-in-out",
                 }}
-                className={`dot ${item.class} ${pathname === item.path ? `${item.class}High` : ''}`}
+                className={`dot ${item.class} ${
+                  pathname === item.path ? `${item.class}High` : ""
+                }`}
                 onMouseEnter={(e) => {
                   if (pathname !== item.path) {
                     e.currentTarget.className = `dot ${item.class} ${item.class}High`;

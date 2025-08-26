@@ -1,7 +1,7 @@
 "use client";
 import { LangSelect } from "@/components/LanguageSelect";
 import Translate from "@/components/translation";
-import Page from "@/components/pageSecondary";
+import Page from "@/components/pageNav/pageSecondary";
 import Image from "next/image";
 import React from "react";
 

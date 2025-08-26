@@ -1,7 +1,6 @@
 import { DiscordIcon, GithubIcon, SteamIcon, XIcon } from "@/icons/icons";
 import React, { ReactElement } from "react";
 import ToolTip from "./ToolTip";
-import Image from "next/image";
 import Link from "next/link";
 
 const links: { url: string; src: ReactElement; alt: string }[] = [

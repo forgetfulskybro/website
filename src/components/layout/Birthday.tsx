@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
 
-
 export const Birthday: React.FC = ({ }) => {
     useEffect(() => {
         if (Date().includes("Jun 29")) {

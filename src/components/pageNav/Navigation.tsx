@@ -1,7 +1,7 @@
+import { NavItem } from "../types";
+import ToolTip from "../ToolTip";
 import Image from "next/image";
 import Link from "next/link";
-import ToolTip from "./ToolTip";
-import { NavItem } from "./types";
 import React from "react";
 
 interface NavigationProps {

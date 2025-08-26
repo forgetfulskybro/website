@@ -1,9 +1,4 @@
-import {
-  DrawerHeader,
-  StyledDrawer,
-  ButtonContainer,
-  StyledButton,
-} from "./DrawerStyles";
+import { DrawerHeader, StyledDrawer, ButtonContainer, StyledButton } from "./DrawerStyles";
 import Translate from "@/components/translation";
 import { Typography } from "@mui/material";
 import { ProjectData } from "../Projects";

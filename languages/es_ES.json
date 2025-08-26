@@ -5,8 +5,13 @@
     "progress": "En curso",
     "recent": "Juegos recientes",
     "hours": "horas",
+    "on": "en",
     "yester": "Ayer",
-    "moreGames": "Haga clic para ver más juegos"
+    "moreGames": "Haga clic para ver más juegos",
+    "gameRating": "Guía de clasificación de juegos",
+    "awful": "Horrible - Defectos graves",
+    "mid": "Promedio - Sólido",
+    "top": "Obra maestra"
   },
   "Projects": {
     "footer": {
@@ -79,7 +84,7 @@
         "random": {
           "before": "Actualmente tengo ",
           "after": " años"
-        } 
+        }
       },
       "descHello": "Hola, me llamo",
       "descOr": "o",
@@ -120,6 +125,68 @@
     },
     "pageSecondary": {
       "back": "Volver atrás"
+    }
+  },
+  "Games": {
+    "visit": "Visitar el sitio web",
+    "noReview": "No hay reseña para este juego.",
+    "review": "Consulte",
+    "progress": "Progreso",
+    "dl1": {
+      "review": "Dying Light es un emocionante juego de supervivencia zombi con una historia cautivadora que te mantiene al borde del asiento. Lo he vuelto a jugar varias veces y ahora me sumerjo de nuevo en la actualización de 2025, y cada vez es igual de emocionante. La trepidante narrativa combinada con la adrenalina de machacar zombis lo convierte en un juego sobresaliente. Recomiendo encarecidamente Dying Light a todos los amantes del survival horror lleno de acción.",
+      "progress": "Alrededor del 10% (2ª partida)"
+    },
+    "tg": {
+      "review": "",
+      "progress": "Alrededor del 15%"
+    },
+    "di2": {
+      "review": "",
+      "progress": "Alrededor del 45%."
+    },
+    "kcdII": {
+      "review": "",
+      "progress": "Alrededor del 15%"
+    },
+    "hogleg": {
+      "review": "",
+      "progress": "14%"
+    },
+    "ijatgc": {
+      "review": "",
+      "progress": "Completado"
+    },
+    "dl2": {
+      "review": "",
+      "progress": "Alrededor del 25% (sin seguimiento)"
+    },
+    "stalker": {
+      "review": "",
+      "progress": "Alrededor del 25%"
+    },
+    "tlou": {
+      "review": "The Last of Us es un clásico atemporal que no necesita presentación. Su historia sigue siendo convincente incluso años después de su lanzamiento, destacando en el género zombi con su giro único de humanos infestados de hongos que están inquietantemente vivos. A diferencia de los típicos relatos de zombis, este juego ofrece una experiencia fresca y cargada de emoción. He optado por centrarme en el primer juego, ya que la secuela se hace demasiado larga y enturbia la historia, sobre todo por la frustrante imposibilidad de enfrentarse a la segunda protagonista por sus actos tras derrotar a innumerables enemigos. A pesar de ello, The Last of Us sigue siendo un juego imprescindible por su inolvidable narrativa y su peculiar visión del género.",
+      "progress": "Completado"
+    },
+    "got": {
+      "review": "Ghost of Tsushima es una joya rara, el tipo de juego que aparece una vez cada dos por tres. Teje una historia cautivadora y bellamente elaborada que te atrae y no te suelta. Además de su narrativa estelar, el estilo artístico del juego es impresionante, con unos efectos visuales espectaculares. Recomiendo sin reservas Ghost of Tsushima a todos los amantes de los juegos con historia. Es uno de mis favoritos de todos los tiempos, junto con mi adorada serie Metro.",
+      "progress": "Alrededor del 78% (sin seguimiento)"
+    },
+    "cy": {
+      "review": "Uno de esos juegos que se lanzaron con importantes deficiencias, pero que desde entonces ha evolucionado hasta convertirse en una experiencia impresionante gracias a actualizaciones específicas. Aunque es decepcionante cuando un juego debuta en malas condiciones, los desarrolladores han invertido un esfuerzo considerable para enmendar la situación y ofrecer la experiencia rica y envolvente que los fans esperaban en 2020. Su empeño en perfeccionar el juego ha merecido la pena, convirtiéndolo en un imprescindible para los fans de los RPG de mundo abierto.",
+      "progress": "Alrededor del 78% (2ª partida)"
+    },
+    "m": {
+      "review": "La serie Metro es mi favorita de todos los tiempos, y Metro Exodus no es una excepción. Desde el momento en que jugué a la primera entrega, me enamoré de su inquietante estilo artístico y de su apasionante y envolvente historia. La narrativa oscura y sombría ofrece una experiencia escalofriante, perfecta para los fans de los juegos de terror. Si Metro Exodus es tan cautivador, me imagino lo increíbles que deben ser los libros. Recomiendo encarecidamente este juego a cualquiera que disfrute con el terror basado en la historia y con un mundo de gran riqueza atmosférica.",
+      "progress": "Completado dos veces"
+    },
+    "mll": {
+      "review": "Como segunda entrega de la serie Metro, marca un punto de inflexión en su apasionante narrativa. Se apoya sin fisuras en los cimientos del primer juego, insuflando nueva vida a la historia al tiempo que profundiza en el oscuro y atmosférico mundo. Los personajes a los que llegas a querer en este juego son aún más convincentes cuando llegas al capítulo final de la trilogía. Recomiendo de todo corazón Metro Last Light a cualquiera que disfrute de los juegos de terror con una historia inquietante y sombría que te mantiene enganchado de principio a fin.",
+      "progress": "Completado dos veces"
+    },
+    "m2023": {
+      "review": "Metro 2033 prepara el terreno con una introducción inolvidable. Como primer juego de la trilogía, inicia el viaje de Artyom con una historia inquietantemente bella que sienta las bases del mundo oscuro y envolvente de la serie. La narrativa sombría y atmosférica cautiva de principio a fin, y estoy encantado de que continúe a través de otros dos juegos increíbles. Recomiendo encarecidamente Metro 2033 a todos los amantes de los juegos de terror con una historia profunda, oscura y apasionante.",
+      "progress": "Completado dos veces"
     }
   }
 }

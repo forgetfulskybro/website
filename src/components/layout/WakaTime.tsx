@@ -13,7 +13,7 @@ interface WakaProps {
 
 export const Waka: React.FC<WakaProps> = ({ data }) => {
   const { seconds } = WakaTime() as WakaResponse;
-
+  const translate = new Translate();
   return (
     <Link href={"https://wakatime.com/@ForGetFulSkyBro"} target="_blank">
       <motion.div
@@ -53,10 +53,10 @@ export const Waka: React.FC<WakaProps> = ({ data }) => {
               {!isNaN(seconds)
                 ? Math.round(seconds / 3600).toLocaleString()
                 : "0"}
-              + {new Translate().get(data!, "Info.hours")}
+              + {translate.get(data!, "Info.hours")}
             </span>
             <span style={{ fontSize: "14px", opacity: 0.8, display: "block" }}>
-              on WakaTime
+              {translate.get(data!, "Info.on")} WakaTime
             </span>
           </div>
         </div>

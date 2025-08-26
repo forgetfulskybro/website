@@ -1,18 +1,45 @@
+import GameCardDrawer from "../Drawers/GameCardDrawer";
+import { updateThemeColor } from "../updateThemeColor";
 import React, { useEffect, useState } from "react";
-import { GameType } from "../GamesArray";
+import Translate from "@/components/translation";
+import { defaultColors } from "../Lyrics/theme";
 import ToolTipCover from "../ToolTipCover";
 import { renderButtons } from "./Projects";
+import { GameType } from "../GamesArray";
 import Image from "next/image";
-import GameCardDrawer from "../Drawers/GameCardDrawer";
 
 interface GamesProp {
   games: GameType[];
+  data: string;
 }
 
-export const GameCard: React.FC<GamesProp> = ({ games }) => {
+export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
+  const translate = new Translate();
   const [isMobile, setIsMobile] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState<GameType | null>(null);
+  const [themeColors, setThemeColors] = useState(defaultColors);
+
+  useEffect(() => {
+    updateThemeColor(setThemeColors);
+    const checkInterval = setInterval(
+      () => updateThemeColor(setThemeColors),
+      500
+    );
+
+    const storageHandler = (e: StorageEvent) => {
+      if (e.key === "theme" || e.key === "customColor") {
+        updateThemeColor(setThemeColors);
+      }
+    };
+
+    window.addEventListener("storage", storageHandler);
+
+    return () => {
+      clearInterval(checkInterval);
+      window.removeEventListener("storage", storageHandler);
+    };
+  }, []);
 
   const sortedGames = [...games].sort(
     (a, b) => (b.myRating || 0) - (a.myRating || 0)
@@ -52,7 +79,9 @@ export const GameCard: React.FC<GamesProp> = ({ games }) => {
                 content={
                   <div className="tooltip-container">
                     <div className="tooltip-section">
-                      <h3 className="tooltip-title">Review</h3>
+                      <h3 className="tooltip-title">
+                        {translate.get(data!, "Games.review")}
+                      </h3>
                       <div
                         className="tooltip-text-container"
                         style={{
@@ -61,24 +90,47 @@ export const GameCard: React.FC<GamesProp> = ({ games }) => {
                         }}
                       >
                         <p className="tooltip-text">
-                          {game.review
-                            ? game.review
-                            : "There is no review for this game."}
+                          {game && game?.review
+                            ? translate.get(
+                                data!,
+                                `Games.${game.target}.review`
+                              )
+                            : translate.get(data!, "Games.noReview")}
                         </p>
                       </div>
                     </div>
                     <div className="tooltip-section">
-                      <h3 className="tooltip-title">Progress</h3>
-                      <p className="tooltip-text">{game.progress}</p>
+                      <h3 className="tooltip-title">
+                        {translate.get(data!, "Games.progress")}
+                      </h3>
+                      <p className="tooltip-text">
+                        {translate.get(data!, `Games.${game?.target}.progress`)}
+                      </p>
                     </div>
                     <div className="tooltip-section center">
-                      {renderButtons(game.website, "Visit Website")}
+                      {renderButtons(
+                        game.website,
+                        translate.get(data!, "Games.visit")
+                      )}
                     </div>
                   </div>
                 }
                 placement="top"
               >
-                <p className="review Blue">Review</p>
+                <p
+                  className="review Blue"
+                  style={{
+                    marginLeft:
+                      {
+                        en_EN: "190px",
+                        fr_FR: "175px",
+                        es_ES: "175px",
+                        ds_DS: "200px",
+                      }[data] || "180px",
+                  }}
+                >
+                  {translate.get(data!, "Games.review")}
+                </p>
               </ToolTipCover>
             </div>
             <div className="flex" style={{ flexDirection: "row" }}>
@@ -104,7 +156,11 @@ export const GameCard: React.FC<GamesProp> = ({ games }) => {
             <div className="flex" style={{ flexDirection: "row" }}>
               <div>
                 {game.tags.map((t) => (
-                  <div key={t} className="gameTag">
+                  <div
+                    key={t}
+                    style={{ backgroundColor: `${themeColors.darker}` }}
+                    className="gameTag"
+                  >
                     {t}
                   </div>
                 ))}
@@ -119,6 +175,7 @@ export const GameCard: React.FC<GamesProp> = ({ games }) => {
           open={drawerOpen}
           onClose={() => setDrawerOpen(false)}
           selectedGame={selectedGame}
+          data={data}
         />
       )}
     </>

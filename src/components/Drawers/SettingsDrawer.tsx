@@ -1,9 +1,4 @@
-import {
-  DrawerHeader,
-  StyledDrawer,
-  SettingsCard,
-  Container,
-} from "./DrawerStyles";
+import { DrawerHeader, StyledDrawer, Container, SettingsCard } from "./DrawerStyles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
@@ -38,7 +33,8 @@ export default function SettingsDrawer({
   customColor: string;
   onThemeClick: (theme: Theme) => void;
   onCustomColorChange: () => void;
-}) {
+  }) {
+  const translate = new Translate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -51,23 +47,23 @@ export default function SettingsDrawer({
   const menuArray: MenuItem[] = [
     {
       small: "en_EN",
-      large: new Translate().get(language!, "Comps.page.languages.english"),
+      large: translate.get(language!, "Comps.page.languages.english"),
     },
     {
       small: "es_ES",
-      large: new Translate().get(language!, "Comps.page.languages.spanish"),
+      large: translate.get(language!, "Comps.page.languages.spanish"),
     },
     {
       small: "fr_FR",
-      large: new Translate().get(language!, "Comps.page.languages.french"),
+      large: translate.get(language!, "Comps.page.languages.french"),
     },
     {
       small: "ds_DS",
-      large: new Translate().get(language!, "Comps.page.languages.danSucks"),
+      large: translate.get(language!, "Comps.page.languages.danSucks"),
     },
     {
       small: "ec_EC",
-      large: new Translate().get(language!, "Comps.page.languages.enchant"),
+      large: translate.get(language!, "Comps.page.languages.enchant"),
     },
   ];
 

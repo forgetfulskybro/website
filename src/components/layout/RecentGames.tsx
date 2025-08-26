@@ -11,7 +11,7 @@ interface GamesProps {
 export const RecentGames: React.FC<GamesProps> = ({ data }) => {
   return (
     <>
-      <GameCard games={recentGames()} />
+      <GameCard games={recentGames()} data={data} />
       <MoreGames data={data} />
     </>
   );

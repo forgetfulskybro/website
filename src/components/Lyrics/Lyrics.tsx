@@ -1,14 +1,15 @@
 "use client";
 import { Dialog, DialogContent, DialogContentText } from "@mui/material";
-import { defaultColors, generateColorVariants } from "./Lyrics/theme";
-import { useTimeTracking } from "./Lyrics/useTimeTracking";
+import { useTimeTracking } from "../Lyrics/useTimeTracking";
 import { motion, AnimatePresence } from "framer-motion";
+import { updateThemeColor } from "../updateThemeColor";
 import { Response } from "@/app/api/lastfm/LastFMData";
-import { DialogHeader } from "./Lyrics/DialogHeader";
+import { DialogHeader } from "../Lyrics/DialogHeader";
 import React, { useState, useEffect } from "react";
-import { formatDuration } from "./Lyrics/utils";
-import MusicDrawer from "./Drawers/MusicDrawer";
-import { LangSelect } from "./LanguageSelect";
+import { formatDuration } from "../Lyrics/utils";
+import MusicDrawer from "../Drawers/MusicDrawer";
+import { defaultColors } from "../Lyrics/theme";
+import { LangSelect } from "../LanguageSelect";
 
 export default function Lyrics({
   children,
@@ -36,12 +37,11 @@ export default function Lyrics({
   } = lastFMSongData;
 
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const handleLyricsClick = () => {
     setDrawerOpen(true);
   };
-
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 869);
@@ -127,66 +127,26 @@ export default function Lyrics({
     };
   }, [open, started, duration, startTimeTracking, animationFrameRef]);
 
-useEffect(() => {
-  const updateThemeColor = () => {
-    try {
-      const storedTheme = localStorage.getItem("theme");
-      const customColor = localStorage.getItem("customColor");
-      let baseColor = defaultColors.main;
+  useEffect(() => {
+    updateThemeColor(setThemeColors);
+    const checkInterval = setInterval(
+      () => updateThemeColor(setThemeColors),
+      1500
+    );
 
-      if (customColor) {
-        console.log("Using customColor:", customColor);
-        baseColor = customColor;
-      } else if (storedTheme) {
-        if (typeof storedTheme === "string" && storedTheme.trim() !== "") {
-          try {
-            const parsed = JSON.parse(storedTheme);
-            baseColor = parsed?.primary || defaultColors.main;
-          } catch (parseError) {
-            const colorRegex = /^(\d{1,3},\s*\d{1,3},\s*\d{1,3})$/;
-            if (colorRegex.test(storedTheme.trim())) {
-              console.log("Using storedTheme as RGB color:", storedTheme);
-              baseColor = `rgb(${storedTheme})`;
-            } else {
-              console.error(
-                "Error parsing theme JSON, not a valid color:",
-                parseError,
-                "Raw value:",
-                storedTheme
-              );
-              baseColor = defaultColors.main;
-            }
-          }
-        } else {
-          console.warn(
-            "Stored theme is empty or invalid, using default color. Raw value:",
-            storedTheme
-          );
-          baseColor = defaultColors.main;
-        }
+    const storageHandler = (e: StorageEvent) => {
+      if (e.key === "theme" || e.key === "customColor") {
+        updateThemeColor(setThemeColors);
       }
-      setThemeColors(generateColorVariants(baseColor));
-    } catch (error) {
-      setThemeColors(defaultColors);
-    }
-  };
+    };
 
-  updateThemeColor();
-  const checkInterval = setInterval(updateThemeColor, 7500);
+    window.addEventListener("storage", storageHandler);
 
-  const storageHandler = (e: StorageEvent) => {
-    if (e.key === "theme" || e.key === "customColor") {
-      updateThemeColor();
-    }
-  };
-
-  window.addEventListener("storage", storageHandler);
-
-  return () => {
-    clearInterval(checkInterval);
-    window.removeEventListener("storage", storageHandler);
-  };
-}, []);
+    return () => {
+      clearInterval(checkInterval);
+      window.removeEventListener("storage", storageHandler);
+    };
+  }, []);
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -199,7 +159,6 @@ useEffect(() => {
   };
 
   const songKey = `${artist}-${title}`;
-
   const dialogContent = (
     <Dialog
       sx={{

@@ -5,8 +5,13 @@
     "progress": "Dan Sucks",
     "recent": "Dan Sucks",
     "hours": "Dan Sucks",
+    "on": "Dan",
     "yester": "Dan Sucks",
-    "moreGames": "Dan Sucks Dan Suck Dan"
+    "moreGames": "Dan Sucks Dan Suck Dan",
+    "gameRating": "Dan Sucks Dan",
+    "awful": "Dan - Sucks Dan",
+    "mid": "Dan - Sucks",
+    "top": "Dan Sucks"
   },
   "Projects": {
     "footer": {
@@ -120,6 +125,68 @@
     },
     "pageSecondary": {
       "back": "Dan Sucks"
+    }
+  },
+  "Games": {
+    "visit": "Dan Sucks",
+    "noReview": "Dan Suck Dan Sucks Dan Sucks.",
+    "review": "Dan",
+    "progress": "Sucks",
+    "dl1": {
+      "review": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan, Sucks Dan Sucks Dan Sucks Dan Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks.",
+      "progress": "Dan 10% (Sucks)"
+    },
+    "tg": {
+      "review": "",
+      "progress": "Dan 15%"
+    },
+    "di2": {
+      "review": "",
+      "progress": "Dan 45%"
+    },
+    "kcdII": {
+      "review": "",
+      "progress": "Dan 15%"
+    },
+    "hogleg": {
+      "review": "",
+      "progress": "14%"
+    },
+    "ijatgc": {
+      "review": "",
+      "progress": "Dan"
+    },
+    "dl2": {
+      "review": "",
+      "progress": "Dan 25% (Sucks)"
+    },
+    "stalker": {
+      "review": "",
+      "progress": "Dan 25%"
+    },
+    "tlou": {
+      "review": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan, Sucks Dan Sucks Dan Sucks Dan Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks.",
+      "progress": "Dan"
+    },
+    "got": {
+      "review": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan, Sucks Dan Sucks Dan Sucks Dan Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks.",
+      "progress": "Dan 78% (Sucks)"
+    },
+    "cy": {
+      "review": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan, Sucks Dan Sucks Dan Sucks Dan Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks.",
+      "progress": "Dan Sucks 78% (Dan Sucks)"
+    },
+    "m": {
+      "review": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan, Sucks Dan Sucks Dan Sucks Dan Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks.",
+      "progress": "Dan Sucks"
+    },
+    "mll": {
+      "review": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan, Sucks Dan Sucks Dan Sucks Dan Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks.",
+      "progress": "Dan Sucks"
+    },
+    "m2023": {
+      "review": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan, Sucks Dan Sucks Dan Sucks Dan Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks.",
+      "progress": "Dan Sucks"
     }
   }
 }

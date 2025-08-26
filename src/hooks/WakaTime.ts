@@ -1,6 +1,6 @@
 "use client";
-import useSWR from "swr";
 import type { WakaResponse } from "../app/api/wakatime/wakatimeData";
+import useSWR from "swr";
 
 async function fetcher<JSON = any>(
   input: RequestInfo,

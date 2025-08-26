@@ -3,7 +3,7 @@ import { useShootingStars } from "@/components/ShootingStars";
 import { LangSelect } from "@/components/LanguageSelect";
 import SocialLinks from "@/components/SocialLinks";
 import Translate from "@/components/translation";
-import Page from "@/components/page";
+import Page from "@/components/pageNav/page";
 import Image from "next/image";
 import React from "react";
 

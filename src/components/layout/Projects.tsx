@@ -1,9 +1,4 @@
-import projects, {
-  FlagTypeConvert,
-  TagTypeConvert,
-  ProjectData,
-  FlagType,
-} from "@/components/Projects";
+import projects, { FlagTypeConvert, TagTypeConvert, ProjectData, FlagType } from "@/components/Projects";
 import ProjectDrawer from "@/components/Drawers/ProjectDrawer";
 import React, { useEffect, useState } from "react";
 import Translate from "@/components/translation";
@@ -34,13 +29,13 @@ export const renderButtons = (href: string | null, text: string): JSX.Element =>
 );
 
 const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
+  const translate = new Translate();
   const projectList = projects(data);
   const [isMobile, setIsMobile] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<ProjectData | null>(
     null
   );
-  const translate = new Translate();
 
   const handleProjectClick = (project: ProjectData) => {
     setSelectedProject(project);

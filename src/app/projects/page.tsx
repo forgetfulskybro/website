@@ -3,7 +3,7 @@ import { useShootingStars } from "@/components/ShootingStars";
 import { LangSelect } from "@/components/LanguageSelect";
 import ProjectCards from "@/components/layout/Projects";
 import { usePathname } from "next/navigation";
-import Page from "@/components/page";
+import Page from "@/components/pageNav/page";
 import React from "react";
 
 export default function Projects() {

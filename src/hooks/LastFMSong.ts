@@ -1,7 +1,7 @@
 "use client";
-import useSWR from "swr";
 import type { Response } from "../app/api/lastfm/LastFMData";
-import React from "react";
+import { useEffect } from "react";
+import useSWR from "swr";
 
 async function fetcher<JSON = any>(
   input: RequestInfo,
@@ -20,7 +20,7 @@ export function LastFMSong(): Partial<Response> {
     dedupingInterval: 10000,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const checkNewSong = async () => {
       const newData = await mutate();
       if (newData) {

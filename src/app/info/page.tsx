@@ -6,14 +6,15 @@ import GameDrawer from "@/components/Drawers/GameDrawer";
 import ToolTipCover from "@/components/ToolTipCover";
 import { LastFM } from "@/components/layout/LastFM";
 import { Waka } from "@/components/layout/WakaTime";
-import React, { useState, useEffect } from "react";
 import Translate from "@/components/translation";
-import { LastFMSong } from "@/hooks/LastFMSong"; 
-import Lyrics from "@/components/Lyrics";
-import Page from "@/components/page";
+import { LastFMSong } from "@/hooks/LastFMSong";
+import Lyrics from "@/components/Lyrics/Lyrics";
+import Page from "@/components/pageNav/page";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function Home() {
+  const translate = new Translate();
   const data = LangSelect();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -55,19 +56,27 @@ export default function Home() {
             placement="top"
             content={
               <div className="ratingsContainer">
-                <h3 className="ratingsTitle">Game Rating Guide</h3>
+                <h3 className="ratingsTitle">
+                  {translate.get(data!, "Info.gameRating")}
+                </h3>
                 <dl className="ratingList">
                   <div className="ratingItem">
-                    <dt className="ratingScore">1</dt>
-                    <dd className="ratingDescription">Awful - Major flaws</dd>
+                    <dt className="ratingScore">01</dt>
+                    <dd className="ratingDescription">
+                      {translate.get(data!, "Info.awful")}
+                    </dd>
                   </div>
                   <div className="ratingItem">
-                    <dt className="ratingScore">5</dt>
-                    <dd className="ratingDescription">Average - Solid</dd>
+                    <dt className="ratingScore">05</dt>
+                    <dd className="ratingDescription">
+                      {translate.get(data!, "Info.mid")}
+                    </dd>
                   </div>
                   <div className="ratingItem">
                     <dt className="ratingScore">10</dt>
-                    <dd className="ratingDescription">Masterpiece</dd>
+                    <dd className="ratingDescription">
+                      {translate.get(data!, "Info.top")}
+                    </dd>
                   </div>
                 </dl>
               </div>
@@ -78,7 +87,7 @@ export default function Home() {
               style={{ display: "flex", alignItems: "center" }}
               onClick={handleRecentGamesClick}
             >
-              {new Translate().get(data!, "Info.recent")}
+              {translate.get(data!, "Info.recent")}
               <Image
                 style={{ opacity: 0.8, marginLeft: 5 }}
                 src={`Info.svg`}
