@@ -114,7 +114,7 @@ export async function getLatestSong(): Promise<Response | undefined> {
 
     try {
       lyrics = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/lyrics?query=${encodeURIComponent(
+        `${process.env.LYRICS_API}/api/lyrics?query=${encodeURIComponent(
           song.name
         )}&query=${encodeURIComponent(song.artist["#text"])}`
       ).then((response) => {
