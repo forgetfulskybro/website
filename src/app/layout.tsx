@@ -39,10 +39,6 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <EmbedMeta imageUrl={"/api/og"} path={usePathname()} />
-        <meta name="keywords" content="ForGetFul, ForGetFulSkyBro, Sky" />
-        <meta name="theme-color" content="#4ca6ca" />
-        <meta name="msapplication-TileColor" content="#4ca6ca" />
-        <meta name="robots" content="index, follow" />
       </head>
       <body className={Fira.className}>
         <SpeedInsights />

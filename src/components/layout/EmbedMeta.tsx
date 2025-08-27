@@ -26,6 +26,7 @@ export default function EmbedMeta({ imageUrl, path }: EmbedMetaProps) {
       <meta name="theme-color" content="#36203F" />
       <meta name="msapplication-TileColor" content="#36203F" />
       <meta name="robots" content="index, follow" />
+      <meta name="keywords" content="ForGetFul, ForGetFulSkyBro, Sky" />
       <link
         rel="icon"
         href={image ? image : "/Me.png"}
