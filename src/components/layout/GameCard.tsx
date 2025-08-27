@@ -149,7 +149,7 @@ export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
                     /10
                   </>
                 ) : (
-                  <p style={{ color: "#9F2AAA" }}>Unrated</p>
+                    <p className="Blue">{translate.get(data!, "Games.unrated")}</p>
                 )}
               </div>
             </div>

@@ -1,7 +1,7 @@
 "use client";
 import styles from "../../app/projects/guildcount/guildcount.module.css";
+import type { Guild } from "../../app/projects/guildcount/guilds";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { Guild } from "../../app/projects/guildcount/page";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Button,

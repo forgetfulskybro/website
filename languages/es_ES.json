@@ -128,6 +128,7 @@
     }
   },
   "Games": {
+    "unrated": "Sin clasificar",
     "visit": "Visitar el sitio web",
     "noReview": "No hay reseña para este juego.",
     "review": "Consulte",

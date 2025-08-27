@@ -1,7 +1,8 @@
 "use client";
+import { useShootingStars } from "@/components/ShootingStars";
 import { LangSelect } from "@/components/LanguageSelect";
-import Translate from "@/components/translation";
 import Page from "@/components/pageNav/pageSecondary";
+import Translate from "@/components/translation";
 import Image from "next/image";
 import React from "react";
 
@@ -9,6 +10,9 @@ export default function Home() {
   const data = LangSelect();
   return (
     <main className="main">
+      <div className="starryBackground" />
+      <div className="shootingStarContainer" ref={useShootingStars()} />
+      
       <Page>
         <div className="center flexGrid">
           <div className="sizing">

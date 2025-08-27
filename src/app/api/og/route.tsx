@@ -38,7 +38,6 @@ export async function GET() {
             fontSize: `${size}px`,
             transform: `rotate(${rotation}deg)`,
             opacity: opacity,
-            zIndex: 0,
           }}
         >
           🐢

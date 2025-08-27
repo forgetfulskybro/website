@@ -46,7 +46,7 @@ export default function Navigation({ items, pathname }: NavigationProps) {
                 }}
               >
                 <Image
-                  style={{ opacity: 0.8 }}
+                  style={{ opacity: 0.8, marginRight: "0.02px", marginBottom: "0.3px" }}
                   src={`${item.src}.svg`}
                   width={17}
                   height={17}

@@ -2,6 +2,7 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import EmbedMeta from "@/components/layout/EmbedMeta";
 import { Analytics } from "@vercel/analytics/react";
+import { usePathname } from "next/navigation";
 import { Fira_Code } from "next/font/google";
 import React, { useEffect } from "react";
 import "./globals.css";
@@ -37,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <EmbedMeta title="Sky 🐢" description={null} imageUrl={"/api/og"} />
+        <EmbedMeta imageUrl={"/api/og"} path={usePathname()} />
         <meta name="keywords" content="ForGetFul, ForGetFulSkyBro, Sky" />
         <meta name="theme-color" content="#4ca6ca" />
         <meta name="msapplication-TileColor" content="#4ca6ca" />

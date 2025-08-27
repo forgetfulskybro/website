@@ -1,6 +1,6 @@
 "use client";
 import styles from "../../app/projects/guildcount/guildcount.module.css";
-import type { Guild } from "../../app/projects/guildcount/page";
+import type { Guild } from "../../app/projects/guildcount/guilds";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import { extractColors } from "./colorExtractor";
