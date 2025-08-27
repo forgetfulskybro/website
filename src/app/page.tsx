@@ -63,10 +63,10 @@ export default function Home() {
                 border: "1px solid rgba(255,255,255,0.05)",
                 borderRadius: "10%",
                 transition: "all 0.25s ease-in-out",
+                marginBottom: 10,
               }}
             >
               <Image
-                style={{ marginBottom: 15 }}
                 className="hiding"
                 src="/Me.png"
                 height={140}
@@ -77,7 +77,7 @@ export default function Home() {
               />
             </span>
           </div>
-          <div className="sizing">
+          <div className="sizing" style={{ paddingBottom: 10 }}>
             {translate.get(data!, "Misc.page.descHello")}{" "}
             <strong className="Blue">ForGetFulSkyBro</strong>{" "}
             {translate.get(data!, "Misc.page.descOr")}{" "}
@@ -108,7 +108,7 @@ export default function Home() {
               src="/Me.png"
               height={240}
               width={240}
-              style={{ height: "auto", width: 240 }}
+              style={{ height: "auto", width: 200 }}
               draggable={false}
               alt="Avatar"
               priority

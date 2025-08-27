@@ -300,6 +300,7 @@ export default function Lyrics({
           elapsedTime={elapsedTime}
           duration={duration}
           started={startedString}
+          FALLBACK_DURATION={190000}
           getProgress={getProgress}
           formatDuration={formatDuration}
           data={data!}

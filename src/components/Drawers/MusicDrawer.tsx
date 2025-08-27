@@ -1,5 +1,10 @@
 "use client";
-import { DrawerHeader, StyledDrawer, Container, SettingsCard } from "./DrawerStyles";
+import {
+  DrawerHeader,
+  StyledDrawer,
+  Container,
+  SettingsCard,
+} from "./DrawerStyles";
 import { formatDistanceToNow, isYesterday, setDefaultOptions } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
 import { DialogContentText } from "@mui/material";
@@ -9,7 +14,7 @@ import { formatNumber } from "../Lyrics/utils";
 import { ThemeColors } from "../Lyrics/theme";
 import Divider from "@mui/material/Divider";
 import ToolTip from "@/components/ToolTip";
-import { es, fr } from "date-fns/locale";
+import { es, fr, enUS } from "date-fns/locale";
 import Box from "@mui/material/Box";
 import * as React from "react";
 import Image from "next/image";
@@ -29,6 +34,7 @@ interface MusicDrawerProps {
   elapsedTime: string;
   duration?: number;
   started?: string;
+  FALLBACK_DURATION?: number;
   getProgress: () => number;
   formatDuration: (duration: number | undefined) => string;
   data: string;
@@ -51,6 +57,7 @@ export default function MusicDrawer({
   elapsedTime,
   duration,
   started,
+  FALLBACK_DURATION,
   getProgress,
   formatDuration,
   data,
@@ -64,7 +71,8 @@ export default function MusicDrawer({
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  if (data == "es_ES") setDefaultOptions({ locale: es });
+  if (data == "en_EN") setDefaultOptions({ locale: enUS });
+  else if (data == "es_ES") setDefaultOptions({ locale: es });
   else if (data == "fr_FR") setDefaultOptions({ locale: fr });
 
   const absoluteDate = React.useMemo(() => {
@@ -113,30 +121,32 @@ export default function MusicDrawer({
                 {playing ? (
                   `${translate.get(data!, "Info.listening")}...`
                 ) : (
-                  <svg
-                    className="container"
-                    x="0px"
-                    y="0px"
-                    viewBox="0 0 50 31.25"
-                    height="31.25"
-                    width="50"
-                    preserveAspectRatio="xMidYMid meet"
-                  >
-                    <path
-                      className="track"
-                      strokeWidth="4"
-                      fill="none"
-                      pathLength="100"
-                      d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
-                    />
-                    <path
-                      className="car"
-                      strokeWidth="4"
-                      fill="none"
-                      pathLength="100"
-                      d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
-                    />
-                  </svg>
+                  <div className="center">
+                    <svg
+                      className="container"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 50 31.25"
+                      height="31.25"
+                      width="50"
+                      preserveAspectRatio="xMidYMid meet"
+                    >
+                      <path
+                        className="track"
+                        strokeWidth="4"
+                        fill="none"
+                        pathLength="100"
+                        d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
+                      />
+                      <path
+                        className="car"
+                        strokeWidth="4"
+                        fill="none"
+                        pathLength="100"
+                        d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
+                      />
+                    </svg>
+                  </div>
                 )}
               </span>
             )}
@@ -414,7 +424,9 @@ export default function MusicDrawer({
                         fontWeight: 500,
                       }}
                     >
-                      {formatDuration(duration)}
+                      {formatDuration(duration) === "00:00"
+                        ? formatDuration(FALLBACK_DURATION)
+                        : formatDuration(duration)}
                     </span>
                   </>
                 )}

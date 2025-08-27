@@ -45,7 +45,7 @@ const links: { url: string; src: ReactElement; alt: string }[] = [
 export default function SocialLinks() {
   return (
     <>
-      <div className="hiding flexGrid center" style={{ paddingBottom: "15px", paddingTop: "15px" }}>
+      <div className="hiding flexGrid center" style={{ paddingBottom: "35px",  }}>
         <div className="socialLinks">
           {links.map((item, index) => (
             <div

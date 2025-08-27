@@ -4,7 +4,7 @@ import type { Transition, Variants } from "framer-motion";
 import { AnimatePresence, motion } from "framer-motion";
 import { Response } from "@/app/api/lastfm/LastFMData";
 import Translate from "@/components/translation";
-import { es, fr } from "date-fns/locale";
+import { es, fr, enUS } from "date-fns/locale";
 import { useMemo } from "react";
 import Image from "next/image";
 import React from "react";
@@ -23,7 +23,8 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  if (data == "es_ES") setDefaultOptions({ locale: es });
+  if (data == "en_EN") setDefaultOptions({ locale: enUS });
+  else if (data == "es_ES") setDefaultOptions({ locale: es });
   else if (data == "fr_FR") setDefaultOptions({ locale: fr });
 
   const absoluteDate = useMemo(() => {
