@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import React from 'react';
 
 interface EmbedMetaProps {
@@ -6,9 +7,12 @@ interface EmbedMetaProps {
   imageUrl: string;
 }
 
+
+
 export default function EmbedMeta({ title, description, imageUrl }: EmbedMetaProps) {
   return (
     <>
+      <title>Sky</title>
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description || ''} />
       <meta property="og:type" content="website" />
