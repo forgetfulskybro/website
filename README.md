@@ -10,7 +10,7 @@ If you want to add something or edit my code because it looks like shit (it most
 ## Gallery I guess
 
 - Home page
-<img width="1360" height="685" alt="image" src="https://github.com/user-attachments/assets/65acced0-3eb5-4e26-ae81-0e6a0d223ed3" />
+<img width="1360" height="685" alt="image" src="https://github.com/user-attachments/assets/90a28a11-29d6-49d3-8cd4-ae80cf8b3a8f" />
 
 - Projects page
 <img width="1360" height="685" alt="image" src="https://github.com/user-attachments/assets/591ba651-0b3b-464a-b6eb-5845303a5d6a" />
