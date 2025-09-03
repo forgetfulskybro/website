@@ -10,13 +10,13 @@ If you want to add something or edit my code because it looks like shit (it most
 ## Gallery I guess
 
 - Home page
-<img width="1360" height="685" alt="image" src="https://github.com/user-attachments/assets/65acced0-3eb5-4e26-ae81-0e6a0d223ed3" />
+<img width="1360" height="685" alt="image" src="https://github.com/user-attachments/assets/90a28a11-29d6-49d3-8cd4-ae80cf8b3a8f" />
 
 - Projects page
 <img width="1360" height="685" alt="image" src="https://github.com/user-attachments/assets/591ba651-0b3b-464a-b6eb-5845303a5d6a" />
 
 - Information Page
-<img width="1360" height="685" alt="image" src="https://github.com/user-attachments/assets/10b66b69-81d2-4c24-8b59-98e5f6a86ac9" />
+<img width="1360" height="685" alt="image" src="https://github.com/user-attachments/assets/868cdd4d-fcda-4ad6-a23e-9f1f0ff56ef2" />
 
 - Games array page
-<img width="1360" height="685" alt="image" src="https://github.com/user-attachments/assets/0cac244d-6b48-46a6-9a1a-06a7f6d64e6c" />
+<img width="1360" height="685" alt="image" src="https://github.com/user-attachments/assets/02d6aba2-1328-43e7-9f19-e638f32354da" />
