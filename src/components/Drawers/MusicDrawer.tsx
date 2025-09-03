@@ -7,7 +7,7 @@ import {
 } from "./DrawerStyles";
 import { formatDistanceToNow, isYesterday, setDefaultOptions } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
-import { DialogContentText } from "@mui/material";
+import { Button, DialogContentText } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Translate from "@/components/translation";
 import { formatNumber } from "../Lyrics/utils";
@@ -19,6 +19,7 @@ import Box from "@mui/material/Box";
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef, useMemo, useState, useEffect, useCallback } from "react";
 
 interface MusicDrawerProps {
   open: boolean;
@@ -40,6 +41,7 @@ interface MusicDrawerProps {
   data: string;
   date?: number;
   lyrics: string | null | undefined;
+  syncLyrics?: { time: number; line: string }[] | null;
   cover?: string;
 }
 
@@ -63,6 +65,7 @@ export default function MusicDrawer({
   data,
   date,
   lyrics,
+  syncLyrics,
   cover,
 }: MusicDrawerProps) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,6 +93,116 @@ export default function MusicDrawer({
   }, [absoluteDate, data, translate]);
 
   const songKey = `${artist}-${title}`;
+
+  type LyricsLine = { time: number; text: string };
+  const lyricsContainerRef = useRef<HTMLDivElement>(null);
+  const currentLineRef = useRef<HTMLSpanElement>(null);
+  const [isSynced, setIsSynced] = useState(true);
+
+  const parseSyncedLyrics = useCallback(
+    (syncedLyrics: string): LyricsLine[] => {
+      if (!syncedLyrics) return [];
+      const lines = syncedLyrics.split("\n");
+      const parsed: LyricsLine[] = [];
+      for (const line of lines) {
+        const match = line.match(/^\[(\d{2}):(\d{2})\.(\d{2})\]\s*(.*)$/);
+        if (match) {
+          const [, minutes, seconds, centiseconds, text] = match;
+          const time =
+            parseInt(minutes) * 60 +
+            parseInt(seconds) +
+            parseInt(centiseconds) / 100;
+          if (text.trim()) {
+            parsed.push({ time, text: text.trim() });
+          }
+        }
+      }
+      return parsed.sort((a, b) => a.time - b.time);
+    },
+    []
+  );
+
+  const parsedSyncLyrics = useMemo(() => {
+    if (!syncLyrics) return [];
+    if (typeof syncLyrics === "string") {
+      return parseSyncedLyrics(syncLyrics);
+    }
+    if (Array.isArray(syncLyrics)) {
+      return syncLyrics
+        .filter((l) => typeof l.time === "number" && typeof l.line === "string")
+        .map((l) => ({ time: l.time, text: l.line }))
+        .sort((a, b) => a.time - b.time);
+    }
+    return [];
+  }, [syncLyrics, parseSyncedLyrics]);
+
+  const elapsedSeconds = useMemo(() => {
+    if (!elapsedTime) return 0;
+    const [min, sec] = elapsedTime.split(":").map(Number);
+    return min * 60 + sec;
+  }, [elapsedTime]);
+
+  const currentLineIndex = useMemo(() => {
+    if (!parsedSyncLyrics.length) return -1;
+    return parsedSyncLyrics.findIndex(
+      (line, idx) =>
+        elapsedSeconds >= line.time &&
+        (idx === parsedSyncLyrics.length - 1 ||
+          elapsedSeconds < parsedSyncLyrics[idx + 1].time)
+    );
+  }, [parsedSyncLyrics, elapsedSeconds]);
+
+  useEffect(() => {
+    if (
+      isSynced &&
+      parsedSyncLyrics.length > 0 &&
+      currentLineRef.current &&
+      lyricsContainerRef.current
+    ) {
+      const container = lyricsContainerRef.current;
+      const current = currentLineRef.current;
+      const scrollTop =
+        current.offsetTop +
+        current.offsetHeight / 2 -
+        container.offsetHeight / 2;
+      container.scrollTo({
+        top: scrollTop,
+        behavior: "smooth",
+      });
+    }
+  }, [currentLineIndex, parsedSyncLyrics.length, isSynced]);
+
+  const syncButton = (
+    <div
+      style={{
+        position: "fixed",
+        top: "7%",
+        right: 10,
+        transform: "translateY(-50%)",
+        zIndex: 2000,
+        pointerEvents: "auto",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <Button
+        variant="contained"
+        size="small"
+        style={{
+          background: themeColors.lighter,
+          color: "#222",
+          fontWeight: 400,
+          borderRadius: 20,
+          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+          textTransform: "none",
+          minWidth: 64,
+        }}
+        onClick={() => setIsSynced((prev) => !prev)}
+      >
+        {isSynced ? "Pause Sync" : "Sync"}
+      </Button>
+    </div>
+  );
 
   const list = () => (
     <Container>
@@ -451,9 +564,45 @@ export default function MusicDrawer({
                   borderRadius: "8px",
                   p: 2,
                   border: `1px solid ${themeColors.dark}40`,
+                  position: "relative",
                 }}
+                ref={lyricsContainerRef}
               >
-                {lyrics ? (
+                {parsedSyncLyrics.length > 0 ? (
+                  <>
+                    {syncButton}
+                    {parsedSyncLyrics.map((line, idx) => {
+                      const isCurrent = idx === currentLineIndex;
+                      return (
+                        <span
+                          key={line.time + line.text}
+                          ref={isCurrent ? currentLineRef : null}
+                          style={{
+                            display: "block",
+                            fontWeight: isCurrent ? 600 : 400,
+                            color: isCurrent ? "#222" : "#fff",
+                            background: isCurrent
+                              ? `linear-gradient(90deg, ${themeColors.lighter} 70%, ${themeColors.dark} 100%)`
+                              : "none",
+                            borderRadius: isCurrent ? "4px" : "0px",
+                            boxShadow: isCurrent
+                              ? `0 1px 6px 0 ${themeColors.lighter}33`
+                              : "none",
+                            padding: isCurrent ? "3px 8px" : "1px 0",
+                            opacity: isCurrent ? 1 : 0.7,
+                            fontSize: isCurrent ? "1rem" : "0.85rem",
+                            letterSpacing: isCurrent ? "0.01em" : "normal",
+                            transition:
+                              "all 0.18s cubic-bezier(.4,2,.3,1), background 0.2s, color 0.2s",
+                            margin: "2px 0",
+                          }}
+                        >
+                          {line.text}
+                        </span>
+                      );
+                    })}
+                  </>
+                ) : lyrics ? (
                   <DialogContentText
                     sx={{
                       color: "#fff",

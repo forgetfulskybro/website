@@ -6,12 +6,13 @@ export const useTimeTracking = (
   duration: number | undefined
 ) => {
   const [elapsedTime, setElapsedTime] = useState("00:00");
+  const [rawElapsedMs, setRawElapsedMs] = useState(0);
   const animationFrameRef = useRef<number>();
   const startTimeRef = useRef<number>(0);
   const lastUpdateRef = useRef<number>(0);
   const isVisibleRef = useRef<boolean>(true);
   const currentSongRef = useRef<string>("");
-  const FALLBACK_DURATION = 190000; 
+  const FALLBACK_DURATION = 190000;
 
   const updateElapsedTime = useCallback(() => {
     if (!started) return;
@@ -20,6 +21,7 @@ export const useTimeTracking = (
       duration && duration > 0 ? duration : FALLBACK_DURATION;
     const currentTime = Date.now();
     const elapsed = currentTime - startTimeRef.current;
+    setRawElapsedMs(elapsed);
 
     if (elapsed >= effectiveDuration) {
       setElapsedTime(formatDuration(effectiveDuration));
@@ -83,6 +85,7 @@ export const useTimeTracking = (
 
   return {
     elapsedTime,
+    rawElapsedMs,
     startTimeTracking,
     getProgress,
     setVisibility,

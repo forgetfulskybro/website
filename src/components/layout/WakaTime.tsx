@@ -2,7 +2,12 @@
 import { WakaResponse } from "../../app/api/wakatime/wakatimeData";
 import Translate from "@/components/translation";
 import { WakaTime } from "@/hooks/WakaTime";
-import { motion } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useAnimationFrame,
+  useMotionValueEvent,
+} from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -14,6 +19,22 @@ interface WakaProps {
 export const Waka: React.FC<WakaProps> = ({ data }) => {
   const { seconds } = WakaTime() as WakaResponse;
   const translate = new Translate();
+  const targetHours = !isNaN(seconds) ? Math.round(seconds / 3600) : 0;
+  const hoursMotion = useMotionValue(0);
+  const [displayHours, setDisplayHours] = React.useState(0);
+  React.useEffect(() => {
+    hoursMotion.set(0);
+  }, [targetHours, hoursMotion]);
+  useAnimationFrame(() => {
+    const current = hoursMotion.get();
+    if (current < targetHours) {
+      const increment = Math.max(1, Math.ceil((targetHours - current) / 20));
+      hoursMotion.set(Math.min(current + increment, targetHours));
+    }
+  });
+  useMotionValueEvent(hoursMotion, "change", (latest) => {
+    setDisplayHours(Math.round(latest));
+  });
   return (
     <Link href={"https://wakatime.com/@ForGetFulSkyBro"} target="_blank">
       <motion.div
@@ -50,10 +71,8 @@ export const Waka: React.FC<WakaProps> = ({ data }) => {
             <span
               style={{ fontSize: "18px", fontWeight: "bold", display: "block" }}
             >
-              {!isNaN(seconds)
-                ? Math.round(seconds / 3600).toLocaleString()
-                : "0"}
-              + {translate.get(data!, "Info.hours")}
+              {displayHours.toLocaleString()}+{" "}
+              {translate.get(data!, "Info.hours")}
             </span>
             <span style={{ fontSize: "14px", opacity: 0.8, display: "block" }}>
               {translate.get(data!, "Info.on")} WakaTime

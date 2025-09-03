@@ -11,7 +11,7 @@ export default function Projects() {
   return (
     <main key={usePathname()} className="main">
       <div className="starryBackground" />
-      <div className="shootingStarContainer" ref={useShootingStars()}></div>
+      <div className="shootingStarContainer" ref={useShootingStars()} />
 
       <Page>
         <div

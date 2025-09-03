@@ -73,6 +73,7 @@ export interface Response {
   playing?: boolean;
   title?: string;
   lyrics?: string | null;
+  syncLyrics?: { time: number; line: string }[] | null;
   url?: string;
   year?: number;
 }
@@ -94,7 +95,6 @@ export async function getLatestSong(): Promise<Response | undefined> {
     );
 
     const song = response.recenttracks?.track?.[0];
-
     const LASTFM_TRACK = `${LASTFM_API}?method=track.getInfo&api_key=${
       process.env.LASTFM_API_TOKEN
     }&format=json&artist=${song.artist["#text"].replaceAll(
@@ -114,12 +114,30 @@ export async function getLatestSong(): Promise<Response | undefined> {
 
     try {
       lyrics = await fetch(
-        `${process.env.LYRICS_API}/api/lyrics?query=${encodeURIComponent(
-          song.name
-        )}&query=${encodeURIComponent(song.artist["#text"])}`
+        track?.duration
+          ? `${
+              process.env.LYRICS_API_2
+            }/api/get?artist_name=${encodeURIComponent(
+              song.artist["#text"]
+            )}&track_name=${encodeURIComponent(song.name)}&duration=${
+              track.duration / 1000
+            }`
+          : `${process.env.LYRICS_API}/api/lyrics?query=${encodeURIComponent(
+              song.name
+            )}&query=${encodeURIComponent(song.artist["#text"])}`
       ).then((response) => {
         return response.json();
       });
+
+      if (lyrics.statusCode === 404) {
+        lyrics = await fetch(
+          `${process.env.LYRICS_API}/api/lyrics?query=${encodeURIComponent(
+            song.name
+          )}&query=${encodeURIComponent(song.artist["#text"])}`
+        ).then((response) => {
+          return response.json();
+        });
+      }
     } catch (e: any) {
       console.error("Lyrics API Error:", e.message);
       lyrics = null;
@@ -127,11 +145,15 @@ export async function getLatestSong(): Promise<Response | undefined> {
 
     const date = song.date?.uts ? Number(song.date?.uts) : undefined;
     let year: number | undefined;
-
     return {
       title: capitalize(song.name),
       artist: capitalize(song.artist["#text"]),
-      lyrics: lyrics?.lyrics || null,
+      lyrics: lyrics?.plainLyrics
+        ? lyrics?.plainLyrics
+        : lyrics?.lyrics?.includes(`Contributors${song.name} Lyrics`)
+        ? lyrics?.lyrics?.split(`Contributors${song.name} Lyrics`)[1]
+        : lyrics.lyrics || null,
+      syncLyrics: lyrics?.syncedLyrics || null,
       duration: track?.duration || 0,
       listeners: track?.listeners || 0,
       playcount: track?.playcount || 0,

@@ -1,14 +1,28 @@
+// @ts-ignore: Webpack-specific require.context
+declare var require: {
+  (path: string): any;
+  context(directory: string, useSubdirectories: boolean, regExp: RegExp): any;
+};
+
 export default class TranslationHandler {
   readonly availableLanguages: string[];
   private translations: any;
+
   constructor(languages?: string[]) {
-    this.availableLanguages = languages ?? ["en_EN", "es_ES", "fr_FR", "ds_DS", "ec_EC"];
+    const languageFiles: Record<string, any> = {};
+    const context = require.context("../../languages", false, /\.json$/);
+    context.keys().forEach((key: string) => {
+      const langCode = key.replace("./", "").replace(".json", "");
+      languageFiles[langCode] = context(key);
+    });
+    const supportedLanguages = Object.keys(languageFiles);
+    this.availableLanguages = languages ?? supportedLanguages;
 
     this.translations = {};
-
     for (const l of this.availableLanguages) {
-      const data = require(`../../languages/${l}.json`);
-      this.initLanguage(l, data);
+      if (languageFiles[l]) {
+        this.initLanguage(l, languageFiles[l]);
+      }
     }
   }
 
@@ -27,11 +41,9 @@ export default class TranslationHandler {
 
   get(language: string, path: string, data: Record<string, any> = {}): string {
     if (!language) language = "en_EN";
-
     const l: Record<string, any> = this.getLanguage(language);
     const p = path.split(".");
     let c = null;
-
     if (p.length > 0) {
       for (const i of p) {
         try {
@@ -50,9 +62,7 @@ export default class TranslationHandler {
     } else {
       return path;
     }
-
     if (!c) return path;
-
     if (data) {
       if (!c || typeof c !== "string") {
         console.error(`Translation ${path} not found`);
@@ -63,7 +73,6 @@ export default class TranslationHandler {
         (match: string, key: string) => data[key] ?? match
       );
     }
-
     return c;
   }
 }

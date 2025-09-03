@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <main className="main">
       <div className="starryBackground" />
-      <div className="shootingStarContainer" ref={useShootingStars()}></div>
+      <div className="shootingStarContainer" ref={useShootingStars()} />
       <Page>
         <div style={{ width: 750, marginTop: 15 }}>
           {isMobile && (

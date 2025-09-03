@@ -94,7 +94,9 @@ const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
               priority
             />
           )}
-          <a style={{ marginLeft: 0.7, marginTop: 1.3 }}>{project.title}</a>
+          <span style={{ marginLeft: 0.7, marginTop: 1.3 }}>
+            {project.title}
+          </span>
         </div>
         <div className="projectDesc">{projectDesc}</div>
         <div className="tags">
@@ -113,8 +115,10 @@ const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
           ))}
         </div>
         <div className="projectFooter">
-          {project.footer.start} <a style={{ color: "#6A6969" }}>-</a>{" "}
-          <a style={{ color: "white", fontWeight: 1000 }}>{projectFooterEnd}</a>
+          {project.footer.start} <span style={{ color: "#6A6969" }}>-</span>{" "}
+          <span style={{ color: "white", fontWeight: 900 }}>
+            {projectFooterEnd}
+          </span>
         </div>
         {project.flags.length > 0 && renderFlags}
       </div>
