@@ -102,7 +102,7 @@ export const OfflineGuilds: Guild[] = [
   {
     id: "286252263109033984",
     name: "The Sky",
-    icon: "756993c0250627448eb27b0edffff0e8",
+    icon: "7b08af4ef10c6d07e9a593973bcdf1c2",
     owner: true,
     permissions: "4503599627370495",
     features: [

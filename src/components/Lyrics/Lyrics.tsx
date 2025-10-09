@@ -230,8 +230,7 @@ export default function Lyrics({
     <div
       style={{
         position: "fixed",
-        top: "8%",
-        right: 32,
+        right: 42,
         transform: "translateY(-50%)",
         zIndex: 2000,
         pointerEvents: "auto",
@@ -243,7 +242,7 @@ export default function Lyrics({
         variant="contained"
         size="small"
         style={{
-          background: themeColors.lighter,
+          background: themeColors.light,
           color: "#222",
           fontWeight: 600,
           borderRadius: 20,

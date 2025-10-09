@@ -71,6 +71,9 @@
       },
       "FGF": {
         "desc": "Un bot polivalente que se adapta a muchas necesidades."
+      },
+      "MM": {
+        "desc": "Un Gestor de Mods basado en Tkinter y terminal para Cyberpunk 2077."
       }
     }
   },
@@ -144,6 +147,10 @@
     "di2": {
       "review": "",
       "progress": "Alrededor del 45%."
+    },
+    "dltb": {
+      "review": "",
+      "progress": "Alrededor del 10%"
     },
     "kcdII": {
       "review": "",

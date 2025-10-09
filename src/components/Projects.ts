@@ -134,6 +134,20 @@ const useProjects = (data: any): ProjectData[] => {
       website: "/projects/guildcount",
     },
     {
+      target: "MM",
+      title: "Mod Manager",
+      image: null,
+      tags: [{ name: TagType.Application }],
+      footer: {
+        start: "Feb 17, 2025",
+        end: translate.get(data, "Projects.footer.endPresent"),
+      },
+      flags: [],
+      github: "https://github.com/forgetfulskybro/Mod-Manager",
+      community: "https://discord.gg/ty6Rsua",
+      website: null,
+    },
+    {
       target: "F",
       title: "Functious",
       image: "/Functious.png",

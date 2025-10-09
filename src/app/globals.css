@@ -44,13 +44,21 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: radial-gradient(circle at center, #0a0a1f 0%, #000000 100%); /* Starry night sky effect */
+  background: radial-gradient(
+    circle at center,
+    #0a0a1f 0%,
+    #000000 100%
+  ); /* Starry night sky effect */
   border-radius: 0 3px 3px 0;
   box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.15); /* Subtle star-like shimmer */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, #7d3bf6a2 0%, #7f60fa52 100%); /* Blue glow like a comet or spaceship */
+  background: linear-gradient(
+    90deg,
+    #7d3bf6a2 0%,
+    #7f60fa52 100%
+  ); /* Blue glow like a comet or spaceship */
   border-radius: 0 3px 3px 0;
 }
 
@@ -235,7 +243,6 @@ a {
 
 .projectCard {
   background-color: rgba(34, 34, 38, 0.3);
-
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   height: 150px;
@@ -247,7 +254,6 @@ a {
 }
 
 .projectCard:hover {
-  background-color: rgba(255, 97, 97, 0.2);
   cursor: pointer;
 }
 
@@ -292,6 +298,17 @@ a {
   background-color: rgba(0, 0, 0, 0.2);
 
   transition: opacity 0.25s ease-in-out;
+}
+
+.projectFooterEnd {
+  color: "white";
+  font-weight: 900;
+  margin-bottom: -3px;
+}
+
+.projectDivider {
+  color: #6a6969;
+  margin-bottom: -2px;
 }
 
 .projectTags:hover {
@@ -434,7 +451,7 @@ a {
 }
 
 .review {
-  position:absolute;
+  position: absolute;
   margin-top: 7px;
   font-size: 13px;
   cursor: pointer;
@@ -1054,7 +1071,7 @@ a {
     border-radius: 16px;
     z-index: -1;
   }
-  
+
   .mobileSliderSideSecondary {
     display: flex;
     align-items: center;
@@ -1327,7 +1344,6 @@ a {
   line-height: 1.4;
 }
 
-
 .starryBackground {
   position: fixed;
   top: 0;
@@ -1486,7 +1502,7 @@ a {
 }
 
 .planet1::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0%;
   left: 0%;
@@ -1494,18 +1510,26 @@ a {
   height: 100%;
   border-radius: 50%;
   background: radial-gradient(
-    circle at 30% 30%, rgba(255, 255, 255, 0.5) 10%, transparent 20%
-  ), radial-gradient(
-    circle at 70% 20%, rgba(255, 255, 255, 0.4) 8%, transparent 18%
-  ), radial-gradient(
-    circle at 20% 70%, rgba(255, 255, 255, 0.3) 7%, transparent 16%
-  );
+      circle at 30% 30%,
+      rgba(255, 255, 255, 0.5) 10%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 70% 20%,
+      rgba(255, 255, 255, 0.4) 8%,
+      transparent 18%
+    ),
+    radial-gradient(
+      circle at 20% 70%,
+      rgba(255, 255, 255, 0.3) 7%,
+      transparent 16%
+    );
   z-index: 1;
   animation: cloudShift 20s linear infinite;
 }
 
 .planet1::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 15%;
   left: 15%;
@@ -1513,12 +1537,16 @@ a {
   height: 70%;
   border-radius: 50%;
   background: radial-gradient(
-    circle at 40% 40%, rgba(34, 139, 34, 0.4) 12%,
-    rgba(139, 69, 19, 0.3) 30%,
-    transparent 50%
-  ), radial-gradient(
-    circle at 70% 60%, rgba(34, 139, 34, 0.3) 10%, transparent 25%
-  );
+      circle at 40% 40%,
+      rgba(34, 139, 34, 0.4) 12%,
+      rgba(139, 69, 19, 0.3) 30%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 70% 60%,
+      rgba(34, 139, 34, 0.3) 10%,
+      transparent 25%
+    );
   z-index: 2;
   animation: landShift 25s linear infinite;
 }
@@ -1545,23 +1573,24 @@ a {
 }
 
 .planet2::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
   width: 150px;
   height: 25px;
   background: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.15) 0%,
-    rgba(255, 215, 0, 0.1) 30%,
-    rgba(255, 255, 255, 0.05) 60%,
-    transparent 80%
-  ), radial-gradient(
-    ellipse at 30% 50%,
-    rgba(255, 165, 0, 0.08) 0%,
-    transparent 50%
-  );
+      45deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 215, 0, 0.1) 30%,
+      rgba(255, 255, 255, 0.05) 60%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse at 30% 50%,
+      rgba(255, 165, 0, 0.08) 0%,
+      transparent 50%
+    );
   border: 2px solid rgba(255, 255, 255, 0.25);
   border-radius: 50% / 100% 100% 8% 8%;
   transform: translate(-50%, -50%) rotate(20deg);
@@ -1581,7 +1610,7 @@ a {
   }
   100% {
     opacity: 0;
-    transform: translateX(100vw) translateY(100vh) rotate(390deg); 
+    transform: translateX(100vw) translateY(100vh) rotate(390deg);
   }
 }
 
@@ -1600,34 +1629,76 @@ a {
 }
 
 @keyframes planetRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes cloudShift {
-  0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-  25% { transform: translate(-5%, 5%) scale(1.02); opacity: 0.25; }
-  50% { transform: translate(5%, -5%) scale(1); opacity: 0.3; }
-  75% { transform: translate(0, 0) scale(0.98); opacity: 0.35; }
-  100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(-5%, 5%) scale(1.02);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate(5%, -5%) scale(1);
+    opacity: 0.3;
+  }
+  75% {
+    transform: translate(0, 0) scale(0.98);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
 }
 
 @keyframes landShift {
-  0% { transform: translate(0, 0) scale(1); opacity: 0.2; }
-  25% { transform: translate(3%, -3%) scale(1.01); opacity: 0.15; }
-  50% { transform: translate(-3%, 3%) scale(1); opacity: 0.2; }
-  75% { transform: translate(0, 0) scale(0.99); opacity: 0.18; }
-  100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.2;
+  }
+  25% {
+    transform: translate(3%, -3%) scale(1.01);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translate(-3%, 3%) scale(1);
+    opacity: 0.2;
+  }
+  75% {
+    transform: translate(0, 0) scale(0.99);
+    opacity: 0.18;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.2;
+  }
 }
 
 @keyframes planetRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes ringRotate {
-  0% { transform: translate(-50%, -50%) rotate(20deg); }
-  100% { transform: translate(-50%, -50%) rotate(380deg); }
+  0% {
+    transform: translate(-50%, -50%) rotate(20deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(380deg);
+  }
 }
 
 @keyframes twinkle {
@@ -1669,8 +1740,8 @@ a {
   .moon {
     display: none;
   }
-  .planet1, .planet2 {
+  .planet1,
+  .planet2 {
     animation: none;
   }
 }
-

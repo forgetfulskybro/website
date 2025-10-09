@@ -30,20 +30,12 @@ export const MoreGames: React.FC<GameProps> = ({ data }) => {
         >
           {new Translate().get(data!, "Info.moreGames")}
         </div>
-        <motion.div
+        <div
           style={{
             position: "relative",
             top: "10px",
+            marginLeft: "-15px",
             padding: "4px",
-          }}
-          variants={{
-            hover: {
-              rotate: 360,
-              transition: {
-                duration: 0.6,
-                ease: "easeInOut",
-              },
-            },
           }}
         >
           <Image
@@ -56,7 +48,7 @@ export const MoreGames: React.FC<GameProps> = ({ data }) => {
               transform: "rotate(-90deg) translateX(6px)",
             }}
           />
-        </motion.div>
+        </div>
       </motion.div>
     </Link>
   );

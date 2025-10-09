@@ -71,6 +71,9 @@
       },
       "FGF": {
         "desc": "Un robot polyvalent qui répond à de nombreux besoins."
+      },
+      "MM": {
+        "desc": "Un gestionnaire de mods basé sur un terminal et Tkinter pour Cyberpunk 2077."
       }
     }
   },
@@ -160,6 +163,10 @@
     "dl2": {
       "review": "",
       "progress": "Environ 25% (sans piste)"
+    },
+    "dltb": {
+      "review": "",
+      "progress": "Environ 10%"
     },
     "stalker": {
       "review": "",

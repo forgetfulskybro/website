@@ -1,4 +1,9 @@
-import projects, { FlagTypeConvert, TagTypeConvert, ProjectData, FlagType } from "@/components/Projects";
+import projects, {
+  FlagTypeConvert,
+  TagTypeConvert,
+  ProjectData,
+  FlagType,
+} from "@/components/Projects";
 import ProjectDrawer from "@/components/Drawers/ProjectDrawer";
 import React, { useEffect, useState } from "react";
 import Translate from "@/components/translation";
@@ -20,7 +25,10 @@ const darkenColor = (color: string): string => {
     .padStart(2, "0")}${Math.floor(b).toString(16).padStart(2, "0")}`;
 };
 
-export const renderButtons = (href: string | null, text: string): JSX.Element => (
+export const renderButtons = (
+  href: string | null,
+  text: string
+): JSX.Element => (
   <Link href={href || "#"} target="_blank">
     <button className="tooltipButton" disabled={!href}>
       {text}
@@ -115,10 +123,8 @@ const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
           ))}
         </div>
         <div className="projectFooter">
-          {project.footer.start} <span style={{ color: "#6A6969" }}>-</span>{" "}
-          <span style={{ color: "white", fontWeight: 900 }}>
-            {projectFooterEnd}
-          </span>
+          {project.footer.start} <span className="projectDivider">-</span>{" "}
+          <span className="projectFooterEnd">{projectFooterEnd}</span>
         </div>
         {project.flags.length > 0 && renderFlags}
       </div>

@@ -11,6 +11,16 @@ export interface GameType {
 
 const Games: GameType[] = [
   {
+    target: "dltb",
+    title: "Dying Light: TB",
+    review: false,
+    progress: "Around 10%",
+    image: "/DLTB.png",
+    myRating: null,
+    tags: ["Open World", "Zombies", "Parkour", "Horror"],
+    website: "https://dyinglightgame.com",
+  },
+  {
     target: "dl1",
     title: "Dying Light",
     review: true,
@@ -50,7 +60,7 @@ const Games: GameType[] = [
   {
     target: "hogleg",
     title: "Hogwarts Legacy",
-    image: "/hogleg.jpg??",
+    image: "/hoglg.jpg",
     progress: "14%",
     myRating: null,
     tags: ["Magic", "Open-World", "Fantasy", "Singleplayer"],

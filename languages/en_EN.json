@@ -29,7 +29,7 @@
       "discon": "Discontinued"
     },
     "buttons": {
-      "community": "Online",
+      "community": "Discord",
       "website": "Website"
     },
     "list": {
@@ -71,6 +71,9 @@
       },
       "FGF": {
         "desc": "A multipurpose bot for many server needs."
+      },
+      "MM": {
+        "desc": "A terminal and Tkinter based Mod Manager for Cyberpunk 2077."
       }
     }
   },
@@ -160,6 +163,10 @@
     "dl2": {
       "review": "",
       "progress": "Around 25% (untracked)"
+    },
+    "dltb": {
+      "review": "",
+      "progress": "Around 10%"
     },
     "stalker": {
       "review": "",

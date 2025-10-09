@@ -176,7 +176,7 @@ export default function MusicDrawer({
     <div
       style={{
         position: "fixed",
-        top: "7%",
+        top: "6.5%",
         right: 10,
         transform: "translateY(-50%)",
         zIndex: 2000,
