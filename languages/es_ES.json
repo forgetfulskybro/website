@@ -74,6 +74,9 @@
       },
       "MM": {
         "desc": "Un Gestor de Mods basado en Tkinter y terminal para Cyberpunk 2077."
+      },
+      "TS": {
+        "desc": "Un pequeño juego sobre completar temas y encontrar sus tarjetas relacionadas."
       }
     }
   },

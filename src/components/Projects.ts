@@ -120,6 +120,20 @@ const useProjects = (data: any): ProjectData[] => {
       website: "/",
     },
     {
+      target: "TS",
+      title: "Topic Solitaire",
+      image: "/topicSolitaire.png",
+      tags: [{ name: TagType.Website }],
+      footer: {
+        start: "Oct 15, 2025",
+        end: translate.get(data, "Projects.footer.endPresent"),
+      },
+      flags: [],
+      github: "https://github.com/forgetfulskybro/topic-solitaire",
+      community: "https://discord.gg/ty6Rsua",
+      website: "https://topic-solitaire.vercel.app",
+    },
+    {
       target: "GC",
       title: "Guild Count",
       image: "/guildcount.png",
