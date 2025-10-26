@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from "react";
 import { extractColors } from "./colorExtractor";
 import ToolTip from "../ToolTip";
 import Image from "next/image";
+import JsonHighlighter from "./JsonHighlighter";
 
 export default function GuildCard({
   guild,
@@ -15,6 +16,7 @@ export default function GuildCard({
   permissions: any;
 }) {
   const [showDetails, setShowDetails] = useState(false);
+  const [showRawDetails, setShowRawDetails] = useState(false);
   const [colors, setColors] = useState<string[]>(["#5b65f04e"]);
   const modalRef = useRef<HTMLDivElement>(null);
   const isAdmin =
@@ -63,24 +65,35 @@ export default function GuildCard({
     setShowDetails(!showDetails);
   };
 
+  const toggleRAW = () => {
+    setShowRawDetails(!showRawDetails);
+    setShowDetails(false);
+  };
+
+  const rawToggle = () => {
+    setShowRawDetails(false);
+    setShowDetails(true);
+  };
+
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
       ) {
+        setShowRawDetails(false);
         setShowDetails(false);
       }
     };
 
-    if (showDetails) {
+    if (showDetails || showRawDetails) {
       document.addEventListener("mousedown", handleOutsideClick);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [showDetails]);
+  }, [showDetails, showRawDetails]);
 
   const gradientStyle =
     colors.length > 1
@@ -154,6 +167,34 @@ export default function GuildCard({
         </button>
       </div>
       <AnimatePresence>
+        {showRawDetails && (
+          <motion.div
+            className={styles.modal}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div
+              className={styles.modalContent}
+              ref={modalRef}
+              initial={{ scale: 0.7, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.7, opacity: 0, y: 50 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              <span className={styles.close} onClick={rawToggle}>
+                &times;
+              </span>
+              <h2>RAW Details: {guild.name}</h2>
+              <div className={styles.modalBody}>
+                <JsonHighlighter data={guild} className={styles.jsonDisplay} />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
         {showDetails && (
           <motion.div
             className={styles.modal}
@@ -170,6 +211,13 @@ export default function GuildCard({
               exit={{ scale: 0.7, opacity: 0, y: 50 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
+              <span
+                className={styles.close}
+                style={{ marginRight: "30px", marginTop: "-2px" }}
+                onClick={toggleRAW}
+              >
+                &raquo;
+              </span>
               <span className={styles.close} onClick={toggleModal}>
                 &times;
               </span>

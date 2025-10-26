@@ -17,7 +17,7 @@ export const OfflineGuilds: Guild[] = [
   {
     id: "428823240824061954",
     name: "Cyberpunk 2077",
-    icon: "e5f64def5f1a94bbcd7c158a80ddf88b",
+    icon: "bd4bd386a167a026cd71605b40449c47",
     banner: "8e80164682f60d42274e73bb88bd1a68",
     owner: false,
     permissions: "2222085085695040",

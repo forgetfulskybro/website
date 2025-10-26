@@ -532,6 +532,55 @@
   text-decoration: underline;
 }
 
+.jsonDisplay {
+  background-color: #2f3136;
+  border: 1px solid #4f545c;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 0;
+  overflow-x: auto;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #dcddde;
+  white-space: pre;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.jsonDisplay code {
+  background: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+.jsonDisplay :global(.json-key) {
+  color: #79c0ff;
+}
+
+.jsonDisplay :global(.json-string) {
+  color: #a5d6ff;
+}
+
+.jsonDisplay :global(.json-number) {
+  color: #79c0ff;
+}
+
+.jsonDisplay :global(.json-boolean) {
+  color: #ff7b72;
+}
+
+.jsonDisplay :global(.json-null) {
+  color: #ffa657;
+}
+
+.jsonDisplay :global(.json-bracket) {
+  color: #c9d1d9;
+}
+
 @media (max-width: 600px) {
   .filterBar {
     flex-direction: column;
@@ -563,5 +612,10 @@
     max-width: 95%;
     max-height: 90vh;
     padding: 16px;
+  }
+
+  .jsonDisplay {
+    font-size: 11px;
+    padding: 12px;
   }
 }
