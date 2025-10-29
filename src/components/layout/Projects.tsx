@@ -3,7 +3,7 @@ import projects, {
   TagTypeConvert,
   ProjectData,
   FlagType,
-} from "@/components/Projects";
+} from "@/components/ProjectsArray";
 import ProjectDrawer from "@/components/Drawers/ProjectDrawer";
 import React, { useEffect, useState } from "react";
 import Translate from "@/components/translation";

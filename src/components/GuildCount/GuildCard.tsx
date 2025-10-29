@@ -4,9 +4,9 @@ import type { Guild } from "../../app/projects/guildcount/guilds";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import { extractColors } from "./colorExtractor";
+import JsonHighlighter from "./JsonHighlighter";
 import ToolTip from "../ToolTip";
 import Image from "next/image";
-import JsonHighlighter from "./JsonHighlighter";
 
 export default function GuildCard({
   guild,

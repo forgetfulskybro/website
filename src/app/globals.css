@@ -396,13 +396,16 @@ a {
 }
 
 .gameIcon {
-  width: 25%;
-  height: 100%;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
   float: left;
   border-radius: 12px;
 }
 
 .gameTitle {
+  text-overflow: ellipsis;
+  white-space: nowrap;
   width: fit-content;
   height: fit-content;
   display: flex;

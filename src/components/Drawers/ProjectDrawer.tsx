@@ -1,7 +1,12 @@
-import { DrawerHeader, StyledDrawer, ButtonContainer, StyledButton } from "./DrawerStyles";
+import {
+  DrawerHeader,
+  StyledDrawer,
+  ButtonContainer,
+  StyledButton,
+} from "./DrawerStyles";
 import Translate from "@/components/translation";
 import { Typography } from "@mui/material";
-import { ProjectData } from "../Projects";
+import { ProjectData } from "../ProjectsArray";
 import Box from "@mui/material/Box";
 import Image from "next/image";
 import * as React from "react";

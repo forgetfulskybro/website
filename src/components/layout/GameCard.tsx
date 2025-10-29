@@ -6,6 +6,7 @@ import { defaultColors } from "../Lyrics/theme";
 import ToolTipCover from "../ToolTipCover";
 import { renderButtons } from "./Projects";
 import { GameType } from "../GamesArray";
+import ToolTip from "../ToolTip";
 import Image from "next/image";
 
 interface GamesProp {
@@ -57,6 +58,11 @@ export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const truncate = (text: string | undefined) => {
+    if (!text) return "";
+    return text.length > 18 ? text.slice(0, 18) + ".." : text;
+  };
+
   return (
     <>
       {sortedGames.map((game: GameType) => (
@@ -74,7 +80,9 @@ export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
               />
             )}
             <div className="flex" style={{ flexDirection: "row" }}>
-              <div className="gameTitle">{game.title}</div>
+              <ToolTip content={game.title} placement="top">
+                <div className="gameTitle">{truncate(game.title)}</div>
+              </ToolTip>
               <ToolTipCover
                 content={
                   <div className="tooltip-container">
@@ -149,7 +157,9 @@ export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
                     /10
                   </>
                 ) : (
-                    <p className="Blue">{translate.get(data!, "Games.unrated")}</p>
+                  <p className="Blue">
+                    {translate.get(data!, "Games.unrated")}
+                  </p>
                 )}
               </div>
             </div>
