@@ -12,9 +12,9 @@ const Games: GameType[] = [
   {
     target: "tow2",
     title: "The Outer Worlds 2",
-    review: false,
+    review: true,
     image: "/tow2.png?",
-    myRating: null,
+    myRating: 4.5,
     tags: ["RPG", "Action RPG", "Exploration", "Politics"],
     website: "https://outerworlds2.obsidian.net/",
   },
