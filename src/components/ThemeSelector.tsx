@@ -1,87 +1,108 @@
-import { Box, Typography, IconButton, Menu } from '@mui/material';
+import { Box, Typography, IconButton, Menu } from "@mui/material";
 import React, { useState, useRef } from "react";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import Translate from "./translation";
-import { Theme } from './types';
-import ToolTip from './ToolTip';
+import { Theme } from "./types";
+import ToolTip from "./ToolTip";
 
-const ColorSquare = styled(Box)(({ theme }) => ({
-  width: '100%',
-  height: '110px',
-  borderRadius: '12px',
-  marginBottom: '12px',
-  cursor: 'crosshair',
-  position: 'relative',
-  background: 'linear-gradient(to right, #FF0000 0%, #FFFF00 17%, #00FF00 33%, #00FFFF 50%, #0000FF 67%, #FF00FF 83%, #FF0000 100%)',
-  backdropFilter: 'blur(8px)',
-  '&::before': {
+const ColorPickerArea = styled(Box)(({ theme }) => ({
+  width: "260px",
+  height: "160px",
+  cursor: "crosshair",
+  position: "relative",
+  marginBottom: "12px",
+}));
+
+const SaturationLightnessPicker = styled(Box)<{ hue: number }>(({ hue }) => ({
+  width: "210px",
+  height: "160px",
+  borderRadius: "8px",
+  cursor: "crosshair",
+  position: "relative",
+  background: `linear-gradient(to right, #ffffff, hsl(${hue}, 100%, 50%))`,
+  "&::before": {
     content: '""',
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    background: 'linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,1) 100%)',
-    borderRadius: 'inherit',
-    pointerEvents: 'none'
-  }
+    background:
+      "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)",
+    borderRadius: "inherit",
+    pointerEvents: "none",
+  },
+}));
+
+const HueSlider = styled(Box)(({ theme }) => ({
+  width: "30px",
+  height: "160px",
+  borderRadius: "4px",
+  cursor: "crosshair",
+  position: "relative",
+  background:
+    "linear-gradient(to bottom, #FF0000 0%, #FFFF00 17%, #00FF00 33%, #00FFFF 50%, #0000FF 67%, #FF00FF 83%, #FF0000 100%)",
 }));
 
 const ColorInputWrapper = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: '8px',
-  alignItems: 'center',
-  position: 'relative',
-  '&::after': {
+  display: "flex",
+  gap: "8px",
+  alignItems: "center",
+  position: "relative",
+  "&::after": {
     content: '""',
-    position: 'absolute',
+    position: "absolute",
     inset: -1,
-    borderRadius: '9px',
-    padding: '1px',
-    background: 'linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2))',
-    WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-    WebkitMaskComposite: 'xor',
-    maskComposite: 'exclude',
-    pointerEvents: 'none'
-  }
+    borderRadius: "9px",
+    padding: "1px",
+    background:
+      "linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2))",
+    WebkitMask:
+      "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+    WebkitMaskComposite: "xor",
+    maskComposite: "exclude",
+    pointerEvents: "none",
+  },
 }));
 
-const ColorInput = styled('input')(({ theme }) => ({
+const ColorInput = styled("input")(({ theme }) => ({
   flex: 1,
-  height: '36px',
-  padding: '8px 12px',
-  border: 'none',
-  borderRadius: '8px',
-  backgroundColor: 'rgba(0,0,0,0.2)',
-  color: '#fff',
-  fontSize: '14px',
-  outline: 'none',
-  transition: 'all 0.2s ease',
-  '&:focus': {
-    backgroundColor: 'rgba(0,0,0,0.3)',
+  height: "36px",
+  padding: "8px 12px",
+  border: "none",
+  borderRadius: "8px",
+  backgroundColor: "rgba(0,0,0,0.2)",
+  color: "#fff",
+  fontSize: "14px",
+  outline: "none",
+  transition: "all 0.2s ease",
+  "&:focus": {
+    backgroundColor: "rgba(0,0,0,0.3)",
   },
-  '&::placeholder': {
-    color: 'rgba(255,255,255,0.5)',
-  }
+  "&::placeholder": {
+    color: "rgba(255,255,255,0.5)",
+  },
 }));
 
 const ColorPreview = styled(Box)(({ theme }) => ({
-  width: '36px',
-  height: '36px',
-  borderRadius: '8px',
-  transition: 'all 0.2s ease',
-  position: 'relative',
-  '&::after': {
+  width: "36px",
+  height: "36px",
+  borderRadius: "8px",
+  transition: "all 0.2s ease",
+  position: "relative",
+  "&::after": {
     content: '""',
-    position: 'absolute',
+    position: "absolute",
     inset: -1,
-    borderRadius: '9px',
-    padding: '1px',
-    background: 'linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2))',
-    WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-    WebkitMaskComposite: 'xor',
-    maskComposite: 'exclude',
-  }
+    borderRadius: "9px",
+    padding: "1px",
+    background:
+      "linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2))",
+    WebkitMask:
+      "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+    WebkitMaskComposite: "xor",
+    maskComposite: "exclude",
+  },
 }));
 
 interface ThemeSelectorProps {
@@ -104,8 +125,16 @@ export default function ThemeSelector({
   const translate = new Translate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [hexValue, setHexValue] = useState(customColor);
-  const [pickerPosition, setPickerPosition] = useState<{ x: number; y: number } | null>(null);
-  const colorSquareRef = useRef<HTMLDivElement>(null);
+  const [pickerPosition, setPickerPosition] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
+  const [hueSliderPosition, setHueSliderPosition] = useState<number | null>(
+    null,
+  );
+  const [currentHue, setCurrentHue] = useState<number>(0);
+  const satLightRef = useRef<HTMLDivElement>(null);
+  const hueSliderRef = useRef<HTMLDivElement>(null);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -124,7 +153,7 @@ export default function ThemeSelector({
   };
 
   const handleHexKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && /^#[0-9A-F]{6}$/i.test(hexValue)) {
+    if (event.key === "Enter" && /^#[0-9A-F]{6}$/i.test(hexValue)) {
       handleColorSelect(hexValue);
       handleClose();
     }
@@ -136,86 +165,125 @@ export default function ThemeSelector({
     if (rgbColor) {
       const rgbString = `${rgbColor.r}, ${rgbColor.g}, ${rgbColor.b}`;
       const customTheme: Theme = {
-        name: 'custom',
+        name: "custom",
         primary: color,
-        color: rgbString
+        color: rgbString,
       };
       onThemeClick(customTheme);
-      localStorage.setItem('customColor', color);
-      localStorage.setItem('customColorRGB', rgbString);
-      localStorage.setItem('themePreference', 'custom');
-      localStorage.removeItem('themeName');
+      localStorage.setItem("customColor", color);
+      localStorage.setItem("customColorRGB", rgbString);
+      localStorage.setItem("themePreference", "custom");
+      localStorage.removeItem("themeName");
     }
   };
 
   const hexToRgb = (hex: string) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
-    } : null;
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : null;
   };
 
-  const getColorFromPosition = (x: number, y: number, width: number, height: number): string => {
-    const hue = (x / width) * 360;
-    const saturation = 1;
-    const lightness = 1 - (y / height);
+  const hslToHex = (h: number, s: number, l: number): string => {
+    h = h / 360;
+    s = s / 100;
+    l = l / 100;
 
-    const h = hue;
-    const s = saturation;
-    const l = lightness;
+    const a = s * Math.min(l, 1 - l);
+    const f = (n: number) => {
+      const k = (n + h * 12) % 12;
+      const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+      return Math.round(255 * color);
+    };
 
-    const c = (1 - Math.abs(2 * l - 1)) * s;
-    const x1 = c * (1 - Math.abs((h / 60) % 2 - 1));
-    const m = l - c/2;
-    let r1, g1, b1;
+    const r = f(0);
+    const g = f(8);
+    const b = f(4);
 
-    if (h >= 0 && h < 60) {
-        r1 = c; g1 = x1; b1 = 0;
-    } else if (h >= 60 && h < 120) {
-        r1 = x1; g1 = c; b1 = 0;
-    } else if (h >= 120 && h < 180) {
-        r1 = 0; g1 = c; b1 = x1;
-    } else if (h >= 180 && h < 240) {
-        r1 = 0; g1 = x1; b1 = c;
-    } else if (h >= 240 && h < 300) {
-        r1 = x1; g1 = 0; b1 = c;
-    } else {
-        r1 = c; g1 = 0; b1 = x1;
-    }
-
-    const r = Math.round((r1 + m) * 255);
-    const g = Math.round((g1 + m) * 255);
-    const b = Math.round((b1 + m) * 255);
-    
-    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+    return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
   };
 
-  const handleColorSquareClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!colorSquareRef.current) return;
-    
-    const rect = colorSquareRef.current.getBoundingClientRect();
+  const getColorFromSatLight = (
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    hue: number,
+  ): string => {
+    const saturation = (x / width) * 100;
+    const lightness = 100 - (y / height) * 100;
+    return hslToHex(hue, saturation, lightness);
+  };
+
+  const getHueFromPosition = (y: number, height: number): number => {
+    return (y / height) * 360;
+  };
+
+  const handleSatLightClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!satLightRef.current) return;
+
+    const rect = satLightRef.current.getBoundingClientRect();
     const relativeX = e.clientX - rect.left;
     const relativeY = e.clientY - rect.top;
-    
-    setPickerPosition({ 
+
+    setPickerPosition({
       x: relativeX,
-      y: relativeY
+      y: relativeY,
     });
-    
-    const color = getColorFromPosition(relativeX, relativeY, rect.width, rect.height);
+
+    const color = getColorFromSatLight(
+      relativeX,
+      relativeY,
+      rect.width,
+      rect.height,
+      currentHue,
+    );
     handleColorSelect(color);
   };
 
-  const handleColorSquareMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleSatLightMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.buttons !== 1) return;
-    handleColorSquareClick(e);
+    handleSatLightClick(e);
+  };
+
+  const handleHueClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!hueSliderRef.current) return;
+
+    const rect = hueSliderRef.current.getBoundingClientRect();
+    const relativeY = e.clientY - rect.top;
+
+    setHueSliderPosition(relativeY);
+
+    const hue = getHueFromPosition(relativeY, rect.height);
+    setCurrentHue(hue);
+
+    if (pickerPosition && satLightRef.current) {
+      const satLightRect = satLightRef.current.getBoundingClientRect();
+      const color = getColorFromSatLight(
+        pickerPosition.x,
+        pickerPosition.y,
+        satLightRect.width,
+        satLightRect.height,
+        hue,
+      );
+      handleColorSelect(color);
+    }
+  };
+
+  const handleHueMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.buttons !== 1) return;
+    handleHueClick(e);
   };
 
   return (
     <Box sx={{ mt: 3 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 1, mb: 1 }}>
+      <Box
+        sx={{ display: "flex", justifyContent: "flex-start", gap: 1, mb: 1 }}
+      >
         {themes.map((theme) => (
           <ToolTip
             key={theme.name}
@@ -232,20 +300,23 @@ export default function ThemeSelector({
                   backgroundColor: theme.primary,
                   opacity: 0.8,
                 },
-                position: 'relative',
-                '&::after': theme.name === currentTheme.name ? {
-                  content: '""',
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  width: '14px',
-                  height: '14px',
-                  backgroundImage: 'url("/check.svg")',
-                  backgroundSize: 'contain',
-                  backgroundRepeat: 'no-repeat',
-                  filter: 'brightness(0) invert(1)',
-                } : {},
+                position: "relative",
+                "&::after":
+                  theme.name === currentTheme.name
+                    ? {
+                        content: '""',
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: "14px",
+                        height: "14px",
+                        backgroundImage: 'url("/check.svg")',
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        filter: "brightness(0) invert(1)",
+                      }
+                    : {},
               }}
             />
           </ToolTip>
@@ -259,25 +330,34 @@ export default function ThemeSelector({
             sx={{
               width: 32,
               height: 32,
-              backgroundColor: currentTheme.name === 'custom' ? currentTheme.primary : '#808080',
+              backgroundColor:
+                currentTheme.name === "custom"
+                  ? currentTheme.primary
+                  : "#808080",
               "&:hover": {
-                backgroundColor: currentTheme.name === 'custom' ? currentTheme.primary : '#808080',
+                backgroundColor:
+                  currentTheme.name === "custom"
+                    ? currentTheme.primary
+                    : "#808080",
                 opacity: 0.8,
               },
-              position: 'relative',
-              '&::after': currentTheme.name === 'custom' ? {
-                content: '""',
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: '14px',
-                height: '14px',
-                backgroundImage: 'url("/check.svg")',
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                filter: 'brightness(0) invert(1)',
-              } : {},
+              position: "relative",
+              "&::after":
+                currentTheme.name === "custom"
+                  ? {
+                      content: '""',
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      width: "14px",
+                      height: "14px",
+                      backgroundImage: 'url("/check.svg")',
+                      backgroundSize: "contain",
+                      backgroundRepeat: "no-repeat",
+                      filter: "brightness(0) invert(1)",
+                    }
+                  : {},
             }}
           />
         </ToolTip>
@@ -288,70 +368,99 @@ export default function ThemeSelector({
         open={Boolean(anchorEl)}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
+          vertical: "top",
+          horizontal: "center",
         }}
         transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
+          vertical: "bottom",
+          horizontal: "center",
         }}
         PaperProps={{
           sx: {
-            backgroundColor: 'transparent !important',
-            backgroundImage: 'none !important',
+            backgroundColor: "transparent !important",
+            backgroundImage: "none !important",
             padding: 0,
-            width: '320px',
-            maxWidth: '90vw',
-          }
+            width: "320px",
+            maxWidth: "90vw",
+          },
         }}
         sx={{
-          '& .MuiPaper-root': {
-            backgroundColor: 'transparent !important',
-            backgroundImage: 'none !important',
+          "& .MuiPaper-root": {
+            backgroundColor: "transparent !important",
+            backgroundImage: "none !important",
           },
-          '& .MuiMenu-paper': {
-            mt: '-16px',
-            ml: '-43.5px',
+          "& .MuiMenu-paper": {
+            mt: "-16px",
+            ml: "-43.5px",
           },
-          '& .MuiMenu-list': {
-            padding: '14px',
-            backgroundColor: 'rgba(23,23,23,0.7)',
-            backdropFilter: 'blur(12px)',
-            borderRadius: '16px',
-            border: '1px solid rgba(255,255,255,0.1)',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-          }
+          "& .MuiMenu-list": {
+            padding: "14px",
+            backgroundColor: "rgba(23,23,23,0.7)",
+            backdropFilter: "blur(12px)",
+            borderRadius: "16px",
+            border: "1px solid rgba(255,255,255,0.1)",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+          },
         }}
       >
-        <Typography variant="subtitle2" sx={{ mb: 1, color: 'rgba(255,255,255,0.9)' }}>
+        <Typography
+          variant="subtitle2"
+          sx={{ mb: 1, color: "rgba(255,255,255,0.9)" }}
+        >
           {translate.get(language!, "Comps.page.customColor")}
         </Typography>
 
-        <Box sx={{ position: 'relative', width: '100%' }}>
-          <ColorSquare 
-            ref={colorSquareRef}
-            onMouseMove={handleColorSquareMove}
-            onClick={handleColorSquareClick}
+        <ColorPickerArea sx={{ display: "flex", gap: "30px" }}>
+          <SaturationLightnessPicker
+            hue={currentHue}
+            ref={satLightRef}
+            onMouseMove={handleSatLightMove}
+            onClick={handleSatLightClick}
           />
+          <HueSlider
+            ref={hueSliderRef}
+            onMouseMove={handleHueMove}
+            onClick={handleHueClick}
+          />
+
           {pickerPosition && (
             <div
               style={{
-                position: 'absolute',
-                width: '12px',
-                height: '12px',
-                border: '1.5px solid #FFFFFF',
-                borderRadius: '2px',
+                position: "absolute",
+                width: "12px",
+                height: "12px",
+                border: "1.5px solid #FFFFFF",
+                borderRadius: "50%",
                 left: `${pickerPosition.x}px`,
                 top: `${pickerPosition.y}px`,
-                transform: 'translate(-50%, -50%)',
+                transform: "translate(-50%, -50%)",
                 backgroundColor: hexValue,
-                boxShadow: '0 0 0 0.5px #000000',
-                pointerEvents: 'none',
+                boxShadow: "0 0 0 0.5px #000000",
+                pointerEvents: "none",
                 zIndex: 1000,
               }}
             />
           )}
-        </Box>
+
+          {hueSliderPosition !== null && (
+            <div
+              style={{
+                position: "absolute",
+                width: "25px",
+                height: "4px",
+                border: "1px solid #FFFFFF",
+                borderRadius: "2px",
+                left: "233.5px",
+                top: `${hueSliderPosition}px`,
+                transform: "translateY(-50%)",
+                backgroundColor: `hsl(${currentHue}, 100%, 50%)`,
+                boxShadow: "0 0 0 0.5px #000000",
+                pointerEvents: "none",
+                zIndex: 1000,
+              }}
+            />
+          )}
+        </ColorPickerArea>
 
         <ColorInputWrapper>
           <ColorInput
@@ -360,10 +469,10 @@ export default function ThemeSelector({
             onChange={handleHexChange}
             onKeyDown={handleHexKeyDown}
           />
-          <ColorPreview 
-            sx={{ 
+          <ColorPreview
+            sx={{
               backgroundColor: hexValue,
-            }} 
+            }}
           />
         </ColorInputWrapper>
       </Menu>
