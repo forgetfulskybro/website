@@ -4,7 +4,6 @@ import { Fragment } from "react";
 import PopupState from "material-ui-popup-state";
 import { bindTrigger, bindMenu } from "material-ui-popup-state/hooks";
 import { LanguageButton, StyledMenu } from "./StyledComponents";
-import Translate from "./translation";
 
 interface LanguageMenuProps {
   language: string | null;

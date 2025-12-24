@@ -3,8 +3,7 @@ import { updateThemeColor } from "../updateThemeColor";
 import React, { useEffect, useState } from "react";
 import Translate from "@/components/translation";
 import { defaultColors } from "../Lyrics/theme";
-import ToolTipCover from "../ToolTipCover";
-import { renderButtons } from "./Projects";
+import { GameViewer } from "./GameViewer";
 import { GameType } from "../GamesArray";
 import ToolTip from "../ToolTip";
 import Image from "next/image";
@@ -18,6 +17,7 @@ export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
   const translate = new Translate();
   const [isMobile, setIsMobile] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState<GameType | null>(null);
   const [themeColors, setThemeColors] = useState(defaultColors);
 
@@ -48,7 +48,15 @@ export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
 
   const handleClick = (game: GameType) => {
     setSelectedGame(game);
-    setDrawerOpen(true);
+    if (isMobile) {
+      setDrawerOpen(true);
+    } else {
+      setDialogOpen(true);
+    }
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
   };
 
   useEffect(() => {
@@ -83,63 +91,6 @@ export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
               <ToolTip content={game.title} placement="top">
                 <div className="gameTitle">{truncate(game.title)}</div>
               </ToolTip>
-              <ToolTipCover
-                content={
-                  <div className="tooltip-container">
-                    <div className="tooltip-section">
-                      <h3 className="tooltip-title">
-                        {translate.get(data!, "Games.review")}
-                      </h3>
-                      <div
-                        className="tooltip-text-container"
-                        style={{
-                          maxHeight: "150px",
-                          overflowY: "auto",
-                        }}
-                      >
-                        <p className="tooltip-text">
-                          {game && game?.review
-                            ? translate.get(
-                                data!,
-                                `Games.${game.target}.review`
-                              )
-                            : translate.get(data!, "Games.noReview")}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="tooltip-section">
-                      <h3 className="tooltip-title">
-                        {translate.get(data!, "Games.progress")}
-                      </h3>
-                      <p className="tooltip-text">
-                        {translate.get(data!, `Games.${game?.target}.progress`)}
-                      </p>
-                    </div>
-                    <div className="tooltip-section center">
-                      {renderButtons(
-                        game.website,
-                        translate.get(data!, "Games.visit")
-                      )}
-                    </div>
-                  </div>
-                }
-                placement="top"
-              >
-                <p
-                  className="review Blue"
-                  style={{
-                    marginLeft:
-                      {
-                        en_EN: "190px",
-                        fr_FR: "175px",
-                        es_ES: "175px",
-                        ds_DS: "200px",
-                      }[data] || "180px",
-                  }}
-                >
-                  {translate.get(data!, "Games.review")}
-                </p>
-              </ToolTipCover>
             </div>
             <div className="flex" style={{ flexDirection: "row" }}>
               <div className="gameRate">
@@ -180,13 +131,25 @@ export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
         </div>
       ))}
 
-      {isMobile && (
-        <GameCardDrawer
-          open={drawerOpen}
-          onClose={() => setDrawerOpen(false)}
-          selectedGame={selectedGame}
-          data={data}
-        />
+      {selectedGame && (
+        <>
+          {isMobile ? (
+            <GameCardDrawer
+              open={drawerOpen}
+              onClose={() => setDrawerOpen(false)}
+              selectedGame={selectedGame}
+              data={data}
+            />
+          ) : (
+            <GameViewer
+              open={dialogOpen}
+              onClose={handleCloseDialog}
+              game={selectedGame}
+              data={data}
+              themeColors={themeColors}
+            />
+          )}
+        </>
       )}
     </>
   );

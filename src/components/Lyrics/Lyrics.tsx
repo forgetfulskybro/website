@@ -246,7 +246,7 @@ export default function Lyrics({
           color: "#222",
           fontWeight: 600,
           borderRadius: 20,
-          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+          boxShadow: "none",
           textTransform: "none",
           minWidth: 64,
         }}
@@ -266,6 +266,7 @@ export default function Lyrics({
           backgroundColor: "rgba(23,23,23,0.7)",
           backdropFilter: "blur(12px)",
           borderRadius: "16px",
+          boxShadow: "none",
           border: "1px solid rgba(255,255,255,0.1)",
           "&::-webkit-scrollbar": {
             width: "8px",
