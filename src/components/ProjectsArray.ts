@@ -5,6 +5,7 @@ enum TagType {
   RevoltBot = "Revolt Bot",
   Website = "Website",
   Application = "Application",
+  FluxerBot = "Fluxer Bot",
 }
 
 export enum FlagType {
@@ -17,6 +18,7 @@ const tagTypeColorMap: Record<TagType, string> = {
   [TagType.RevoltBot]: "#FE4654",
   [TagType.Website]: "#3B3E40",
   [TagType.Application]: "#533374",
+  [TagType.FluxerBot]: "#4742D9",
 };
 
 const flagTypeColorMap: Record<FlagType, string> = {
@@ -29,6 +31,7 @@ const tagTypeConversionMap = new Map<TagType, string>([
   [TagType.RevoltBot, "revolt"],
   [TagType.Website, "website"],
   [TagType.Application, "application"],
+  [TagType.FluxerBot, "fluxer"],
 ]);
 
 const flagTypeConversionMap = new Map<FlagType, string>([
@@ -63,6 +66,20 @@ const useProjects = (data: any): ProjectData[] => {
   const translate = new Translate();
 
   return [
+    {
+      target: "FF",
+      title: "Functious",
+      image: "/Functious.png",
+      tags: [{ name: TagType.FluxerBot }],
+      footer: {
+        start: "Feb 23, 2026",
+        end: translate.get(data, "Projects.footer.endPresent"),
+      },
+      flags: [],
+      github: "https://github.com/forgetfulskybro/Fluxer-Functious",
+      community: "https://fluxer.gg/YnINU09E",
+      website: null,
+    },
     {
       target: "WY",
       title: "Would You",

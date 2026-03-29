@@ -22,7 +22,8 @@
       "website": "Site web",
       "application": "Application",
       "discord": "Discord Bot",
-      "revolt": "Revolt Bot"
+      "revolt": "Revolt Bot",
+      "fluxer": "Fluxer Bot"
     },
     "flags": {
       "contrib": "Contribution",
@@ -47,6 +48,9 @@
       },
       "GC": {
         "desc": "Un site web simple pour vérifier le nombre de serveurs Discord auxquels vous êtes connecté."
+      },
+      "FF": {
+        "desc": "Un bot Fluxer simple proposant des canaux temporaires, des rôles de réaction, des rôles automatiques et bien plus encore."
       },
       "F": {
         "desc": "Revolt bot qui permet de créer des cadeaux, des sondages et des rôles de réaction."
@@ -139,6 +143,10 @@
     "noReview": "Il n'y a pas d'avis sur ce jeu.",
     "review": "Révision",
     "progress": "Progrès",
+    "hfw": {
+      "review": "",
+      "progress": "Environ 23%"
+    },
     "dl1": {
       "review": "Dying Light est un jeu de survie zombie palpitant avec une histoire captivante qui vous tient en haleine. Je l'ai rejoué plusieurs fois et je m'apprête à me replonger dans la mise à jour 2025, qui promet d'être tout aussi passionnante. Le récit haletant combiné à la montée d'adrénaline provoquée par le massacre des zombies en font un jeu hors du commun. Je recommande vivement Dying Light à tous ceux qui aiment les jeux d'horreur et de survie bourrés d'action.",
       "progress": "Environ 10% (2e partie)"
@@ -192,16 +200,16 @@
       "progress": "Environ 48 % (3e partie)"
     },
     "m": {
-      "review": "La série Metro est ma préférée de tous les temps, et Metro Exodus ne fait pas exception. Dès le premier jeu, je suis tombé amoureux de son style artistique envoûtant et de son histoire captivante et immersive. La narration sombre et sinistre offre une expérience glaçante, parfaite pour les fans de jeux d'horreur. Si Metro Exodus est aussi captivant, je ne peux qu'imaginer à quel point les livres doivent être incroyables. Je recommande vivement ce jeu à tous ceux qui aiment les jeux d'horreur avec une histoire et un univers riche en atmosphères.",
-      "progress": "Terminé deux fois"
+      "review": "La série Metro est ma préférée de tous les temps, et Metro Exodus ne fait pas exception. Dès que j'ai joué au premier opus, je suis tombé sous le charme de son style artistique envoûtant et de son histoire captivante et immersive. Le récit sombre et sinistre offre une expérience effrayante qui ravira les amateurs de jeux d'horreur. Je recommande vivement ce jeu à tous ceux qui aiment les jeux d'horreur axés sur l'histoire et proposant un univers riche en atmosphère.",
+      "progress": "Réalisé trois fois"
     },
     "mll": {
-      "review": "Deuxième volet de la série Metro, il marque un tournant dans son histoire captivante. Il s'appuie sur les fondations du premier jeu, insufflant une nouvelle vie à l'histoire tout en approfondissant l'univers sombre et atmosphérique. Les personnages que l'on apprend à aimer dans ce jeu deviennent encore plus fascinants au moment où l'on atteint le chapitre final de la trilogie. Je recommande sans réserve Metro Last Light à tous ceux qui aiment les jeux d'horreur avec un scénario obsédant et sinistre qui vous tient en haleine du début à la fin.",
-      "progress": "Terminé deux fois"
+      "review": "Deuxième volet de la série Metro, ce jeu marque un tournant décisif dans son récit captivant. Il s'appuie naturellement sur les bases posées par le premier opus, insufflant un nouveau souffle à l'histoire tout en approfondissant l'univers sombre et atmosphérique. Les personnages que vous apprendrez à aimer dans ce jeu deviendront encore plus fascinants à mesure que vous avancerez vers le dernier chapitre de la trilogie. Hautement recommandé.",
+      "progress": "Réalisé trois fois"
     },
     "m2023": {
-      "review": "Metro 2033 ouvre la voie avec une introduction inoubliable. Premier jeu de la trilogie, il lance le voyage d'Artyom avec une histoire d'une beauté envoûtante qui pose les bases du monde sombre et immersif de la série. Le récit sinistre et atmosphérique captive du début à la fin, et je suis ravi qu'il se poursuive à travers deux autres jeux incroyables. Je recommande vivement Metro 2033 à tous ceux qui aiment les jeux d'horreur au scénario profond, sombre et captivant.",
-      "progress": "Terminé deux fois"
+      "review": "Metro 2033 plante le décor avec une introduction inoubliable. Premier jeu de la trilogie, il lance le périple d'Artyom avec une histoire d'une beauté envoûtante qui pose les bases du monde sombre et immersif de la série. Le récit sombre et atmosphérique captive du début à la fin, et je suis ravi qu'il se poursuive à travers deux autres jeux incroyables. Je le recommande vivement.",
+      "progress": "Réalisé trois fois"
     }
   }
 }

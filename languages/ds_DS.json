@@ -22,7 +22,8 @@
       "website": "Dan Sucks",
       "application": "Dan Sucks",
       "discord": "Dan Sucks",
-      "revolt": "Dan Sucks"
+      "revolt": "Dan Sucks",
+      "fluxer": "Dan Sucks"
     },
     "flags": {
       "contrib": "Dan Sucks",
@@ -47,6 +48,9 @@
       },
       "W": {
         "desc": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks."
+      },
+      "FF": {
+        "desc": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks & Dan Sucks Dan Sucks."
       },
       "F": {
         "desc": "Dan Sucks Dan Sucks Dan Sucks Dan, Sucks, Dan Sucks Dan Sucks."
@@ -139,6 +143,10 @@
     "noReview": "Dan Suck Dan Sucks Dan Sucks.",
     "review": "Dan",
     "progress": "Sucks",
+    "hfw": {
+      "review": "",
+      "progress": "Dan 23%"
+    },
     "dl1": {
       "review": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan, Sucks Dan Sucks Dan Sucks Dan Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks.",
       "progress": "Dan 10% (Sucks)"
@@ -193,15 +201,15 @@
     },
     "m": {
       "review": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan, Sucks Dan Sucks Dan Sucks Dan Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks.",
-      "progress": "Dan Sucks"
+      "progress": "Dan Sucks Dan"
     },
     "mll": {
       "review": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan, Sucks Dan Sucks Dan Sucks Dan Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks.",
-      "progress": "Dan Sucks"
+      "progress": "Dan Sucks Dan"
     },
     "m2023": {
       "review": "Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan, Sucks Dan Sucks Dan Sucks Dan Sucks. Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan. Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks Dan Sucks.",
-      "progress": "Dan Sucks"
+      "progress": "Dan Sucks Dan"
     }
   }
 }

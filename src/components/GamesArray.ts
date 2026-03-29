@@ -10,6 +10,15 @@ export interface GameType {
 
 const Games: GameType[] = [
   {
+    target: "hfw",
+    title: "Horizon: Forbidden West",
+    review: false,
+    image: "/hfw.png",
+    myRating: null,
+    tags: ["Open World", "Singleplayer", "Action"],
+    website: "https://www.playstation.com/en-us/games/horizon-forbidden-west/pc/",
+  },
+  {
     target: "tow2",
     title: "The Outer Worlds 2",
     review: true,
