@@ -4,7 +4,7 @@ import TransitionEffect from "@/components/TransitionEffect";
 import SettingsComponents, { themes } from "./pageSettings";
 import SettingsDrawer from "../Drawers/SettingsDrawer";
 import { Birthday } from "../layout/Birthday";
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import ToolTip from "@/components/ToolTip";
 import { Popover } from "@mui/material";
@@ -46,11 +46,16 @@ export default function Page({ children }: { children: ReactNode }) {
   });
   const [customColor, setCustomColor] = useState<string>(() => {
     if (typeof window === "undefined") return "#131314";
-    return localStorage.getItem("customColor") || "#131314";
+    const storedColor = localStorage.getItem("customColor");
+    return storedColor || "#131314";
   });
   const [currentTheme, setCurrentTheme] = useState<Theme>(() => readStoredTheme());
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const handleCloseDrawer = useCallback(() => {
+    setDrawerOpen(false);
+  }, []);
 
   const toggleDesktopSettings = (
     e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
@@ -333,7 +338,7 @@ export default function Page({ children }: { children: ReactNode }) {
       </div>
       <SettingsDrawer
         open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
+        onClose={handleCloseDrawer}
         language={language}
         onLanguageSwitch={languageSwitcher}
         themes={themes}

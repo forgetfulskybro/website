@@ -40,8 +40,7 @@ export const useShootingStars = () => {
       angle += speed;
       const x = centerX + radiusX * Math.cos(angle);
       const y = centerY + radiusY * Math.sin(angle);
-      moon.style.left = `${x}vw`;
-      moon.style.top = `${y}vh`;
+      moon.style.cssText = `left:${x}vw;top:${y}vh`;
       moonRaf = requestAnimationFrame(animateMoon);
     };
     moonRaf = requestAnimationFrame(animateMoon);

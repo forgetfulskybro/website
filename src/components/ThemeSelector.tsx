@@ -1,5 +1,5 @@
 import { Box, Typography, IconButton, Menu } from "@mui/material";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import { styled } from "@mui/material/styles";
 import Translate from "./translation";
 import { Theme } from "./types";
@@ -139,6 +139,10 @@ export default function ThemeSelector({
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  React.useEffect(() => {
+    setHexValue(customColor);
+  }, [customColor]);
 
   const openColorPickerAnchor = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

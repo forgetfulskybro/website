@@ -8,6 +8,12 @@ import JsonHighlighter from "./JsonHighlighter";
 import ToolTip from "../ToolTip";
 import Image from "next/image";
 
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+
 export default function GuildCard({
   guild,
   permissions,
@@ -38,11 +44,7 @@ export default function GuildCard({
     try {
       const timestamp = (BigInt(guildId) >> BigInt(22)) + BigInt(1420070400000);
       const date = new Date(Number(timestamp));
-      return new Intl.DateTimeFormat("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      }).format(date);
+      return dateFormatter.format(date);
     } catch {
       return "Unknown";
     }

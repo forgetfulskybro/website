@@ -42,7 +42,7 @@ export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
     };
   }, []);
 
-  const sortedGames = [...games].sort(
+  const sortedGames = games.toSorted(
     (a, b) => (b.myRating || 0) - (a.myRating || 0)
   );
 

@@ -45,13 +45,7 @@ export const Birthday: React.FC = () => {
         const randomAnimationDelay = Math.floor(Math.random() * 13);
         const confetti = document.createElement("div");
         confetti.className = "confetti";
-        confetti.style.top = `${randomHeight}px`;
-        confetti.style.right = `${randomWidth}px`;
-        confetti.style.backgroundColor =
-          "#" +
-          (0x1000000 + Math.random() * 0xffffff).toString(16).substring(1, 7);
-        confetti.style.transform = `skew(15deg) rotate(${randomRotation}deg) scale(${randomScale})`;
-        confetti.style.animationDelay = `${randomAnimationDelay}s`;
+        confetti.style.cssText = `top:${randomHeight}px;right:${randomWidth}px;background-color:#${(0x1000000 + Math.random() * 0xffffff).toString(16).substring(1, 7)};transform:skew(15deg) rotate(${randomRotation}deg) scale(${randomScale});animation-delay:${randomAnimationDelay}s`;
         fragment.appendChild(confetti);
       }
       wrapper.appendChild(fragment);

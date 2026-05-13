@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { SettingsCard } from "../StyledComponents";
 import ThemeSelector from "../ThemeSelector";
 import { Theme, MenuItem } from "../types";
@@ -31,7 +31,7 @@ export default function SettingsComponents({
   setCustomColor,
 }: SettingsComponentsProps) {
   const translate = new Translate();
-  const [showCustomPicker, setShowCustomPicker] = useState(false);
+  const showCustomPickerRef = useRef(false);
 
   const colorTheme = (theme: string): void => {
     try {
@@ -50,7 +50,7 @@ export default function SettingsComponents({
   };
 
   const handleThemeClick = (theme: Theme) => {
-    setShowCustomPicker(false);
+    showCustomPickerRef.current = false;
     setCurrentTheme(theme);
     colorTheme(theme.color || "19, 19, 20");
     localStorage.setItem("themePreference", "default");
@@ -73,7 +73,7 @@ export default function SettingsComponents({
         localStorage.setItem("customColorRGB", rgbString);
         localStorage.setItem("themePreference", "custom");
         localStorage.removeItem("themeName");
-        setShowCustomPicker(false);
+        showCustomPickerRef.current = false;
       }
     } catch (error) {
       console.error("Error saving custom color:", error);

@@ -6,6 +6,7 @@ import styles from "./guildcount.module.css";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import { getMetadata } from "@/components/getMetaData";
+import Link from "next/link";
 
 const meta = getMetadata("/projects/guildcount");
 
@@ -57,7 +58,7 @@ export default async function GuildCount() {
       <div className={styles.pageWrapper}>
         <div className={styles.error}>
           <p>Error fetching data. Please try again.</p>
-          <a href="/">Go back</a>
+          <Link href="/">Go back</Link>
         </div>
       </div>
     );

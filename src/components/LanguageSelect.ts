@@ -18,8 +18,8 @@ export const LangSelect = () => {
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
-      const lang = localStorage.getItem("language");
-      setData(lang || "en_EN");
+      const storedLang = localStorage.getItem("language");
+      setData(storedLang || "en_EN");
     }
   }, []);
 
