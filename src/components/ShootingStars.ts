@@ -11,7 +11,7 @@ export const useShootingStars = () => {
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {
-      return;
+      return () => {};
     }
 
     const timeoutIds = new Set<ReturnType<typeof setTimeout>>();

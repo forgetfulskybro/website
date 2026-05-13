@@ -128,10 +128,13 @@ export default function MusicDrawer({
       return parseSyncedLyrics(syncLyrics);
     }
     if (Array.isArray(syncLyrics)) {
-      return syncLyrics
-        .filter((l) => typeof l.time === "number" && typeof l.line === "string")
-        .map((l) => ({ time: l.time, text: l.line }))
-        .sort((a, b) => a.time - b.time);
+      const result: { time: number; text: string }[] = [];
+      for (const l of syncLyrics) {
+        if (typeof l.time === "number" && typeof l.line === "string") {
+          result.push({ time: l.time, text: l.line });
+        }
+      }
+      return result.sort((a, b) => a.time - b.time);
     }
     return [];
   }, [syncLyrics, parseSyncedLyrics]);

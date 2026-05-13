@@ -9,7 +9,7 @@ const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN as string;
 
 const BASIC = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString("base64");
 
-const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
+const TOKEN_ENDPOINT = process.env.SPOTIFY_TOKEN_ENDPOINT || "https://accounts.spotify.com/api/token";
 
 const getAccessToken = async () => {
   const response = await fetch(TOKEN_ENDPOINT, {

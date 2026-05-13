@@ -2,7 +2,7 @@
 import TransitionEffect from "@/components/TransitionEffect";
 import SettingsComponents, { themes } from "./pageSettings";
 import SettingsDrawer from "../Drawers/SettingsDrawer";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useState, useCallback } from "react";
 import MobileNavigation from "./MobileNavigation";
 import { usePathname } from "next/navigation";
 import { Birthday } from "../layout/Birthday";
@@ -43,6 +43,10 @@ export default function AppShell({ children }: { children: ReactNode }) {
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const pathname = usePathname();
+
+  const handleCloseDrawer = useCallback(() => {
+    setDrawerOpen(false);
+  }, []);
   const [language, setLanguage] = useState<string | null>(() => {
     if (typeof window === "undefined") return "";
     const lang = localStorage.getItem("language");
@@ -50,7 +54,8 @@ export default function AppShell({ children }: { children: ReactNode }) {
   });
   const [customColor, setCustomColor] = useState<string>(() => {
     if (typeof window === "undefined") return "#131314";
-    return localStorage.getItem("customColor") || "#131314";
+    const storedColor = localStorage.getItem("customColor");
+    return storedColor || "#131314";
   });
   const [currentTheme, setCurrentTheme] = useState<Theme>(() => readStoredTheme());
 
@@ -297,7 +302,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
         </div>
         <SettingsDrawer
           open={drawerOpen}
-          onClose={() => setDrawerOpen(false)}
+          onClose={handleCloseDrawer}
           language={language}
           onLanguageSwitch={languageSwitcher}
           themes={themes}
