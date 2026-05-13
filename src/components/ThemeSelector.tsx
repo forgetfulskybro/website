@@ -137,14 +137,12 @@ export default function ThemeSelector({
   const hueSliderRef = useRef<HTMLDivElement>(null);
 
   const handleClose = () => {
+    setHexValue(customColor);
     setAnchorEl(null);
   };
 
-  React.useEffect(() => {
-    setHexValue(customColor);
-  }, [customColor]);
-
   const openColorPickerAnchor = (event: React.MouseEvent<HTMLElement>) => {
+    setHexValue(customColor);
     setAnchorEl(event.currentTarget);
   };
 
