@@ -1,7 +1,7 @@
 "use client";
 import { formatDistanceToNow, isYesterday, setDefaultOptions } from "date-fns";
 import type { Transition, Variants } from "framer-motion";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Response } from "@/app/api/lastfm/LastFMData";
 import Translate from "@/components/translation";
 import { es, fr, enUS } from "date-fns/locale";
@@ -59,14 +59,18 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
     duration: 0.6,
   };
 
-  const MotionImage = motion(Image);
+  const MotionImage = m(Image);
 
   return (
-    <div style={{ cursor: "pointer" }} className="gameCard flex">
+    <div style={{
+      cursor: "pointer",
+      width: 362,
+      height: 93.5,
+    }} className="gameCard flex">
       {cover ? (
         <AnimatePresence>
           {cover && (
-            <motion.img
+            <m.img
               alt={`${title} by ${artist}`}
               draggable={false}
               animate="visible"
@@ -116,7 +120,7 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
           </AnimatePresence>
           <AnimatePresence mode="wait">
             {absoluteDate ? (
-              <motion.time
+              <m.time
                 dateTime={absoluteDate.toISOString()}
                 animate="visible"
                 initial="hidden"
@@ -126,9 +130,9 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
                 variants={variants}
               >
                 {relativeDate}
-              </motion.time>
+              </m.time>
             ) : playing ? (
-              <motion.span
+              <m.span
                 animate="visible"
                 initial="hidden"
                 exit="hidden"
@@ -137,9 +141,9 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
                 variants={variants}
               >
                 {`${translate.get(data!, "Info.listening")}...`}
-              </motion.span>
+              </m.span>
             ) : (
-              <motion.svg
+              <m.svg
                 className="container"
                 x="0px"
                 y="0px"
@@ -169,7 +173,7 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
                   pathLength="100"
                   d="M0.625 21.5 h10.25 l3.75 -5.875 l7.375 15 l9.75 -30 l7.375 20.875 v0 h10.25"
                 />
-              </motion.svg>
+              </m.svg>
             )}
           </AnimatePresence>
         </div>
@@ -177,7 +181,7 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
 
       <div className="flex" style={{ flexDirection: "row" }}>
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             className="lastFMTitle"
             animate="visible"
             initial="hidden"
@@ -187,13 +191,13 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
             variants={variants}
           >
             <b>{title?.slice(0, 55)}</b>
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
 
       <div className="flex" style={{ flexDirection: "row" }}>
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             className="lastFMArtist"
             animate="visible"
             initial="hidden"
@@ -203,7 +207,7 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
             variants={variants}
           >
             {artist}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
     </div>

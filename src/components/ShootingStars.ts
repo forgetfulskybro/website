@@ -7,6 +7,23 @@ export const useShootingStars = () => {
     const container = starContainerRef.current;
     if (!container) return;
 
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
+    const timeoutIds = new Set<ReturnType<typeof setTimeout>>();
+    const schedule = (fn: () => void, ms: number) => {
+      const id = setTimeout(() => {
+        timeoutIds.delete(id);
+        fn();
+      }, ms);
+      timeoutIds.add(id);
+      return id;
+    };
+
     const moon = document.createElement("div");
     moon.className = "moon";
     container.appendChild(moon);
@@ -17,6 +34,7 @@ export const useShootingStars = () => {
     const speed = 0.001 + Math.random() * 0.002;
     const centerX = 50;
     const centerY = 50;
+    let moonRaf = 0;
 
     const animateMoon = () => {
       angle += speed;
@@ -24,9 +42,9 @@ export const useShootingStars = () => {
       const y = centerY + radiusY * Math.sin(angle);
       moon.style.left = `${x}vw`;
       moon.style.top = `${y}vh`;
-      requestAnimationFrame(animateMoon);
+      moonRaf = requestAnimationFrame(animateMoon);
     };
-    animateMoon();
+    moonRaf = requestAnimationFrame(animateMoon);
 
     const planet1 = document.createElement("div");
     planet1.className = "planet planet1";
@@ -41,18 +59,11 @@ export const useShootingStars = () => {
       star.className = "shootingStar";
       const top = -5 - Math.random() * 5;
       const left = Math.random() * 100;
-      star.style.top = `${top}vh`;
-      star.style.left = `${left}vw`;
-      const angle = 135;
-      star.style.transform = `rotate(${angle}deg)`;
       const duration = 2000 + Math.random() * 1000;
-      star.style.animationDuration = `${duration}ms`;
-      star.style.animationDelay = `0ms`;
+      star.style.cssText = `top:${top}vh;left:${left}vw;transform:rotate(135deg);animation-duration:${duration}ms;animation-delay:0ms`;
       container.appendChild(star);
 
-      setTimeout(() => {
-        star.remove();
-      }, duration);
+      schedule(() => star.remove(), duration);
     };
 
     const createComet = () => {
@@ -61,21 +72,12 @@ export const useShootingStars = () => {
       const top = -10 - Math.random() * 20;
       const left = Math.random() * 100;
       const right = Math.random() * -100;
-      comet.style.right = `${right}vw`;
-      comet.style.top = `${top}vh`;
-      comet.style.left = `${left}vw`;
-      const angle = 200;
-      comet.style.transform = `rotate(${angle}deg)`;
       const width = 300 + Math.random() * 200;
-      comet.style.width = `${width}px`;
       const duration = 5000 + Math.random() * 3000;
-      comet.style.animationDuration = `${duration}ms`;
-      comet.style.animationDelay = `0ms`;
+      comet.style.cssText = `right:${right}vw;top:${top}vh;left:${left}vw;transform:rotate(200deg);width:${width}px;animation-duration:${duration}ms;animation-delay:0ms`;
       container.appendChild(comet);
 
-      setTimeout(() => {
-        comet.remove();
-      }, duration);
+      schedule(() => comet.remove(), duration);
     };
 
     const spawnStars = () => {
@@ -84,7 +86,7 @@ export const useShootingStars = () => {
         createStar();
       }
       const nextSpawnDelay = 1000 + Math.random() * 4000;
-      setTimeout(spawnStars, nextSpawnDelay);
+      schedule(spawnStars, nextSpawnDelay);
     };
 
     const spawnComet = () => {
@@ -92,13 +94,16 @@ export const useShootingStars = () => {
         createComet();
       }
       const nextCometDelay = 5000 + Math.random() * 10000;
-      setTimeout(spawnComet, nextCometDelay);
+      schedule(spawnComet, nextCometDelay);
     };
 
     spawnStars();
     spawnComet();
 
     return () => {
+      cancelAnimationFrame(moonRaf);
+      timeoutIds.forEach(clearTimeout);
+      timeoutIds.clear();
       container.innerHTML = "";
     };
   }, []);

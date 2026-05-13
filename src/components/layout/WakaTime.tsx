@@ -3,7 +3,7 @@ import { WakaResponse } from "../../app/api/wakatime/wakatimeData";
 import Translate from "@/components/translation";
 import { WakaTime } from "@/hooks/WakaTime";
 import {
-  motion,
+  m,
   useMotionValue,
   useAnimationFrame,
   useMotionValueEvent,
@@ -44,7 +44,7 @@ export const Waka: React.FC<WakaProps> = ({ data }) => {
       <div
         className="gameCard flex boxes"
         style={{
-          width: 335,
+          width: 362,
           height: 98,
           display: "flex",
           alignItems: "center",

@@ -12,68 +12,80 @@ import Translate from "../translation";
 import type { Theme } from "../types";
 import Image from "next/image";
 
+function readStoredTheme(): Theme {
+  if (typeof window === "undefined") return themes[0];
+  const themePreference = localStorage.getItem("themePreference");
+  const savedThemeName = localStorage.getItem("themeName");
+
+  if (themePreference === "custom") {
+    const savedCustomColor = localStorage.getItem("customColor");
+    const savedCustomColorRGB = localStorage.getItem("customColorRGB");
+    if (savedCustomColor && savedCustomColorRGB) {
+      return {
+        name: "custom",
+        primary: savedCustomColor,
+        color: savedCustomColorRGB,
+      };
+    }
+  }
+
+  if (savedThemeName) {
+    const savedTheme = themes.find((theme) => theme.name === savedThemeName);
+    if (savedTheme) return savedTheme;
+  }
+
+  return themes[0];
+}
+
 export default function Page({ children }: { children: ReactNode }) {
-  const router = useRouter();
-  const [language, setLanguage] = useState<string | null>(
-    typeof window !== "undefined"
-      ? localStorage.getItem("language") || "en_EN"
-      : ""
-  );
+  const { back } = useRouter();
+  const [language, setLanguage] = useState<string | null>(() => {
+    if (typeof window === "undefined") return "";
+    const lang = localStorage.getItem("language");
+    return lang || "en_EN";
+  });
   const [customColor, setCustomColor] = useState<string>(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("customColor") || "#131314";
-    }
-    return "#131314";
+    if (typeof window === "undefined") return "#131314";
+    return localStorage.getItem("customColor") || "#131314";
   });
-  const [currentTheme, setCurrentTheme] = useState<Theme>(() => {
-    if (typeof window !== "undefined") {
-      const themePreference = localStorage.getItem("themePreference");
-      const savedThemeName = localStorage.getItem("themeName");
-
-      if (themePreference === "custom") {
-        const savedCustomColor = localStorage.getItem("customColor");
-        const savedCustomColorRGB = localStorage.getItem("customColorRGB");
-        if (savedCustomColor && savedCustomColorRGB) {
-          return {
-            name: "custom",
-            primary: savedCustomColor,
-            color: savedCustomColorRGB,
-          };
-        }
-      }
-
-      if (savedThemeName) {
-        const savedTheme = themes.find(
-          (theme) => theme.name === savedThemeName
-        );
-        if (savedTheme) {
-          return savedTheme;
-        }
-      }
-
-      return themes[0];
-    }
-    return themes[0];
-  });
+  const [currentTheme, setCurrentTheme] = useState<Theme>(() => readStoredTheme());
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchor(anchor ? null : event.currentTarget);
+  const toggleDesktopSettings = (
+    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+  ) => {
+    if ("key" in e) {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      if (e.key === " ") e.preventDefault();
+    }
+    setAnchor((prev) => (prev ? null : (e.currentTarget as HTMLElement)));
   };
 
-  const handleClickM = (event: React.MouseEvent<HTMLElement>) => {
-    setDrawerOpen(true);
+  const openMobileSettingsDrawer = () => setDrawerOpen(true);
+
+  const openMobileSettingsDrawerKb = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key === "Enter" || e.key === " ") {
+      if (e.key === " ") e.preventDefault();
+      setDrawerOpen(true);
+    }
+  };
+
+  const navigateBackKb = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key === "Enter" || e.key === " ") {
+      if (e.key === " ") e.preventDefault();
+      back();
+    }
   };
 
   const colorTheme = (theme: string): void => {
     try {
       const root = document.documentElement;
-      const currentTheme = getComputedStyle(root)
+      const currentRgb = getComputedStyle(root)
         .getPropertyValue("--card-rgb")
         .trim();
 
-      if (currentTheme === theme) return;
+      if (currentRgb === theme) return;
 
       root.style.setProperty("--card-rgb", theme);
       localStorage.setItem("theme", theme);
@@ -140,7 +152,7 @@ export default function Page({ children }: { children: ReactNode }) {
 
   return (
     <TransitionEffect>
-      {Birthday({})}
+      <Birthday />
       <div className="parent center">
         <div className="card boxes flexGrid" id="confetti-wrapper">
           <div className="sliderSide">
@@ -148,18 +160,16 @@ export default function Page({ children }: { children: ReactNode }) {
               content={new Translate().get(language!, "Comps.page.settings")}
               placement="top"
             >
-              <span
+              <button
+                type="button"
                 aria-describedby="settings"
-                onClick={handleClick}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  position: "relative",
-                }}
-                className={
+                aria-haspopup="true"
+                aria-expanded={Boolean(anchor)}
+                onClick={toggleDesktopSettings}
+                onKeyDown={toggleDesktopSettings}
+                className={`navIconButton ${
                   Boolean(anchor) ? "dot settings settingsHigh" : "dot settings"
-                }
+                }`}
               >
                 <Image
                   style={{ opacity: 0.8 }}
@@ -170,7 +180,7 @@ export default function Page({ children }: { children: ReactNode }) {
                   alt="Gear settings"
                   priority
                 />
-              </span>
+              </button>
             </ToolTip>
             <div
               style={{
@@ -181,27 +191,34 @@ export default function Page({ children }: { children: ReactNode }) {
                 margin: "15px 0",
               }}
             ></div>
-            <div style={{ cursor: "pointer" }} onClick={() => router.back()}>
-              <ToolTip
-                content={new Translate().get(
+            <ToolTip
+              content={new Translate().get(
+                language!,
+                "Comps.pageSecondary.back"
+              )}
+              placement="top"
+            >
+              <button
+                type="button"
+                className="navIconButton dot home"
+                aria-label={new Translate().get(
                   language!,
                   "Comps.pageSecondary.back"
                 )}
-                placement="top"
+                onClick={() => back()}
+                onKeyDown={navigateBackKb}
               >
-                <span id="tooltip" className="dot home">
-                  <Image
-                    style={{ marginTop: "6px", marginRight: "1px" }}
-                    src="/backward.svg"
-                    width={17}
-                    height={17}
-                    draggable={false}
-                    alt="Go back"
-                    priority
-                  />
-                </span>
-              </ToolTip>
-            </div>
+                <Image
+                  style={{ marginTop: "6px", marginRight: "1px" }}
+                  src="/backward.svg"
+                  width={17}
+                  height={17}
+                  draggable={false}
+                  alt=""
+                  priority
+                />
+              </button>
+            </ToolTip>
             <Popover
               id="settings"
               open={Boolean(anchor)}
@@ -239,7 +256,8 @@ export default function Page({ children }: { children: ReactNode }) {
                 bottom: 20,
                 left: "50%",
                 transform: "translateX(-50%)",
-                zIndex: 999,
+                zIndex: "var(--z-nav)",
+                isolation: "isolate",
               }}
             >
               <div className="mobileSliderSideSecondary">
@@ -250,18 +268,15 @@ export default function Page({ children }: { children: ReactNode }) {
                   )}
                   placement="top"
                 >
-                  <span
+                  <button
+                    type="button"
                     aria-describedby="settingsM"
-                    onClick={handleClickM}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      position: "relative",
-                    }}
-                    className={
+                    aria-expanded={drawerOpen}
+                    onClick={openMobileSettingsDrawer}
+                    onKeyDown={openMobileSettingsDrawerKb}
+                    className={`navIconButton ${
                       drawerOpen ? "dot settings settingsHigh" : "dot settings"
-                    }
+                    }`}
                   >
                     <Image
                       style={{ opacity: 0.8 }}
@@ -272,7 +287,7 @@ export default function Page({ children }: { children: ReactNode }) {
                       alt="Gear settings"
                       priority
                     />
-                  </span>
+                  </button>
                 </ToolTip>
                 <div
                   style={{
@@ -283,30 +298,34 @@ export default function Page({ children }: { children: ReactNode }) {
                     margin: "0 15px",
                   }}
                 ></div>
-                <div
-                  style={{ cursor: "pointer" }}
-                  onClick={() => router.back()}
+                <ToolTip
+                  content={new Translate().get(
+                    language!,
+                    "Comps.pageSecondary.back"
+                  )}
+                  placement="top"
                 >
-                  <ToolTip
-                    content={new Translate().get(
+                  <button
+                    type="button"
+                    className="navIconButton dot home"
+                    aria-label={new Translate().get(
                       language!,
                       "Comps.pageSecondary.back"
                     )}
-                    placement="top"
+                    onClick={() => back()}
+                    onKeyDown={navigateBackKb}
                   >
-                    <span id="tooltip" className="dot home">
-                      <Image
-                        style={{ marginTop: "6px", marginRight: "1px" }}
-                        src="/backward.svg"
-                        width={17}
-                        height={17}
-                        draggable={false}
-                        alt="Go back"
-                        priority
-                      />
-                    </span>
-                  </ToolTip>
-                </div>
+                    <Image
+                      style={{ marginTop: "6px", marginRight: "1px" }}
+                      src="/backward.svg"
+                      width={17}
+                      height={17}
+                      draggable={false}
+                      alt=""
+                      priority
+                    />
+                  </button>
+                </ToolTip>
               </div>
             </div>
           </div>

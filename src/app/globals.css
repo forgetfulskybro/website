@@ -10,6 +10,22 @@
   --background-end-rgb: 0, 0, 0;
   --card-rgb: 100, 100, 100;
   --card-border-rgb: 200, 200, 200;
+  --z-nav: 100;
+  --z-drawer: 200;
+  --z-overlay: 250;
+  --z-modal: 300;
+  --z-theme-popover: 400;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 * {
@@ -29,10 +45,35 @@ body {
     rgb(var(--background-start-rgb));
   color: rgb(var(--foreground-rgb));
 }
+.interactiveCardButton {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+}
+
+.navIconButton {
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
@@ -264,7 +305,7 @@ a {
   font-weight: 800;
   gap: 3px;
   margin-left: 20px;
-  margin-top: 8px;
+  margin-top: -65px;
   text-align: left;
 }
 
@@ -655,6 +696,14 @@ a {
   border: 2px solid #00ffcc;
   transition: all 0.2s;
   cursor: pointer;
+}
+
+.birthdayTitle {
+  font-size: 16px;
+}
+
+.birthdayCountdown {
+  font-size: 14px;
 }
 
 .BirthdayDiv {

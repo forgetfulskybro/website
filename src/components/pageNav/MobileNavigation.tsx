@@ -29,7 +29,8 @@ export default function MobileNavigation({ items, pathname }: NavigationProps) {
                   borderRadius: "35%",
                   height: "30px",
                   width: "30px",
-                  transition: "all 0.25s ease-in-out",
+                  transition:
+                    "opacity 0.25s ease-in-out, transform 0.25s ease-in-out, border-color 0.25s ease-in-out",
                 }}
                 className={`dot ${item.class} ${
                   pathname === item.path ? `${item.class}High` : ""

@@ -1,7 +1,7 @@
 "use client";
 import styles from "../../app/projects/guildcount/guildcount.module.css";
 import type { Guild } from "../../app/projects/guildcount/guilds";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import { extractColors } from "./colorExtractor";
 import JsonHighlighter from "./JsonHighlighter";
@@ -135,9 +135,9 @@ export default function GuildCard({
           <div className={styles.guildNameWrapper}>
             {badges.length > 0 && (
               <div className={styles.badgeContainer}>
-                {badges.map((badge, index) => (
+                {badges.map((badge) => (
                   <ToolTip
-                    key={index}
+                    key={badge}
                     content={badge.replace(/(^|\s)[a-z]/gi, (l) =>
                       l.toUpperCase()
                     )}
@@ -168,14 +168,14 @@ export default function GuildCard({
       </div>
       <AnimatePresence>
         {showRawDetails && (
-          <motion.div
+          <m.div
             className={styles.modal}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <motion.div
+            <m.div
               className={styles.modalContent}
               ref={modalRef}
               initial={{ scale: 0.7, opacity: 0, y: 50 }}
@@ -183,27 +183,32 @@ export default function GuildCard({
               exit={{ scale: 0.7, opacity: 0, y: 50 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              <span className={styles.close} onClick={rawToggle}>
+              <button
+                type="button"
+                className={styles.close}
+                onClick={rawToggle}
+                aria-label="Close raw details"
+              >
                 &times;
-              </span>
+              </button>
               <h2>RAW Details: {guild.name}</h2>
               <div className={styles.modalBody}>
                 <JsonHighlighter data={guild} className={styles.jsonDisplay} />
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
       <AnimatePresence>
         {showDetails && (
-          <motion.div
+          <m.div
             className={styles.modal}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <motion.div
+            <m.div
               className={styles.modalContent}
               ref={modalRef}
               initial={{ scale: 0.7, opacity: 0, y: 50 }}
@@ -211,24 +216,31 @@ export default function GuildCard({
               exit={{ scale: 0.7, opacity: 0, y: 50 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              <span
+              <button
+                type="button"
                 className={styles.close}
                 style={{ marginRight: "30px", marginTop: "-2px" }}
                 onClick={toggleRAW}
+                aria-label="View raw guild data"
               >
                 &raquo;
-              </span>
-              <span className={styles.close} onClick={toggleModal}>
+              </button>
+              <button
+                type="button"
+                className={styles.close}
+                onClick={toggleModal}
+                aria-label="Close guild details"
+              >
                 &times;
-              </span>
+              </button>
               <h2>{guild.name}</h2>
               <div className={styles.modalBody}>
                 <div className={styles.featuresSection}>
                   <strong>Features:</strong>
                   {guild.features.length > 0 ? (
                     <ul className={styles.featuresList}>
-                      {guild.features.map((feature, index) => (
-                        <li key={index} className={styles.featureItem}>
+                      {guild.features.map((feature) => (
+                        <li key={feature} className={styles.featureItem}>
                           {feature}
                         </li>
                       ))}
@@ -250,11 +262,9 @@ export default function GuildCard({
                               {group.charAt(0).toUpperCase() + group.slice(1)}
                             </h3>
                             <ul className={styles.permissionsList}>
-                              {permissions[group].map(
-                                (perm: string, index: number) => (
-                                  <li key={index}>{perm}</li>
-                                )
-                              )}
+                              {permissions[group].map((perm: string) => (
+                                <li key={`${group}-${perm}`}>{perm}</li>
+                              ))}
                             </ul>
                           </div>
                         ) : null
@@ -265,8 +275,8 @@ export default function GuildCard({
                   )}
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

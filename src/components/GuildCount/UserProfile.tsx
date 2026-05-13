@@ -14,9 +14,15 @@ export default function UserProfile({ username, avatarUrl }: UserProfileProps) {
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const router = useRouter();
+  const { push } = useRouter();
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const toggleProfileMenu = (
+    event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+  ) => {
+    if ("key" in event) {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      if (event.key === " ") event.preventDefault();
+    }
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
@@ -31,12 +37,19 @@ export default function UserProfile({ username, avatarUrl }: UserProfileProps) {
 
   const handleLogin = () => {
     const discordAuth = `https://discord.com/api/oauth2/authorize?client_id=1402036729791250522&redirect_uri=${`${baseURL}/api/discord`}&response_type=code&scope=identify%20guilds`;
-    router.push(discordAuth);
+    push(discordAuth);
     handleClose();
   };
 
   return (
-    <div className={styles.userProfile} onClick={handleClick}>
+    <button
+      type="button"
+      className={styles.userProfile}
+      onClick={toggleProfileMenu}
+      onKeyDown={toggleProfileMenu}
+      aria-haspopup="menu"
+      aria-expanded={open}
+    >
       {username ? (
         <Image
           src={avatarUrl}
@@ -106,6 +119,6 @@ export default function UserProfile({ username, avatarUrl }: UserProfileProps) {
           </MenuItem>
         </Menu>
       </div>
-    </div>
+    </button>
   );
 }

@@ -1,83 +1,98 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
-export const Birthday: React.FC = ({ }) => {
-    useEffect(() => {
-        if (Date().includes("Jun 29")) {
-          for (let i = 0; i < 130; i++) {
-            var randomRotation = Math.floor(Math.random() * 360);
-            var randomScale = Math.random() * 1;
-            var randomWidth = Math.floor(
-              Math.random() *
-                Math.max(
-                  document.documentElement.clientWidth,
-                  window.innerWidth || -10
-                )
-            );
-            var randomHeight = Math.floor(
-              Math.random() *
-                Math.max(
-                  document.documentElement.clientHeight,
-                  window.innerHeight || 500
-                )
-            );
-    
-            var randomAnimationDelay = Math.floor(Math.random() * 13);
-            var confetti = document.createElement("div");
-            confetti.className = "confetti";
-            confetti.style.top = randomHeight + "px";
-            confetti.style.right = randomWidth + "px";
-            confetti.style.backgroundColor =
-              "#" +
-              (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6);
-            confetti.style.transform = "scale(" + randomScale + ")";
-            confetti.style.transform =
-              "skew(15deg) rotate(" + randomRotation + "deg)";
-            confetti.style.animationDelay = randomAnimationDelay + "s";
-            document.getElementById("confetti-wrapper")!.appendChild(confetti);
-          }
+function isBirthdayToday(): boolean {
+  const d = new Date();
+  return d.getMonth() === 5 && d.getDate() === 29;
+}
+
+function isBirthdayMonthNotDayAfter(): boolean {
+  const d = new Date();
+  return d.getMonth() === 5 && d.getDate() !== 30;
+}
+
+export const Birthday: React.FC = () => {
+  const bdayRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const reduceMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const wrapper = document.getElementById("confetti-wrapper");
+    let intervalId: number | undefined;
+
+    const cleanupConfetti = () => {
+      if (!wrapper) return;
+      wrapper.querySelectorAll(".confetti").forEach((el) => el.remove());
+    };
+
+    if (isBirthdayToday() && wrapper && !reduceMotion) {
+      const vw = Math.max(
+        document.documentElement.clientWidth,
+        window.innerWidth || 0
+      );
+      const vh = Math.max(
+        document.documentElement.clientHeight,
+        window.innerHeight || 500
+      );
+      const fragment = document.createDocumentFragment();
+      for (let i = 0; i < 130; i++) {
+        const randomRotation = Math.floor(Math.random() * 360);
+        const randomScale = Math.random() * 1;
+        const randomWidth = Math.floor(Math.random() * vw);
+        const randomHeight = Math.floor(Math.random() * vh);
+        const randomAnimationDelay = Math.floor(Math.random() * 13);
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.top = `${randomHeight}px`;
+        confetti.style.right = `${randomWidth}px`;
+        confetti.style.backgroundColor =
+          "#" +
+          (0x1000000 + Math.random() * 0xffffff).toString(16).substring(1, 7);
+        confetti.style.transform = `skew(15deg) rotate(${randomRotation}deg) scale(${randomScale})`;
+        confetti.style.animationDelay = `${randomAnimationDelay}s`;
+        fragment.appendChild(confetti);
+      }
+      wrapper.appendChild(fragment);
+    }
+
+    if (isBirthdayMonthNotDayAfter()) {
+      const countDownDate = new Date(
+        `Jun 29, ${new Date().getFullYear()} 00:00:00`
+      ).getTime();
+      const el = bdayRef.current;
+      intervalId = window.setInterval(() => {
+        const now = Date.now();
+        const distance = countDownDate - now;
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        const pad = (n: number) => (n.toString().length < 2 ? `0${n}` : `${n}`);
+        const time = `${pad(days)}:${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+        if (el) el.textContent = distance > 0 ? time : "Today!";
+        if (distance <= 0 && intervalId !== undefined) {
+          clearInterval(intervalId);
+          intervalId = undefined;
         }
-    
-        if (Date().includes("Jun") && !Date().includes("Jun 30")) {
-          let countDownDate = new Date(
-            `Jun 29, ${new Date().getFullYear()} 00:00:00`
-          ).getTime();
-          let x = setInterval(function () {
-            let now = new Date().getTime();
-            let distance = countDownDate - now;
-            let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            let hours = Math.floor(
-              (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-            );
-            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            let time = `${days.toString().length < 2 ? `0${days}` : days}:${
-              hours.toString().length < 2 ? `0${hours}` : hours
-            }:${minutes.toString().length < 2 ? `0${minutes}` : minutes}:${
-              seconds.toString().length < 2 ? `0${seconds}` : seconds
-            }`;
-            document.getElementById("bday")!.innerHTML = time;
-            if (distance <= 0) {
-              clearInterval(x);
-              document.getElementById("bday")!.innerHTML = "Today!";
-            }
-          }, 1000);
-        }
-      }, []);
-  
+      }, 1000) as unknown as number;
+    }
+
+    return () => {
+      if (intervalId !== undefined) clearInterval(intervalId);
+      cleanupConfetti();
+    };
+  }, []);
+
   return (
     <>
-      {Date().includes("Jun") && !Date().includes("Jun 30") && (
+      {isBirthdayMonthNotDayAfter() && (
         <div className="BirthdayDiv">
-          <b
-            className="Blue"
-            style={{
-              fontSize: "16px",
-            }}
-          >
-            Birthday
-          </b>
-          <p style={{ fontSize: "14px" }} id="bday">
+          <b className="Blue birthdayTitle">Birthday</b>
+          <p className="birthdayCountdown" ref={bdayRef} id="bday">
             ??:??:??:??
           </p>
         </div>

@@ -1,26 +1,14 @@
-"use client";
-import { useShootingStars } from "@/components/ShootingStars";
-import { LangSelect } from "@/components/LanguageSelect";
-import { AllGames } from "@/components/layout/AllGames";
-import Page from "@/components/pageNav/pageSecondary";
-import React from "react";
+import type { Metadata } from "next";
+import { getMetadata } from "@/components/getMetaData";
+import GamesClient from "./GamesClient";
 
-export default function Projects() {
-  const data = LangSelect();
+const { title, description } = getMetadata("/info/games");
 
-  return (
-    <main className="main">
-      <div className="starryBackground" />
-      <div className="shootingStarContainer" ref={useShootingStars()} />
+export const metadata: Metadata = {
+  title,
+  description,
+};
 
-      <Page>
-        <div
-          style={{ maxHeight: "80vh", fontSize: 10 }}
-          className="flexGrid flex boxes"
-        >
-          <AllGames data={data!} />
-        </div>
-      </Page>
-    </main>
-  );
+export default function GamesPage() {
+  return <GamesClient />;
 }

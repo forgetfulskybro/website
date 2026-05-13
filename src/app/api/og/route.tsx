@@ -2,6 +2,66 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
+const ogShellStyle = {
+  height: "100%",
+  width: "100%",
+  display: "flex",
+  flexDirection: "column" as const,
+  alignItems: "center",
+  justifyContent: "center",
+  background:
+    "linear-gradient(135deg, rgba(76, 166, 202, 0.1), rgba(131, 100, 232, 0.1))",
+  position: "relative" as const,
+};
+
+const ogGlowOrbStyle = {
+  position: "absolute" as const,
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "600px",
+  height: "600px",
+  background:
+    "radial-gradient(circle, rgba(131, 100, 232, 0.15) 0%, transparent 70%)",
+  borderRadius: "50%",
+  filter: "blur(40px)",
+};
+
+const ogOverlayStyle = {
+  position: "absolute" as const,
+  top: "0",
+  left: "0",
+  right: "0",
+  bottom: "0",
+  background:
+    "linear-gradient(135deg, rgba(76, 166, 202, 0.05) 0%, rgba(131, 100, 232, 0.05) 100%)",
+  backdropFilter: "blur(20px)",
+};
+
+const ogTitleBlockStyle = {
+  display: "flex",
+  flexDirection: "column" as const,
+  alignItems: "center",
+  gap: "20px",
+  position: "relative" as const,
+  zIndex: 1,
+};
+
+const ogTitleStyle = {
+  fontSize: "80px",
+  fontWeight: "bold",
+  background: "linear-gradient(135deg, #83a5d7, #684179)",
+  backgroundClip: "text",
+  color: "transparent",
+  textShadow: "0 2px 20px rgba(76, 166, 202, 0.3)",
+};
+
+const ogSubtitleStyle = {
+  fontSize: "32px",
+  color: "rgba(255, 255, 255, 0.8)",
+  letterSpacing: "-0.02em",
+};
+
 export async function GET() {
   try {
     const numTurtles = Math.floor(Math.random() * 6) + 1;
@@ -30,7 +90,7 @@ export async function GET() {
 
       turtles.push(
         <div
-          key={`turtle-${i}`}
+          key={`turtle-${x}-${y}-${size}-${rotation}`}
           style={{
             position: "absolute",
             left: `${x}px`,
@@ -47,77 +107,15 @@ export async function GET() {
 
     return new ImageResponse(
       (
-        <div
-          style={{
-            height: "100%",
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            background:
-              "linear-gradient(135deg, rgba(76, 166, 202, 0.1), rgba(131, 100, 232, 0.1))",
-            position: "relative",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "600px",
-              height: "600px",
-              background:
-                "radial-gradient(circle, rgba(131, 100, 232, 0.15) 0%, transparent 70%)",
-              borderRadius: "50%",
-              filter: "blur(40px)",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              top: "0",
-              left: "0",
-              right: "0",
-              bottom: "0",
-              background:
-                "linear-gradient(135deg, rgba(76, 166, 202, 0.05) 0%, rgba(131, 100, 232, 0.05) 100%)",
-              backdropFilter: "blur(20px)",
-            }}
-          />
+        <div style={ogShellStyle}>
+          <div style={ogGlowOrbStyle} />
+          <div style={ogOverlayStyle} />
 
           {turtles}
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "20px",
-              position: "relative",
-              zIndex: 1,
-            }}
-          >
-            <div
-              style={{
-                fontSize: "80px",
-                fontWeight: "bold",
-                background: "linear-gradient(135deg, #83a5d7, #684179)",
-                backgroundClip: "text",
-                color: "transparent",
-                textShadow: "0 2px 20px rgba(76, 166, 202, 0.3)",
-              }}
-            >
-              ForGetFulSkyBro
-            </div>
-            <div
-              style={{
-                fontSize: "32px",
-                color: "rgba(255, 255, 255, 0.8)",
-                letterSpacing: "-0.02em",
-              }}
-            >
+          <div style={ogTitleBlockStyle}>
+            <div style={ogTitleStyle}>ForGetFulSkyBro</div>
+            <div style={ogSubtitleStyle}>
               Developer & Open Source Enthusiast
             </div>
           </div>
@@ -128,9 +126,10 @@ export async function GET() {
         height: 630,
       }
     );
-  } catch (e: any) {
-    console.error("OG Image Generation Error:", e.message);
-    return new Response(`Failed to generate image: ${e.message}`, {
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : String(e);
+    console.error("OG Image Generation Error:", message);
+    return new Response(`Failed to generate image: ${message}`, {
       status: 500,
     });
   }

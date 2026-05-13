@@ -1,49 +1,27 @@
-"use client";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import EmbedMeta from "@/components/layout/EmbedMeta";
-import { Analytics } from "@vercel/analytics/react";
-import { usePathname } from "next/navigation";
+import type { Metadata } from "next";
 import { Fira_Code } from "next/font/google";
-import React, { useEffect } from "react";
+import ClientRoot from "@/components/layout/ClientRoot";
 import "./globals.css";
 
 const Fira = Fira_Code({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: {
+    default: "Sky // 🗿🐢",
+    template: "%s",
+  },
+  description: "Personal site — projects, games, and info.",
+};
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme) {
-      try {
-        const rgbRegex = /^\d{1,3},\s*\d{1,3},\s*\d{1,3}$/;
-        if (rgbRegex.test(storedTheme)) {
-          document.documentElement.style.setProperty("--card-rgb", storedTheme);
-        } else {
-          console.warn("Invalid theme format in localStorage:", storedTheme);
-          document.documentElement.style.setProperty(
-            "--card-rgb",
-            "98, 98, 100"
-          );
-        }
-      } catch (error) {
-        console.error("Error processing theme from localStorage:", error);
-        document.documentElement.style.setProperty("--card-rgb", "98, 98, 100");
-      }
-    }
-  }, []);
-
   return (
     <html lang="en">
-      <head>
-        <EmbedMeta imageUrl={"/api/og"} path={usePathname()} />
-      </head>
       <body className={Fira.className}>
-        <SpeedInsights />
-        {children}
-        <Analytics />
+        <ClientRoot>{children}</ClientRoot>
       </body>
     </html>
   );

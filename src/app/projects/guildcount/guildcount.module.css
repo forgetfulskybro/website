@@ -38,6 +38,9 @@
   border-radius: 16px;
   border: 1px solid #5865f2;
   cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
 }
 
 .icon {
@@ -391,6 +394,9 @@
   padding: 8px;
   transition: color 0.2s;
   line-height: 1;
+  background: transparent;
+  border: none;
+  font-family: inherit;
 }
 
 .close:hover,

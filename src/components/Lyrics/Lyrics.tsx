@@ -6,7 +6,7 @@ import {
   Button,
 } from "@mui/material";
 import { useTimeTracking } from "../Lyrics/useTimeTracking";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { updateThemeColor } from "../updateThemeColor";
 import { Response } from "@/app/api/lastfm/LastFMData";
 import { DialogHeader } from "../Lyrics/DialogHeader";
@@ -232,7 +232,7 @@ export default function Lyrics({
         position: "fixed",
         right: 42,
         transform: "translateY(-50%)",
-        zIndex: 2000,
+        zIndex: "var(--z-drawer)",
         pointerEvents: "auto",
         display: "flex",
         justifyContent: "center",
@@ -290,7 +290,7 @@ export default function Lyrics({
       onClose={handleClose}
     >
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={songKey}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -317,7 +317,7 @@ export default function Lyrics({
             sx={{ backgroundColor: "transparent", padding: "0 24px 24px" }}
           >
             <AnimatePresence mode="wait">
-              <motion.div
+              <m.div
                 key={songKey + "-lyrics"}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -383,7 +383,7 @@ export default function Lyrics({
                               fontSize: isCurrent ? "1rem" : "0.85rem",
                               letterSpacing: isCurrent ? "0.01em" : "normal",
                               transition:
-                                "all 0.18s cubic-bezier(.4,2,.3,1), background 0.2s, color 0.2s",
+                                "opacity 0.18s ease, color 0.2s, background-color 0.2s, box-shadow 0.18s ease, padding 0.18s ease, font-size 0.18s ease",
                               margin: "2px 0",
                             }}
                           >
@@ -398,10 +398,10 @@ export default function Lyrics({
                     "Can't find lyrics for this song."
                   )}
                 </DialogContentText>
-              </motion.div>
+              </m.div>
             </AnimatePresence>
           </DialogContent>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
     </Dialog>
   );
@@ -430,7 +430,19 @@ export default function Lyrics({
 
   return (
     <>
-      <div onClick={bothFunctions}>{children}</div>
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={bothFunctions}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            if (e.key === " ") e.preventDefault();
+            bothFunctions();
+          }
+        }}
+      >
+        {children}
+      </div>
       {dialogContent}
       {isMobile && (
         <MusicDrawer

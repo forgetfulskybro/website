@@ -1,11 +1,26 @@
 import { DrawerHeader, StyledDrawer } from "./DrawerStyles";
 import { renderButtons } from "../layout/Projects";
-import Translate from "@/components/translation"
+import Translate from "@/components/translation";
 import { Typography } from "@mui/material";
 import { GameType } from "../GamesArray";
 import Box from "@mui/material/Box";
 import Image from "next/image";
 import * as React from "react";
+
+function DrawerWebsiteLink({
+  website,
+  data,
+}: {
+  website: string | null | undefined;
+  data: string;
+}) {
+  const translate = new Translate();
+  return (
+    <Box className="tooltip-section">
+      {renderButtons(website ?? null, translate.get(data, "Games.visit"))}
+    </Box>
+  );
+}
 
 export default function TemporaryDrawer({
   open,
@@ -65,12 +80,7 @@ export default function TemporaryDrawer({
                 </Typography>
               )}
             </Box>
-            <Box className="tooltip-section">
-              {renderButtons(
-                selectedGame?.website!,
-                translate.get(data!, "Games.visit")
-              )}
-            </Box>
+            <DrawerWebsiteLink website={selectedGame?.website} data={data} />
           </Box>
           <Box className="tooltip-section">
             <Typography className="tooltip-title">

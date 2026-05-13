@@ -15,6 +15,8 @@ interface ProjectProps {
   data: string;
 }
 
+type ProjectFlag = ProjectData["flags"][number];
+
 const darkenColor = (color: string): string => {
   const hex = color.replace("#", "");
   const r = parseInt(hex.substring(0, 2), 16) * 0.7;
@@ -35,6 +37,28 @@ export const renderButtons = (
     </button>
   </Link>
 );
+
+function ProjectFlagLabel({ flag, data }: { flag: ProjectFlag; data: string }) {
+  const translate = new Translate();
+  return (
+    <span
+      style={{
+        color: flag.color,
+        fontWeight: 1000,
+        position: "absolute",
+        right: "0.75rem",
+        backgroundColor: "rgba(0, 0, 0, 0.4)",
+        padding: "0.15rem 0.4rem",
+        borderRadius: "4px",
+        fontSize: "0.75rem",
+        top: flag.name === FlagType.Contribution ? "0.75rem" : undefined,
+        bottom: flag.name === FlagType.Discontinued ? "0.75rem" : undefined,
+      }}
+    >
+      {translate.get(data, `Projects.flags.${FlagTypeConvert(flag.name)}`)}
+    </span>
+  );
+}
 
 const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
   const translate = new Translate();
@@ -66,29 +90,20 @@ const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
       project.footer.end || translate.get(data, "Projects.footer.endPresent");
 
     const renderFlags = project.flags.map((flag) => (
-      <span
-        key={flag.name}
-        style={{
-          color: flag.color,
-          fontWeight: 1000,
-          position: "absolute",
-          right: "0.75rem",
-          backgroundColor: "rgba(0, 0, 0, 0.4)",
-          padding: "0.15rem 0.4rem",
-          borderRadius: "4px",
-          fontSize: "0.7rem",
-          top: flag.name === FlagType.Contribution ? "0.75rem" : undefined,
-          bottom: flag.name === FlagType.Discontinued ? "0.75rem" : undefined,
-        }}
-      >
-        {translate.get(data, `Projects.flags.${FlagTypeConvert(flag.name)}`)}
-      </span>
+      <ProjectFlagLabel key={flag.name} flag={flag} data={data} />
     ));
     return (
-      <div
+      <button
+        type="button"
         onClick={() => handleProjectClick(project)}
         key={project.target}
-        className="projectCard flex relative"
+        className="projectCard flex relative interactiveCardButton"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleProjectClick(project);
+          }
+        }}
       >
         <div className="projectTitle">
           {project.image && (
@@ -127,7 +142,7 @@ const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
           <span className="projectFooterEnd">{projectFooterEnd}</span>
         </div>
         {project.flags.length > 0 && renderFlags}
-      </div>
+      </button>
     );
   };
 

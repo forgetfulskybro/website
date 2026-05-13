@@ -140,7 +140,7 @@ export default function ThemeSelector({
     setAnchorEl(null);
   };
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const openColorPickerAnchor = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -326,7 +326,7 @@ export default function ThemeSelector({
           placement="top"
         >
           <IconButton
-            onClick={handleClick}
+            onClick={openColorPickerAnchor}
             sx={{
               width: 32,
               height: 32,
@@ -437,7 +437,7 @@ export default function ThemeSelector({
                 backgroundColor: hexValue,
                 boxShadow: "0 0 0 0.5px #000000",
                 pointerEvents: "none",
-                zIndex: 1000,
+                zIndex: "var(--z-theme-popover)",
               }}
             />
           )}
@@ -456,7 +456,7 @@ export default function ThemeSelector({
                 backgroundColor: `hsl(${currentHue}, 100%, 50%)`,
                 boxShadow: "0 0 0 0.5px #000000",
                 pointerEvents: "none",
-                zIndex: 1000,
+                zIndex: "var(--z-theme-popover)",
               }}
             />
           )}

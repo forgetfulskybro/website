@@ -2,7 +2,7 @@
 import styles from "../../app/projects/guildcount/guildcount.module.css";
 import type { Guild } from "../../app/projects/guildcount/guilds";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import {
   Button,
   Menu,
@@ -324,11 +324,11 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
     { value: "createDescend", label: "Created Descending" },
   ];
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const openFilterMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClick2 = (event: React.MouseEvent<HTMLElement>) => {
+  const openSortMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl2(event.currentTarget);
   };
 
@@ -495,7 +495,7 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
         />
         <Button
           variant="contained"
-          onClick={handleClick}
+          onClick={openFilterMenu}
           className={styles.filterButton}
           sx={{
             textTransform: "none",
@@ -571,7 +571,7 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
 
         <Button
           variant="contained"
-          onClick={handleClick2}
+          onClick={openSortMenu}
           className={styles.filterButton}
           sx={{
             textTransform: "none",
@@ -627,7 +627,7 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
       <div className={styles.guildList}>
         <AnimatePresence>
           {filteredGuilds.map((guild: Guild) => (
-            <motion.div
+            <m.div
               key={guild.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -636,7 +636,7 @@ export default function FilterBar({ guilds }: { guilds: Guild[] }) {
               layout
             >
               <GuildCard guild={guild} permissions={guild.permissionsObj} />
-            </motion.div>
+            </m.div>
           ))}
         </AnimatePresence>
       </div>

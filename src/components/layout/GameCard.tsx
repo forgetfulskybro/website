@@ -74,8 +74,18 @@ export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
   return (
     <>
       {sortedGames.map((game: GameType) => (
-        <div key={game.target} onClick={() => handleClick(game)}>
-          <div className="gameCard flex boxes">
+        <button
+          type="button"
+          key={game.target}
+          className="gameCard flex boxes interactiveCardButton"
+          onClick={() => handleClick(game)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleClick(game);
+            }
+          }}
+        >
             {game.image && (
               <Image
                 className="gameIcon"
@@ -127,8 +137,7 @@ export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
                 ))}
               </div>
             </div>
-          </div>
-        </div>
+        </button>
       ))}
 
       {selectedGame && (

@@ -1,5 +1,5 @@
 import { DialogTitle, Typography } from "@mui/material";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import ToolTip from "@/components/ToolTip";
 import { formatNumber } from "./utils";
 import { ThemeColors } from "./theme";
@@ -42,7 +42,7 @@ export const DialogHeader: React.FC<DialogHeaderProps> = ({
 
   const timeComponent =
     duration && started ? (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -10 }}
@@ -79,7 +79,7 @@ export const DialogHeader: React.FC<DialogHeaderProps> = ({
               borderRadius: "2px",
             }}
           />
-          <motion.div
+          <m.div
             initial={{ scaleX: 0 }}
             animate={{ scaleX: getProgress() }}
             transition={{ duration: 0.5, ease: "linear" }}
@@ -105,13 +105,13 @@ export const DialogHeader: React.FC<DialogHeaderProps> = ({
             ? formatDuration(FALLBACK_DURATION)
             : formatDuration(duration)}
         </span>
-      </motion.div>
+      </m.div>
     ) : (
       <></>
     );
 
   const statsComponent = (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
@@ -204,7 +204,7 @@ export const DialogHeader: React.FC<DialogHeaderProps> = ({
           </div>
         </ToolTip>
       )}
-    </motion.div>
+    </m.div>
   );
 
   return (
@@ -222,7 +222,7 @@ export const DialogHeader: React.FC<DialogHeaderProps> = ({
       }}
     >
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={songKey}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -231,7 +231,7 @@ export const DialogHeader: React.FC<DialogHeaderProps> = ({
           style={{ display: "flex", alignItems: "center", gap: "8px" }}
         >
           {cover && (
-            <motion.img
+            <m.img
               src={cover}
               alt={`${title} cover`}
               initial={{ opacity: 0, scale: 0.8 }}
@@ -249,10 +249,10 @@ export const DialogHeader: React.FC<DialogHeaderProps> = ({
           <Link href={url || "https://example.com"} target="_blank">
             {title ? `${artist} - ${title}` : "Loading Song"}
           </Link>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={songKey + "-tags"}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -285,7 +285,8 @@ export const DialogHeader: React.FC<DialogHeaderProps> = ({
                 backgroundColor: `${themeColors.dark}40`,
                 color: themeColors.lighter,
                 textDecoration: "none",
-                transition: "all 0.2s ease",
+                transition:
+                  "opacity 0.2s ease, color 0.2s ease, background-color 0.2s ease",
                 whiteSpace: "nowrap",
                 "&:hover": {
                   backgroundColor: `${themeColors.dark}80`,
@@ -302,7 +303,7 @@ export const DialogHeader: React.FC<DialogHeaderProps> = ({
               </span>
             ))}
           </Typography>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
 
       <Typography
@@ -318,7 +319,7 @@ export const DialogHeader: React.FC<DialogHeaderProps> = ({
         }}
       >
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             key={songKey + "-time"}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -326,11 +327,11 @@ export const DialogHeader: React.FC<DialogHeaderProps> = ({
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             {timeComponent}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
         {(listeners || playcount) && (
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={songKey + "-stats"}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -338,7 +339,7 @@ export const DialogHeader: React.FC<DialogHeaderProps> = ({
               transition={{ duration: 0.5, delay: 0.5 }}
             >
               {statsComponent}
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         )}
       </Typography>

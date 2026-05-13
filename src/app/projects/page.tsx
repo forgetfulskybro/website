@@ -1,26 +1,14 @@
-"use client";
-import { useShootingStars } from "@/components/ShootingStars";
-import { LangSelect } from "@/components/LanguageSelect";
-import ProjectCards from "@/components/layout/Projects";
-import { usePathname } from "next/navigation";
-import Page from "@/components/pageNav/page";
-import React from "react";
+import type { Metadata } from "next";
+import { getMetadata } from "@/components/getMetaData";
+import ProjectsClient from "./ProjectsClient";
 
-export default function Projects() {
-  const data = LangSelect();
-  return (
-    <main key={usePathname()} className="main">
-      <div className="starryBackground" />
-      <div className="shootingStarContainer" ref={useShootingStars()} />
+const { title, description } = getMetadata("/projects");
 
-      <Page>
-        <div
-          style={{ marginRight: 10, maxHeight: "80vh", overflowY: "auto" }}
-          className="flexGrid"
-        >
-          <ProjectCards data={data!} />
-        </div>
-      </Page>
-    </main>
-  );
+export const metadata: Metadata = {
+  title,
+  description,
+};
+
+export default function ProjectsPage() {
+  return <ProjectsClient />;
 }

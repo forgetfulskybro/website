@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Topic Solitaire",
+  description: "Play Topic Solitaire in an embedded frame.",
+};
+
 export default async function TopicSolitaire() {
   return (
     <div style={{ width: "100vw", height: "100vh", margin: 0, padding: 0 }}>

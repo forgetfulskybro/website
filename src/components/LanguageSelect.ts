@@ -4,9 +4,9 @@ export const LangSelect = () => {
   const [data, setData] = React.useState<string | null>("");
 
   React.useEffect(() => {
-    const handleStorageChange = (event: any) => {
-      if (localStorage.getItem("language") !== data)
-        return setData(localStorage.getItem("language"));
+    const handleStorageChange = () => {
+      const nextLang = localStorage.getItem("language") ?? "en_EN";
+      if (nextLang !== data) setData(nextLang);
     };
 
     window.addEventListener("storage", handleStorageChange);
@@ -18,11 +18,8 @@ export const LangSelect = () => {
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
-      return setData(
-        localStorage.getItem("language")
-          ? localStorage.getItem("language")
-          : "en_EN"
-      );
+      const lang = localStorage.getItem("language");
+      setData(lang || "en_EN");
     }
   }, []);
 

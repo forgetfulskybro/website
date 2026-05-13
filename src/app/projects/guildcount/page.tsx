@@ -1,9 +1,18 @@
+import type { Metadata } from "next";
 import UserProfile from "@/components/GuildCount/UserProfile";
 import FilterBar from "@/components/GuildCount/FilterBar";
 import { OfflineGuilds, Guild } from "./guilds";
 import styles from "./guildcount.module.css";
 import { cookies } from "next/headers";
 import Image from "next/image";
+import { getMetadata } from "@/components/getMetaData";
+
+const meta = getMetadata("/projects/guildcount");
+
+export const metadata: Metadata = {
+  title: meta.title,
+  description: meta.description,
+};
 
 async function fetchGuilds(accessToken: string | null): Promise<Guild[]> {
   if (!accessToken)
@@ -12,6 +21,7 @@ async function fetchGuilds(accessToken: string | null): Promise<Guild[]> {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
+    cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to fetch guilds");
   const guilds: Guild[] = await res.json();
@@ -24,6 +34,7 @@ async function fetchUser(accessToken: string | null) {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
+    cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to fetch user");
   const user = await res.json();

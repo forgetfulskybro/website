@@ -6,7 +6,7 @@ import {
   SettingsCard,
 } from "./DrawerStyles";
 import { formatDistanceToNow, isYesterday, setDefaultOptions } from "date-fns";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Button, DialogContentText } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Translate from "@/components/translation";
@@ -179,7 +179,7 @@ export default function MusicDrawer({
         top: "6.5%",
         right: 10,
         transform: "translateY(-50%)",
-        zIndex: 2000,
+        zIndex: "var(--z-drawer)",
         pointerEvents: "auto",
         display: "flex",
         justifyContent: "center",
@@ -207,7 +207,7 @@ export default function MusicDrawer({
   const list = () => (
     <Container>
       <DrawerHeader>
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -264,13 +264,13 @@ export default function MusicDrawer({
               </span>
             )}
           </Typography>
-        </motion.div>
+        </m.div>
       </DrawerHeader>
       <Divider />
       <SettingsCard sx={{ width: "100%", maxWidth: "500px", p: 2 }}>
         <Box sx={{ width: "100%" }}>
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={songKey}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -284,7 +284,7 @@ export default function MusicDrawer({
               }}
             >
               {cover && (
-                <motion.img
+                <m.img
                   src={cover}
                   alt={`${title} cover`}
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -313,11 +313,11 @@ export default function MusicDrawer({
               >
                 {title ? `${artist} - ${title}` : "Loading Song"}
               </Link>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
 
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={songKey + "-tags"}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -343,7 +343,8 @@ export default function MusicDrawer({
                     backgroundColor: `${themeColors.dark}40`,
                     color: themeColors.lighter,
                     textDecoration: "none",
-                    transition: "all 0.2s ease",
+                    transition:
+                      "opacity 0.2s ease, color 0.2s ease, background-color 0.2s ease",
                     whiteSpace: "nowrap",
                     "&:hover": {
                       backgroundColor: `${themeColors.dark}80`,
@@ -360,11 +361,11 @@ export default function MusicDrawer({
                   </div>
                 ))}
               </Box>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
 
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={songKey + "-stats"}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -464,11 +465,11 @@ export default function MusicDrawer({
                   </ToolTip>
                 )}
               </Box>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
 
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={songKey + "-time"}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -515,7 +516,7 @@ export default function MusicDrawer({
                           borderRadius: "2px",
                         }}
                       />
-                      <motion.div
+                      <m.div
                         initial={{ scaleX: 0 }}
                         animate={{ scaleX: getProgress() }}
                         transition={{ duration: 0.5, ease: "linear" }}
@@ -544,11 +545,11 @@ export default function MusicDrawer({
                   </>
                 )}
               </Box>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
 
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={songKey + "-lyrics"}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -593,7 +594,7 @@ export default function MusicDrawer({
                             fontSize: isCurrent ? "1rem" : "0.85rem",
                             letterSpacing: isCurrent ? "0.01em" : "normal",
                             transition:
-                              "all 0.18s cubic-bezier(.4,2,.3,1), background 0.2s, color 0.2s",
+                              "opacity 0.18s ease, color 0.2s, background-color 0.2s, box-shadow 0.18s ease, padding 0.18s ease, font-size 0.18s ease",
                             margin: "2px 0",
                           }}
                         >
@@ -645,7 +646,7 @@ export default function MusicDrawer({
                   </Typography>
                 )}
               </Box>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         </Box>
       </SettingsCard>

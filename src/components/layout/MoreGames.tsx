@@ -1,6 +1,6 @@
 "use client";
 import Translate from "@/components/translation";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -12,10 +12,10 @@ interface GameProps {
 export const MoreGames: React.FC<GameProps> = ({ data }) => {
   return (
     <Link href={"/info/games"}>
-      <motion.div
+      <m.div
         className="gameCard flex boxes"
         style={{
-          width: 335,
+          width: 362,
           height: 93.5,
           display: "flex",
           alignItems: "center",
@@ -49,7 +49,7 @@ export const MoreGames: React.FC<GameProps> = ({ data }) => {
             }}
           />
         </div>
-      </motion.div>
+      </m.div>
     </Link>
   );
 };

@@ -1,5 +1,5 @@
 import { Dialog, Typography, Box, Button, DialogContent } from "@mui/material";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Translate from "@/components/translation";
 import { ThemeColors } from "../Lyrics/theme";
 import { GameType } from "../GamesArray";
@@ -55,7 +55,7 @@ export const GameViewer: React.FC<GameViewerProps> = ({
       onClose={onClose}
     >
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={game.title}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -64,7 +64,7 @@ export const GameViewer: React.FC<GameViewerProps> = ({
         >
           <Box sx={{ padding: '24px 24px 0', display: 'flex', alignItems: 'center' }}>
             {game.image && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.1, duration: 0.3 }}
@@ -80,9 +80,9 @@ export const GameViewer: React.FC<GameViewerProps> = ({
                     objectFit: 'cover',
                   }}
                 />
-              </motion.div>
+              </m.div>
             )}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.3 }}
@@ -116,7 +116,7 @@ export const GameViewer: React.FC<GameViewerProps> = ({
                   </span>
                 </div>
               )}
-            </motion.div>
+            </m.div>
           </Box>
           
           <DialogContent 
@@ -127,7 +127,7 @@ export const GameViewer: React.FC<GameViewerProps> = ({
               },
             }}
           >
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.3 }}
@@ -190,9 +190,9 @@ export const GameViewer: React.FC<GameViewerProps> = ({
                   {translate.get(data, `Games.${game.target}.progress`)}
                 </Typography>
               </Box>
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.3 }}
@@ -253,9 +253,9 @@ export const GameViewer: React.FC<GameViewerProps> = ({
               >
                 Close
               </Button>
-            </motion.div>
+            </m.div>
           </DialogContent>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
     </Dialog>
   );

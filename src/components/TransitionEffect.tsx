@@ -1,5 +1,12 @@
 "use client";
-import { motion, AnimatePresence, Variants, Transition } from "framer-motion";
+import {
+  LazyMotion,
+  domAnimation,
+  m,
+  AnimatePresence,
+  Variants,
+  Transition,
+} from "framer-motion";
 import { usePathname } from "next/navigation";
 import React from "react";
 
@@ -8,6 +15,7 @@ export default function TransitionEffect({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
   const transition: Transition = {
     duration: 0.6,
     ease: [0.4, 0, 0.2, 1],
@@ -38,16 +46,18 @@ export default function TransitionEffect({
   };
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={usePathname()}
-        variants={variants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
+    <LazyMotion features={domAnimation} strict>
+      <AnimatePresence mode="wait">
+        <m.div
+          key={pathname}
+          variants={variants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+        >
+          {children}
+        </m.div>
+      </AnimatePresence>
+    </LazyMotion>
   );
 }
