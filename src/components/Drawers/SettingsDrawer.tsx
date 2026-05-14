@@ -47,23 +47,23 @@ export default function SettingsDrawer({
   const menuArray: MenuItem[] = [
     {
       small: "en_EN",
-      large: translate.get(language!, "Comps.page.languages.english"),
+      large: "English",
     },
     {
       small: "es_ES",
-      large: translate.get(language!, "Comps.page.languages.spanish"),
+      large: "Spanish",
     },
     {
       small: "fr_FR",
-      large: translate.get(language!, "Comps.page.languages.french"),
+      large: "French",
     },
     {
       small: "ds_DS",
-      large: translate.get(language!, "Comps.page.languages.danSucks"),
+      large: "Dan Sucks",
     },
     {
       small: "ec_EC",
-      large: translate.get(language!, "Comps.page.languages.enchant"),
+      large: "Enchantment",
     },
   ];
 
