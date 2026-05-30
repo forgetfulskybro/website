@@ -168,6 +168,12 @@ export default function AppShell({ children }: { children: ReactNode }) {
       path: "/projects",
     },
     {
+      name: translate.get(language!, "Comps.page.artwork"),
+      class: "artwork",
+      src: "Palette",
+      path: "/artwork",
+    },
+    {
       name: translate.get(language!, "Comps.page.info"),
       class: "info",
       src: "Info",

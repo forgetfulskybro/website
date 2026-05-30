@@ -15,6 +15,10 @@ export function getMetadata(path: string): {
       title: "Sky // projects",
       description: "A collection of projects I've worked on over the years.",
     },
+    "/artwork": {
+      title: "Sky // artwork",
+      description: "A gallery of my artwork and drawings.",
+    },
     "/projects/guildcount": {
       title: "Guild Count",
       description: "A simple tool to check how many Discord servers you're in.",

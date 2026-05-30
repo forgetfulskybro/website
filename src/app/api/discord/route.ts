@@ -10,7 +10,6 @@ function escapeHtmlAttr(value: string) {
     .replace(/</g, "&lt;");
 }
 
-/** GET: OAuth redirect from Discord — only returns HTML that POSTs the code (no token exchange). */
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
@@ -42,7 +41,6 @@ export async function GET(request: Request) {
   });
 }
 
-/** POST: exchange authorization code for tokens and set session cookie. */
 export async function POST(request: Request) {
   let code: string | null = null;
   const contentType = request.headers.get("content-type") || "";
