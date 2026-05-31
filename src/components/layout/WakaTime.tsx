@@ -17,7 +17,7 @@ interface WakaProps {
 }
 
 export const Waka: React.FC<WakaProps> = ({ data }) => {
-  const { seconds } = WakaTime() as WakaResponse;
+  const { seconds, decimal } = WakaTime() as WakaResponse;
   const translate = new Translate();
   const targetHours = !isNaN(seconds) ? Math.round(seconds / 3600) : 0;
   const hoursMotion = useMotionValue(0);
@@ -25,13 +25,13 @@ export const Waka: React.FC<WakaProps> = ({ data }) => {
 
   React.useEffect(() => {
     hoursMotion.set(0);
-  }, [targetHours, hoursMotion]);
+  }, [decimal, hoursMotion]);
 
   useAnimationFrame(() => {
     const current = hoursMotion.get();
-    if (current < targetHours) {
-      const increment = Math.max(1, Math.ceil((targetHours - current) / 20));
-      hoursMotion.set(Math.min(current + increment, targetHours));
+    if (current < decimal) {
+      const increment = Math.max(1, Math.ceil((decimal - current) / 20));
+      hoursMotion.set(Math.min(current + increment, decimal));
     }
   });
 

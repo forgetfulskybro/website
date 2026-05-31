@@ -1,10 +1,12 @@
 type WakatimeRes = {
   data: {
+    decimal: number;
     total_seconds: number;
   };
 };
 
 export interface WakaResponse {
+  decimal: number;
   seconds: number;
 }
 
@@ -29,15 +31,17 @@ export async function wakaData(): Promise<WakaResponse | undefined> {
     });
 
     return {
+      decimal: res.data.decimal,
       seconds: res.data.total_seconds,
     };
   } catch (error) {
     console.error(error);
     return {
-      seconds: 4782699.566793,
+      decimal: 1839,
+      seconds: 6620411.302096,
     };
   }
   // return {
-  //   seconds: 4782699.566793,
+  //   seconds: 6620411.302096,
   // };
 }
