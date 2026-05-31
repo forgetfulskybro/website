@@ -11,7 +11,7 @@ export const artworks: ArtworkData[] = [
     id: "artwork-1",
     title: "Kit & Lulu - Gameoverse",
     dateCreated: "05-19-2026",
-    images: ["/KitLulu.jpg"],
+    images: ["/KitLuLu.jpg"],
   },
   {
     id: "artwork-2",
