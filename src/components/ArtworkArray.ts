@@ -8,31 +8,37 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
-    id: "artwork-1",
+    id: "artwork-KLG",
     title: "Kit & Lulu - Gameoverse",
     dateCreated: "05-19-2026",
     images: ["/KitLuLu.jpg"],
   },
   {
-    id: "artwork-2",
+    id: "artwork-MG",
     title: "Malice - Gameoverse",
     dateCreated: "05-29-2026",
     images: ["/Malice Drawing.jpg"],
   },
   {
-    id: "artwork-3",
+    id: "artwork-MG",
+    title: "Lucyna Kushinada - Cyberpunk Edgerunners",
+    dateCreated: "06-03-2026",
+    images: ["/Lucy Drawing.png"],
+  },
+  {
+    id: "artwork-KLCG",
     title: "Kit LOAF Collection - Gameoverse",
     dateCreated: "05-27-2026",
     images: ["/Kit LOAF.jpg", "/Kit LOAF sketch.jpg"],
   },
   {
-    id: "artwork-4",
+    id: "artwork-CMD",
     title: "Cyn - Murder Drones",
     dateCreated: "05-12-2026",
     images: ["/Cyn Drawing.jpg"],
   },
   {
-    id: "artwork-5",
+    id: "artwork-MIG",
     title: "Miss Information - Gameoverse",
     dateCreated: "05-25-2026",
     images: ["/Miss Information.jpg"],
