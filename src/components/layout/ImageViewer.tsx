@@ -109,13 +109,17 @@ export default function ImageViewer({
               left: "20px",
               color: "white",
               zIndex: 10,
+              maxWidth: "calc(100% - 140px)",
             }}
+            className="artworkTitleContainer"
           >
             <h2
               style={{
                 fontSize: "24px",
                 fontWeight: 600,
                 margin: "0 0 8px 0",
+                wordWrap: "break-word",
+                overflowWrap: "break-word",
               }}
             >
               {title}
@@ -125,6 +129,8 @@ export default function ImageViewer({
                 fontSize: "14px",
                 color: "rgba(255, 255, 255, 0.7)",
                 margin: 0,
+                wordWrap: "break-word",
+                overflowWrap: "break-word",
               }}
             >
               Created: {dateCreated}
@@ -165,7 +171,6 @@ export default function ImageViewer({
                   alt="Download"
                   width={20}
                   height={20}
-                  style={{ transform: "rotate(180deg)" }}
                   draggable={false}
                 />
               </button>
@@ -238,13 +243,18 @@ export default function ImageViewer({
               }
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <img
+              <Image
                 src={images[currentIndex]}
                 alt={title}
+                width={0}
+                height={0}
+                sizes="100vw"
                 className={`artworkViewerImage ${isZoomed ? "zoomed" : ""}`}
                 style={{
                   transform: `scale(${zoom}) translate(${position.x}px, ${position.y}px)`,
                   transformOrigin: "center center",
+                  width: "100%",
+                  height: "auto",
                 }}
                 onClick={(e) => {
                   e.stopPropagation();

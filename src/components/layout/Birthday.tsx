@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 function isBirthdayToday(): boolean {
   const d = new Date();
@@ -13,6 +13,35 @@ function isBirthdayMonthNotDayAfter(): boolean {
 
 export const Birthday: React.FC = () => {
   const bdayRef = useRef<HTMLParagraphElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const getInitialTime = () => {
+    const countDownDate = new Date(
+      `Jun 29, ${new Date().getFullYear()} 00:00:00`
+    ).getTime();
+    const now = Date.now();
+    const distance = countDownDate - now;
+    if (distance <= 0) return "Today!";
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const pad = (n: number) => (n.toString().length < 2 ? `0${n}` : `${n}`);
+    return `${pad(days)}:${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+  };
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     const reduceMotion =
@@ -81,13 +110,43 @@ export const Birthday: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsExpanded(false);
+      }
+    };
+
+    if (isMobile && isExpanded) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [isMobile, isExpanded]);
+
+  const handleClick = () => {
+    if (isMobile) {
+      setIsExpanded(!isExpanded);
+    }
+  };
+
   return (
     <>
       {isBirthdayMonthNotDayAfter() && (
-        <div className="BirthdayDiv">
-          <b className="Blue birthdayTitle">Birthday</b>
+        <div
+          ref={containerRef}
+          className={`BirthdayDiv ${isMobile ? "mobile" : ""} ${isMobile && isExpanded ? "expanded" : ""}`}
+          onClick={handleClick}
+        >
+          <div className="birthdayHeader">
+            <b className="Blue birthdayTitle">Birthday</b>
+            {isMobile && (
+              <span className="birthdayExpandIcon">
+                {isExpanded ? "▲" : "▼"}
+              </span>
+            )}
+          </div>
           <p className="birthdayCountdown" ref={bdayRef} id="bday">
-            ??:??:??:??
+            {getInitialTime()}
           </p>
         </div>
       )}
