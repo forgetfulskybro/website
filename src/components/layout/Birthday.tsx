@@ -16,6 +16,8 @@ export const Birthday: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [initialTime, setInitialTime] = useState("???:??:??:??");
 
   const getInitialTime = () => {
     const countDownDate = new Date(
@@ -34,6 +36,25 @@ export const Birthday: React.FC = () => {
     return `${pad(days)}:${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
   };
 
+  const calculateProgress = () => {
+    const now = new Date();
+    const currentDay = now.getDate();
+    const birthdayDay = 29;
+
+    if (currentDay >= birthdayDay) {
+      return 100;
+    }
+
+    if (currentDay < 1) {
+      return 0;
+    }
+
+    const totalDays = birthdayDay - 1; // 28 days from June 1 to June 29
+    const elapsedDays = currentDay - 1; // Days since June 1
+    const progress = (elapsedDays / totalDays) * 100;
+    return Math.min(100, Math.max(0, progress));
+  };
+
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -41,6 +62,11 @@ export const Birthday: React.FC = () => {
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    setInitialTime(getInitialTime());
+    setProgress(calculateProgress());
   }, []);
 
   useEffect(() => {
@@ -138,7 +164,8 @@ export const Birthday: React.FC = () => {
           onClick={handleClick}
         >
           <div className="birthdayHeader">
-            <b className="Blue birthdayTitle">Birthday</b>
+            <span className="birthdayIcon">🎂</span>
+            <b className="birthdayTitle">Birthday</b>
             {isMobile && (
               <span className="birthdayExpandIcon">
                 {isExpanded ? "▲" : "▼"}
@@ -146,8 +173,16 @@ export const Birthday: React.FC = () => {
             )}
           </div>
           <p className="birthdayCountdown" ref={bdayRef} id="bday">
-            {getInitialTime()}
+            {initialTime}
           </p>
+          {!isMobile && (
+            <div className="birthdayProgress">
+              <div
+                className="birthdayProgressBar"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          )}
         </div>
       )}
     </>

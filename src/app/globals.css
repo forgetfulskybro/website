@@ -703,12 +703,17 @@ a {
 
 .birthdayTitle {
   font-size: 20px;
+  background: linear-gradient(to right, #83a5d7, #684179);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .birthdayCountdown {
   font-size: 18px;
   font-family: monospace;
   letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .birthdayHeader {
@@ -716,6 +721,16 @@ a {
   align-items: center;
   justify-content: center;
   gap: 8px;
+}
+
+.birthdayIcon {
+  font-size: 24px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
 .birthdayExpandIcon {
@@ -737,10 +752,26 @@ a {
   border-radius: 12px;
   max-height: fit-content;
   opacity: 0.9;
-  background: #121213;
+  background: linear-gradient(135deg, rgba(131, 165, 215, 0.2), rgba(104, 65, 121, 0.2));
   text-align: center;
-  border: 1px solid rgba(var(--card-border-rgb), 0.15);
+  border: 1px solid rgba(131, 165, 215, 0.3);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.birthdayProgress {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+.birthdayProgressBar {
+  height: 100%;
+  background: linear-gradient(90deg, #83a5d7, #684179);
+  border-radius: 2px;
+  transition: width 0.5s ease;
 }
 
 @media (max-width: 768px) {
@@ -773,6 +804,10 @@ a {
     font-size: 16px;
   }
 
+  .birthdayIcon {
+    font-size: 18px;
+  }
+
   .birthdayCountdown {
     font-size: 14px;
     opacity: 0;
@@ -785,6 +820,10 @@ a {
     opacity: 1;
     height: auto;
     margin-top: 8px;
+  }
+
+  .birthdayProgress {
+    display: none;
   }
 }
 
