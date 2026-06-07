@@ -23,7 +23,7 @@ export const artworks: ArtworkData[] = [
     id: "artwork-LKCE",
     title: "Lucyna Kushinada - Cyberpunk Edgerunners",
     dateCreated: "06-03-2026",
-    images: ["/Lucy Drawing.png"],
+    images: ["/Lucy Drawing.png", "/Lucy Drawing Sketch.png"],
   },
   {
     id: "artwork-KLCG",
