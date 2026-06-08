@@ -14,6 +14,12 @@ export const artworks: ArtworkData[] = [
     images: ["/KitLuLu.jpg"],
   },
   {
+    id: "artwork-CMD2",
+    title: "Cyn Sketch - Murder Drones",
+    dateCreated: "06-07-2026",
+    images: ["/Cyn Drawing 2.jpg", "/Cyn Drawing 2 sketch 1.jpg", "/Cyn Drawing 2 sketch.jpg"],
+  },
+  {
     id: "artwork-MG",
     title: "Malice - Gameoverse",
     dateCreated: "05-29-2026",

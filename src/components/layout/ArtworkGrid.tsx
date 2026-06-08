@@ -36,7 +36,7 @@ export default function ArtworkGrid({ data }: ArtworkGridProps) {
   return (
     <>
       <div className="flexGrid">
-        {artworkList.map((artwork) => (
+        {artworkList.sort((a, b) => b.dateCreated.localeCompare(a.dateCreated)).map((artwork) => (
           <ArtworkCard
             key={artwork.id}
             artwork={artwork}
