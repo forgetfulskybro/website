@@ -10,7 +10,7 @@ export const artworks: ArtworkData[] = [
   {
     id: "artwork-ESB",
     title: "Evie - Stellar Blade: BLOOD RAIN",
-    dateCreated: "05-19-2026",
+    dateCreated: "06-10-2026",
     images: ["/Evie Drawing.jpg", "/Evie Drawing Sketch.jpg"],
   },
   {
