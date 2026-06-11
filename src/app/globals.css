@@ -1927,10 +1927,20 @@ a {
   cursor: zoom-in;
   transition: transform 0.3s ease;
   user-select: none;
+  -webkit-user-drag: none;
+  touch-action: none;
 }
 
 .artworkViewerImage.zoomed {
-  cursor: zoom-out;
+  cursor: grab;
+}
+
+.artworkViewerImage.zoomed.dragging {
+  transition: none;
+}
+
+.artworkViewerImage.zoomed:active {
+  cursor: grabbing;
 }
 
 .artworkViewerInfo {

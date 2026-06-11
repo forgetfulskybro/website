@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import ToolTip from "../ToolTip";
@@ -28,9 +28,20 @@ export default function ImageViewer({
   const [zoom, setZoom] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isZoomed, setIsZoomed] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
+  const [hasDragged, setHasDragged] = useState(false);
+  const hasDraggedRef = useRef(false);
 
   const handleImageClick = useCallback(
     (e: React.MouseEvent<HTMLImageElement>) => {
+      if (hasDraggedRef.current) {
+        hasDraggedRef.current = false;
+        setHasDragged(false);
+        return;
+      }
+
       if (!isZoomed) {
         const rect = e.currentTarget.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -52,6 +63,126 @@ export default function ImageViewer({
     },
     [isZoomed]
   );
+
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent<HTMLImageElement>) => {
+      if (!isZoomed) return;
+      e.preventDefault();
+      setIsDragging(true);
+      setDragStart({ x: e.clientX, y: e.clientY });
+      setDragPosition({ x: position.x, y: position.y });
+      setHasDragged(false);
+      hasDraggedRef.current = false;
+    },
+    [isZoomed, position]
+  );
+
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent<HTMLImageElement>) => {
+      if (!isZoomed) return;
+      e.preventDefault();
+      const touch = e.touches[0];
+      setIsDragging(true);
+      setDragStart({ x: touch.clientX, y: touch.clientY });
+      setDragPosition({ x: position.x, y: position.y });
+      setHasDragged(false);
+      hasDraggedRef.current = false;
+    },
+    [isZoomed, position]
+  );
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLImageElement>) => {
+      if (!isDragging || !isZoomed) return;
+      e.preventDefault();
+
+      const deltaX = e.clientX - dragStart.x;
+      const deltaY = e.clientY - dragStart.y;
+
+      if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
+        setHasDragged(true);
+        hasDraggedRef.current = true;
+      }
+
+      const newX = dragPosition.x + deltaX;
+      const newY = dragPosition.y + deltaY;
+
+      setPosition({ x: newX, y: newY });
+    },
+    [isDragging, isZoomed, dragStart, dragPosition]
+  );
+
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent<HTMLImageElement>) => {
+      if (!isDragging || !isZoomed) return;
+      e.preventDefault();
+
+      const touch = e.touches[0];
+      const deltaX = touch.clientX - dragStart.x;
+      const deltaY = touch.clientY - dragStart.y;
+
+      if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
+        setHasDragged(true);
+        hasDraggedRef.current = true;
+      }
+
+      const newX = dragPosition.x + deltaX;
+      const newY = dragPosition.y + deltaY;
+
+      setPosition({ x: newX, y: newY });
+    },
+    [isDragging, isZoomed, dragStart, dragPosition]
+  );
+
+  const handleMouseUp = useCallback(
+    (e: React.MouseEvent<HTMLImageElement>) => {
+      if (isDragging) {
+        const deltaX = e.clientX - dragStart.x;
+        const deltaY = e.clientY - dragStart.y;
+        if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
+          setHasDragged(true);
+          hasDraggedRef.current = true;
+        }
+      }
+      setIsDragging(false);
+    },
+    [isDragging, dragStart]
+  );
+
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent<HTMLImageElement>) => {
+      if (isDragging) {
+        const touch = e.changedTouches[0];
+        const deltaX = touch.clientX - dragStart.x;
+        const deltaY = touch.clientY - dragStart.y;
+        if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
+          setHasDragged(true);
+          hasDraggedRef.current = true;
+        }
+      }
+      setIsDragging(false);
+    },
+    [isDragging, dragStart]
+  );
+
+  const handleGlobalMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  const handleGlobalTouchEnd = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener("mouseup", handleGlobalMouseUp);
+      window.addEventListener("touchend", handleGlobalTouchEnd);
+      return () => {
+        window.removeEventListener("mouseup", handleGlobalMouseUp);
+        window.removeEventListener("touchend", handleGlobalTouchEnd);
+      };
+    }
+  }, [isDragging, handleGlobalMouseUp, handleGlobalTouchEnd]);
 
   const handleBackdropClick = useCallback(
     (e: React.MouseEvent) => {
@@ -203,6 +334,34 @@ export default function ImageViewer({
                 />
               </button>
             </ToolTip>
+            <ToolTip content="Close" placement="bottom">
+              <button
+                style={{
+                  padding: "8px",
+                  background: "rgba(255, 255, 255, 0.1)",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  borderRadius: "6px",
+                  color: "white",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClose();
+                }}
+              >
+                <Image
+                  src="/close.svg"
+                  alt="Close"
+                  width={20}
+                  height={20}
+                  draggable={false}
+                />
+              </button>
+            </ToolTip>
           </div>
 
           <div className="artworkViewerContent">
@@ -249,7 +408,7 @@ export default function ImageViewer({
                 width={0}
                 height={0}
                 sizes="100vw"
-                className={`artworkViewerImage ${isZoomed ? "zoomed" : ""}`}
+                className={`artworkViewerImage ${isZoomed ? "zoomed" : ""} ${isDragging ? "dragging" : ""}`}
                 style={{
                   transform: `scale(${zoom}) translate(${position.x}px, ${position.y}px)`,
                   transformOrigin: "center center",
@@ -260,6 +419,12 @@ export default function ImageViewer({
                   e.stopPropagation();
                   handleImageClick(e);
                 }}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
               />
             </m.div>
           </div>
