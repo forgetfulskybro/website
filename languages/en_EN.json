@@ -34,6 +34,9 @@
       "website": "Website"
     },
     "list": {
+      "FB": {
+        "desc": "Website for the Fluxer bot, Fishing Bucket which is for proxying messages."
+      },
       "WY": {
         "desc": "An activity based bot that helps improve overall activity for your server."
       },

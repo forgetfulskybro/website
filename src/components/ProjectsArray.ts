@@ -67,6 +67,20 @@ const useProjects = (data: any): ProjectData[] => {
 
   return [
     {
+      target: "FB",
+      title: "Fishing Bucket",
+      image: "/FishingBucket.png",
+      tags: [{ name: TagType.Website }],
+      footer: {
+        start: "June 12, 2026",
+        end: "June 12, 2026",
+      },
+      flags: [{ name: FlagType.Contribution }],
+      github: "https://github.com/HellishBro/FishingBucketWebsite ",
+      community: "https://fluxer.gg/jpXCwft",
+      website: "https://fishingbucket.org/",
+    },
+    {
       target: "FF",
       title: "Functious",
       image: "/Functious.png",

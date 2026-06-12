@@ -155,7 +155,7 @@ const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
           {renderButtons(project.github, "GitHub")}
           {renderButtons(
             project.community,
-            translate.get(data, "Projects.buttons.community")
+            project.community?.includes("fluxer.gg") ? "Fluxer" : translate.get(data, "Projects.buttons.community")
           )}
           {renderButtons(
             project.website,

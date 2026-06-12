@@ -34,6 +34,9 @@
       "website": "Site web"
     },
     "list": {
+      "FB": {
+        "desc": "Site web du bot Fluxer, Fishing Bucket, destiné à la redirection de messages."
+      },
       "WY": {
         "desc": "Un bot basé sur l'activité qui permet d'améliorer l'activité globale de ton serveur."
       },
