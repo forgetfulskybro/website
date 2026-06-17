@@ -8,6 +8,12 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-USLAFS",
+    title: "Usui Sachi - Love at First Sight",
+    dateCreated: "06-10-2026",
+    images: ["/Usui Sachi.jpg", "/Usui Sachi Sketch.jpg"],
+  },
+  {
     id: "artwork-ESB",
     title: "Evie - Stellar Blade: BLOOD RAIN",
     dateCreated: "06-10-2026",

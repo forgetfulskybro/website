@@ -1,11 +1,11 @@
 "use client";
 import { useShootingStars } from "@/components/ShootingStars";
 import { LangSelect } from "@/components/LanguageSelect";
+import AppShell from "@/components/pageNav/AppShell";
 import SocialLinks from "@/components/SocialLinks";
 import Translate from "@/components/translation";
-import AppShell from "@/components/pageNav/AppShell";
+import Tooltip from "@/components/ToolTip";
 import Image from "next/image";
-import React from "react";
 
 export default function HomeClient() {
   const data = LangSelect();
@@ -26,7 +26,9 @@ export default function HomeClient() {
       return (
         <>
           {before}
-          <strong className="Blue">{age}</strong>
+          <Tooltip content="June 29th, 2004" placement="top">
+            <strong style={{ textDecoration: "underline", textDecorationStyle: "dotted", textDecorationColor: "#BA8D2B" }} className="Blue">{age}</strong>
+          </Tooltip>
           {after}
         </>
       );
@@ -37,7 +39,9 @@ export default function HomeClient() {
     return (
       <>
         {before}
-        <strong className="Blue">{age}</strong>
+        <Tooltip content="June 29th, 2004" placement="top">
+          <strong style={{ textDecoration: "underline", textDecorationStyle: "dotted", textDecorationColor: "#BA8D2B" }} className="Blue">{age}</strong>
+        </Tooltip>
         {after}
       </>
     );
@@ -81,12 +85,16 @@ export default function HomeClient() {
           </div>
           <div className="sizing" style={{ paddingBottom: 10 }}>
             {translate.get(data!, "Misc.page.descHello")}{" "}
-            <strong className="Blue">ForGetFulSkyBro</strong>{" "}
-            {translate.get(data!, "Misc.page.descOr")}{" "}
+            <Tooltip content="or ForGetFul" placement="top">
+              <strong style={{ textDecoration: "underline", textDecorationStyle: "dotted", textDecorationColor: "#BA8D2B" }} className="Blue">ForGetFulSkyBro</strong>
+            </Tooltip>
+            {" "}{translate.get(data!, "Misc.page.descOr")}{" "}
             <strong className="Blue">Sky</strong>{" "}
             {translate.get(data!, "Misc.page.descShort")}. {birthday()}{" "}
             {descBefore}
-            <strong className="Blue">{codingYears}</strong>
+            <Tooltip content="August 3rd, 2019" placement="top">
+              <strong style={{ textDecoration: "underline", textDecorationStyle: "dotted", textDecorationColor: "#BA8D2B" }} className="Blue">{codingYears}</strong>
+            </Tooltip>
             {descAfter}
           </div>
           <div className="flexGrid centered">
