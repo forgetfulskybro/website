@@ -8,6 +8,12 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-DSG",
+    title: "Serial Designation G - Original Creation",
+    dateCreated: "06-10-2026",
+    images: ["/DSG Final.png", "/DSG Sketch Final.png", "/DSG Sketch 1.jpg", "/DSG Sketch 0.jpg", "/DSG Sketch.jpg"],
+  },
+  {
     id: "artwork-USLAFS",
     title: "Usui Sachi - Love at First Sight",
     dateCreated: "06-10-2026",
@@ -17,7 +23,7 @@ export const artworks: ArtworkData[] = [
     id: "artwork-ESB",
     title: "Evie - Stellar Blade: BLOOD RAIN",
     dateCreated: "06-10-2026",
-    images: ["/Evie Drawing.jpg", "/Evie Drawing Sketch.jpg"],
+    images: ["/Evie Drawing.png", "/Evie Drawing.jpg", "/Evie Drawing Sketch.jpg"],
   },
   {
     id: "artwork-KLG",

@@ -29,7 +29,7 @@ export default function EmbedMeta({ imageUrl, path }: EmbedMetaProps) {
       <meta name="keywords" content="ForGetFul, ForGetFulSkyBro, Sky" />
       <link
         rel="icon"
-        href={image ? image : "/Me.png"}
+        href={image ? image : "/DSG Head.png"}
         type="image/png"
         sizes="any"
       />

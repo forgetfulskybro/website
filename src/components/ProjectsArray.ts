@@ -139,7 +139,7 @@ const useProjects = (data: any): ProjectData[] => {
     {
       target: "W",
       title: "Personal Website",
-      image: "/Me.png",
+      image: "/DSG Head.png",
       tags: [{ name: TagType.Website }],
       footer: {
         start: "Jul 2, 2023",

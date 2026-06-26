@@ -74,7 +74,7 @@ export default function HomeClient() {
             >
               <Image
                 className="hiding"
-                src="/Me.png"
+                src="/DSG Head.png"
                 height={140}
                 width={140}
                 draggable={false}
@@ -116,7 +116,7 @@ export default function HomeClient() {
           >
             <Image
               className="hide highlight"
-              src="/Me.png"
+              src="/DSG Head.png"
               height={240}
               width={240}
               style={{ height: "auto", width: 200 }}
