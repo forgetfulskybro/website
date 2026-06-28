@@ -10,7 +10,7 @@ export const artworks: ArtworkData[] = [
   {
     id: "artwork-DSG",
     title: "Serial Designation G - Original Creation",
-    dateCreated: "06-10-2026",
+    dateCreated: "06-24-2026",
     images: ["/DSG Final.png", "/DSG Sketch Final.png", "/DSG Sketch 1.jpg", "/DSG Sketch 0.jpg", "/DSG Sketch.jpg"],
   },
   {
