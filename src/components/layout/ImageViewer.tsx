@@ -209,6 +209,23 @@ export default function ImageViewer({
     setIsZoomed(false);
   }, [currentIndex, images.length, onNavigate]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        handlePrevious();
+      } else if (e.key === "ArrowRight") {
+        handleNext();
+      } else if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, handlePrevious, handleNext, onClose]);
+
   const handleDownload = useCallback(() => {
     const link = document.createElement("a");
     link.href = images[currentIndex];
@@ -364,30 +381,30 @@ export default function ImageViewer({
             </ToolTip>
           </div>
 
-          <div className="artworkViewerContent">
-            {images.length > 1 && (
-              <>
-                <button
-                  className="artworkNavArrow left"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handlePrevious();
-                  }}
-                >
-                  ←
-                </button>
-                <button
-                  className="artworkNavArrow right"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleNext();
-                  }}
-                >
-                  →
-                </button>
-              </>
-            )}
+          {images.length > 1 && (
+            <>
+              <button
+                className="artworkNavArrow left"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePrevious();
+                }}
+              >
+                ←
+              </button>
+              <button
+                className="artworkNavArrow right"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNext();
+                }}
+              >
+                →
+              </button>
+            </>
+          )}
 
+          <div className="artworkViewerContent">
             <m.div
               style={{ position: "relative", width: "100%", height: "100%" }}
               exit={

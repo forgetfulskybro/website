@@ -24,7 +24,7 @@ export const Birthday: React.FC = () => {
     ).getTime();
     const now = Date.now();
     const distance = countDownDate - now;
-    if (distance <= 0) return "🎂 Today";
+    if (distance <= 0) return "Today!";
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor(
       (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
