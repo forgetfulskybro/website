@@ -152,7 +152,7 @@ export async function getLatestSong(): Promise<Response | undefined> {
         ? lyrics?.plainLyrics
         : lyrics?.lyrics?.includes(`Contributors${song.name} Lyrics`)
         ? lyrics?.lyrics?.split(`Contributors${song.name} Lyrics`)[1]
-        : lyrics.lyrics || null,
+        : lyrics?.lyrics || null,
       syncLyrics: lyrics?.syncedLyrics || null,
       duration: track?.duration || 0,
       listeners: track?.listeners || 0,
