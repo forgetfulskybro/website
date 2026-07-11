@@ -10,7 +10,7 @@ export const artworks: ArtworkData[] = [
   {
     id: "artwork-TYCPE",
     title: "Talia Yang - Cyberpunk Edgerunners II",
-    dateCreated: "07-03-2026",
+    dateCreated: "07-10-2026",
     images: ["/Talia Yang - Alternate.png", "/Talia Yang Mouth Opened.png", "/Talia Yang Mask Sketch 1.png", "/Talia Yang Mask Sketch.jpg", "/Talia Yang - Cyberpunk Edgerunners.png", "/Talia Yang Sketch 1.png", "/Talia Yang Sketch.jpg"],
   },
   {
