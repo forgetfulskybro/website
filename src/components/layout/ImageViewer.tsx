@@ -27,12 +27,38 @@ export default function ImageViewer({
 }: ImageViewerProps) {
   const [zoom, setZoom] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isZoomed, setIsZoomed] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
   const [hasDragged, setHasDragged] = useState(false);
   const hasDraggedRef = useRef(false);
+
+  const clampPosition = useCallback((posX: number, posY: number, currentZoom: number, rect: DOMRect) => {
+    const maxOffset = (currentZoom - 1) * Math.min(rect.width, rect.height) / 2;
+    return {
+      x: Math.max(-maxOffset, Math.min(maxOffset, posX)),
+      y: Math.max(-maxOffset, Math.min(maxOffset, posY)),
+    };
+  }, []);
+
+  const handleZoom = useCallback(
+    (newZoom: number, e?: React.MouseEvent<HTMLImageElement> | React.WheelEvent<HTMLImageElement>) => {
+      const clampedZoom = Math.max(1, Math.min(5, newZoom));
+      
+      if (clampedZoom === zoom) {
+        return;
+      }
+      
+      if (clampedZoom === 1) {
+        setPosition({ x: 0, y: 0 });
+        setZoom(1);
+        return;
+      }
+
+      setZoom(clampedZoom);
+    },
+    [zoom]
+  );
 
   const handleImageClick = useCallback(
     (e: React.MouseEvent<HTMLImageElement>) => {
@@ -42,31 +68,18 @@ export default function ImageViewer({
         return;
       }
 
-      if (!isZoomed) {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        setPosition({
-          x: (centerX - x) * 0.5,
-          y: (centerY - y) * 0.5,
-        });
-        setZoom(2);
-        setIsZoomed(true);
+      if (zoom === 1) {
+        handleZoom(2);
       } else {
-        setZoom(1);
-        setPosition({ x: 0, y: 0 });
-        setIsZoomed(false);
+        handleZoom(1);
       }
     },
-    [isZoomed]
+    [zoom, handleZoom]
   );
 
   const handleMouseDown = useCallback(
     (e: React.MouseEvent<HTMLImageElement>) => {
-      if (!isZoomed) return;
+      if (zoom === 1) return;
       e.preventDefault();
       setIsDragging(true);
       setDragStart({ x: e.clientX, y: e.clientY });
@@ -74,12 +87,12 @@ export default function ImageViewer({
       setHasDragged(false);
       hasDraggedRef.current = false;
     },
-    [isZoomed, position]
+    [zoom, position]
   );
 
   const handleTouchStart = useCallback(
     (e: React.TouchEvent<HTMLImageElement>) => {
-      if (!isZoomed) return;
+      if (zoom === 1) return;
       e.preventDefault();
       const touch = e.touches[0];
       setIsDragging(true);
@@ -88,12 +101,12 @@ export default function ImageViewer({
       setHasDragged(false);
       hasDraggedRef.current = false;
     },
-    [isZoomed, position]
+    [zoom, position]
   );
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLImageElement>) => {
-      if (!isDragging || !isZoomed) return;
+      if (!isDragging || zoom === 1) return;
       e.preventDefault();
 
       const deltaX = e.clientX - dragStart.x;
@@ -107,14 +120,16 @@ export default function ImageViewer({
       const newX = dragPosition.x + deltaX;
       const newY = dragPosition.y + deltaY;
 
-      setPosition({ x: newX, y: newY });
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clampedPos = clampPosition(newX, newY, zoom, rect);
+      setPosition(clampedPos);
     },
-    [isDragging, isZoomed, dragStart, dragPosition]
+    [isDragging, zoom, dragStart, dragPosition, clampPosition]
   );
 
   const handleTouchMove = useCallback(
     (e: React.TouchEvent<HTMLImageElement>) => {
-      if (!isDragging || !isZoomed) return;
+      if (!isDragging || zoom === 1) return;
       e.preventDefault();
 
       const touch = e.touches[0];
@@ -129,9 +144,11 @@ export default function ImageViewer({
       const newX = dragPosition.x + deltaX;
       const newY = dragPosition.y + deltaY;
 
-      setPosition({ x: newX, y: newY });
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clampedPos = clampPosition(newX, newY, zoom, rect);
+      setPosition(clampedPos);
     },
-    [isDragging, isZoomed, dragStart, dragPosition]
+    [isDragging, zoom, dragStart, dragPosition, clampPosition]
   );
 
   const handleMouseUp = useCallback(
@@ -163,6 +180,17 @@ export default function ImageViewer({
       setIsDragging(false);
     },
     [isDragging, dragStart]
+  );
+
+  const handleWheel = useCallback(
+    (e: React.WheelEvent<HTMLImageElement>) => {
+      e.preventDefault();
+      const delta = -e.deltaY;
+      const zoomStep = 0.15;
+      const newZoom = zoom + (delta > 0 ? zoomStep : -zoomStep);
+      handleZoom(newZoom, e);
+    },
+    [zoom, handleZoom]
   );
 
   const handleGlobalMouseUp = useCallback(() => {
@@ -198,7 +226,6 @@ export default function ImageViewer({
     onNavigate(newIndex);
     setZoom(1);
     setPosition({ x: 0, y: 0 });
-    setIsZoomed(false);
   }, [currentIndex, images.length, onNavigate]);
 
   const handleNext = useCallback(() => {
@@ -206,7 +233,6 @@ export default function ImageViewer({
     onNavigate(newIndex);
     setZoom(1);
     setPosition({ x: 0, y: 0 });
-    setIsZoomed(false);
   }, [currentIndex, images.length, onNavigate]);
 
   useEffect(() => {
@@ -425,7 +451,7 @@ export default function ImageViewer({
                 width={0}
                 height={0}
                 sizes="100vw"
-                className={`artworkViewerImage ${isZoomed ? "zoomed" : ""} ${isDragging ? "dragging" : ""}`}
+                className={`artworkViewerImage ${zoom > 1 ? "zoomed" : ""} ${isDragging ? "dragging" : ""}`}
                 style={{
                   transform: `scale(${zoom}) translate(${position.x}px, ${position.y}px)`,
                   transformOrigin: "center center",
@@ -442,6 +468,7 @@ export default function ImageViewer({
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
+                onWheel={handleWheel}
               />
             </m.div>
           </div>
