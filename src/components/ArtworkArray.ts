@@ -8,6 +8,12 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-MDJA",
+    title: "Serial Designation J - Murder Drones",
+    dateCreated: "07-16-2026",
+    images: ["/J Angry.png", "/J Angry Sketch 1.png", "/J Angry Sketch.jpg"],
+  },
+  {
     id: "artwork-TYCPE",
     title: "Talia Yang - Cyberpunk Edgerunners II",
     dateCreated: "07-10-2026",

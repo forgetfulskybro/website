@@ -26,244 +26,108 @@ export default function ImageViewer({
   cardRect,
 }: ImageViewerProps) {
   const [zoom, setZoom] = useState(1);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [pos, setPos] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
-  const [hasDragged, setHasDragged] = useState(false);
-  const hasDraggedRef = useRef(false);
+  const dragRef = useRef({ startX: 0, startY: 0, posX: 0, posY: 0, hasDragged: false });
 
-  const clampPosition = useCallback((posX: number, posY: number, currentZoom: number, rect: DOMRect) => {
-    const maxOffset = (currentZoom - 1) * Math.min(rect.width, rect.height) / 2;
+  const clamp = useCallback((x: number, y: number, z: number, rect: DOMRect) => {
+    const max = (z - 1) * Math.min(rect.width, rect.height) / 2;
     return {
-      x: Math.max(-maxOffset, Math.min(maxOffset, posX)),
-      y: Math.max(-maxOffset, Math.min(maxOffset, posY)),
+      x: Math.max(-max, Math.min(max, x)),
+      y: Math.max(-max, Math.min(max, y)),
     };
   }, []);
 
-  const handleZoom = useCallback(
-    (newZoom: number, e?: React.MouseEvent<HTMLImageElement> | React.WheelEvent<HTMLImageElement>) => {
-      const clampedZoom = Math.max(1, Math.min(5, newZoom));
-      
-      if (clampedZoom === zoom) {
-        return;
-      }
-      
-      if (clampedZoom === 1) {
-        setPosition({ x: 0, y: 0 });
-        setZoom(1);
-        return;
-      }
-
-      setZoom(clampedZoom);
-    },
-    [zoom]
-  );
-
-  const handleImageClick = useCallback(
-    (e: React.MouseEvent<HTMLImageElement>) => {
-      if (hasDraggedRef.current) {
-        hasDraggedRef.current = false;
-        setHasDragged(false);
-        return;
-      }
-
-      if (zoom === 1) {
-        handleZoom(2);
-      } else {
-        handleZoom(1);
-      }
-    },
-    [zoom, handleZoom]
-  );
-
-  const handleMouseDown = useCallback(
-    (e: React.MouseEvent<HTMLImageElement>) => {
-      if (zoom === 1) return;
-      e.preventDefault();
-      setIsDragging(true);
-      setDragStart({ x: e.clientX, y: e.clientY });
-      setDragPosition({ x: position.x, y: position.y });
-      setHasDragged(false);
-      hasDraggedRef.current = false;
-    },
-    [zoom, position]
-  );
-
-  const handleTouchStart = useCallback(
-    (e: React.TouchEvent<HTMLImageElement>) => {
-      if (zoom === 1) return;
-      e.preventDefault();
-      const touch = e.touches[0];
-      setIsDragging(true);
-      setDragStart({ x: touch.clientX, y: touch.clientY });
-      setDragPosition({ x: position.x, y: position.y });
-      setHasDragged(false);
-      hasDraggedRef.current = false;
-    },
-    [zoom, position]
-  );
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLImageElement>) => {
-      if (!isDragging || zoom === 1) return;
-      e.preventDefault();
-
-      const deltaX = e.clientX - dragStart.x;
-      const deltaY = e.clientY - dragStart.y;
-
-      if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
-        setHasDragged(true);
-        hasDraggedRef.current = true;
-      }
-
-      const newX = dragPosition.x + deltaX;
-      const newY = dragPosition.y + deltaY;
-
-      const rect = e.currentTarget.getBoundingClientRect();
-      const clampedPos = clampPosition(newX, newY, zoom, rect);
-      setPosition(clampedPos);
-    },
-    [isDragging, zoom, dragStart, dragPosition, clampPosition]
-  );
-
-  const handleTouchMove = useCallback(
-    (e: React.TouchEvent<HTMLImageElement>) => {
-      if (!isDragging || zoom === 1) return;
-      e.preventDefault();
-
-      const touch = e.touches[0];
-      const deltaX = touch.clientX - dragStart.x;
-      const deltaY = touch.clientY - dragStart.y;
-
-      if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
-        setHasDragged(true);
-        hasDraggedRef.current = true;
-      }
-
-      const newX = dragPosition.x + deltaX;
-      const newY = dragPosition.y + deltaY;
-
-      const rect = e.currentTarget.getBoundingClientRect();
-      const clampedPos = clampPosition(newX, newY, zoom, rect);
-      setPosition(clampedPos);
-    },
-    [isDragging, zoom, dragStart, dragPosition, clampPosition]
-  );
-
-  const handleMouseUp = useCallback(
-    (e: React.MouseEvent<HTMLImageElement>) => {
-      if (isDragging) {
-        const deltaX = e.clientX - dragStart.x;
-        const deltaY = e.clientY - dragStart.y;
-        if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
-          setHasDragged(true);
-          hasDraggedRef.current = true;
-        }
-      }
-      setIsDragging(false);
-    },
-    [isDragging, dragStart]
-  );
-
-  const handleTouchEnd = useCallback(
-    (e: React.TouchEvent<HTMLImageElement>) => {
-      if (isDragging) {
-        const touch = e.changedTouches[0];
-        const deltaX = touch.clientX - dragStart.x;
-        const deltaY = touch.clientY - dragStart.y;
-        if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
-          setHasDragged(true);
-          hasDraggedRef.current = true;
-        }
-      }
-      setIsDragging(false);
-    },
-    [isDragging, dragStart]
-  );
-
-  const handleWheel = useCallback(
-    (e: React.WheelEvent<HTMLImageElement>) => {
-      e.preventDefault();
-      const delta = -e.deltaY;
-      const zoomStep = 0.15;
-      const newZoom = zoom + (delta > 0 ? zoomStep : -zoomStep);
-      handleZoom(newZoom, e);
-    },
-    [zoom, handleZoom]
-  );
-
-  const handleGlobalMouseUp = useCallback(() => {
-    setIsDragging(false);
-  }, []);
-
-  const handleGlobalTouchEnd = useCallback(() => {
-    setIsDragging(false);
-  }, []);
-
-  useEffect(() => {
-    if (isDragging) {
-      window.addEventListener("mouseup", handleGlobalMouseUp);
-      window.addEventListener("touchend", handleGlobalTouchEnd);
-      return () => {
-        window.removeEventListener("mouseup", handleGlobalMouseUp);
-        window.removeEventListener("touchend", handleGlobalTouchEnd);
-      };
-    }
-  }, [isDragging, handleGlobalMouseUp, handleGlobalTouchEnd]);
-
-  const handleBackdropClick = useCallback(
-    (e: React.MouseEvent) => {
-      if (e.target === e.currentTarget) {
-        onClose();
-      }
-    },
-    [onClose]
-  );
-
-  const handlePrevious = useCallback(() => {
-    const newIndex = currentIndex > 0 ? currentIndex - 1 : images.length - 1;
-    onNavigate(newIndex);
+  const resetView = useCallback(() => {
     setZoom(1);
-    setPosition({ x: 0, y: 0 });
-  }, [currentIndex, images.length, onNavigate]);
+    setPos({ x: 0, y: 0 });
+  }, []);
+
+  const handleZoom = useCallback((newZoom: number) => {
+    const clamped = Math.max(1, Math.min(5, newZoom));
+    if (clamped === zoom) return;
+    if (clamped === 1) return resetView();
+    setZoom(clamped);
+  }, [zoom, resetView]);
+
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    if (zoom === 1) return;
+    e.stopPropagation();
+    setIsDragging(true);
+    const rect = e.currentTarget.getBoundingClientRect();
+    dragRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      posX: pos.x,
+      posY: pos.y,
+      hasDragged: false,
+    };
+  }, [zoom, pos]);
+
+  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!isDragging) return;
+    const { startX, startY, posX, posY } = dragRef.current;
+    const deltaX = e.clientX - startX;
+    const deltaY = e.clientY - startY;
+
+    if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) dragRef.current.hasDragged = true;
+
+    const newPos = clamp(posX + deltaX, posY + deltaY, zoom, e.currentTarget.getBoundingClientRect());
+    setPos(newPos);
+  }, [isDragging, zoom, clamp]);
+
+  const handlePointerUp = useCallback((e: React.PointerEvent) => {
+    setIsDragging(false);
+    if (dragRef.current.hasDragged) e.stopPropagation();
+  }, []);
+
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    if (dragRef.current.hasDragged) {
+      dragRef.current.hasDragged = false;
+      return;
+    }
+    handleZoom(zoom === 1 ? 2 : 1);
+  }, [zoom, handleZoom]);
+
+  const handleWheel = useCallback((e: React.WheelEvent) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.15 : 0.15;
+    handleZoom(zoom + delta);
+  }, [zoom, handleZoom]);
+
+  const handlePrev = useCallback(() => {
+    onNavigate(currentIndex > 0 ? currentIndex - 1 : images.length - 1);
+    resetView();
+  }, [currentIndex, images.length, onNavigate, resetView]);
 
   const handleNext = useCallback(() => {
-    const newIndex = currentIndex < images.length - 1 ? currentIndex + 1 : 0;
-    onNavigate(newIndex);
-    setZoom(1);
-    setPosition({ x: 0, y: 0 });
-  }, [currentIndex, images.length, onNavigate]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") {
-        handlePrevious();
-      } else if (e.key === "ArrowRight") {
-        handleNext();
-      } else if (e.key === "Escape") {
-        onClose();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, handlePrevious, handleNext, onClose]);
+    onNavigate(currentIndex < images.length - 1 ? currentIndex + 1 : 0);
+    resetView();
+  }, [currentIndex, images.length, onNavigate, resetView]);
 
   const handleDownload = useCallback(() => {
-    const link = document.createElement("a");
-    link.href = images[currentIndex];
-    link.download = title;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const a = document.createElement("a");
+    a.href = images[currentIndex];
+    a.download = title;
+    a.click();
   }, [images, currentIndex, title]);
 
   const handleOpenInBrowser = useCallback(() => {
     window.open(images[currentIndex], "_blank");
   }, [images, currentIndex]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "ArrowRight") handleNext();
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen, handlePrev, handleNext, onClose]);
+
+  const showNav = zoom === 1 && images.length > 1;
 
   return (
     <AnimatePresence>
@@ -273,54 +137,19 @@ export default function ImageViewer({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={handleBackdropClick}
+          onClick={(e) => e.target === e.currentTarget && onClose()}
           transition={{ duration: 0.3 }}
         >
-          <div
-            style={{
-              position: "absolute",
-              top: "20px",
-              left: "20px",
-              color: "white",
-              zIndex: 10,
-              maxWidth: "calc(100% - 140px)",
-            }}
-            className="artworkTitleContainer"
-          >
-            <h2
-              style={{
-                fontSize: "24px",
-                fontWeight: 600,
-                margin: "0 0 8px 0",
-                wordWrap: "break-word",
-                overflowWrap: "break-word",
-              }}
-            >
+          <div style={{ position: "absolute", top: "20px", left: "20px", color: "white", zIndex: 10, maxWidth: "calc(100% - 140px)" }}>
+            <h2 style={{ fontSize: "24px", fontWeight: 600, margin: "0 0 8px 0", wordWrap: "break-word", overflowWrap: "break-word" }}>
               {title}
             </h2>
-            <p
-              style={{
-                fontSize: "14px",
-                color: "rgba(255, 255, 255, 0.7)",
-                margin: 0,
-                wordWrap: "break-word",
-                overflowWrap: "break-word",
-              }}
-            >
+            <p style={{ fontSize: "14px", color: "rgba(255, 255, 255, 0.7)", margin: 0, wordWrap: "break-word", overflowWrap: "break-word" }}>
               Created: {dateCreated}
             </p>
           </div>
 
-          <div
-            style={{
-              position: "absolute",
-              top: "20px",
-              right: "20px",
-              display: "flex",
-              gap: "12px",
-              zIndex: 10,
-            }}
-          >
+          <div style={{ position: "absolute", top: "20px", right: "20px", display: "flex", gap: "12px", zIndex: 10 }}>
             <ToolTip content="Download" placement="bottom">
               <button
                 style={{
@@ -335,20 +164,12 @@ export default function ImageViewer({
                   alignItems: "center",
                   justifyContent: "center",
                 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleDownload();
-                }}
+                onClick={(e) => { e.stopPropagation(); handleDownload(); }}
               >
-                <Image
-                  src="/arrow.svg"
-                  alt="Download"
-                  width={20}
-                  height={20}
-                  draggable={false}
-                />
+                <Image src="/arrow.svg" alt="Download" width={20} height={20} draggable={false} />
               </button>
             </ToolTip>
+
             <ToolTip content="Open in Browser" placement="bottom">
               <button
                 style={{
@@ -363,20 +184,12 @@ export default function ImageViewer({
                   alignItems: "center",
                   justifyContent: "center",
                 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleOpenInBrowser();
-                }}
+                onClick={(e) => { e.stopPropagation(); handleOpenInBrowser(); }}
               >
-                <Image
-                  src="/link.svg"
-                  alt="Open in Browser"
-                  width={20}
-                  height={20}
-                  draggable={false}
-                />
+                <Image src="/link.svg" alt="Open in Browser" width={20} height={20} draggable={false} />
               </button>
             </ToolTip>
+
             <ToolTip content="Close" placement="bottom">
               <button
                 style={{
@@ -391,39 +204,24 @@ export default function ImageViewer({
                   alignItems: "center",
                   justifyContent: "center",
                 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onClose();
-                }}
+                onClick={(e) => { e.stopPropagation(); onClose(); }}
               >
-                <Image
-                  src="/close.svg"
-                  alt="Close"
-                  width={20}
-                  height={20}
-                  draggable={false}
-                />
+                <Image src="/close.svg" alt="Close" width={20} height={20} draggable={false} />
               </button>
             </ToolTip>
           </div>
 
-          {images.length > 1 && (
+          {showNav && (
             <>
               <button
                 className="artworkNavArrow left"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handlePrevious();
-                }}
+                onClick={(e) => { e.stopPropagation(); handlePrev(); }}
               >
                 ←
               </button>
               <button
                 className="artworkNavArrow right"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleNext();
-                }}
+                onClick={(e) => { e.stopPropagation(); handleNext(); }}
               >
                 →
               </button>
@@ -433,16 +231,12 @@ export default function ImageViewer({
           <div className="artworkViewerContent">
             <m.div
               style={{ position: "relative", width: "100%", height: "100%" }}
-              exit={
-                cardRect
-                  ? {
-                      x: cardRect.left + cardRect.width / 2 - window.innerWidth / 2,
-                      y: cardRect.top + cardRect.height / 2 - window.innerHeight / 2,
-                      scale: cardRect.width / Math.min(window.innerWidth * 0.9, window.innerHeight * 0.8),
-                      opacity: 0,
-                    }
-                  : { scale: 0.8, opacity: 0 }
-              }
+              exit={cardRect ? {
+                x: cardRect.left + cardRect.width / 2 - window.innerWidth / 2,
+                y: cardRect.top + cardRect.height / 2 - window.innerHeight / 2,
+                scale: cardRect.width / Math.min(window.innerWidth * 0.9, window.innerHeight * 0.8),
+                opacity: 0,
+              } : { scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <Image
@@ -453,21 +247,15 @@ export default function ImageViewer({
                 sizes="100vw"
                 className={`artworkViewerImage ${zoom > 1 ? "zoomed" : ""} ${isDragging ? "dragging" : ""}`}
                 style={{
-                  transform: `scale(${zoom}) translate(${position.x}px, ${position.y}px)`,
+                  transform: `scale(${zoom}) translate(${pos.x}px, ${pos.y}px)`,
                   transformOrigin: "center center",
                   width: "100%",
                   height: "auto",
                 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleImageClick(e);
-                }}
-                onMouseDown={handleMouseDown}
-                onMouseMove={handleMouseMove}
-                onMouseUp={handleMouseUp}
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
+                onClick={handleClick}
+                onPointerDown={handlePointerDown}
+                onPointerMove={handlePointerMove}
+                onPointerUp={handlePointerUp}
                 onWheel={handleWheel}
               />
             </m.div>

@@ -2075,3 +2075,12 @@ a {
     font-size: 12px !important;
   }
 }
+
+@media (max-width: 768px) {
+  .artworkNavArrow.left {
+    left: 12px !important;
+  }
+  .artworkNavArrow.right {
+    right: 12px !important;
+  }
+}
