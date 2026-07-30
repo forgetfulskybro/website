@@ -23,7 +23,7 @@ export const artworks: ArtworkData[] = [
     id: "artwork-DSG",
     title: "Serial Designation G - Original Creation",
     dateCreated: "06-24-2026",
-    images: ["/DSG Final.png", "/DSG Sketch Final.png", "/DSG Sketch 1.jpg", "/DSG Sketch 0.jpg", "/DSG Sketch.jpg"],
+    images: ["/DSG Head Redesign.png", "/DSG Head Redesign Sketch.png", "/DSG Final.png", "/DSG Sketch Final.png", "/DSG Sketch 1.jpg", "/DSG Sketch 0.jpg", "/DSG Sketch.jpg"],
   },
   {
     id: "artwork-USLAFS",
