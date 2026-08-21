@@ -8,6 +8,30 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-DSGR",
+    title: "Serial Designation R - Original Creation",
+    dateCreated: "08-04-2026",
+    images: ["/Serial Designation R.png", "/Serial Designation R Sketch.png"],
+  },
+  {
+    id: "artwork-SDGR",
+    title: "Serial Designation G Remake - Original Creation",
+    dateCreated: "08-11-2026",
+    images: ["/DSG Forward Smile.png", "/DSG Forward Smirk.png", "/DSG Forward Sketch 4.png", "/DSG Forward Sketch 3.png", "/DSG Forward Sketch 2.png", "/DSG Forward Sketch.png"],
+  },
+  {
+    id: "artwork-UHN",
+    title: "Uzi holding Nog  - Murder Drones",
+    dateCreated: "08-14-2026",
+    images: ["/Uzi holding Nog.png", "/Uzi holding Nog Sketch 3.png", "/Uzi holding Nog Sketch 2.png", "/Uzi holding Nog Sketch.png"],
+  },
+  {
+    id: "artwork-SGV",
+    title: "Serial Designation V - Murder Drones",
+    dateCreated: "08-05-2026",
+    images: ["/Serial Designation V.png", "/Serial Designation V Sketch.png"],
+  },
+  {
     id: "artwork-MDJA",
     title: "Serial Designation J - Murder Drones",
     dateCreated: "07-16-2026",

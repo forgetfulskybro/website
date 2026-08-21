@@ -84,7 +84,7 @@ const useProjects = (data: any): ProjectData[] => {
       target: "FF",
       title: "Functious",
       image: "/Functious.png",
-      tags: [{ name: TagType.FluxerBot }],
+      tags: [{ name: TagType.FluxerBot }, { name: TagType.Website }],
       footer: {
         start: "Feb 23, 2026",
         end: translate.get(data, "Projects.footer.endPresent"),
@@ -92,7 +92,7 @@ const useProjects = (data: any): ProjectData[] => {
       flags: [],
       github: "https://github.com/forgetfulskybro/Fluxer-Functious",
       community: "https://fluxer.gg/YnINU09E",
-      website: null,
+      website: "https://functious.vercel.app",
     },
     {
       target: "WY",
@@ -139,7 +139,7 @@ const useProjects = (data: any): ProjectData[] => {
     {
       target: "W",
       title: "Personal Website",
-      image: "/DSG Head.png",
+      image: "/DSG Forward Smile.png",
       tags: [{ name: TagType.Website }],
       footer: {
         start: "Jul 2, 2023",
