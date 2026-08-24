@@ -8,6 +8,12 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-MKMS",
+    title: "Chiharu Kujo - Milky Subway",
+    dateCreated: "08-24-2026",
+    images: ["/Chiharu Kujo.png", "/Chiharu Kujo Sketch.png", "/Chiharu Kujo Sketch 1.png", "/Chiharu Kujo Sketch 2.png", "/Chiharu Kujo Sketch 3.png"],
+  },
+  {
     id: "artwork-DSGR",
     title: "Serial Designation R - Original Creation",
     dateCreated: "08-04-2026",
