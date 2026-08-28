@@ -8,6 +8,12 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-TLC",
+    title: "Talia Yang Crying",
+    dateCreated: "08-28-2026",
+    images: ["/Talia Crying.mp4", "/Talia Crying.png", "/Talia Crying Sketch.png", "/Talia Crying Sketch 2.png", "/Talia Crying Sketch 3.png", "/Talia Crying Sketch 4.png", "/Talia Crying Sketch 5.png"],
+  },
+  {
     id: "artwork-MKMS",
     title: "Chiharu Kujo - Milky Subway",
     dateCreated: "08-24-2026",
