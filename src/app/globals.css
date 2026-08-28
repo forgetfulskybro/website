@@ -81,7 +81,7 @@ a {
 }
 
 ::-webkit-scrollbar {
-  width: 6px; /* Slim for a minimalist space vibe */
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -89,9 +89,9 @@ a {
     circle at center,
     #0a0a1f 0%,
     #000000 100%
-  ); /* Starry night sky effect */
+  );
   border-radius: 0 3px 3px 0;
-  box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.15); /* Subtle star-like shimmer */
+  box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.15);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -99,7 +99,7 @@ a {
     90deg,
     #7d3bf6a2 0%,
     #7f60fa52 100%
-  ); /* Blue glow like a comet or spaceship */
+  );
   border-radius: 0 3px 3px 0;
 }
 
@@ -292,23 +292,46 @@ a {
   height: 150px;
   width: 320px;
   position: relative;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  text-align: left;
   transition: all 0.25s ease-in-out;
   margin: 10px;
+  box-sizing: border-box;
 }
 
 .projectCard:hover {
   cursor: pointer;
 }
 
+.flags {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+  z-index: 1;
+}
+
+.flag {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 .projectTitle {
   display: flex;
   flex-direction: row;
+  align-items: center;
   font-size: 19px;
   font-weight: 800;
   gap: 3px;
-  margin-left: 20px;
-  margin-top: -65px;
+  margin: 0;
+  padding-right: 80px;
   text-align: left;
 }
 
@@ -319,75 +342,58 @@ a {
 
 .projectDesc {
   color: rgba(255, 255, 255, 0.7);
-  margin-left: 20px;
-  margin-top: 4px;
-  position: absolute;
-  top: 40px;
-  word-wrap: normal;
   font-size: 12px;
+  margin: 4px 0 0;
+  word-wrap: break-word;
   text-align: left;
+  flex: 1; 
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
 }
 
 .projectTags {
+  display: inline-flex;
   align-items: center;
   border-radius: 6px;
-  float: left;
   font-size: 12px;
   font-weight: 600;
-  height: fit-content;
-  margin-bottom: 6px;
-  margin-left: 7.7px;
-  margin-top: 4px;
   padding: 4px 8px;
   background-color: rgba(0, 0, 0, 0.2);
-
   transition: opacity 0.25s ease-in-out;
-}
-
-.projectFooterEnd {
-  color: "white";
-  font-weight: 900;
-  margin-bottom: -3px;
-}
-
-.projectDivider {
-  color: #6a6969;
-  margin-bottom: -2px;
+  margin: 0;
 }
 
 .projectTags:hover {
   opacity: 0.8;
 }
 
-.tags {
-  bottom: 25px;
-  left: 12px;
-  position: absolute;
-}
-
 .projectFooter {
-  bottom: 5px;
   color: rgba(255, 255, 255, 0.7);
   font-size: 11px;
-  margin-left: 20px;
-  position: absolute;
+  margin-top: 8px;
   text-align: left;
-}
-
-.flags {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: 4px;
 }
 
-.flag {
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 500;
-  background-color: rgba(0, 0, 0, 0.2);
+.projectFooterEnd {
+  color: white;
+  font-weight: 900;
+}
+
+.projectDivider {
+  color: #6a6969;
 }
 
 .gameCard {
@@ -1822,6 +1828,39 @@ a {
   .comet {
     animation: none;
   }
+}
+
+input[type="range"][aria-label="GIF speed"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  margin-top: -5px;
+}
+
+input[type="range"][aria-label="GIF speed"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+input[type="range"][aria-label="GIF speed"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: transparent;
+}
+
+input[type="range"][aria-label="GIF speed"]::-moz-range-track {
+  height: 4px;
+  background: transparent;
 }
 
 .artworkCard {

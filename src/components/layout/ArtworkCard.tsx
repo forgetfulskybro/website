@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { ArtworkData } from "../ArtworkArray";
 
@@ -40,9 +40,16 @@ export default function ArtworkCard({ artwork, onClick }: ArtworkCardProps) {
           handleClick();
         }
       }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        textAlign: "left",
+        overflow: "hidden",
+      }}
     >
       <div
         className={`artworkImages ${isMultiple ? "multiple" : "single"} ${isGrid ? "grid" : ""} ${isTwoImages ? "two" : ""} ${isThreeImages ? "three" : ""}`}
+        style={{ position: "relative" }}
       >
         {displayImages.map((src, index) => {
           const isVideo = isVideoUrl(src);
@@ -113,8 +120,95 @@ export default function ArtworkCard({ artwork, onClick }: ArtworkCardProps) {
             </div>
           );
         })}
+
+        {imageCount > 1 && (
+          <div
+            style={{
+              position: "absolute",
+              top: 10,
+              right: 10,
+              zIndex: 2,
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              padding: "4px 8px",
+              borderRadius: 8,
+              background: "rgba(0, 0, 0, 0.45)",
+              border: "1px solid rgba(255, 255, 255, 0.12)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+              fontSize: 11,
+              fontWeight: 600,
+              color: "rgba(255, 255, 255, 0.9)",
+              pointerEvents: "none",
+            }}
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" opacity={0.85}>
+              <path d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h10v2H4v-2z" />
+            </svg>
+            {imageCount}
+          </div>
+        )}
       </div>
-      <h3 className="artworkTitle">{artwork.title}</h3>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 6,
+          padding: "12px 14px 14px",
+          width: "100%",
+          boxSizing: "border-box",
+        }}
+      >
+        <h3
+          className="artworkTitle"
+          style={{
+            margin: 0,
+            fontSize: 16,
+            fontWeight: 700,
+            lineHeight: 1.25,
+            color: "rgba(255, 255, 255, 0.95)",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {artwork.title}
+        </h3>
+
+        {"dateCreated" in artwork && artwork.dateCreated && (
+          <p
+            style={{
+              margin: 0,
+              fontSize: 12,
+              color: "rgba(255, 255, 255, 0.55)",
+              lineHeight: 1.3,
+            }}
+          >
+            {String(artwork.dateCreated)}
+          </p>
+        )}
+
+        {"description" in artwork &&
+          typeof (artwork as { description?: string }).description === "string" &&
+          (artwork as { description?: string }).description && (
+            <p
+              style={{
+                margin: 0,
+                fontSize: 12,
+                color: "rgba(255, 255, 255, 0.65)",
+                lineHeight: 1.4,
+                display: "-webkit-box",
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+              }}
+            >
+              {(artwork as { description?: string }).description}
+            </p>
+          )}
+      </div>
     </button>
   );
 }
