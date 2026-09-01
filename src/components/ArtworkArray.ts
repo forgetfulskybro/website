@@ -8,10 +8,16 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-TW",
+    title: "Tessa Wave - Murder Drones",
+    dateCreated: "08-31-2026",
+    images: ["/Tessa Wave/Tessa Wave NoBlink.mp4", "/Tessa Wave/Tessa Wave NoBlink Sketch.png", "/Tessa Wave/Tessa Wave NoBlink Sketch 2.png", "/Tessa Wave/Tessa Wave NoBlink Sketch 3.png", "/Tessa Wave/Tessa Wave NoBlink Sketch 4.png", "/Tessa Wave/Tessa Wave Blink.mp4", "/Tessa Wave/Tessa Wave Sketch.png", "/Tessa Wave/Tessa Wave Sketch 1.png", "/Tessa Wave/Tessa Wave Sketch 2.png", "/Tessa Wave/Tessa Wave Sketch 3.png", "/Tessa Wave/Tessa Wave Sketch v1.png", "/Tessa Wave/Tessa Wave Sketch v1 2.png", "/Tessa Wave/Tessa Wave Sketch v1 3.png", "/Tessa Wave/Tessa Wave Sketch v1 4.png", "/Tessa Wave/Tessa Wave Sketch v1 5.png", "/Tessa Wave/Tessa Wave Sketch v1 6.png"],
+  },
+  {
     id: "artwork-TLC",
-    title: "Talia Yang Crying",
+    title: "Talia Yang Crying - Cyberpunk Edgerunners II",
     dateCreated: "08-28-2026",
-    images: ["/Talia Crying.mp4", "/Talia Crying.png", "/Talia Crying Sketch.png", "/Talia Crying Sketch 2.png", "/Talia Crying Sketch 3.png", "/Talia Crying Sketch 4.png", "/Talia Crying Sketch 5.png"],
+    images: ["/Talia Yang/Talia Crying.mp4", "/Talia Crying.png", "/Talia Crying Sketch.png", "/Talia Crying Sketch 2.png", "/Talia Crying Sketch 3.png", "/Talia Crying Sketch 4.png", "/Talia Crying Sketch 5.png"],
   },
   {
     id: "artwork-MKMS",
