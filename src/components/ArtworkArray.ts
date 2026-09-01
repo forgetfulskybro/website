@@ -77,7 +77,7 @@ export const artworks: ArtworkData[] = [
     id: "artwork-ESB",
     title: "Evie - Stellar Blade: BLOOD RAIN",
     dateCreated: "06-10-2026",
-    images: ["/Evie Drawing.png", "/Evie Drawing.jpg", "/Evie Drawing Sketch.jpg"],
+    images: ["/Evie/Evie Drawing.png", "/Evie/Evie Drawing.jpg", "/Evie/Evie Drawing Sketch.jpg"],
   },
   {
     id: "artwork-KLG",
