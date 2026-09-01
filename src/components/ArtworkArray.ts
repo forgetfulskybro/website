@@ -17,13 +17,13 @@ export const artworks: ArtworkData[] = [
     id: "artwork-TLC",
     title: "Talia Yang Crying - Cyberpunk Edgerunners II",
     dateCreated: "08-28-2026",
-    images: ["/Talia Yang/Talia Crying.mp4", "/Talia Crying.png", "/Talia Crying Sketch.png", "/Talia Crying Sketch 2.png", "/Talia Crying Sketch 3.png", "/Talia Crying Sketch 4.png", "/Talia Crying Sketch 5.png"],
+    images: ["/Talia Yang/Talia Crying.mp4", "/Talia Yang/Talia Crying.png", "/Talia Yang/Talia Crying Sketch.png", "/Talia Yang/Talia Crying Sketch 2.png", "/Talia Yang/Talia Crying Sketch 3.png", "/Talia Yang/Talia Crying Sketch 4.png", "/Talia Yang/Talia Crying Sketch 5.png"],
   },
   {
     id: "artwork-MKMS",
     title: "Chiharu Kujo - Milky Subway",
     dateCreated: "08-24-2026",
-    images: ["/Chiharu Kujo.png", "/Chiharu Kujo Sketch.png", "/Chiharu Kujo Sketch 1.png", "/Chiharu Kujo Sketch 2.png", "/Chiharu Kujo Sketch 3.jpg"],
+    images: ["/Chiharu Kujo/Chiharu Kujo.png", "/Chiharu Kujo/Chiharu Kujo Sketch.png", "/Chiharu Kujo/Chiharu Kujo Sketch 1.png", "/Chiharu Kujo/Chiharu Kujo Sketch 2.png", "/Chiharu Kujo/Chiharu Kujo Sketch 3.jpg"],
   },
   {
     id: "artwork-DSGR",
@@ -35,7 +35,7 @@ export const artworks: ArtworkData[] = [
     id: "artwork-SDGR",
     title: "Serial Designation G Remake - Original Creation",
     dateCreated: "08-11-2026",
-    images: ["/DSG Forward Smile.png", "/DSG Forward Smirk.png", "/DSG Forward Sketch 4.png", "/DSG Forward Sketch 3.png", "/DSG Forward Sketch 2.png", "/DSG Forward Sketch.png"],
+    images: ["/DSG/DSG Forward Smile.png", "/DSG/DSG Forward Smirk.png", "/DSG/DSG Forward Sketch 4.png", "/DSG/DSG Forward Sketch 3.png", "/DSG/DSG Forward Sketch 2.png", "/DSG/DSG Forward Sketch.png"],
   },
   {
     id: "artwork-UHN",
@@ -59,13 +59,13 @@ export const artworks: ArtworkData[] = [
     id: "artwork-TYCPE",
     title: "Talia Yang - Cyberpunk Edgerunners II",
     dateCreated: "07-10-2026",
-    images: ["/Talia Yang - Alternate.png", "/Talia Yang Mouth Opened.png", "/Talia Yang Mask Sketch 1.png", "/Talia Yang Mask Sketch.jpg", "/Talia Yang - Cyberpunk Edgerunners.png", "/Talia Yang Sketch 1.png", "/Talia Yang Sketch.jpg"],
+    images: ["/Talia Yang/Talia Yang - Alternate.png", "/Talia Yang/Talia Yang Mouth Opened.png", "/Talia Yang/Talia Yang Mask Sketch 1.png", "/Talia Yang/Talia Yang Mask Sketch.jpg", "/Talia Yang/Talia Yang - Cyberpunk Edgerunners.png", "/Talia Yang/Talia Yang Sketch 1.png", "/Talia Yang/Talia Yang Sketch.jpg"],
   },
   {
     id: "artwork-DSG",
     title: "Serial Designation G - Original Creation",
     dateCreated: "06-24-2026",
-    images: ["/DSG Head Redesign.png", "/DSG Head Redesign Sketch.png", "/DSG Final.png", "/DSG Sketch Final.png", "/DSG Sketch 1.jpg", "/DSG Sketch 0.jpg", "/DSG Sketch.jpg"],
+    images: ["/DSG/DSG Head Redesign.png", "/DSG/DSG Head Redesign Sketch.png", "/DSG/DSG Final.png", "/DSG/DSG Sketch Final.png", "/DSG/DSG Sketch 1.jpg", "/DSG/DSG Sketch 0.jpg", "/DSG/DSG Sketch.jpg"],
   },
   {
     id: "artwork-USLAFS",
@@ -89,7 +89,7 @@ export const artworks: ArtworkData[] = [
     id: "artwork-CMD2",
     title: "Cyn Sketch - Murder Drones",
     dateCreated: "06-07-2026",
-    images: ["/Cyn Drawing 2.jpg", "/Cyn Drawing 2 sketch 1.jpg", "/Cyn Drawing 2 sketch.jpg"],
+    images: ["/Cyn Drawing/Cyn Drawing 2.jpg", "/Cyn Drawing/Cyn Drawing 2 sketch 1.jpg", "/Cyn Drawing/Cyn Drawing 2 sketch.jpg"],
   },
   {
     id: "artwork-MG",
@@ -113,7 +113,7 @@ export const artworks: ArtworkData[] = [
     id: "artwork-CMD",
     title: "Cyn - Murder Drones",
     dateCreated: "05-12-2026",
-    images: ["/Cyn Drawing.jpg"],
+    images: ["/Cyn Drawing/Cyn Drawing.jpg"],
   },
   {
     id: "artwork-MIG",
