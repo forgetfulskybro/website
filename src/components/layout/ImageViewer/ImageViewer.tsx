@@ -1,61 +1,23 @@
 "use client";
+
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import ToolTip from "../ToolTip";
+import ToolTip from "../../ToolTip";
 
-interface ImageViewerProps {
-  isOpen: boolean;
-  onClose: () => void;
-  images: string[];
-  currentIndex: number;
-  onNavigate: (index: number) => void;
-  title: string;
-  dateCreated: string;
-  cardRect: DOMRect | null;
-}
+import {
+  type ImageViewerProps,
+  type ViewMode,
+  isVideoUrl,
+  getGridColumns,
+  getCellSize,
+  GIF_BASE_MS,
+  glassButtonStyle,
+} from "./utils";
+import { exportGif } from "./exportGif";
+import VideoPlayer from "./VideoPlayer";
 
-const isVideoUrl = (url: string) =>
-  /\.(mp4|webm|ogg|mov)(\?|$)/i.test(url) || url.includes("video/");
-
-function formatTime(seconds: number) {
-  if (!isFinite(seconds) || isNaN(seconds)) return "0:00";
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
-  return `${m}:${s.toString().padStart(2, "0")}`;
-}
-
-const glassButtonStyle: React.CSSProperties = {
-  padding: "8px",
-  background: "rgba(255, 255, 255, 0.1)",
-  border: "1px solid rgba(255, 255, 255, 0.2)",
-  borderRadius: "6px",
-  color: "white",
-  cursor: "pointer",
-  transition: "all 0.2s ease",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-};
-
-type ViewMode = "grid" | "single" | "gif";
-
-const GIF_BASE_MS = 1800;
-
-function getGridColumns(count: number): number {
-  if (count <= 1) return 1;
-  if (count === 2) return 2;
-  if (count === 3) return 3;
-  return Math.ceil(Math.sqrt(count));
-}
-
-function getCellSize(count: number): number {
-  if (count <= 1) return 360;
-  if (count <= 4) return 260;
-  if (count <= 9) return 200;
-  if (count <= 16) return 160;
-  return 140;
-}
+export type { ImageViewerProps } from "./utils";
 
 export default function ImageViewer({
   isOpen,
@@ -65,7 +27,6 @@ export default function ImageViewer({
   onNavigate,
   title,
   dateCreated,
-  cardRect,
 }: ImageViewerProps) {
   const [viewMode, setViewMode] = useState<ViewMode>(
     images.length > 1 ? "grid" : "single"
@@ -74,26 +35,21 @@ export default function ImageViewer({
   const [zoom, setZoom] = useState(1);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const dragRef = useRef({ startX: 0, startY: 0, posX: 0, posY: 0, hasDragged: false });
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(1);
-  const [isMuted, setIsMuted] = useState(false);
-  const [showControls, setShowControls] = useState(true);
-  const controlsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const progressRef = useRef<HTMLDivElement>(null);
-  const isSeekingRef = useRef(false);
-  const rafRef = useRef<number | null>(null);
+  const dragRef = useRef({
+    startX: 0,
+    startY: 0,
+    posX: 0,
+    posY: 0,
+    hasDragged: false,
+  });
+
   const stillImages = images.filter((src) => !isVideoUrl(src));
   const showGifTile = images.length > 1 && stillImages.length > 1;
-  const [gifIndex, setGifIndex] = useState(() =>
-    Math.max(0, stillImages.length - 1)
-  );
+  const [gifIndex, setGifIndex] = useState(() => Math.max(0, stillImages.length - 1));
   const [gifSpeed, setGifSpeed] = useState(1);
   const gifIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [viewportW, setViewportW] = useState(1200);
+  const [isDownloadingGif, setIsDownloadingGif] = useState(false);
   const currentSrc = images[currentIndex];
   const isVideo = isVideoUrl(currentSrc);
   const gridItemCount = images.length + (showGifTile ? 1 : 0);
@@ -122,27 +78,6 @@ export default function ImageViewer({
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
-
-  useEffect(() => {
-    const tick = () => {
-      const v = videoRef.current;
-      if (v && !isSeekingRef.current) {
-        setCurrentTime(v.currentTime);
-      }
-      rafRef.current = requestAnimationFrame(tick);
-    };
-
-    if (isPlaying) {
-      rafRef.current = requestAnimationFrame(tick);
-    }
-
-    return () => {
-      if (rafRef.current != null) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
-      }
-    };
-  }, [isPlaying]);
 
   useEffect(() => {
     if (viewMode !== "gif" || stillImages.length < 2) {
@@ -184,19 +119,9 @@ export default function ImageViewer({
       resetView();
       setGifIndex(Math.max(0, stillImages.length - 1));
       setGifSpeed(1);
+      setIsDownloadingGif(false);
     }
   }, [isOpen, images.length, resetView, stillImages.length]);
-
-  useEffect(() => {
-    setIsPlaying(false);
-    setCurrentTime(0);
-    setDuration(0);
-    setShowControls(true);
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
-  }, [currentIndex, currentSrc]);
 
   const handleZoom = useCallback(
     (newZoom: number) => {
@@ -231,9 +156,15 @@ export default function ImageViewer({
       const deltaX = e.clientX - startX;
       const deltaY = e.clientY - startY;
 
-      if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) dragRef.current.hasDragged = true;
+      if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3)
+        dragRef.current.hasDragged = true;
 
-      const newPos = clamp(posX + deltaX, posY + deltaY, zoom, e.currentTarget.getBoundingClientRect());
+      const newPos = clamp(
+        posX + deltaX,
+        posY + deltaY,
+        zoom,
+        e.currentTarget.getBoundingClientRect()
+      );
       setPos(newPos);
     },
     [isDragging, zoom, clamp]
@@ -245,7 +176,7 @@ export default function ImageViewer({
   }, []);
 
   const handleClick = useCallback(
-    (e: React.MouseEvent) => {
+    (_e: React.MouseEvent) => {
       if (dragRef.current.hasDragged) {
         dragRef.current.hasDragged = false;
         return;
@@ -289,10 +220,6 @@ export default function ImageViewer({
   }, [stillImages.length]);
 
   const backToGrid = useCallback(() => {
-    if (videoRef.current) {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    }
     resetView();
     setViewMode("grid");
   }, [resetView]);
@@ -316,89 +243,22 @@ export default function ImageViewer({
     window.open(images[currentIndex], "_blank");
   }, [images, currentIndex]);
 
-  const togglePlay = useCallback(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (v.paused) {
-      v.play();
-      setIsPlaying(true);
-    } else {
-      v.pause();
-      setIsPlaying(false);
+  const handleDownloadGif = useCallback(async () => {
+    if (stillImages.length < 2 || isDownloadingGif) return;
+    setIsDownloadingGif(true);
+    try {
+      await exportGif({ stillImages, gifSpeed, title });
+    } catch (err) {
+      console.error("GIF export failed:", err);
+      alert(
+        `GIF export failed:\n${err instanceof Error ? err.message : String(err)}\n\nImages must allow CORS (crossOrigin).`
+      );
+    } finally {
+      setIsDownloadingGif(false);
     }
-  }, []);
+  }, [stillImages, gifSpeed, title, isDownloadingGif]);
 
-  const toggleMute = useCallback(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.muted = !v.muted;
-    setIsMuted(v.muted);
-  }, []);
-
-  const handleVolumeChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const v = videoRef.current;
-    if (!v) return;
-    const val = parseFloat(e.target.value);
-    v.volume = val;
-    setVolume(val);
-    setIsMuted(val === 0);
-    v.muted = val === 0;
-  }, []);
-
-  const seekTo = useCallback(
-    (clientX: number) => {
-      const bar = progressRef.current;
-      const v = videoRef.current;
-      if (!bar || !v || !duration) return;
-      const rect = bar.getBoundingClientRect();
-      const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-      const t = ratio * duration;
-      v.currentTime = t;
-      setCurrentTime(t);
-    },
-    [duration]
-  );
-
-  const handleProgressPointerDown = useCallback(
-    (e: React.PointerEvent) => {
-      e.stopPropagation();
-      isSeekingRef.current = true;
-      (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
-      seekTo(e.clientX);
-    },
-    [seekTo]
-  );
-
-  const handleProgressPointerMove = useCallback(
-    (e: React.PointerEvent) => {
-      if (!isSeekingRef.current) return;
-      seekTo(e.clientX);
-    },
-    [seekTo]
-  );
-
-  const handleProgressPointerUp = useCallback(() => {
-    isSeekingRef.current = false;
-  }, []);
-
-  const scheduleHideControls = useCallback(() => {
-    if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
-    setShowControls(true);
-    controlsTimeoutRef.current = setTimeout(() => {
-      if (isPlaying) setShowControls(false);
-    }, 2500);
-  }, [isPlaying]);
-
-  const onVideoLoadedMetadata = useCallback(() => {
-    const v = videoRef.current;
-    if (v) setDuration(v.duration);
-  }, []);
-
-  const onVideoEnded = useCallback(() => {
-    setIsPlaying(false);
-    setShowControls(true);
-  }, []);
-
+  // Keyboard: Escape, image prev/next (video keys handled inside VideoPlayer)
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => {
@@ -408,59 +268,23 @@ export default function ImageViewer({
       }
 
       if (viewMode === "grid" || viewMode === "gif") return;
+      if (isVideo) return; // VideoPlayer owns space/k/m/seek
 
-      if (isVideo) {
-        if (e.key === " " || e.key === "k" || e.key === "K") {
-          e.preventDefault();
-          togglePlay();
-          return;
-        }
-        if (e.key === "m" || e.key === "M") {
-          toggleMute();
-          return;
-        }
-        if (e.key === "ArrowLeft") {
-          const v = videoRef.current;
-          if (v) {
-            v.currentTime = Math.max(0, v.currentTime - 5);
-            setCurrentTime(v.currentTime);
-          }
-          return;
-        }
-        if (e.key === "ArrowRight") {
-          const v = videoRef.current;
-          if (v) {
-            v.currentTime = Math.min(duration, v.currentTime + 5);
-            setCurrentTime(v.currentTime);
-          }
-          return;
-        }
-      }
       if (e.key === "ArrowLeft") handlePrev();
       if (e.key === "ArrowRight") handleNext();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [
-    isOpen,
-    viewMode,
-    isVideo,
-    handlePrev,
-    handleNext,
-    handleClose,
-    togglePlay,
-    toggleMute,
-    duration,
-  ]);
+  }, [isOpen, viewMode, isVideo, handlePrev, handleNext, handleClose]);
 
   useEffect(() => {
     return () => {
-      if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
       if (gifIntervalRef.current) clearInterval(gifIntervalRef.current);
     };
   }, []);
 
-  const showNav = viewMode === "single" && images.length > 1 && (isVideo || zoom === 1);
+  const showNav =
+    viewMode === "single" && images.length > 1 && (isVideo || zoom === 1);
 
   return (
     <AnimatePresence>
@@ -473,6 +297,7 @@ export default function ImageViewer({
           onClick={(e) => e.target === e.currentTarget && handleClose()}
           transition={{ duration: 0.3 }}
         >
+          {/* header */}
           <div
             style={{
               position: "absolute",
@@ -481,42 +306,88 @@ export default function ImageViewer({
               color: "white",
               zIndex: 10,
               maxWidth: isMobile ? "calc(100% - 72px)" : "calc(100% - 180px)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 6,
             }}
           >
             <h2
               style={{
                 fontSize: isMobile ? 18 : 24,
                 fontWeight: 600,
-                margin: "0 0 8px 0",
+                margin: 0,
                 wordWrap: "break-word",
                 overflowWrap: "break-word",
+                lineHeight: 1.25,
               }}
             >
               {title}
             </h2>
-            <p
+
+            <div
               style={{
-                fontSize: isMobile ? 12 : 14,
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: "6px 10px",
+                fontSize: isMobile ? 12 : 13,
                 color: "rgba(255, 255, 255, 0.7)",
-                margin: 0,
-                wordWrap: "break-word",
-                overflowWrap: "break-word",
               }}
             >
-              Created: {dateCreated}
+              <span style={{ whiteSpace: "nowrap" }}>Created: {dateCreated}</span>
+
               {viewMode === "single" && images.length > 1 && (
-                <span style={{ marginLeft: 12, opacity: 0.6 }}>
-                  {currentIndex + 1} / {images.length}
+                <span
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    padding: "2px 9px",
+                    borderRadius: 999,
+                    background: "rgba(255, 255, 255, 0.1)",
+                    border: "1px solid rgba(255, 255, 255, 0.18)",
+                    color: "rgba(255, 255, 255, 0.9)",
+                    fontVariantNumeric: "tabular-nums",
+                    fontWeight: 500,
+                    letterSpacing: "0.02em",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  <span style={{ opacity: 0.7, fontSize: "0.92em" }}>Image</span>
+                  {currentIndex + 1}
+                  <span style={{ opacity: 0.45 }}>/</span>
+                  {images.length}
                 </span>
               )}
+
               {viewMode === "gif" && (
-                <span style={{ marginLeft: 12, opacity: 0.6 }}>
-                  GIF · {stillImages.length} frames · {gifSpeed.toFixed(1)}×
+                <span
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    padding: "2px 9px",
+                    borderRadius: 999,
+                    background: "rgba(255, 255, 255, 0.1)",
+                    border: "1px solid rgba(255, 255, 255, 0.18)",
+                    color: "rgba(255, 255, 255, 0.9)",
+                    fontVariantNumeric: "tabular-nums",
+                    fontWeight: 500,
+                    letterSpacing: "0.02em",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  GIF
+                  <span style={{ opacity: 0.45 }}>·</span>
+                  {stillImages.length} frames
+                  <span style={{ opacity: 0.45 }}>·</span>
+                  {gifSpeed.toFixed(1)}×
                 </span>
               )}
-            </p>
+            </div>
           </div>
 
+          {/* toolbar */}
           <div
             style={{
               position: "absolute",
@@ -537,7 +408,13 @@ export default function ImageViewer({
                       handleDownload();
                     }}
                   >
-                    <Image src="/arrow.svg" alt="Download" width={20} height={20} draggable={false} />
+                    <Image
+                      src="/arrow.svg"
+                      alt="Download"
+                      width={20}
+                      height={20}
+                      draggable={false}
+                    />
                   </button>
                 </ToolTip>
 
@@ -549,15 +426,66 @@ export default function ImageViewer({
                       handleOpenInBrowser();
                     }}
                   >
-                    <Image src="/link.svg" alt="Open in Browser" width={20} height={20} draggable={false} />
+                    <Image
+                      src="/link.svg"
+                      alt="Open in Browser"
+                      width={20}
+                      height={20}
+                      draggable={false}
+                    />
                   </button>
                 </ToolTip>
               </>
             )}
 
+            {viewMode === "gif" && (
+              <ToolTip
+                content={isDownloadingGif ? "Creating GIF…" : "Download GIF"}
+                placement="bottom"
+              >
+                <button
+                  style={{
+                    ...glassButtonStyle,
+                    opacity: isDownloadingGif ? 0.6 : 1,
+                    cursor: isDownloadingGif ? "wait" : "pointer",
+                    minWidth: 36,
+                  }}
+                  disabled={isDownloadingGif}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDownloadGif();
+                  }}
+                >
+                  {isDownloadingGif ? (
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      style={{ animation: "spin 0.9s linear infinite" }}
+                    >
+                      <circle cx="12" cy="12" r="9" strokeOpacity="0.25" />
+                      <path d="M21 12a9 9 0 0 0-9-9" strokeLinecap="round" />
+                    </svg>
+                  ) : (
+                    <Image
+                      src="/arrow.svg"
+                      alt="Download GIF"
+                      width={20}
+                      height={20}
+                      draggable={false}
+                    />
+                  )}
+                </button>
+              </ToolTip>
+            )}
+
             <ToolTip
               content={
-                (viewMode === "single" || viewMode === "gif") && images.length > 1
+                (viewMode === "single" || viewMode === "gif") &&
+                images.length > 1
                   ? "Back to grid"
                   : "Close"
               }
@@ -570,7 +498,13 @@ export default function ImageViewer({
                   handleClose();
                 }}
               >
-                <Image src="/close.svg" alt="Close" width={20} height={20} draggable={false} />
+                <Image
+                  src="/close.svg"
+                  alt="Close"
+                  width={20}
+                  height={20}
+                  draggable={false}
+                />
               </button>
             </ToolTip>
           </div>
@@ -650,10 +584,12 @@ export default function ImageViewer({
                             transition: "border-color 0.2s ease",
                           }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)";
+                            e.currentTarget.style.borderColor =
+                              "rgba(255,255,255,0.3)";
                           }}
                           onMouseLeave={(e) => {
-                            e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                            e.currentTarget.style.borderColor =
+                              "rgba(255,255,255,0.12)";
                           }}
                         >
                           {video ? (
@@ -695,7 +631,12 @@ export default function ImageViewer({
                                     justifyContent: "center",
                                   }}
                                 >
-                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+                                  <svg
+                                    width="14"
+                                    height="14"
+                                    viewBox="0 0 24 24"
+                                    fill="white"
+                                  >
                                     <path d="M8 5v14l11-7z" />
                                   </svg>
                                 </div>
@@ -738,10 +679,12 @@ export default function ImageViewer({
                           transition: "border-color 0.2s ease",
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)";
+                          e.currentTarget.style.borderColor =
+                            "rgba(255,255,255,0.3)";
                         }}
                         onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                          e.currentTarget.style.borderColor =
+                            "rgba(255,255,255,0.12)";
                         }}
                       >
                         {stillImages[stillImages.length - 1] && (
@@ -884,12 +827,21 @@ export default function ImageViewer({
                       background: "rgba(0,0,0,0.4)",
                       backdropFilter: "blur(10px)",
                       border: "1px solid rgba(255,255,255,0.12)",
-                      minWidth: isMobile ? "min(260px, calc(100vw - 32px))" : 220,
+                      minWidth: isMobile
+                        ? "min(260px, calc(100vw - 32px))"
+                        : 220,
                       maxWidth: "calc(100vw - 24px)",
                       boxSizing: "border-box",
                     }}
                   >
-                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 8,
+                        flexWrap: "wrap",
+                        justifyContent: "center",
+                      }}
+                    >
                       {stillImages.map((_, i) => {
                         const progressIndex =
                           (stillImages.length - 1 - gifIndex + stillImages.length) %
@@ -985,7 +937,9 @@ export default function ImageViewer({
                           max={3}
                           step={0.1}
                           value={gifSpeed}
-                          onChange={(e) => setGifSpeed(parseFloat(e.target.value))}
+                          onChange={(e) =>
+                            setGifSpeed(parseFloat(e.target.value))
+                          }
                           onClick={(e) => e.stopPropagation()}
                           style={{
                             position: "relative",
@@ -1038,194 +992,7 @@ export default function ImageViewer({
                   style={{ position: "relative", width: "100%", height: "100%" }}
                 >
                   {isVideo ? (
-                    <div
-                      style={{
-                        position: "relative",
-                        width: "100%",
-                        height: "100%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        background: "transparent",
-                      }}
-                      onMouseMove={scheduleHideControls}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <video
-                        ref={videoRef}
-                        src={currentSrc}
-                        style={{
-                          maxWidth: "94.5%",
-                          maxHeight: "94.5%",
-                          width: "auto",
-                          height: "auto",
-                          objectFit: "contain",
-                          borderRadius: "4px",
-                          cursor: "pointer",
-                        }}
-                        playsInline
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          togglePlay();
-                          scheduleHideControls();
-                        }}
-                        onLoadedMetadata={onVideoLoadedMetadata}
-                        onEnded={onVideoEnded}
-                        onPlay={() => setIsPlaying(true)}
-                        onPause={() => setIsPlaying(false)}
-                      />
-
-                      {!isPlaying && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            togglePlay();
-                          }}
-                          style={{
-                            position: "absolute",
-                            top: "50%",
-                            left: "50%",
-                            transform: "translate(-50%, -50%)",
-                            width: isMobile ? 56 : 72,
-                            height: isMobile ? 56 : 72,
-                            borderRadius: "50%",
-                            background: "rgba(255, 255, 255, 0.12)",
-                            border: "1px solid rgba(255, 255, 255, 0.25)",
-                            backdropFilter: "blur(12px)",
-                            WebkitBackdropFilter: "blur(12px)",
-                            color: "white",
-                            cursor: "pointer",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            transition: "all 0.2s ease",
-                            zIndex: 5,
-                          }}
-                          aria-label="Play"
-                        >
-                          <svg
-                            width={isMobile ? 22 : 28}
-                            height={isMobile ? 22 : 28}
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                          >
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
-                        </button>
-                      )}
-
-                      <div
-                        style={{
-                          position: "absolute",
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          padding: isMobile ? "12px 14px 16px" : "16px 20px 20px",
-                          background:
-                            "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)",
-                          opacity: showControls || !isPlaying ? 1 : 0,
-                          transition: "opacity 0.3s ease",
-                          pointerEvents: showControls || !isPlaying ? "auto" : "none",
-                          zIndex: 6,
-                        }}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <div
-                          ref={progressRef}
-                          style={{
-                            height: 6,
-                            background: "rgba(255, 255, 255, 0.2)",
-                            borderRadius: 3,
-                            cursor: "pointer",
-                            marginBottom: 12,
-                            position: "relative",
-                          }}
-                          onPointerDown={handleProgressPointerDown}
-                          onPointerMove={handleProgressPointerMove}
-                          onPointerUp={handleProgressPointerUp}
-                          onPointerLeave={handleProgressPointerUp}
-                        >
-                          <div
-                            style={{
-                              height: "100%",
-                              width: `${duration ? (currentTime / duration) * 100 : 0}%`,
-                              background: "rgba(255, 255, 255, 0.9)",
-                              borderRadius: 3,
-                            }}
-                          />
-                        </div>
-
-                        <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 8 : 12 }}>
-                          <button
-                            style={glassButtonStyle}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              togglePlay();
-                            }}
-                            aria-label={isPlaying ? "Pause" : "Play"}
-                          >
-                            {isPlaying ? (
-                              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-                              </svg>
-                            ) : (
-                              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z" />
-                              </svg>
-                            )}
-                          </button>
-
-                          <span
-                            style={{
-                              fontSize: isMobile ? 12 : 13,
-                              color: "rgba(255,255,255,0.85)",
-                              fontVariantNumeric: "tabular-nums",
-                              minWidth: isMobile ? 70 : 90,
-                            }}
-                          >
-                            {formatTime(currentTime)} / {formatTime(duration)}
-                          </span>
-
-                          <div style={{ flex: 1 }} />
-
-                          <button
-                            style={glassButtonStyle}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleMute();
-                            }}
-                            aria-label={isMuted ? "Unmute" : "Mute"}
-                          >
-                            {isMuted || volume === 0 ? (
-                              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
-                              </svg>
-                            ) : (
-                              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                              </svg>
-                            )}
-                          </button>
-
-                          {!isMobile && (
-                            <input
-                              type="range"
-                              min={0}
-                              max={1}
-                              step={0.05}
-                              value={isMuted ? 0 : volume}
-                              onChange={handleVolumeChange}
-                              onClick={(e) => e.stopPropagation()}
-                              style={{
-                                width: 80,
-                                accentColor: "rgba(255,255,255,0.9)",
-                                cursor: "pointer",
-                              }}
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </div>
+                    <VideoPlayer src={currentSrc} isMobile={isMobile} />
                   ) : (
                     <Image
                       src={currentSrc}
@@ -1251,6 +1018,12 @@ export default function ImageViewer({
               )}
             </AnimatePresence>
           </div>
+
+          <style>{`
+            @keyframes spin {
+              to { transform: rotate(360deg); }
+            }
+          `}</style>
         </m.div>
       )}
     </AnimatePresence>

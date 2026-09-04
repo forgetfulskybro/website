@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { getArtworks, ArtworkData } from "../ArtworkArray";
 import ArtworkCard from "./ArtworkCard";
-import ImageViewer from "./ImageViewer";
+import ImageViewer from "./ImageViewer/ImageViewer";
 
 interface ArtworkGridProps {
   data: string;

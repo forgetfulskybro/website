@@ -4,7 +4,6 @@ import { LangSelect } from "@/components/LanguageSelect";
 import ArtworkGrid from "@/components/layout/ArtworkGrid";
 import { usePathname } from "next/navigation";
 import AppShell from "@/components/pageNav/AppShell";
-import React from "react";
 
 export default function ArtworkClient() {
   const data = LangSelect();
