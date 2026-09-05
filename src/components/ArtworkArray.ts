@@ -8,6 +8,12 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-ICCON",
+    title: "I.C.-0n - Internecion Cube",
+    dateCreated: "09/04/2026",
+    images: ["/IC0N/IC0N.png", "/IC0N/IC0N Sketch 29.png", "/IC0N/IC0N Sketch 28.png", "/IC0N/IC0N Sketch 27.png", "/IC0N/IC0N Sketch 26.png", "/IC0N/IC0N Sketch 25.png", "/IC0N/IC0N Sketch 24.png", "/IC0N/IC0N Sketch 23.png", "/IC0N/IC0N Sketch 22.png", "/IC0N/IC0N Sketch 21.png", "/IC0N/IC0N Sketch 20.png", "/IC0N/IC0N Sketch 19.png", "/IC0N/IC0N Sketch 18.png", "/IC0N/IC0N Sketch 17.png", "/IC0N/IC0N Sketch 16.png", "/IC0N/IC0N Sketch 15.png", "/IC0N/IC0N Sketch 14.png", "/IC0N/IC0N Sketch 13.png", "/IC0N/IC0N Sketch 12.png", "/IC0N/IC0N Sketch 11.png", "/IC0N/IC0N Sketch 10.png", "/IC0N/IC0N Sketch 9.png", "/IC0N/IC0N Sketch 8.png", "/IC0N/IC0N Sketch 7.png", "/IC0N/IC0N Sketch 6.png", "/IC0N/IC0N Sketch 5.png", "/IC0N/IC0N Sketch 4.png", "/IC0N/IC0N Sketch 3.png", "/IC0N/IC0N Sketch 2.png", "/IC0N/IC0N Sketch 1.png"],
+  },
+  {
     id: "artwork-ZEP",
     title: "Zena Ear Pull",
     dateCreated: "09/03/2026",
