@@ -545,12 +545,13 @@ export default function ImageViewer({
                     width: "100%",
                     height: "100%",
                     display: "flex",
-                    alignItems: isMobile ? "flex-start" : "center",
+                    alignItems: "flex-start",
                     justifyContent: "center",
                     padding: `${topPad}px ${horizontalPad}px ${bottomPad}px`,
                     boxSizing: "border-box",
                     overflow: "auto",
                     WebkitOverflowScrolling: "touch",
+                    minHeight: 0,
                   }}
                   onClick={(e) => e.stopPropagation()}
                 >
@@ -562,6 +563,7 @@ export default function ImageViewer({
                       justifyContent: "center",
                       width: "100%",
                       maxWidth: cols * cellSize + gridGap * (cols - 1),
+                      height: "auto",
                     }}
                   >
                     {images.map((src, index) => {
