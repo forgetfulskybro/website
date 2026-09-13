@@ -8,6 +8,12 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-NUziCheek",
+    title: "NUzi Cheek - Murder Drones",
+    dateCreated: "09/13/2026",
+    images: ["/NUzi Cheek/NUzi cheek.png", "/NUzi Cheek/NUzi cheek sketch 30.png", "/NUzi Cheek/NUzi cheek sketch 29.png", "/NUzi Cheek/NUzi cheek sketch 28.png", "/NUzi Cheek/NUzi cheek sketch 27.png", "/NUzi Cheek/NUzi cheek sketch 26.png", "/NUzi Cheek/NUzi cheek sketch 25.png", "/NUzi Cheek/NUzi cheek sketch 24.png", "/NUzi Cheek/NUzi cheek sketch 23.png", "/NUzi Cheek/NUzi cheek sketch 22.png", "/NUzi Cheek/NUzi cheek sketch 21.png", "/NUzi Cheek/NUzi cheek sketch 20.png", "/NUzi Cheek/NUzi cheek sketch 19.png", "/NUzi Cheek/NUzi cheek sketch 18.png", "/NUzi Cheek/NUzi cheek sketch 17.png", "/NUzi Cheek/NUzi cheek sketch 16.png", "/NUzi Cheek/NUzi cheek sketch 15.png", "/NUzi Cheek/NUzi cheek sketch 14.png", "/NUzi Cheek/NUzi cheek sketch 13.png", "/NUzi Cheek/NUzi cheek sketch 12.png", "/NUzi Cheek/NUzi cheek sketch 11.png", "/NUzi Cheek/NUzi cheek sketch 10.png", "/NUzi Cheek/NUzi cheek sketch 9.png", "/NUzi Cheek/NUzi cheek sketch 8.png", "/NUzi Cheek/NUzi cheek sketch 7.png", "/NUzi Cheek/NUzi cheek sketch 6.png", "/NUzi Cheek/NUzi cheek sketch 5.png", "/NUzi Cheek/NUzi cheek sketch 4.png", "/NUzi Cheek/NUzi cheek sketch 3.png", "/NUzi Cheek/NUzi cheek sketch 2.png", "/NUzi Cheek/NUzi cheek sketch 1.png"]
+  },
+  {
     id: "artwork-NxcatZi",
     title: "catZi Air Jail - Murder Drones",
     dateCreated: "09/09/2026",
