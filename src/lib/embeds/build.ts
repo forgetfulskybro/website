@@ -14,6 +14,22 @@ export type DiscordEmbedButton = {
   style?: DiscordEmbedButtonStyle;
 };
 
+export type DiscordEmbedGalleryData = {
+  items: DiscordEmbedImage[];
+  thumbnail?: boolean;
+};
+
+export type DiscordEmbedData = {
+  accentColor?: string | number;
+  url?: string;
+  title?: string;
+  subtitle?: string;
+  image?: DiscordEmbedImage;
+  contents?: string[];
+  galleries?: DiscordEmbedGalleryData[];
+  buttons?: DiscordEmbedButton[];
+};
+
 type EmbTextProps = { children?: ReactNode };
 
 function toText(node: ReactNode): string {
@@ -49,6 +65,7 @@ export function DiscordEmbedImage(props: {
 
 export function DiscordEmbedGallery(props: {
   items: DiscordEmbedImage[];
+  thumbnail?: boolean;
 }): null {
   return voidProps(props);
 }
@@ -63,12 +80,17 @@ export function DiscordEmbedButtons(props: {
   return voidProps(props);
 }
 
+type CollectedGallery = {
+  items: DiscordEmbedImage[];
+  thumbnail: boolean;
+};
+
 type Collected = {
   title?: string;
   subtitle?: string;
   image?: DiscordEmbedImage;
   contents: string[];
-  galleries: DiscordEmbedImage[][];
+  galleries: CollectedGallery[];
   buttons: DiscordEmbedButton[];
 };
 
@@ -106,12 +128,10 @@ function collect(node: ReactNode, out: Collected): void {
       const raw = Array.isArray(props.items)
         ? (props.items as DiscordEmbedImage[])
         : [];
-      out.galleries.push(
-        raw.map((item) => ({
-          src: String(item.src),
-          ...(item.description ? { description: item.description } : {}),
-        })),
-      );
+      out.galleries.push({
+        items: normalizeItems(raw),
+        thumbnail: props.thumbnail === true,
+      });
       break;
     }
     case DiscordEmbedButton: {
@@ -133,6 +153,27 @@ function collect(node: ReactNode, out: Collected): void {
       collect(props.children, out);
       break;
   }
+}
+
+function normalizeItems(items: DiscordEmbedImage[]): DiscordEmbedImage[] {
+  return items.map((item) => ({
+    src: String(item.src),
+    ...(item.description ? { description: item.description } : {}),
+  }));
+}
+
+function fromData(data: DiscordEmbedData): Collected {
+  return {
+    title: data.title,
+    subtitle: data.subtitle,
+    image: data.image,
+    contents: data.contents ?? [],
+    galleries: (data.galleries ?? []).map((gallery) => ({
+      items: normalizeItems(gallery.items ?? []),
+      thumbnail: gallery.thumbnail === true,
+    })),
+    buttons: data.buttons ?? [],
+  };
 }
 
 function normalizeAccentColor(color?: string | number): number | undefined {
@@ -158,24 +199,11 @@ type DiscordSection = {
   accessory?: { type: 11; media: { url: string } };
 };
 
-export function serializeDiscordEmbed({
-  accentColor: rawAccentColor,
-  url,
-  children,
-}: {
-  accentColor?: string | number;
-  url?: string;
-  children?: ReactNode;
-}) {
-  const accentColor = normalizeAccentColor(rawAccentColor);
-
-  const collected: Collected = {
-    contents: [],
-    galleries: [],
-    buttons: [],
-  };
-  collect(children, collected);
-
+function buildPayload(
+  collected: Collected,
+  accentColor: number | undefined,
+  url?: string,
+) {
   const components: object[] = [];
 
   const sectionTexts: { type: 10; content: string }[] = [];
@@ -204,16 +232,31 @@ export function serializeDiscordEmbed({
     components.push(section);
   }
 
-  for (const images of collected.galleries) {
-    components.push({
-      type: 12,
-      items: images.slice(0, 10).map((item) => ({
-        media: { url: sanitizeMediaUrl(item.src) },
-        ...(item.description
-          ? { description: escapeMarkdown(item.description) }
-          : {}),
-      })),
-    });
+  for (const gallery of collected.galleries) {
+    if (gallery.thumbnail) {
+      for (const item of gallery.items.slice(0, 10)) {
+        components.push({
+          type: 9,
+          components: [
+            { type: 10, content: escapeMarkdown(item.description ?? "") },
+          ],
+          accessory: {
+            type: 11,
+            media: { url: sanitizeMediaUrl(item.src) },
+          },
+        });
+      }
+    } else {
+      components.push({
+        type: 12,
+        items: gallery.items.slice(0, 10).map((item) => ({
+          media: { url: sanitizeMediaUrl(item.src) },
+          ...(item.description
+            ? { description: escapeMarkdown(item.description) }
+            : {}),
+        })),
+      });
+    }
   }
 
   if (collected.contents.length > 0) {
@@ -242,4 +285,30 @@ export function serializeDiscordEmbed({
       components,
     },
   };
+}
+
+export function serializeDiscordEmbed({
+  accentColor: rawAccentColor,
+  url,
+  children,
+}: {
+  accentColor?: string | number;
+  url?: string;
+  children?: ReactNode;
+}) {
+  const collected: Collected = {
+    contents: [],
+    galleries: [],
+    buttons: [],
+  };
+  collect(children, collected);
+  return buildPayload(collected, normalizeAccentColor(rawAccentColor), url);
+}
+
+export function serializeDiscordEmbedData(data: DiscordEmbedData) {
+  return buildPayload(
+    fromData(data),
+    normalizeAccentColor(data.accentColor),
+    data.url,
+  );
 }

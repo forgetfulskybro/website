@@ -6,7 +6,10 @@ import styles from "./guildcount.module.css";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import { getMetadata } from "@/components/getMetaData";
-import { DiscordEmbed, SITE_URL } from "@/components/seo/discord-embed";
+import {
+  DiscordEmbedLink,
+  SITE_URL,
+} from "@/components/seo/discord-embed";
 import Link from "next/link";
 
 const meta = getMetadata("/projects/guildcount");
@@ -56,12 +59,15 @@ export default async function GuildCount() {
   } catch (error) {
     console.error("Error in fetch:", error);
     return (
-      <div className={styles.pageWrapper}>
-        <div className={styles.error}>
-          <p>Error fetching data. Please try again.</p>
-          <Link href="/">Go back</Link>
+      <>
+        <DiscordEmbedLink href={`${SITE_URL}/api/embeds/projects/guildcount`} />
+        <div className={styles.pageWrapper}>
+          <div className={styles.error}>
+            <p>Error fetching data. Please try again.</p>
+            <Link href="/">Go back</Link>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
@@ -71,21 +77,7 @@ export default async function GuildCount() {
 
   return (
     <>
-      <DiscordEmbed path="projects/guildcount" url={`${SITE_URL}/projects/guildcount`}>
-        <DiscordEmbed.title>{meta.title}</DiscordEmbed.title>
-        <DiscordEmbed.subtitle>Discord server lookup tool</DiscordEmbed.subtitle>
-        <DiscordEmbed.image
-          src={`${SITE_URL}/guildcount.png`}
-          description={meta.title}
-        />
-        <DiscordEmbed.content>{meta.description}</DiscordEmbed.content>
-        <DiscordEmbed.buttons>
-          <DiscordEmbed.button
-            label="Open Guild Count"
-            url={`${SITE_URL}/projects/guildcount`}
-          />
-        </DiscordEmbed.buttons>
-      </DiscordEmbed>
+      <DiscordEmbedLink href={`${SITE_URL}/api/embeds/projects/guildcount`} />
       <div className={styles.pageWrapper}>
         <div className={styles.container}>
           <div className={styles.header}>

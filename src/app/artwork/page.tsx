@@ -4,6 +4,7 @@ import {
   DiscordEmbed,
   SITE_URL,
   toAbsoluteUrl,
+  isEmbeddableImage,
 } from "@/components/seo/discord-embed";
 import { artworks } from "@/components/ArtworkArray";
 import ArtworkClient from "./ArtworkClient";
@@ -16,12 +17,12 @@ export const metadata: Metadata = {
 };
 
 const featuredArtwork = artworks
-  .filter((piece) => piece.images.length > 0)
-  .slice(0, 6)
-  .map((piece) => ({
-    src: toAbsoluteUrl(piece.images[0]),
-    description: piece.title,
-  }));
+  .map((piece) => {
+    const src = piece.images.find((image) => isEmbeddableImage(image));
+    return src ? { src: toAbsoluteUrl(src), description: piece.title } : null;
+  })
+  .filter((item): item is { src: string; description: string } => item !== null)
+  .slice(0, 6);
 
 export default function ArtworkPage() {
   return (

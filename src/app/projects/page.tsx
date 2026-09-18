@@ -4,7 +4,7 @@ import {
   DiscordEmbed,
   SITE_URL,
   toAbsoluteUrl,
-  isDiscordMedia,
+  isEmbeddableImage,
 } from "@/components/seo/discord-embed";
 import getProjects from "@/components/ProjectsArray";
 import ProjectsClient from "./ProjectsClient";
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   const featuredProjects = getProjects({})
-    .filter((project) => isDiscordMedia(project.image))
+    .filter((project) => isEmbeddableImage(project.image))
     .slice(0, 6)
     .map((project) => ({
       src: toAbsoluteUrl(project.image as string),
