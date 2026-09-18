@@ -31,7 +31,7 @@ export default function ProjectsPage() {
         <DiscordEmbed.title>{title}</DiscordEmbed.title>
         <DiscordEmbed.subtitle>Featured projects</DiscordEmbed.subtitle>
         <DiscordEmbed.content>{description}</DiscordEmbed.content>
-        <DiscordEmbed.gallery items={featuredProjects} />
+        <DiscordEmbed.gallery items={featuredProjects} thumbnail />
         <DiscordEmbed.buttons>
           <DiscordEmbed.button label="View projects" url={`${SITE_URL}/projects`} />
         </DiscordEmbed.buttons>

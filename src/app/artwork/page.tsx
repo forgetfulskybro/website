@@ -31,7 +31,7 @@ export default function ArtworkPage() {
         <DiscordEmbed.title>{title}</DiscordEmbed.title>
         <DiscordEmbed.subtitle>Latest pieces</DiscordEmbed.subtitle>
         <DiscordEmbed.content>{description}</DiscordEmbed.content>
-        <DiscordEmbed.gallery items={featuredArtwork} />
+        <DiscordEmbed.gallery items={featuredArtwork} thumbnail />
         <DiscordEmbed.buttons>
           <DiscordEmbed.button label="View artwork" url={`${SITE_URL}/artwork`} />
         </DiscordEmbed.buttons>
