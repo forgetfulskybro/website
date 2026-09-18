@@ -22,7 +22,7 @@ const featuredArtwork = artworks
     return src ? { src: toAbsoluteUrl(src), description: piece.title } : null;
   })
   .filter((item): item is { src: string; description: string } => item !== null)
-  .slice(0, 6);
+  .slice(0, 4);
 
 export default function ArtworkPage() {
   return (

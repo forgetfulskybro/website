@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   const featuredProjects = getProjects({})
     .filter((project) => isEmbeddableImage(project.image))
-    .slice(0, 6)
+    .slice(0, 4)
     .map((project) => ({
       src: toAbsoluteUrl(project.image as string),
       description: project.title,

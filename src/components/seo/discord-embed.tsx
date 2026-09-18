@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { createHash } from "node:crypto";
 import type { ReactNode } from "react";
 import {
   DiscordEmbedTitle,
@@ -79,19 +80,24 @@ function DiscordEmbedRoot({
   accentColor = DEFAULT_ACCENT_COLOR,
   children,
 }: DiscordEmbedRootProps) {
-  writeEmbedFile(
-    embedPath,
-    serializeDiscordEmbed({
-      accentColor,
-      url: url ?? `${SITE_URL}/${embedPath}`,
-      children,
-    }),
-  );
+  const payload = serializeDiscordEmbed({
+    accentColor,
+    url: url ?? `${SITE_URL}/${embedPath}`,
+    children,
+  });
+  writeEmbedFile(embedPath, payload);
+
+  const version = createHash("sha1")
+    .update(JSON.stringify(payload))
+    .digest("hex")
+    .slice(0, 8);
 
   return (
     <>
       {children}
-      <DiscordEmbedLink href={`${SITE_URL}/embeds/${embedPath}.json`} />
+      <DiscordEmbedLink
+        href={`${SITE_URL}/embeds/${embedPath}.json?v=${version}`}
+      />
     </>
   );
 }
