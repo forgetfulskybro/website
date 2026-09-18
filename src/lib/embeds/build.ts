@@ -148,17 +148,15 @@ function escapeMarkdown(text: string): string {
   return text.replace(/([\\*_~`|#>\[\]])/g, (match) => `\\${match}`);
 }
 
+function sanitizeMediaUrl(url: string): string {
+  return url.replace(/ /g, "%20");
+}
+
 type DiscordSection = {
   type: 9;
   components: { type: 10; content: string }[];
   accessory?: { type: 11; media: { url: string } };
 };
-
-function escapeUrl(url: string): string {
-  return url.replace(/[()]/g, (char) =>
-    char === "(" ? "%28" : "%29",
-  );
-}
 
 export function serializeDiscordEmbed({
   accentColor: rawAccentColor,
@@ -184,20 +182,21 @@ export function serializeDiscordEmbed({
   if (collected.title) {
     sectionTexts.push({
       type: 10,
-      content: url
-        ? `# **[${escapeMarkdown(collected.title)}](${escapeUrl(url)})**`
-        : `# ${escapeMarkdown(collected.title)}`,
+      content: `# ${escapeMarkdown(collected.title)}`,
     });
   }
   if (collected.subtitle) {
     sectionTexts.push({ type: 10, content: escapeMarkdown(collected.subtitle) });
+  }
+  if (url) {
+    sectionTexts.push({ type: 10, content: `-# ${url}` });
   }
 
   const section: DiscordSection = { type: 9, components: sectionTexts };
   if (collected.image) {
     section.accessory = {
       type: 11,
-      media: { url: collected.image.src },
+      media: { url: sanitizeMediaUrl(collected.image.src) },
     };
   }
 
@@ -209,7 +208,7 @@ export function serializeDiscordEmbed({
     components.push({
       type: 12,
       items: images.slice(0, 10).map((item) => ({
-        media: { url: item.src },
+        media: { url: sanitizeMediaUrl(item.src) },
         ...(item.description
           ? { description: escapeMarkdown(item.description) }
           : {}),

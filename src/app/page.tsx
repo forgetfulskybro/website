@@ -18,7 +18,7 @@ export default function HomePage() {
         <DiscordEmbed.subtitle>
           Developer & Open Source Enthusiast
         </DiscordEmbed.subtitle>
-        <DiscordEmbed.image src={`${SITE_URL}/Me.png`} description={title} />
+        <DiscordEmbed.image src={`${SITE_URL}/DSG/DSG Forward Smirk.png`} description={title} />
         <DiscordEmbed.content>{description}</DiscordEmbed.content>
         <DiscordEmbed.buttons>
           <DiscordEmbed.button
