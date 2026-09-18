@@ -6,6 +6,7 @@ import styles from "./guildcount.module.css";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import { getMetadata } from "@/components/getMetaData";
+import { DiscordEmbed, SITE_URL } from "@/components/seo/discord-embed";
 import Link from "next/link";
 
 const meta = getMetadata("/projects/guildcount");
@@ -69,37 +70,54 @@ export default async function GuildCount() {
     : "/default-avatar.png";
 
   return (
-    <div className={styles.pageWrapper}>
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <div>
-            <div className={styles.icon}>
-              <Image
-                className={styles.userAvatar}
-                src="/guildcount.png"
-                alt="Guild Count"
-                height={40}
-                width={40}
-                draggable={false}
-              />
-              <h2>
-                <strong>Guild Count</strong>
-              </h2>
-            </div>
-            <p>Total Guilds: {guilds.length}</p>
-            {!user && (
-              <>
-                <strong>Login to view your servers</strong>
-              </>
-            )}
-          </div>
-          <UserProfile
-            username={user?.username || null}
-            avatarUrl={avatarUrl}
+    <>
+      <DiscordEmbed path="projects/guildcount" url={`${SITE_URL}/projects/guildcount`}>
+        <DiscordEmbed.title>{meta.title}</DiscordEmbed.title>
+        <DiscordEmbed.subtitle>Discord server lookup tool</DiscordEmbed.subtitle>
+        <DiscordEmbed.image
+          src={`${SITE_URL}/guildcount.png`}
+          description={meta.title}
+        />
+        <DiscordEmbed.content>{meta.description}</DiscordEmbed.content>
+        <DiscordEmbed.buttons>
+          <DiscordEmbed.button
+            label="Open Guild Count"
+            url={`${SITE_URL}/projects/guildcount`}
           />
+        </DiscordEmbed.buttons>
+      </DiscordEmbed>
+      <div className={styles.pageWrapper}>
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <div>
+              <div className={styles.icon}>
+                <Image
+                  className={styles.userAvatar}
+                  src="/guildcount.png"
+                  alt="Guild Count"
+                  height={40}
+                  width={40}
+                  draggable={false}
+                />
+                <h2>
+                  <strong>Guild Count</strong>
+                </h2>
+              </div>
+              <p>Total Guilds: {guilds.length}</p>
+              {!user && (
+                <>
+                  <strong>Login to view your servers</strong>
+                </>
+              )}
+            </div>
+            <UserProfile
+              username={user?.username || null}
+              avatarUrl={avatarUrl}
+            />
+          </div>
+          <FilterBar guilds={guilds} />
         </div>
-        <FilterBar guilds={guilds} />
       </div>
-    </div>
+    </>
   );
 }
