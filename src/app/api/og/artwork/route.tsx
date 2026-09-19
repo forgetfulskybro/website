@@ -1,0 +1,16 @@
+import { getMetadata } from "@/components/getMetaData";
+import { SITE_URL } from "@/lib/constants";
+import { generateCollage } from "@/lib/og/collage";
+import { featuredArtworkItems } from "@/lib/og/featured";
+
+export const runtime = "nodejs";
+
+export async function GET() {
+  const { title } = getMetadata("/artwork");
+
+  return generateCollage({
+    title,
+    eyebrow: SITE_URL.replace(/^https?:\/\//i, ""),
+    items: featuredArtworkItems(),
+  });
+}
