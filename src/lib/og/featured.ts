@@ -1,14 +1,27 @@
+import fs from "node:fs";
+import path from "node:path";
 import { artworks } from "@/components/ArtworkArray";
 import getProjects from "@/components/ProjectsArray";
 import { allGames } from "@/components/GamesArray";
-import {
-  isDiscordMedia,
-  isEmbeddableImage,
-} from "@/components/seo/discord-embed";
+import { isDiscordMedia } from "@/components/seo/discord-embed";
 import {
   formatCollageDate,
   type CollageItem,
 } from "@/lib/og/collage-url";
+
+const GAME_LANG: Record<string, { progress?: string }> = (() => {
+  try {
+    const raw = JSON.parse(
+      fs.readFileSync(
+        path.join(process.cwd(), "languages", "en_EN.json"),
+        "utf8",
+      ),
+    );
+    return raw?.Games ?? {};
+  } catch {
+    return {};
+  }
+})();
 
 const PROJECT_TAG_COLORS: Record<string, string> = {
   "Discord Bot": "#5764F3",
@@ -21,7 +34,7 @@ const PROJECT_TAG_COLORS: Record<string, string> = {
 export function featuredArtworkItems(): CollageItem[] {
   return artworks
     .map((piece) => {
-      const src = piece.images.find(isEmbeddableImage);
+      const src = piece.images.find(isDiscordMedia);
       return src && src.startsWith("/")
         ? {
             src,
@@ -71,6 +84,8 @@ export function featuredGameItems(): CollageItem[] {
     .map((game) => ({
       src: game.image as string,
       label: game.title,
-      tags: game.tags.slice(0, 3),
+      subtitle: GAME_LANG[game.target]?.progress
+        ? `Progress: ${GAME_LANG[game.target]!.progress}`
+        : undefined,
     }));
 }

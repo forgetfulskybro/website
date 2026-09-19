@@ -1,5 +1,4 @@
 import { getMetadata } from "@/components/getMetaData";
-import { SITE_URL } from "@/lib/constants";
 import { generateCollage } from "@/lib/og/collage";
 import { featuredProjectItems } from "@/lib/og/featured";
 
@@ -10,7 +9,6 @@ export async function GET() {
 
   return generateCollage({
     title,
-    eyebrow: SITE_URL.replace(/^https?:\/\//i, ""),
     items: featuredProjectItems(),
   });
 }

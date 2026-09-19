@@ -5,16 +5,22 @@ import sharp from "sharp";
 import type { CollageItem } from "@/lib/og/collage-url";
 
 export const COLLAGE_WIDTH = 1024;
-export const COLLAGE_HEIGHT = 1024;
+export const COLLAGE_HEIGHT = 362;
 
 const PUBLIC_DIR = path.join(process.cwd(), "public");
 
-const PANEL_GAP = 24;
-const ROW_GAP = 28;
-const PANEL_PADDING = 12;
-const PANEL_WIDTH = 460;
-const IMAGE_WIDTH = PANEL_WIDTH - PANEL_PADDING * 2;
-const IMAGE_HEIGHT = 258;
+const PAD_TOP = 20;
+const PAD_SIDE = 20;
+const PAD_BOTTOM = 20;
+const BOX_GAP = 14;
+const BOX_PADDING = 10;
+const BOX_WIDTH = Math.floor(
+  (COLLAGE_WIDTH - PAD_SIDE * 2 - BOX_GAP * 3) / 4,
+);
+const IMAGE_WIDTH = BOX_WIDTH - BOX_PADDING * 2;
+const TITLE_MARGIN_TOP = 8;
+const H_BOX =
+  COLLAGE_HEIGHT - PAD_TOP - PAD_BOTTOM - TITLE_MARGIN_TOP - 30;
 
 async function loadImage(src: string): Promise<string | null> {
   if (!src.startsWith("/")) return null;
@@ -24,7 +30,7 @@ async function loadImage(src: string): Promise<string | null> {
   try {
     const buffer = await sharp(abs)
       .rotate()
-      .resize(IMAGE_WIDTH, IMAGE_HEIGHT, { fit: "cover" })
+      .resize(Math.max(IMAGE_WIDTH, 320), 480, { fit: "cover" })
       .png({ compressionLevel: 9 })
       .toBuffer();
     return `data:image/png;base64,${buffer.toString("base64")}`;
@@ -35,69 +41,71 @@ async function loadImage(src: string): Promise<string | null> {
 
 function fitLabel(label: string): string {
   const cleaned = label.replace(/\s+/g, " ").trim();
-  return cleaned.length > 36 ? `${cleaned.slice(0, 36).trim()}…` : cleaned;
+  return cleaned.length > 32 ? `${cleaned.slice(0, 32).trim()}…` : cleaned;
 }
 
 function renderPanel(item: CollageItem, last: boolean) {
+  const label = fitLabel(item.label);
+  const subtitle = item.subtitle ? fitLabel(item.subtitle) : undefined;
+
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
-        width: PANEL_WIDTH,
-        paddingTop: PANEL_PADDING,
-        paddingBottom: 14,
-        paddingLeft: PANEL_PADDING,
-        paddingRight: PANEL_PADDING,
-        borderRadius: 26,
+        width: BOX_WIDTH,
+        height: H_BOX,
+        padding: BOX_PADDING,
+        borderRadius: 20,
         background: "rgba(255, 255, 255, 0.06)",
-        marginRight: last ? 0 : PANEL_GAP,
+        marginRight: last ? 0 : BOX_GAP,
+        overflow: "hidden",
       }}
     >
-      {
-        /* eslint-disable @next/next/no-img-element -- next/image is unsupported inside ImageResponse */
-      }
+      {/* eslint-disable-next-line @next/next/no-img-element -- next/image is unsupported inside ImageResponse, and this is the only element declared here */}
       <img
         src={item.src}
         alt=""
         width={IMAGE_WIDTH}
-        height={IMAGE_HEIGHT}
-        style={{ borderRadius: 18, objectFit: "cover" }}
+        style={{
+          width: IMAGE_WIDTH,
+          flex: "1 1 0",
+          minHeight: 0,
+          borderRadius: 14,
+          objectFit: "cover",
+        }}
       />
-      {
-        /* eslint-enable @next/next/no-img-element */
-      }
       <div
         style={{
-          marginTop: 12,
-          fontSize: 24,
+          marginTop: 8,
+          fontSize: 18,
           fontWeight: 700,
           lineHeight: 1.15,
           color: "rgba(255, 255, 255, 0.92)",
         }}
       >
-        {fitLabel(item.label)}
+        {label}
       </div>
-      {item.subtitle ? (
+      {subtitle ? (
         <div
           style={{
-            marginTop: 6,
-            fontSize: 19,
+            marginTop: 4,
+            fontSize: 15,
             lineHeight: 1.25,
             color: "rgba(255, 255, 255, 0.7)",
           }}
         >
-          {fitLabel(item.subtitle)}
+          {subtitle}
         </div>
       ) : null}
       {item.tags && item.tags.length > 0 ? (
         <div
           style={{
-            marginTop: 7,
+            marginTop: 6,
             display: "flex",
             flexDirection: "row",
             flexWrap: "wrap",
-            gap: 8,
+            gap: 6,
           }}
         >
           {item.tags.map((tag, i) => {
@@ -110,9 +118,9 @@ function renderPanel(item: CollageItem, last: boolean) {
               <div
                 key={i}
                 style={{
-                  padding: "5px 11px",
+                  padding: "4px 9px",
                   borderRadius: 999,
-                  fontSize: 15,
+                  fontSize: 13,
                   fontWeight: 600,
                   lineHeight: 1.2,
                   color: "rgba(255, 255, 255, 0.92)",
@@ -131,7 +139,6 @@ function renderPanel(item: CollageItem, last: boolean) {
 
 export async function generateCollage({
   title,
-  eyebrow,
   items,
 }: {
   title: string;
@@ -146,23 +153,9 @@ export async function generateCollage({
     )
   ).filter((item): item is CollageItem => item.src !== null);
 
-  const rows: ReactNode[] = [];
-  for (let i = 0; i < loaded.length; i += 2) {
-    const rowItems = loaded.slice(i, i + 2);
-    rows.push(
-      <div
-        key={i}
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          marginBottom: i + 2 < loaded.length ? ROW_GAP : 0,
-        }}
-      >
-        {rowItems.map((item, j) => renderPanel(item, j === rowItems.length - 1))}
-        {rowItems.length === 1 ? <div style={{ width: PANEL_WIDTH }} /> : null}
-      </div>,
-    );
-  }
+  const panels: ReactNode[] = loaded.map((item, i) =>
+    renderPanel(item, i === loaded.length - 1),
+  );
 
   return new ImageResponse(
     (
@@ -174,7 +167,10 @@ export async function generateCollage({
           flexDirection: "column",
           alignItems: "flex-start",
           justifyContent: "flex-start",
-          padding: 40,
+          paddingTop: PAD_TOP,
+          paddingLeft: PAD_SIDE,
+          paddingRight: PAD_SIDE,
+          paddingBottom: PAD_BOTTOM,
           background: "#141018",
           position: "relative",
         }}
@@ -196,28 +192,27 @@ export async function generateCollage({
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            width: "100%",
-            marginBottom: 40,
+            flexDirection: "row",
+            justifyContent: "center",
             position: "relative",
           }}
         >
-          {eyebrow ? (
-            <div
-              style={{
-                fontSize: 26,
-                color: "rgba(255, 255, 255, 0.55)",
-                marginBottom: 10,
-              }}
-            >
-              {eyebrow}
-            </div>
-          ) : null}
+          {panels}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            marginTop: TITLE_MARGIN_TOP,
+            width: "100%",
+            position: "relative",
+          }}
+        >
           <div
             style={{
-              fontSize: 46,
+              fontSize: 26,
               fontWeight: 800,
-              lineHeight: 1.1,
+              lineHeight: 1.15,
               background: "linear-gradient(135deg, #83a5d7, #684179)",
               backgroundClip: "text",
               color: "transparent",
@@ -226,7 +221,6 @@ export async function generateCollage({
             {title}
           </div>
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>{rows}</div>
       </div>
     ),
     {
