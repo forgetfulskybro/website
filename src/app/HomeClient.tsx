@@ -97,7 +97,7 @@ export default function HomeClient() {
             </Tooltip>
             {descAfter}
           </div>
-          <div className="flexGrid centered">
+          <div className="flexGrid centered homeSocials">
             <SocialLinks />
           </div>
         </div>

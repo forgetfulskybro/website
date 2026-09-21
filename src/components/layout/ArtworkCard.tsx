@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useRef, useState, type Ref } from "react";
 import Image from "next/image";
 import { ArtworkData } from "../ArtworkArray";
 
@@ -10,6 +10,112 @@ interface ArtworkCardProps {
 
 const isVideoUrl = (url: string) =>
   /\.(mp4|webm|ogg|mov)(\?|$)/i.test(url) || url.includes("video/");
+
+function ArtworkMedia({
+  src,
+  index,
+  title,
+  showCount,
+  remainingCount,
+}: {
+  src: string;
+  index: number;
+  title: string;
+  showCount: boolean;
+  remainingCount: number;
+}) {
+  const [loaded, setLoaded] = useState(false);
+  const mediaRef = useRef<HTMLImageElement | HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = mediaRef.current;
+    if (!el) return;
+    if (el instanceof HTMLVideoElement) {
+      el.muted = true;
+      (el as HTMLVideoElement & { playsInline?: boolean }).playsInline = true;
+    }
+    const ready = el instanceof HTMLImageElement ? el.complete : el.readyState >= 1;
+    if (ready) setLoaded(true);
+  }, []);
+
+  const isVideo = isVideoUrl(src);
+  const className = `artworkMedia${loaded ? " loaded" : ""}`;
+
+  return (
+    <div className="artworkImageContainer">
+      {!loaded && <div className="artworkSkeleton" aria-hidden="true" />}
+      {isVideo ? (
+        <>
+          <video
+            ref={mediaRef as Ref<HTMLVideoElement>}
+            src={src}
+            preload="metadata"
+            suppressHydrationWarning
+            onLoadedData={() => setLoaded(true)}
+            className={className}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+              pointerEvents: "none",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "rgba(0,0,0,0.25)",
+              pointerEvents: "none",
+            }}
+          >
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
+                background: "rgba(255, 255, 255, 0.15)",
+                border: "1px solid rgba(255, 255, 255, 0.35)",
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+        </>
+      ) : (
+        <Image
+          ref={mediaRef as Ref<HTMLImageElement>}
+          width={280}
+          height={280}
+          sizes="280px"
+          loading="lazy"
+          decoding="async"
+          src={src}
+          alt={`${title} ${index + 1}`}
+          draggable={false}
+          onLoad={() => setLoaded(true)}
+          className={className}
+        />
+      )}
+
+      {showCount && remainingCount > 0 && (
+        <div className="artworkImageOverlay">
+          <span className="artworkImageCount">+{remainingCount}</span>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function ArtworkCard({ artwork, onClick }: ArtworkCardProps) {
   const cardRef = useRef<HTMLButtonElement>(null);
@@ -51,75 +157,16 @@ export default function ArtworkCard({ artwork, onClick }: ArtworkCardProps) {
         className={`artworkImages ${isMultiple ? "multiple" : "single"} ${isGrid ? "grid" : ""} ${isTwoImages ? "two" : ""} ${isThreeImages ? "three" : ""}`}
         style={{ position: "relative" }}
       >
-        {displayImages.map((src, index) => {
-          const isVideo = isVideoUrl(src);
-
-          return (
-            <div key={index} className="artworkImageContainer">
-              {isVideo ? (
-                <>
-                  <video
-                    src={src}
-                    muted
-                    playsInline
-                    preload="metadata"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      display: "block",
-                      pointerEvents: "none",
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      background: "rgba(0,0,0,0.25)",
-                      pointerEvents: "none",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: "50%",
-                        background: "rgba(255, 255, 255, 0.15)",
-                        border: "1px solid rgba(255, 255, 255, 0.35)",
-                        backdropFilter: "blur(8px)",
-                        WebkitBackdropFilter: "blur(8px)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <Image
-                  width={280}
-                  height={280}
-                  src={src}
-                  alt={`${artwork.title} ${index + 1}`}
-                  draggable={false}
-                />
-              )}
-
-              {isGrid && index === 3 && remainingCount > 0 && (
-                <div className="artworkImageOverlay">
-                  <span className="artworkImageCount">+{remainingCount}</span>
-                </div>
-              )}
-            </div>
-          );
-        })}
+        {displayImages.map((src, index) => (
+          <ArtworkMedia
+            key={index}
+            src={src}
+            index={index}
+            title={artwork.title}
+            showCount={isGrid && index === 3}
+            remainingCount={remainingCount}
+          />
+        ))}
 
         {imageCount > 1 && (
           <div
