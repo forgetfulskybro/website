@@ -2,6 +2,9 @@
 const nextConfig = {
   serverExternalPackages: ["sharp"],
   devIndicators: false,
+  outputFileTracingExcludes: {
+    "**/*": ["./public/**"],
+  },
   images: {
     remotePatterns: [
       {

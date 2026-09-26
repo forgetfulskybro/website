@@ -1,13 +1,11 @@
-import path from "node:path";
 import { ImageResponse } from "next/og";
 import type { ReactNode } from "react";
 import sharp from "sharp";
+import { SITE_URL } from "@/lib/constants";
 import type { CollageItem } from "@/lib/og/collage-url";
 
 export const COLLAGE_WIDTH = 1024;
 export const COLLAGE_HEIGHT = 362;
-
-const PUBLIC_DIR = path.join(process.cwd(), "public");
 
 const PAD_TOP = 20;
 const PAD_SIDE = 20;
@@ -23,17 +21,17 @@ const H_BOX =
   COLLAGE_HEIGHT - PAD_TOP - PAD_BOTTOM - TITLE_MARGIN_TOP - 30;
 
 async function loadImage(src: string): Promise<string | null> {
-  if (!src.startsWith("/")) return null;
-  const clean = decodeURIComponent(src.split("?")[0].split("#")[0]);
-  const abs = path.normalize(path.join(PUBLIC_DIR, clean.replace(/^\/+/, "")));
-  if (abs !== PUBLIC_DIR && !abs.startsWith(PUBLIC_DIR + path.sep)) return null;
+  const url = /^https?:\/\//i.test(src) ? src : `${SITE_URL}${src}`;
   try {
-    const buffer = await sharp(abs)
+    const response = await fetch(url);
+    if (!response.ok) return null;
+    const buffer = Buffer.from(await response.arrayBuffer());
+    const resized = await sharp(buffer)
       .rotate()
       .resize(Math.max(IMAGE_WIDTH, 320), 480, { fit: "cover" })
       .png({ compressionLevel: 9 })
       .toBuffer();
-    return `data:image/png;base64,${buffer.toString("base64")}`;
+    return `data:image/png;base64,${resized.toString("base64")}`;
   } catch {
     return null;
   }
@@ -62,7 +60,7 @@ function renderPanel(item: CollageItem, last: boolean) {
         overflow: "hidden",
       }}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element -- next/image is unsupported inside ImageResponse, and this is the only element declared here */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={item.src}
         alt=""

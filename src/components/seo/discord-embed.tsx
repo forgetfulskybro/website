@@ -18,7 +18,6 @@ export { SITE_URL };
 
 const SAFE_SEGMENT = /^[a-z0-9-]+$/i;
 const STILL_MEDIA = /\.(png|jpe?g|gif|webp|avif)(\?.*)?$/i;
-const MAX_MEDIA_BYTES = 8 * 1024 * 1024;
 
 export function toAbsoluteUrl(src: string): string {
   if (/^https?:\/\//i.test(src)) return src;
@@ -27,21 +26,6 @@ export function toAbsoluteUrl(src: string): string {
 
 export function isDiscordMedia(src: string | null | undefined): src is string {
   return typeof src === "string" && STILL_MEDIA.test(src);
-}
-
-export function isEmbeddableImage(
-  src: string | null | undefined,
-): src is string {
-  if (!isDiscordMedia(src)) return false;
-  if (/^https?:\/\//i.test(src)) return true;
-  try {
-    const clean = decodeURIComponent(src.split("?")[0].split("#")[0]);
-    const relative = clean.replace(/^\/+/, "");
-    const stat = fs.statSync(path.join(process.cwd(), "public", relative));
-    return stat.isFile() && stat.size <= MAX_MEDIA_BYTES;
-  } catch {
-    return false;
-  }
 }
 
 function writeEmbedFile(embedPath: string, payload: unknown): void {

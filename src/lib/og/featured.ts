@@ -3,11 +3,14 @@ import path from "node:path";
 import { artworks } from "@/components/ArtworkArray";
 import getProjects from "@/components/ProjectsArray";
 import { allGames } from "@/components/GamesArray";
-import { isDiscordMedia } from "@/components/seo/discord-embed";
 import {
   formatCollageDate,
   type CollageItem,
 } from "@/lib/og/collage-url";
+
+const STILL_MEDIA = /\.(png|jpe?g|gif|webp|avif)(\?.*)?$/i;
+const isDiscordMedia = (src: string | null | undefined): src is string =>
+  typeof src === "string" && STILL_MEDIA.test(src);
 
 const GAME_LANG: Record<string, { progress?: string }> = (() => {
   try {
