@@ -8,6 +8,18 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-Eeliac",
+    title: "Eeliac pet",
+    dateCreated: "09/24/2026",
+    images: ["/Eeliac/Eeliac pet.png", "/Eeliac/Eeliac Sketch 36.png", "/Eeliac/Eeliac Sketch 35.png", "/Eeliac/Eeliac Sketch 34.png", "/Eeliac/Eeliac Sketch 33.png", "/Eeliac/Eeliac Sketch 32.png", "/Eeliac/Eeliac Sketch 31.png", "/Eeliac/Eeliac Sketch 30.png", "/Eeliac/Eeliac Sketch 29.png", "/Eeliac/Eeliac Sketch 28.png", "/Eeliac/Eeliac Sketch 27.png", "/Eeliac/Eeliac Sketch 26.png", "/Eeliac/Eeliac Sketch 25.png", "/Eeliac/Eeliac Sketch 24.png", "/Eeliac/Eeliac Sketch 23.png", "/Eeliac/Eeliac Sketch 22.png", "/Eeliac/Eeliac Sketch 21.png", "/Eeliac/Eeliac Sketch 20.png", "/Eeliac/Eeliac Sketch 19.png", "/Eeliac/Eeliac Sketch 18.png", "/Eeliac/Eeliac Sketch 17.png", "/Eeliac/Eeliac Sketch 16.png", "/Eeliac/Eeliac Sketch 15.png", "/Eeliac/Eeliac Sketch 14.png", "/Eeliac/Eeliac Sketch 13.png", "/Eeliac/Eeliac Sketch 12.png", "/Eeliac/Eeliac Sketch 11.png", "/Eeliac/Eeliac Sketch 10.png", "/Eeliac/Eeliac Sketch 9.png", "/Eeliac/Eeliac Sketch 8.png", "/Eeliac/Eeliac Sketch 7.png", "/Eeliac/Eeliac Sketch 6.png", "/Eeliac/Eeliac Sketch 5.png", "/Eeliac/Eeliac Sketch 4.png", "/Eeliac/Eeliac Sketch 3.png", "/Eeliac/Eeliac Sketch 2.png", "/Eeliac/Eeliac Sketch 1.png"]
+  },
+  {
+    id: "artwork-LD",
+    title: "Longing Embrace - Cyberpunk Edgerunners",
+    dateCreated: "09/19/2026",
+    images: ["/L+D/David & Lucy embrace.png", "/L+D/L+D 87.png", "/L+D/L+D 86.png", "/L+D/L+D 85.png", "/L+D/L+D 84.png", "/L+D/L+D 83.png", "/L+D/L+D 82.png", "/L+D/L+D 81.png", "/L+D/L+D 80.png", "/L+D/L+D 79.png", "/L+D/L+D 78.png", "/L+D/L+D 77.png", "/L+D/L+D 76.png", "/L+D/L+D 75.png", "/L+D/L+D 74.png", "/L+D/L+D 73.png", "/L+D/L+D 72.png", "/L+D/L+D 71.png", "/L+D/L+D 70.png", "/L+D/L+D 69.png", "/L+D/L+D 68.png", "/L+D/L+D 67.png", "/L+D/L+D 66.png", "/L+D/L+D 65.png", "/L+D/L+D 64.png", "/L+D/L+D 63.png", "/L+D/L+D 62.png", "/L+D/L+D 61.png", "/L+D/L+D 60.png", "/L+D/L+D 59.png", "/L+D/L+D 58.png", "/L+D/L+D 57.png", "/L+D/L+D 56.png", "/L+D/L+D 55.png", "/L+D/L+D 54.png", "/L+D/L+D 53.png", "/L+D/L+D 52.png", "/L+D/L+D 51.png", "/L+D/L+D 50.png", "/L+D/L+D 49.png", "/L+D/L+D 48.png", "/L+D/L+D 47.png", "/L+D/L+D 46.png", "/L+D/L+D 45.png", "/L+D/L+D 44.png", "/L+D/L+D 43.png", "/L+D/L+D 42.png", "/L+D/L+D 41.png", "/L+D/L+D 40.png", "/L+D/L+D 39.png", "/L+D/L+D 38.png", "/L+D/L+D 37.png", "/L+D/L+D 36.png", "/L+D/L+D 35.png", "/L+D/L+D 34.png", "/L+D/L+D 33.png", "/L+D/L+D 32.png", "/L+D/L+D 31.png", "/L+D/L+D 30.png", "/L+D/L+D 29.png", "/L+D/L+D 28.png", "/L+D/L+D 27.png", "/L+D/L+D 26.png", "/L+D/L+D 25.png", "/L+D/L+D 24.png", "/L+D/L+D 23.png", "/L+D/L+D 22.png", "/L+D/L+D 21.png", "/L+D/L+D 20.png", "/L+D/L+D 19.png", "/L+D/L+D 18.png", "/L+D/L+D 17.png", "/L+D/L+D 16.png", "/L+D/L+D 15.png", "/L+D/L+D 14.png", "/L+D/L+D 13.png", "/L+D/L+D 12.png", "/L+D/L+D 11.png", "/L+D/L+D 10.png", "/L+D/L+D 9.png", "/L+D/L+D 8.png", "/L+D/L+D 7.png", "/L+D/L+D 6.png", "/L+D/L+D 5.png", "/L+D/L+D 4.png", "/L+D/L+D 3.png", "/L+D/L+D 2.png", "/L+D/L+D 1.png"]
+  },
+  {
     id: "artwork-NUziCheek",
     title: "NUzi Cheek - Murder Drones",
     dateCreated: "09/13/2026",

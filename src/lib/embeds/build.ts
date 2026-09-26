@@ -220,15 +220,23 @@ function buildPayload(
     sectionTexts.push({ type: 10, content: `-# ${url}` });
   }
 
-  const section: DiscordSection = { type: 9, components: sectionTexts };
   if (collected.image) {
-    section.accessory = {
-      type: 11,
-      media: { url: sanitizeMediaUrl(collected.image.src) },
-    };
+    components.push({
+      type: 12,
+      items: [
+        {
+          media: { url: sanitizeMediaUrl(collected.image.src) },
+          ...(collected.image.description
+            ? { description: escapeMarkdown(collected.image.description) }
+            : {}),
+        },
+      ],
+    });
   }
 
-  if (sectionTexts.length > 0 || collected.image) {
+  const section: DiscordSection = { type: 9, components: sectionTexts };
+
+  if (sectionTexts.length > 0) {
     components.push(section);
   }
 

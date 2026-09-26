@@ -1504,78 +1504,130 @@ a {
 .shootingStar {
   position: absolute;
   height: 2px;
-  width: 100px;
+  width: 150px;
   background: linear-gradient(
     to right,
-    rgba(0, 0, 255, 0) 0%,
-    rgba(95, 145, 255, 0.5) 50%,
-    rgba(95, 145, 255, 1) 100%
+    rgba(120, 170, 255, 0) 0%,
+    rgba(150, 190, 255, 0.35) 35%,
+    rgba(210, 230, 255, 0.9) 75%,
+    #ffffff 100%
   );
   border-radius: 999px;
-  filter: drop-shadow(0 0 6px rgba(105, 155, 255, 1));
+  filter: drop-shadow(0 0 3px rgba(180, 210, 255, 0.9))
+    drop-shadow(0 0 10px rgba(140, 180, 255, 0.45));
   transform: rotate(135deg);
   animation: shooting 2500ms linear forwards;
   opacity: 0;
+}
+
+.shootingStar::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -2px;
+  width: 9px;
+  height: 9px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    #ffffff 0%,
+    rgba(210, 230, 255, 0.9) 45%,
+    rgba(150, 190, 255, 0) 72%
+  );
+  box-shadow: 0 0 8px rgba(220, 235, 255, 0.95),
+    0 0 18px rgba(150, 190, 255, 0.55);
 }
 
 .moon {
   position: absolute;
   width: 45px;
   height: 45px;
-  background: radial-gradient(
-    circle at 60% 40%,
-    #f8f8f8 8%,
-    #d8d8d8 25%,
-    #b8b8b8 45%,
-    #989898 65%,
-    #787878 85%
-  );
-  border-radius: 50%;
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.35),
-    inset 3px 3px 6px rgba(0, 0, 0, 0.25),
-    inset -3px -3px 6px rgba(255, 255, 255, 0.15);
   background-image: radial-gradient(
-      circle at 30% 30%,
-      rgba(80, 80, 80, 0.35) 4px,
-      transparent 5px
-    ),
-    radial-gradient(
-      circle at 70% 20%,
-      rgba(80, 80, 80, 0.3) 2.5px,
-      transparent 3.5px
-    ),
-    radial-gradient(
-      circle at 20% 80%,
-      rgba(80, 80, 80, 0.25) 3px,
+      circle at 30% 28%,
+      rgba(75, 75, 75, 0.45) 0 3px,
+      rgba(210, 210, 210, 0.5) 3px 3.5px,
       transparent 4px
     ),
     radial-gradient(
-      circle at 80% 70%,
-      rgba(80, 80, 80, 0.2) 1.5px,
-      transparent 2.5px
+      circle at 66% 20%,
+      rgba(75, 75, 75, 0.35) 0 2px,
+      rgba(210, 210, 210, 0.45) 2px 2.4px,
+      transparent 3px
     ),
     radial-gradient(
-      circle at 50% 50%,
-      rgba(80, 80, 80, 0.15) 2px,
-      transparent 3px
+      circle at 20% 72%,
+      rgba(75, 75, 75, 0.3) 0 2.5px,
+      rgba(210, 210, 210, 0.4) 2.5px 2.9px,
+      transparent 3.6px
+    ),
+    radial-gradient(
+      circle at 72% 68%,
+      rgba(75, 75, 75, 0.25) 0 1.5px,
+      transparent 2.4px
+    ),
+    radial-gradient(
+      circle at 52% 52%,
+      rgba(255, 255, 255, 0.16) 0 4px,
+      transparent 8px
+    ),
+    radial-gradient(
+      circle at 62% 58%,
+      rgba(0, 0, 0, 0.18) 0 8px,
+      transparent 14px
+    ),
+    radial-gradient(
+      circle at 55% 40%,
+      #f6f6f6 0%,
+      #e2e2e2 30%,
+      #c8c8c8 55%,
+      #a4a4a4 80%,
+      #898989 100%
     );
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.32),
+    0 0 45px rgba(255, 255, 255, 0.12),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.3),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
   z-index: 0;
 }
 
 .comet {
   position: absolute;
   height: 7px;
-  width: 300px;
+  width: 340px;
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0) 0%,
-    rgba(162, 105, 184, 0.7) 50%,
-    rgb(115, 53, 145) 100%
+    rgba(190, 150, 230, 0.55) 40%,
+    rgba(220, 170, 255, 0.95) 78%,
+    #f3e6ff 100%
   );
   border-radius: 999px;
-  filter: drop-shadow(0 0 6px rgb(188, 105, 255));
+  filter: drop-shadow(0 0 5px rgb(188, 105, 255))
+    drop-shadow(0 0 16px rgba(188, 105, 255, 0.5));
   animation: cometFlight linear forwards;
   opacity: 0;
+}
+
+.comet::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 40%,
+    #ffffff 0%,
+    rgba(230, 190, 255, 0.95) 40%,
+    rgba(188, 105, 255, 0) 70%
+  );
+  box-shadow: 0 0 10px rgba(230, 190, 255, 0.9),
+    0 0 26px rgba(188, 105, 255, 0.55);
 }
 
 .planet1 {
