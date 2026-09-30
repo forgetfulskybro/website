@@ -8,6 +8,12 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-Malfoid",
+    title: "Malfoid - Fem Draco Malfoy",
+    dateCreated: "09/28/2026",
+    images: ["/Malfoid/Malfoid 25.png", "/Malfoid/Malfoid 24.png", "/Malfoid/Malfoid 23.png", "/Malfoid/Malfoid 22.png", "/Malfoid/Malfoid 21.png", "/Malfoid/Malfoid 20.png", "/Malfoid/Malfoid 19.png", "/Malfoid/Malfoid 18.png", "/Malfoid/Malfoid 17.png", "/Malfoid/Malfoid 16.png", "/Malfoid/Malfoid 15.png", "/Malfoid/Malfoid 14.png", "/Malfoid/Malfoid 13.png", "/Malfoid/Malfoid 12.png", "/Malfoid/Malfoid 11.png", "/Malfoid/Malfoid 10.png", "/Malfoid/Malfoid 9.png", "/Malfoid/Malfoid 8.png", "/Malfoid/Malfoid 7.png", "/Malfoid/Malfoid 6.png", "/Malfoid/Malfoid 5.png", "/Malfoid/Malfoid 4.png", "/Malfoid/Malfoid 3.png", "/Malfoid/Malfoid 2.png", "/Malfoid/Malfoid 1.png"]
+  },
+  {
     id: "artwork-Eeliac",
     title: "Eeliac pet",
     dateCreated: "09/24/2026",
