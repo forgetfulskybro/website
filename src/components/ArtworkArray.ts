@@ -8,6 +8,18 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-CheekGrab",
+    title: "Zena Cheek Grab",
+    dateCreated: "10/05/2026",
+    images: ["/Zena/Cheek Grab 16.png", "/Zena/Cheek Grab 15.png", "/Zena/Cheek Grab 14.png", "/Zena/Cheek Grab 13.png", "/Zena/Cheek Grab 12.png", "/Zena/Cheek Grab 11.png", "/Zena/Cheek Grab 10.png", "/Zena/Cheek Grab 9.png", "/Zena/Cheek Grab 8.png", "/Zena/Cheek Grab 7.png", "/Zena/Cheek Grab 6.png", "/Zena/Cheek Grab 5.png", "/Zena/Cheek Grab 4.png", "/Zena/Cheek Grab 3.png", "/Zena/Cheek Grab 2.png", "/Zena/Cheek Grab 1.png"]
+  },
+  {
+    id: "artwork-DSE",
+    title: "Serial Designation E - Friend's MD OC",
+    dateCreated: "10/03/2026",
+    images: ["/DSE/DSE 40.mp4", "/DSE/DSE 39.png", "/DSE/DSE 38.png", "/DSE/DSE 37.png", "/DSE/DSE 36.png", "/DSE/DSE 35.png", "/DSE/DSE 34.png", "/DSE/DSE 33.png", "/DSE/DSE 32.png", "/DSE/DSE 31.png", "/DSE/DSE 30.png", "/DSE/DSE 29.png", "/DSE/DSE 28.png", "/DSE/DSE 27.png", "/DSE/DSE 26.png", "/DSE/DSE 25.png", "/DSE/DSE 24.png", "/DSE/DSE 23.png", "/DSE/DSE 22.png", "/DSE/DSE 21.png", "/DSE/DSE 20.png", "/DSE/DSE 19.png", "/DSE/DSE 18.png", "/DSE/DSE 17.png", "/DSE/DSE 16.png", "/DSE/DSE 15.png", "/DSE/DSE 14.png", "/DSE/DSE 13.png", "/DSE/DSE 12.png", "/DSE/DSE 11.png", "/DSE/DSE 10.png", "/DSE/DSE 9.png", "/DSE/DSE 8.png", "/DSE/DSE 7.png", "/DSE/DSE 6.png", "/DSE/DSE 5.png", "/DSE/DSE 4.png", "/DSE/DSE 3.png", "/DSE/DSE 2.png", "/DSE/DSE 1.png"]
+  },
+  {
     id: "artwork-Malfoid",
     title: "Malfoid - Fem Draco Malfoy",
     dateCreated: "09/28/2026",
