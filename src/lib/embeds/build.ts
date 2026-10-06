@@ -16,7 +16,6 @@ export type DiscordEmbedButton = {
 
 export type DiscordEmbedGalleryData = {
   items: DiscordEmbedImage[];
-  thumbnail?: boolean;
 };
 
 export type DiscordEmbedData = {
@@ -65,7 +64,6 @@ export function DiscordEmbedImage(props: {
 
 export function DiscordEmbedGallery(props: {
   items: DiscordEmbedImage[];
-  thumbnail?: boolean;
 }): null {
   return voidProps(props);
 }
@@ -82,7 +80,6 @@ export function DiscordEmbedButtons(props: {
 
 type CollectedGallery = {
   items: DiscordEmbedImage[];
-  thumbnail: boolean;
 };
 
 type Collected = {
@@ -130,7 +127,6 @@ function collect(node: ReactNode, out: Collected): void {
         : [];
       out.galleries.push({
         items: normalizeItems(raw),
-        thumbnail: props.thumbnail === true,
       });
       break;
     }
@@ -170,7 +166,6 @@ function fromData(data: DiscordEmbedData): Collected {
     contents: data.contents ?? [],
     galleries: (data.galleries ?? []).map((gallery) => ({
       items: normalizeItems(gallery.items ?? []),
-      thumbnail: gallery.thumbnail === true,
     })),
     buttons: data.buttons ?? [],
   };
@@ -196,7 +191,6 @@ function sanitizeMediaUrl(url: string): string {
 type DiscordSection = {
   type: 9;
   components: { type: 10; content: string }[];
-  accessory?: { type: 11; media: { url: string } };
 };
 
 function buildPayload(
@@ -220,7 +214,9 @@ function buildPayload(
     sectionTexts.push({ type: 10, content: `-# ${url}` });
   }
 
+  let galleryItemsLeft = 10;
   if (collected.image) {
+    galleryItemsLeft -= 1;
     components.push({
       type: 12,
       items: [
@@ -241,29 +237,17 @@ function buildPayload(
   }
 
   for (const gallery of collected.galleries) {
-    if (gallery.thumbnail) {
-      for (const item of gallery.items.slice(0, 10)) {
-        components.push({
-          type: 9,
-          components: [
-            { type: 10, content: escapeMarkdown(item.description ?? "") },
-          ],
-          accessory: {
-            type: 11,
-            media: { url: sanitizeMediaUrl(item.src) },
-          },
-        });
-      }
-    } else {
-      components.push({
-        type: 12,
-        items: gallery.items.slice(0, 10).map((item) => ({
-          media: { url: sanitizeMediaUrl(item.src) },
-          ...(item.description
-            ? { description: escapeMarkdown(item.description) }
-            : {}),
-        })),
-      });
+    const items = gallery.items
+      .slice(0, galleryItemsLeft)
+      .map((item) => ({
+        media: { url: sanitizeMediaUrl(item.src) },
+        ...(item.description
+          ? { description: escapeMarkdown(item.description) }
+          : {}),
+      }));
+    if (items.length > 0) {
+      galleryItemsLeft -= items.length;
+      components.push({ type: 12, items });
     }
   }
 
