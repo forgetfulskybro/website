@@ -11,7 +11,7 @@ export const artworks: ArtworkData[] = [
     id: "artwork-CheekGrab",
     title: "Zena Cheek Grab",
     dateCreated: "10/05/2026",
-    images: ["/Zena/Cheek Grab 16.png", "/Zena/Cheek Grab 15.png", "/Zena/Cheek Grab 14.png", "/Zena/Cheek Grab 13.png", "/Zena/Cheek Grab 12.png", "/Zena/Cheek Grab 11.png", "/Zena/Cheek Grab 10.png", "/Zena/Cheek Grab 9.png", "/Zena/Cheek Grab 8.png", "/Zena/Cheek Grab 7.png", "/Zena/Cheek Grab 6.png", "/Zena/Cheek Grab 5.png", "/Zena/Cheek Grab 4.png", "/Zena/Cheek Grab 3.png", "/Zena/Cheek Grab 2.png", "/Zena/Cheek Grab 1.png"]
+    images: ["/Zena/Cheek Grab 17.png", "/Zena/Cheek Grab 16.png", "/Zena/Cheek Grab 15.png", "/Zena/Cheek Grab 14.png", "/Zena/Cheek Grab 13.png", "/Zena/Cheek Grab 12.png", "/Zena/Cheek Grab 11.png", "/Zena/Cheek Grab 10.png", "/Zena/Cheek Grab 9.png", "/Zena/Cheek Grab 8.png", "/Zena/Cheek Grab 7.png", "/Zena/Cheek Grab 6.png", "/Zena/Cheek Grab 5.png", "/Zena/Cheek Grab 4.png", "/Zena/Cheek Grab 3.png", "/Zena/Cheek Grab 2.png", "/Zena/Cheek Grab 1.png"]
   },
   {
     id: "artwork-DSE",
