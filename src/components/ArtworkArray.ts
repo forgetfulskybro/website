@@ -8,6 +8,12 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-Guinevere",
+    title: "Guinevere - Knights of Guinevere",
+    dateCreated: "10/12/2026",
+    images: ["/Guinevere/Guinevere 34.mp4", "/Guinevere/Guinevere 33.png", "/Guinevere/Guinevere 32.png", "/Guinevere/Guinevere 31.png", "/Guinevere/Guinevere 30.png", "/Guinevere/Guinevere 29.png", "/Guinevere/Guinevere 28.png", "/Guinevere/Guinevere 27.png", "/Guinevere/Guinevere 26.png", "/Guinevere/Guinevere 25.png", "/Guinevere/Guinevere 24.png", "/Guinevere/Guinevere 23.png", "/Guinevere/Guinevere 22.png", "/Guinevere/Guinevere 21.png", "/Guinevere/Guinevere 20.png", "/Guinevere/Guinevere 19.png", "/Guinevere/Guinevere 18.png", "/Guinevere/Guinevere 17.png", "/Guinevere/Guinevere 16.png", "/Guinevere/Guinevere 15.png", "/Guinevere/Guinevere 14.png", "/Guinevere/Guinevere 13.png", "/Guinevere/Guinevere 12.png", "/Guinevere/Guinevere 11.png", "/Guinevere/Guinevere 10.png", "/Guinevere/Guinevere 9.png", "/Guinevere/Guinevere 8.png", "/Guinevere/Guinevere 7.png", "/Guinevere/Guinevere 6.png", "/Guinevere/Guinevere 5.png", "/Guinevere/Guinevere 4.png", "/Guinevere/Guinevere 3.png", "/Guinevere/Guinevere 2.png", "/Guinevere/Guinevere 1.png"]
+  },
+  {
     id: "artwork-CheekGrab",
     title: "Zena Cheek Grab",
     dateCreated: "10/05/2026",
