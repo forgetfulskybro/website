@@ -8,6 +8,12 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-capri",
+    title: "Capricorn - Cyberpunk Edgerunners II",
+    dateCreated: "10/21/2026",
+    images: ["/Capri/capri 25.png", "/Capri/capri 24.png", "/Capri/capri 23.png", "/Capri/capri 22.png", "/Capri/capri 21.png", "/Capri/capri 20.png", "/Capri/capri 19.png", "/Capri/capri 18.png", "/Capri/capri 17.png", "/Capri/capri 16.png", "/Capri/capri 15.png", "/Capri/capri 14.png", "/Capri/capri 13.png", "/Capri/capri 12.png", "/Capri/capri 11.png", "/Capri/capri 10.png", "/Capri/capri 9.png", "/Capri/capri 8.png", "/Capri/capri 7.png", "/Capri/capri 6.png", "/Capri/capri 5.png", "/Capri/capri 4.png", "/Capri/capri 3.png", "/Capri/capri 2.png", "/Capri/capri 1.png"]
+  },
+  {
     id: "artwork-Guinevere",
     title: "Guinevere - Knights of Guinevere",
     dateCreated: "10/12/2026",
