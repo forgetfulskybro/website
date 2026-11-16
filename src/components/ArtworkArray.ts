@@ -8,6 +8,12 @@ export interface ArtworkData {
 
 export const artworks: ArtworkData[] = [
   {
+    id: "artwork-Rikka",
+    title: "Rikka Takanashi - Love, Chunibyo & Other Delusions",
+    dateCreated: "11/15/2026",
+    images: ["/Rikka/Rikka 28.png", "/Rikka/Rikka 27.png", "/Rikka/Rikka 26.png", "/Rikka/Rikka 25.png", "/Rikka/Rikka 24.png", "/Rikka/Rikka 23.png", "/Rikka/Rikka 22.png", "/Rikka/Rikka 21.png", "/Rikka/Rikka 20.png", "/Rikka/Rikka 19.png", "/Rikka/Rikka 18.png", "/Rikka/Rikka 17.png", "/Rikka/Rikka 16.png", "/Rikka/Rikka 15.png", "/Rikka/Rikka 14.png", "/Rikka/Rikka 13.png", "/Rikka/Rikka 12.png", "/Rikka/Rikka 11.png", "/Rikka/Rikka 10.png", "/Rikka/Rikka 9.png", "/Rikka/Rikka 8.png", "/Rikka/Rikka   7.png", "/Rikka/Rikka 6.png", "/Rikka/Rikka 5.png", "/Rikka/Rikka 4.png", "/Rikka/Rikka 3.png", "/Rikka/Rikka 2.png", "/Rikka/Rikka 1.png"]
+  },
+  {
     id: "artwork-capri",
     title: "Capricorn - Cyberpunk Edgerunners II",
     dateCreated: "10/21/2026",
