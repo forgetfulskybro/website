@@ -7,7 +7,6 @@ import {
 } from "@mui/material";
 import { useTimeTracking } from "../Lyrics/useTimeTracking";
 import { m, AnimatePresence } from "framer-motion";
-import { updateThemeColor } from "../updateThemeColor";
 import { Response } from "@/app/api/lastfm/LastFMData";
 import { DialogHeader } from "../Lyrics/DialogHeader";
 import React, {
@@ -20,7 +19,6 @@ import React, {
 import { formatDuration } from "../Lyrics/utils";
 import MusicDrawer from "../Drawers/MusicDrawer";
 import { defaultColors } from "../Lyrics/theme";
-import { LangSelect } from "../LanguageSelect";
 
 type LyricsLine = { time: number; text: string };
 
@@ -31,9 +29,8 @@ export default function Lyrics({
   children: React.ReactNode;
   lastFMSongData: Response;
 }) {
-  const data = LangSelect();
   const [open, setOpen] = useState(false);
-  const [themeColors, setThemeColors] = useState(defaultColors);
+  const themeColors = defaultColors;
   const {
     artist,
     title,
@@ -144,27 +141,6 @@ export default function Lyrics({
       }
     };
   }, [open, started, duration, startTimeTracking, animationFrameRef]);
-
-  useEffect(() => {
-    updateThemeColor(setThemeColors);
-    const checkInterval = setInterval(
-      () => updateThemeColor(setThemeColors),
-      1500
-    );
-
-    const storageHandler = (e: StorageEvent) => {
-      if (e.key === "theme" || e.key === "customColor") {
-        updateThemeColor(setThemeColors);
-      }
-    };
-
-    window.addEventListener("storage", storageHandler);
-
-    return () => {
-      clearInterval(checkInterval);
-      window.removeEventListener("storage", storageHandler);
-    };
-  }, []);
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -465,7 +441,6 @@ export default function Lyrics({
           FALLBACK_DURATION={190000}
           getProgress={getProgress}
           formatDuration={formatDuration}
-          data={data!}
           date={date}
           lyrics={lyrics}
           syncLyrics={syncLyrics}

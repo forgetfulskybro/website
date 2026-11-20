@@ -258,7 +258,6 @@ export default function ImageViewer({
     }
   }, [stillImages, gifSpeed, title, isDownloadingGif]);
 
-  // Keyboard: Escape, image prev/next (video keys handled inside VideoPlayer)
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => {
@@ -268,7 +267,7 @@ export default function ImageViewer({
       }
 
       if (viewMode === "grid" || viewMode === "gif") return;
-      if (isVideo) return; // VideoPlayer owns space/k/m/seek
+      if (isVideo) return;
 
       if (e.key === "ArrowLeft") handlePrev();
       if (e.key === "ArrowRight") handleNext();
@@ -297,7 +296,6 @@ export default function ImageViewer({
           onClick={(e) => e.target === e.currentTarget && handleClose()}
           transition={{ duration: 0.3 }}
         >
-          {/* header */}
           <div
             style={{
               position: "absolute",
@@ -387,7 +385,6 @@ export default function ImageViewer({
             </div>
           </div>
 
-          {/* toolbar */}
           <div
             style={{
               position: "absolute",

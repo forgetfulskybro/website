@@ -1,13 +1,11 @@
 "use client";
 import { useShootingStars } from "@/components/ShootingStars";
-import { LangSelect } from "@/components/LanguageSelect";
 import ProjectCards from "@/components/layout/Projects";
 import { usePathname } from "next/navigation";
 import AppShell from "@/components/pageNav/AppShell";
 import React from "react";
 
 export default function ProjectsClient() {
-  const data = LangSelect();
   const pathname = usePathname();
   return (
     <main key={pathname} className="main">
@@ -19,7 +17,7 @@ export default function ProjectsClient() {
           style={{ marginRight: 10, maxHeight: "80vh", overflowY: "auto" }}
           className="flexGrid"
         >
-          <ProjectCards data={data!} />
+          <ProjectCards />
         </div>
       </AppShell>
     </main>

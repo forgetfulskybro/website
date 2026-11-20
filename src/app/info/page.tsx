@@ -1,20 +1,5 @@
-import type { Metadata } from "next";
-import { getMetadata } from "@/components/getMetaData";
-import { DiscordEmbedLink, SITE_URL } from "@/components/seo/discord-embed";
-import InfoClient from "./InfoClient";
-
-const { title, description } = getMetadata("/info");
-
-export const metadata: Metadata = {
-  title,
-  description,
-};
+import { redirect } from "next/navigation";
 
 export default function InfoPage() {
-  return (
-    <>
-      <DiscordEmbedLink href={`${SITE_URL}/api/embeds/info`} />
-      <InfoClient />
-    </>
-  );
+  redirect("/");
 }

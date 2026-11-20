@@ -1,21 +1,19 @@
 "use client";
 import { useShootingStars } from "@/components/ShootingStars";
 import { RecentGames } from "@/components/layout/RecentGames";
-import { LangSelect } from "@/components/LanguageSelect";
+import { RecentAnime } from "@/components/layout/RecentAnime";
 import GameDrawer from "@/components/Drawers/GameDrawer";
 import ToolTipCover from "@/components/ToolTipCover";
 import { LastFM } from "@/components/layout/LastFM";
 import { Waka } from "@/components/layout/WakaTime";
-import Translate from "@/components/translation";
 import { LastFMSong } from "@/hooks/LastFMSong";
 import Lyrics from "@/components/Lyrics/Lyrics";
 import AppShell from "@/components/pageNav/AppShell";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { AnimeEntry } from "@/lib/anilist";
 
-export default function InfoClient() {
-  const translate = new Translate();
-  const data = LangSelect();
+export default function InfoClient({ anime }: { anime: AnimeEntry[] }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const lastFMSongData = LastFMSong();
@@ -48,34 +46,34 @@ export default function InfoClient() {
             className="flexGrid flex center"
           >
             <Lyrics lastFMSongData={lastFMSongData}>
-              <LastFM data={data!} lastFMSongData={lastFMSongData} />
+              <LastFM lastFMSongData={lastFMSongData} />
             </Lyrics>
-            <Waka data={data!} />
+            <Waka />
           </div>
           <ToolTipCover
             placement="top"
             content={
               <div className="ratingsContainer">
                 <h3 className="ratingsTitle">
-                  {translate.get(data!, "Info.gameRating")}
+                  Game Rating Guide
                 </h3>
                 <dl className="ratingList">
                   <div className="ratingItem">
                     <dt className="ratingScore">01</dt>
                     <dd className="ratingDescription">
-                      {translate.get(data!, "Info.awful")}
+                      Awful - Major Flaws
                     </dd>
                   </div>
                   <div className="ratingItem">
                     <dt className="ratingScore">05</dt>
                     <dd className="ratingDescription">
-                      {translate.get(data!, "Info.mid")}
+                      Average - Solid
                     </dd>
                   </div>
                   <div className="ratingItem">
                     <dt className="ratingScore">10</dt>
                     <dd className="ratingDescription">
-                      {translate.get(data!, "Info.top")}
+                      Masterpiece
                     </dd>
                   </div>
                 </dl>
@@ -94,7 +92,7 @@ export default function InfoClient() {
                 }
               }}
             >
-              {translate.get(data!, "Info.recent")}
+              Recent Games
               <Image
                 style={{ opacity: 0.8, marginLeft: 5 }}
                 src={`Info.svg`}
@@ -110,7 +108,27 @@ export default function InfoClient() {
             style={{ maxHeight: "80vh", fontSize: 14 }}
             className="flexGrid flex boxes"
           >
-            <RecentGames data={data!} />
+            <RecentGames />
+          </div>
+
+          <div className="animeSection">
+            <div className="animeSectionHead">
+              <span className="boxTitle">
+                Recent Anime
+              </span>
+            </div>
+            <div
+              style={{ maxHeight: "80vh", fontSize: 14 }}
+              className="flexGrid flex boxes"
+            >
+              {anime.length > 0 ? (
+                <RecentAnime anime={anime} />
+              ) : (
+                <div className="animeEmpty">
+                  No anime to show yet.
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </AppShell>

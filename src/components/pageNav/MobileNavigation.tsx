@@ -48,7 +48,7 @@ export default function MobileNavigation({ items, pathname }: NavigationProps) {
               >
                 <Image
                   style={{ opacity: 0.8 }}
-                  src={`${item.src}.svg`}
+                  src={`/${item.src}.svg`}
                   width={17}
                   height={17}
                   draggable={false}

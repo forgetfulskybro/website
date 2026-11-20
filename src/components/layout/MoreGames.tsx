@@ -1,15 +1,10 @@
 "use client";
-import Translate from "@/components/translation";
 import { m } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-interface GameProps {
-  data: string;
-}
-
-export const MoreGames: React.FC<GameProps> = ({ data }) => {
+export const MoreGames: React.FC = () => {
   return (
     <Link href={"/info/games"}>
       <m.div
@@ -28,7 +23,7 @@ export const MoreGames: React.FC<GameProps> = ({ data }) => {
           className="gameTitle"
           style={{ textAlign: "center", display: "flex", alignItems: "center" }}
         >
-          {new Translate().get(data!, "Info.moreGames")}
+          View more games
         </div>
         <div
           style={{

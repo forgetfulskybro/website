@@ -3,18 +3,17 @@ import {
   DrawerHeader,
   StyledDrawer,
   Container,
-  SettingsCard,
+  DrawerCard,
 } from "./DrawerStyles";
 import { formatDistanceToNow, isYesterday, setDefaultOptions } from "date-fns";
 import { m, AnimatePresence } from "framer-motion";
 import { Button, DialogContentText } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import Translate from "@/components/translation";
 import { formatNumber } from "../Lyrics/utils";
 import { ThemeColors } from "../Lyrics/theme";
 import Divider from "@mui/material/Divider";
 import ToolTip from "@/components/ToolTip";
-import { es, fr, enUS } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 import Box from "@mui/material/Box";
 import * as React from "react";
 import Image from "next/image";
@@ -38,7 +37,6 @@ interface MusicDrawerProps {
   FALLBACK_DURATION?: number;
   getProgress: () => number;
   formatDuration: (duration: number | undefined) => string;
-  data: string;
   date?: number;
   lyrics: string | null | undefined;
   syncLyrics?: { time: number; line: string }[] | null;
@@ -62,21 +60,16 @@ export default function MusicDrawer({
   FALLBACK_DURATION,
   getProgress,
   formatDuration,
-  data,
   date,
   lyrics,
   syncLyrics,
   cover,
 }: MusicDrawerProps) {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const translate = new Translate();
   function capitalize(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  if (data == "en_EN") setDefaultOptions({ locale: enUS });
-  else if (data == "es_ES") setDefaultOptions({ locale: es });
-  else if (data == "fr_FR") setDefaultOptions({ locale: fr });
+  setDefaultOptions({ locale: enUS });
 
   const absoluteDate = React.useMemo(() => {
     if (!date) return;
@@ -88,9 +81,9 @@ export default function MusicDrawer({
     if (!absoluteDate) return;
 
     return isYesterday(absoluteDate)
-      ? translate.get(data!, "Info.yester")
+      ? "Yesterday"
       : capitalize(formatDistanceToNow(absoluteDate, { addSuffix: true }));
-  }, [absoluteDate, data, translate]);
+  }, [absoluteDate]);
 
   const songKey = `${artist}-${title}`;
 
@@ -235,7 +228,7 @@ export default function MusicDrawer({
             ) : (
               <span>
                 {playing ? (
-                  `${translate.get(data!, "Info.listening")}...`
+                  `Listening to...`
                 ) : (
                   <div className="center">
                     <svg
@@ -270,7 +263,7 @@ export default function MusicDrawer({
         </m.div>
       </DrawerHeader>
       <Divider />
-      <SettingsCard sx={{ width: "100%", maxWidth: "500px", p: 2 }}>
+      <DrawerCard sx={{ width: "100%", maxWidth: "500px", p: 2 }}>
         <Box sx={{ width: "100%" }}>
           <AnimatePresence mode="wait">
             <m.div
@@ -652,7 +645,7 @@ export default function MusicDrawer({
             </m.div>
           </AnimatePresence>
         </Box>
-      </SettingsCard>
+      </DrawerCard>
       <Divider />
     </Container>
   );

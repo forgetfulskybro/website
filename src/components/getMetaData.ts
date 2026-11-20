@@ -30,9 +30,14 @@ export function getMetadata(path: string): {
         "Information about what music I'm listening to, recent games I've played, and WakaTime stats.",
     },
     "/info/games": {
-      title: "Sky // info // games",
+      title: "Sky // games",
       description:
         "Showcases all story games I've played in the last few years or so with reviews and ratings.",
+    },
+    "/info/anime": {
+      title: "Sky // anime",
+      description:
+        "All the anime I've watched, with my ratings and synopses.",
     },
   };
   return (

@@ -1,4 +1,4 @@
-import { DiscordIcon, GithubIcon, SteamIcon, XIcon } from "@/icons/icons";
+import { DiscordIcon, FluxerIcon, GithubIcon, SteamIcon, StrafeIcon, XIcon } from "@/icons/icons";
 import React, { ReactElement } from "react";
 import ToolTip from "./ToolTip";
 import Link from "next/link";
@@ -12,6 +12,24 @@ const links: { url: string; src: ReactElement; alt: string }[] = [
       </>
     ),
     alt: "Discord",
+  },
+  {
+    url: "https://fluxer.gg/functious",
+    src: (
+      <>
+        <FluxerIcon />
+      </>
+    ),
+    alt: "Fluxer",
+  },
+  {
+    url: "https://app.strafe.chat/invite/vfDVBY4U",
+    src: (
+      <>
+        <StrafeIcon />
+      </>
+    ),
+    alt: "Strafe",
   },
   {
     url: "https://github.com/forgetfulskybro",
@@ -45,7 +63,7 @@ const links: { url: string; src: ReactElement; alt: string }[] = [
 export default function SocialLinks() {
   return (
     <>
-      <div className="hiding flexGrid center" style={{ paddingBottom: "35px" }}>
+      <div className="flexGrid center">
         <div className="socialLinks">
           {links.map((item, index) => (
             <div

@@ -1,5 +1,3 @@
-import fs from "node:fs";
-import path from "node:path";
 import { artworks } from "@/components/ArtworkArray";
 import getProjects from "@/components/ProjectsArray";
 import { allGames } from "@/components/GamesArray";
@@ -11,20 +9,6 @@ import {
 const STILL_MEDIA = /\.(png|jpe?g|gif|webp|avif)(\?.*)?$/i;
 const isDiscordMedia = (src: string | null | undefined): src is string =>
   typeof src === "string" && STILL_MEDIA.test(src);
-
-const GAME_LANG: Record<string, { progress?: string }> = (() => {
-  try {
-    const raw = JSON.parse(
-      fs.readFileSync(
-        path.join(process.cwd(), "languages", "en_EN.json"),
-        "utf8",
-      ),
-    );
-    return raw?.Games ?? {};
-  } catch {
-    return {};
-  }
-})();
 
 const PROJECT_TAG_COLORS: Record<string, string> = {
   "Discord Bot": "#5764F3",
@@ -64,7 +48,7 @@ export function featuredArtworkItems(): CollageItem[] {
 }
 
 export function featuredProjectItems(): CollageItem[] {
-  return getProjects({})
+  return getProjects()
     .filter(
       (project) =>
         isDiscordMedia(project.image) && project.image.startsWith("/"),
@@ -87,8 +71,6 @@ export function featuredGameItems(): CollageItem[] {
     .map((game) => ({
       src: game.image as string,
       label: game.title,
-      subtitle: GAME_LANG[game.target]?.progress
-        ? `Progress: ${GAME_LANG[game.target]!.progress}`
-        : undefined,
+      subtitle: game.progress ? `Progress: ${game.progress}` : undefined,
     }));
 }

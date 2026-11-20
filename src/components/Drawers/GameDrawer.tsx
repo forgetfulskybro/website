@@ -24,7 +24,7 @@ export default function TemporaryDrawer({
             1
           </BlueTypography>
           <Typography className="ratingDescription">
-            Awful - Major flaws
+            Awful - Major Flaws
           </Typography>
         </RatingItem>
         <RatingItem>

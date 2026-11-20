@@ -1,13 +1,10 @@
 "use client";
 import { useShootingStars } from "@/components/ShootingStars";
-import { LangSelect } from "@/components/LanguageSelect";
 import Page from "@/components/pageNav/pageSecondary";
-import Translate from "@/components/translation";
 import Image from "next/image";
 import React from "react";
 
 export default function Home() {
-  const data = LangSelect();
   return (
     <main className="main">
       <div className="starryBackground" />
@@ -16,7 +13,7 @@ export default function Home() {
       <Page>
         <div className="center flexGrid">
           <div className="sizing">
-            {new Translate().get(data!, "Misc.404.forgetful")} <b>ForGetFul</b>{" "}
+            Uhhh.. think I forgot to add this page as I&apos;m quite <b>ForGetFul</b>{" "}
             <Image
               style={{ marginBottom: -7 }}
               src="/trol.png"

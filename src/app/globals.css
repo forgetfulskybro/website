@@ -14,7 +14,6 @@
   --z-drawer: 200;
   --z-overlay: 250;
   --z-modal: 300;
-  --z-theme-popover: 400;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -169,13 +168,6 @@ a {
   transition: 0.25s ease-in-out;
 }
 
-.settingsHigh,
-.settings:hover {
-  background-color: rgba(0, 0, 0, 0.3) !important;
-  cursor: pointer;
-  transition: 0.25s ease-in-out;
-}
-
 .projectsHigh,
 .projects:hover {
   background-color: rgba(255, 97, 97, 0.3) !important;
@@ -195,6 +187,18 @@ a {
   transition: 0.25s ease-in-out;
 }
 
+.gamesHigh,
+.games:hover {
+  background-color: rgba(26, 188, 156, 0.3) !important;
+  transition: 0.25s ease-in-out;
+}
+
+.animeHigh,
+.anime:hover {
+  background-color: rgba(2, 169, 255, 0.25) !important;
+  transition: 0.25s ease-in-out;
+}
+
 .cardSocials[data-platform="Discord"]:hover {
   background-color: rgba(88, 101, 242, 0.3) !important;
 }
@@ -209,6 +213,14 @@ a {
 
 .cardSocials[data-platform="Steam"]:hover {
   background-color: rgba(19, 27, 48, 1) !important;
+}
+
+.cardSocials[data-platform="Fluxer"]:hover {
+  background-color: rgba(70, 65, 217, 0.3) !important;
+}
+
+.cardSocials[data-platform="Strafe"]:hover {
+  background-color: rgba(191, 209, 89, 0.3) !important;
 }
 
 .cardSocials img {
@@ -450,6 +462,452 @@ a {
   cursor: pointer;
 }
 
+.animeSection {
+  width: 100%;
+  margin-top: 14px;
+}
+
+.animeSectionHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 6px 2px;
+}
+
+.animeCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 106px;
+  text-align: left;
+}
+
+.animeIcon {
+  width: 66px;
+  height: 92px;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.animeBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.animeTitle {
+  float: none;
+  display: block;
+  margin: 0 0 4px;
+  white-space: normal;
+  line-height: 1.3;
+  max-height: 2.6em;
+  overflow: hidden;
+}
+
+.animeRate {
+  float: none;
+  margin: 0 4px 2px 0;
+}
+
+.animeTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.animeTag {
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background-color: rgba(2, 169, 255, 0.18);
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+}
+
+.animeMoreCard {
+  width: 335px;
+  height: 106px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.animeMoreTitle {
+  float: none;
+  margin: 0;
+  text-align: center;
+}
+
+.animeMoreArrow {
+  position: relative;
+  top: 1px;
+  padding: 4px;
+}
+
+.animeMoreArrow img {
+  transform: rotate(-90deg) translateX(6px);
+}
+
+.animeFullCard {
+  position: relative;
+  width: 215px;
+  max-width: 97%;
+  padding: 8px;
+  margin: 6px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: rgba(34, 34, 38, 0.3);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.25s ease-in-out;
+}
+
+.animeFullCard:hover {
+  background-color: rgba(2, 169, 255, 0.18);
+  border-color: rgba(2, 169, 255, 0.35);
+}
+
+.animeFullCover {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.animeFullInfo {
+  padding: 8px 2px 2px;
+}
+
+.animeFullTitle {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 3px;
+}
+
+.animeFullMeta {
+  font-size: 11px;
+  opacity: 0.55;
+  margin-bottom: 4px;
+}
+
+.animeViewer {
+  padding: 20px 22px;
+}
+
+.animeViewerHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.animeViewerTitle {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.animeViewerScore {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
+.animeViewerScroll {
+  max-height: 58vh;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.animeViewerCover {
+  float: left;
+  width: 170px;
+  height: auto;
+  margin: 0 16px 10px 0;
+  border-radius: 10px;
+}
+
+.animeViewerMeta {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+
+.animeViewerMetaLabel {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  margin-bottom: 6px;
+}
+
+.animeViewerDesc {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.88);
+  white-space: pre-line;
+  overflow: visible;
+}
+
+.animeViewerGenres {
+  clear: both;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding-top: 12px;
+}
+
+.animeViewerLabel {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  margin-right: 2px;
+}
+
+.animeViewerFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.animeViewerButton {
+  font-size: 0.82rem;
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.animeViewerButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.animeEmpty {
+  width: 100%;
+  padding: 18px;
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+@media (max-width: 520px) {
+  .animeViewer {
+    padding: 16px;
+  }
+
+  .animeViewerCover {
+    width: 110px;
+    margin-right: 12px;
+  }
+
+  .animeFullCard {
+    width: 46%;
+    margin: 4px;
+  }
+}
+
+.homeLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 950px;
+}
+
+.homeHero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.homeIntro {
+  flex-shrink: 1;
+  width: 550px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.homePortrait {
+  flex-shrink: 0;
+}
+
+.homeStatusRow {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 770px;
+  margin-top: 16px;
+}
+
+.homeStatusItem {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.homeStatusItem > div,
+.homeStatusItem > a {
+  width: 100%;
+}
+
+.homeStatusCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 96px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  background-color: rgba(34, 34, 38, 0.3);
+  color: #fff;
+  text-align: left;
+  transition: all 0.25s ease-in-out;
+}
+
+.homeMusicCard {
+  cursor: pointer;
+}
+
+.homeMusicCard:hover {
+  background-color: rgba(88, 101, 242, 0.2);
+}
+
+.homeWakaCard:hover {
+  background-color: rgba(255, 97, 97, 0.2);
+}
+
+.homeStatusCover {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.homeStatusLogo {
+  width: 64px;
+  height: 64px;
+  border-radius: 0;
+  object-fit: contain;
+}
+
+.homeStatusBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+}
+
+.homeStatusTop {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 16px;
+  overflow: hidden;
+  font-size: 11px;
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+.homeStatusIcon {
+  flex-shrink: 0;
+}
+
+.homeStatusTitle {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.homeStatusArtist {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.homeStatusEqualizer {
+  width: 44px;
+  height: 26px;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.collectionPage {
+  width: 900px;
+  max-width: 100%;
+  margin-top: 15px;
+}
+
+@media (max-width: 869px) {
+  .homeHero {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .homeIntro {
+    width: 100%;
+  }
+
+  .homePortrait {
+    display: none;
+  }
+
+  .homeStatusRow {
+    flex-direction: column;
+    max-width: 100%;
+    margin-top: 14px;
+  }
+
+  .homeStatusCard {
+    min-height: 88px;
+  }
+
+  .homeStatusCover {
+    width: 64px;
+    height: 64px;
+  }
+
+  .homeStatusLogo {
+    width: 56px;
+    height: 56px;
+  }
+
+  .collectionPage {
+    width: 100%;
+  }
+}
+
 .review {
   position: absolute;
   margin-top: 7px;
@@ -647,50 +1105,6 @@ a {
   margin-right: 10px;
   margin-left: 10px;
 }
-.settingsCard {
-  background: #222226;
-  color: white;
-  border: 2px solid #000;
-  border-radius: 5px;
-  height: 165px;
-  width: 300px;
-  position: relative;
-  text-align: center;
-  transition: 0.2s, border 0.2s;
-}
-
-.settingsCardM {
-  background: #222226;
-  color: white;
-  border: 2px solid #000;
-  border-radius: 5px;
-  height: 165px;
-  width: 250px;
-  position: relative;
-  text-align: center;
-  transition: 0.2s, border 0.2s;
-}
-
-.settingsInput {
-  display: flex;
-  flex-direction: row;
-  font-size: 15px;
-  font-weight: 800;
-  gap: 3px;
-  margin-left: 10px;
-  margin-top: 8px;
-  text-align: left;
-}
-
-.colors {
-  font-size: 9px;
-  font-style: bold;
-  width: 60px;
-  height: 40px;
-  border-radius: 5%;
-  background-color: #e65959;
-}
-
 .colorsM {
   font-size: 7.8px;
   font-style: bold;
@@ -1047,13 +1461,6 @@ a {
   transition: 0.25s ease-in-out;
 }
 
-.settings.high,
-.settings:hover {
-  background-color: rgba(29, 28, 28, 0.3);
-  cursor: pointer;
-  transition: 0.25s ease-in-out;
-}
-
 .projects.high,
 .projects:hover {
   background-color: rgba(255, 97, 97, 0.3);
@@ -1119,10 +1526,8 @@ a {
   z-index: -1;
 }
 
-@media (min-width: 870px) {
-  .homeSocials {
-    margin-top: 36px;
-  }
+.homeSocials {
+  margin-top: 24px;
 }
 
 @media (max-width: 869px) {
@@ -1137,7 +1542,8 @@ a {
     background-color: transparent;
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
-    width: 237px;
+    width: 300px;
+    max-width: calc(100vw - 20px);
     height: 50px;
     margin: 0 auto;
     padding: 0 10px;

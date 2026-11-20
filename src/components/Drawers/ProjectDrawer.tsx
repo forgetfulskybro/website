@@ -4,25 +4,20 @@ import {
   ButtonContainer,
   StyledButton,
 } from "./DrawerStyles";
-import Translate from "@/components/translation";
 import { Typography } from "@mui/material";
 import { ProjectData } from "../ProjectsArray";
 import Box from "@mui/material/Box";
 import Image from "next/image";
 import * as React from "react";
 
-const translation = new Translate();
-
 export default function TemporaryDrawer({
   open,
   onClose,
   selectedProject,
-  translate,
 }: {
   open: boolean;
   onClose: () => void;
   selectedProject: ProjectData | null;
-  translate: string;
 }) {
   return (
     <div>
@@ -64,7 +59,7 @@ export default function TemporaryDrawer({
             rel="noopener noreferrer"
             disabled={!selectedProject?.community}
           >
-            {translation.get(translate, "Projects.buttons.community")}
+            Discord
           </StyledButton>
           <StyledButton
             href={selectedProject?.website || "#"}
@@ -72,7 +67,7 @@ export default function TemporaryDrawer({
             rel="noopener noreferrer"
             disabled={!selectedProject?.website}
           >
-            {translation.get(translate, "Projects.buttons.website")}
+            Website
           </StyledButton>
         </ButtonContainer>
       </StyledDrawer>

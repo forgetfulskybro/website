@@ -1,6 +1,5 @@
 import { DrawerHeader, StyledDrawer } from "./DrawerStyles";
 import { renderButtons } from "../layout/Projects";
-import Translate from "@/components/translation";
 import { Typography } from "@mui/material";
 import { GameType } from "../GamesArray";
 import Box from "@mui/material/Box";
@@ -9,15 +8,12 @@ import * as React from "react";
 
 function DrawerWebsiteLink({
   website,
-  data,
 }: {
   website: string | null | undefined;
-  data: string;
 }) {
-  const translate = new Translate();
   return (
     <Box className="tooltip-section">
-      {renderButtons(website ?? null, translate.get(data, "Games.visit"))}
+      {renderButtons(website ?? null, "Visit Website")}
     </Box>
   );
 }
@@ -26,14 +22,11 @@ export default function TemporaryDrawer({
   open,
   onClose,
   selectedGame,
-  data
 }: {
   open: boolean;
   onClose: () => void;
   selectedGame: GameType | null;
-  data: string;
-  }) {
-  const translate = new Translate();
+}) {
   return (
     <div>
       <StyledDrawer anchor={"bottom"} open={open} onClose={onClose}>
@@ -68,28 +61,21 @@ export default function TemporaryDrawer({
             justifyContent="space-between"
           >
             <Box className="tooltip-section" flex="1">
-              <Typography className="tooltip-title">
-                {translate.get(data!, "Games.progress")}
-              </Typography>
+              <Typography className="tooltip-title">Progress</Typography>
               {selectedGame && (
                 <Typography className="tooltip-text">
-                  {translate.get(
-                    data!,
-                    `Games.${selectedGame?.target}.progress`
-                  )}
+                  {selectedGame.progress}
                 </Typography>
               )}
             </Box>
-            <DrawerWebsiteLink website={selectedGame?.website} data={data} />
+            <DrawerWebsiteLink website={selectedGame?.website} />
           </Box>
           <Box className="tooltip-section">
-            <Typography className="tooltip-title">
-              {translate.get(data!, "Games.review")}
-            </Typography>
+            <Typography className="tooltip-title">Review</Typography>
             <Typography className="tooltip-text">
-              {selectedGame?.review
-                ? translate.get(data!, `Games.${selectedGame.target}.review`)
-                : translate.get(data!, "Games.noReview")}
+              {selectedGame?.reviewText
+                ? selectedGame.reviewText
+                : "There is no review for this game."}
             </Typography>
           </Box>
         </Box>

@@ -4,15 +4,11 @@ import { MoreGames } from "./MoreGames";
 import { GameCard } from "./GameCard";
 import React from "react";
 
-interface GamesProps {
-  data: string;
-}
-
-export const RecentGames: React.FC<GamesProps> = ({ data }) => {
+export const RecentGames: React.FC = () => {
   return (
     <>
-      <GameCard games={recentGames()} data={data} />
-      <MoreGames data={data} />
+      <GameCard games={recentGames()} />
+      <MoreGames />
     </>
   );
 };

@@ -3,29 +3,23 @@ import { formatDistanceToNow, isYesterday, setDefaultOptions } from "date-fns";
 import type { Transition, Variants } from "framer-motion";
 import { AnimatePresence, m } from "framer-motion";
 import { Response } from "@/app/api/lastfm/LastFMData";
-import Translate from "@/components/translation";
-import { es, fr, enUS } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 import { useMemo } from "react";
 import Image from "next/image";
 import React from "react";
 
 interface LastFMProps {
-  data: string;
   lastFMSongData: Response;
 }
 
-export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const translate = new Translate();
+export const LastFM: React.FC<LastFMProps> = ({ lastFMSongData }) => {
   const { artist, cover, date, title, playing } = lastFMSongData;
 
   function capitalize(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  if (data == "en_EN") setDefaultOptions({ locale: enUS });
-  else if (data == "es_ES") setDefaultOptions({ locale: es });
-  else if (data == "fr_FR") setDefaultOptions({ locale: fr });
+  setDefaultOptions({ locale: enUS });
 
   const absoluteDate = useMemo(() => {
     if (!date) return;
@@ -37,9 +31,9 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
     if (!absoluteDate) return;
 
     return isYesterday(absoluteDate)
-      ? translate.get(data!, "Info.yester")
+      ? "Yesterday"
       : capitalize(formatDistanceToNow(absoluteDate, { addSuffix: true }));
-  }, [absoluteDate, data, translate]);
+  }, [absoluteDate]);
 
   const variants: Variants = {
     hidden: {
@@ -62,11 +56,7 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
   const MotionImage = m(Image);
 
   return (
-    <div style={{
-      cursor: "pointer",
-      width: 362,
-      height: 93.5,
-    }} className="gameCard flex">
+    <div className="homeStatusCard homeMusicCard">
       {cover ? (
         <AnimatePresence>
           {cover && (
@@ -74,9 +64,9 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
               alt={`${title} by ${artist}`}
               draggable={false}
               animate="visible"
-              className="gameIcon"
-              height={100}
-              width={100}
+              className="homeStatusCover"
+              height={72}
+              width={72}
               initial="hidden"
               key={`${artist} ${title}`}
               loading="lazy"
@@ -88,25 +78,25 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
         </AnimatePresence>
       ) : (
         <Image
-          className="gameIcon"
+          className="homeStatusCover"
           src={"/music.png"}
-          height={100}
-          width={100}
+          height={72}
+          width={72}
           draggable={false}
-          alt="Skele"
+          alt="Music"
           priority={true}
         />
       )}
 
-      <div className="flex" style={{ flexDirection: "row" }}>
-        <div className="lastFMTop">
+      <div className="homeStatusBody">
+        <div className="homeStatusTop">
           <AnimatePresence>
             {playing && (
               <MotionImage
                 src="/music.svg"
-                className="musicIcon"
-                height={20}
-                width={20}
+                className="homeStatusIcon"
+                height={16}
+                width={16}
                 draggable={false}
                 alt="Music"
                 priority={true}
@@ -140,11 +130,11 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
                 transition={fade}
                 variants={variants}
               >
-                {`${translate.get(data!, "Info.listening")}...`}
+                Listening to...
               </m.span>
             ) : (
               <m.svg
-                className="container"
+                className="homeStatusEqualizer"
                 x="0px"
                 y="0px"
                 viewBox="0 0 50 31.25"
@@ -177,12 +167,10 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
             )}
           </AnimatePresence>
         </div>
-      </div>
 
-      <div className="flex" style={{ flexDirection: "row" }}>
         <AnimatePresence mode="wait">
           <m.div
-            className="lastFMTitle"
+            className="homeStatusTitle"
             animate="visible"
             initial="hidden"
             exit="hidden"
@@ -190,15 +178,13 @@ export const LastFM: React.FC<LastFMProps> = ({ data, lastFMSongData }) => {
             transition={fade}
             variants={variants}
           >
-            <b>{title?.slice(0, 55)}</b>
+            {title?.slice(0, 55)}
           </m.div>
         </AnimatePresence>
-      </div>
 
-      <div className="flex" style={{ flexDirection: "row" }}>
         <AnimatePresence mode="wait">
           <m.div
-            className="lastFMArtist"
+            className="homeStatusArtist"
             animate="visible"
             initial="hidden"
             exit="hidden"

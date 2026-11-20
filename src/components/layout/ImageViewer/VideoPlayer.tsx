@@ -148,7 +148,6 @@ export default function VideoPlayer({ src, isMobile }: VideoPlayerProps) {
     setShowControls(true);
   }, []);
 
-  // Keyboard: space/k play, m mute, arrows seek
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === " " || e.key === "k" || e.key === "K") {

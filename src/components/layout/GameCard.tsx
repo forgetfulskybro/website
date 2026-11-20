@@ -1,7 +1,5 @@
 import GameCardDrawer from "../Drawers/GameCardDrawer";
-import { updateThemeColor } from "../updateThemeColor";
 import React, { useEffect, useState } from "react";
-import Translate from "@/components/translation";
 import { defaultColors } from "../Lyrics/theme";
 import { GameViewer } from "./GameViewer";
 import { GameType } from "../GamesArray";
@@ -10,37 +8,14 @@ import Image from "next/image";
 
 interface GamesProp {
   games: GameType[];
-  data: string;
 }
 
-export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
-  const translate = new Translate();
+export const GameCard: React.FC<GamesProp> = ({ games }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState<GameType | null>(null);
-  const [themeColors, setThemeColors] = useState(defaultColors);
-
-  useEffect(() => {
-    updateThemeColor(setThemeColors);
-    const checkInterval = setInterval(
-      () => updateThemeColor(setThemeColors),
-      500
-    );
-
-    const storageHandler = (e: StorageEvent) => {
-      if (e.key === "theme" || e.key === "customColor") {
-        updateThemeColor(setThemeColors);
-      }
-    };
-
-    window.addEventListener("storage", storageHandler);
-
-    return () => {
-      clearInterval(checkInterval);
-      window.removeEventListener("storage", storageHandler);
-    };
-  }, []);
+  const themeColors = defaultColors;
 
   const sortedGames = games.toSorted(
     (a, b) => (b.myRating || 0) - (a.myRating || 0)
@@ -119,7 +94,7 @@ export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
                   </>
                 ) : (
                   <p className="Blue">
-                    {translate.get(data!, "Games.unrated")}
+                    Unrated
                   </p>
                 )}
               </div>
@@ -147,14 +122,12 @@ export const GameCard: React.FC<GamesProp> = ({ games, data }) => {
               open={drawerOpen}
               onClose={() => setDrawerOpen(false)}
               selectedGame={selectedGame}
-              data={data}
             />
           ) : (
             <GameViewer
               open={dialogOpen}
               onClose={handleCloseDialog}
               game={selectedGame}
-              data={data}
               themeColors={themeColors}
             />
           )}

@@ -76,7 +76,7 @@ export const ListContainer = styled("ul")(({ theme }) => ({
   padding: 0,
 }));
 
-export const SettingsCard = styled(Box)(({ theme }) => ({
+export const DrawerCard = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2),
   width: "300px",
   maxWidth: "100%",

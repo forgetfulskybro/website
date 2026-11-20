@@ -4,11 +4,7 @@ import { getArtworks, ArtworkData } from "../ArtworkArray";
 import ArtworkCard from "./ArtworkCard";
 import ImageViewer from "./ImageViewer/ImageViewer";
 
-interface ArtworkGridProps {
-  data: string;
-}
-
-export default function ArtworkGrid({ data }: ArtworkGridProps) {
+export default function ArtworkGrid() {
   const [selectedArtwork, setSelectedArtwork] = useState<ArtworkData | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);

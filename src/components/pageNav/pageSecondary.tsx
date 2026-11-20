@@ -1,80 +1,13 @@
-/* eslint-disable react/no-children-prop */
 "use client";
 import TransitionEffect from "@/components/TransitionEffect";
-import SettingsComponents, { themes } from "./pageSettings";
-import SettingsDrawer from "../Drawers/SettingsDrawer";
 import { Birthday } from "../layout/Birthday";
-import { ReactNode, useState, useCallback } from "react";
+import React, { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import ToolTip from "@/components/ToolTip";
-import { Popover } from "@mui/material";
-import Translate from "../translation";
-import type { Theme } from "../types";
 import Image from "next/image";
-
-function readStoredTheme(): Theme {
-  if (typeof window === "undefined") return themes[0];
-  const themePreference = localStorage.getItem("themePreference");
-  const savedThemeName = localStorage.getItem("themeName");
-
-  if (themePreference === "custom") {
-    const savedCustomColor = localStorage.getItem("customColor");
-    const savedCustomColorRGB = localStorage.getItem("customColorRGB");
-    if (savedCustomColor && savedCustomColorRGB) {
-      return {
-        name: "custom",
-        primary: savedCustomColor,
-        color: savedCustomColorRGB,
-      };
-    }
-  }
-
-  if (savedThemeName) {
-    const savedTheme = themes.find((theme) => theme.name === savedThemeName);
-    if (savedTheme) return savedTheme;
-  }
-
-  return themes[0];
-}
 
 export default function Page({ children }: { children: ReactNode }) {
   const { back } = useRouter();
-  const [language, setLanguage] = useState<string | null>(() => {
-    if (typeof window === "undefined") return "";
-    const lang = localStorage.getItem("language");
-    return lang || "en_EN";
-  });
-  const [customColor, setCustomColor] = useState<string>(() => {
-    if (typeof window === "undefined") return "#131314";
-    const storedColor = localStorage.getItem("customColor");
-    return storedColor || "#131314";
-  });
-  const [currentTheme, setCurrentTheme] = useState<Theme>(() => readStoredTheme());
-  const [anchor, setAnchor] = useState<HTMLElement | null>(null);
-  const [drawerOpen, setDrawerOpen] = useState(false);
-
-  const handleCloseDrawer = useCallback(() => {
-    setDrawerOpen(false);
-  }, []);
-
-  const toggleDesktopSettings = (
-    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
-  ) => {
-    if ("key" in e) {
-      if (e.key !== "Enter" && e.key !== " ") return;
-      if (e.key === " ") e.preventDefault();
-    }
-    setAnchor((prev) => (prev ? null : (e.currentTarget as HTMLElement)));
-  };
-
-  const openMobileSettingsDrawer = () => setDrawerOpen(true);
-
-  const openMobileSettingsDrawerKb = (e: React.KeyboardEvent<HTMLElement>) => {
-    if (e.key === "Enter" || e.key === " ") {
-      if (e.key === " ") e.preventDefault();
-      setDrawerOpen(true);
-    }
-  };
 
   const navigateBackKb = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -83,133 +16,17 @@ export default function Page({ children }: { children: ReactNode }) {
     }
   };
 
-  const colorTheme = (theme: string): void => {
-    try {
-      const root = document.documentElement;
-      const currentRgb = getComputedStyle(root)
-        .getPropertyValue("--card-rgb")
-        .trim();
-
-      if (currentRgb === theme) return;
-
-      root.style.setProperty("--card-rgb", theme);
-      localStorage.setItem("theme", theme);
-    } catch (error) {
-      console.error("Error changing theme:", error);
-    }
-  };
-
-  const handleThemeClick = (theme: Theme) => {
-    setCurrentTheme(theme);
-    colorTheme(theme.color || "19, 19, 20");
-    localStorage.setItem("themePreference", "default");
-    localStorage.setItem("themeName", theme.name);
-  };
-
-  const handleCustomColorChange = () => {
-    try {
-      const rgbColor = hexToRgb(customColor);
-      if (rgbColor) {
-        const rgbString = `${rgbColor.r}, ${rgbColor.g}, ${rgbColor.b}`;
-        const customTheme: Theme = {
-          name: "custom",
-          primary: customColor,
-          color: rgbString,
-        };
-        setCurrentTheme(customTheme);
-        colorTheme(rgbString);
-        localStorage.setItem("customColor", customColor);
-        localStorage.setItem("customColorRGB", rgbString);
-        localStorage.setItem("themePreference", "custom");
-        localStorage.removeItem("themeName");
-      }
-    } catch (error) {
-      console.error("Error saving custom color:", error);
-    }
-  };
-
-  const hexToRgb = (hex: string) => {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result
-      ? {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16),
-        }
-      : null;
-  };
-
-  const languageSwitcher = (
-    menuItem: string,
-    popupState: { close: () => void }
-  ): (() => void) => {
-    return () => {
-      try {
-        setLanguage(menuItem);
-        localStorage.setItem("language", menuItem);
-        window.dispatchEvent(new Event("storage"));
-        popupState.close();
-      } catch (error) {
-        console.error("Error switching language:", error);
-      }
-    };
-  };
-
   return (
     <TransitionEffect>
       <Birthday />
       <div className="parent center">
         <div className="card boxes flexGrid" id="confetti-wrapper">
           <div className="sliderSide">
-            <ToolTip
-              content={new Translate().get(language!, "Comps.page.settings")}
-              placement="top"
-            >
-              <button
-                type="button"
-                aria-describedby="settings"
-                aria-haspopup="true"
-                aria-expanded={Boolean(anchor)}
-                onClick={toggleDesktopSettings}
-                onKeyDown={toggleDesktopSettings}
-                className={`navIconButton ${
-                  Boolean(anchor) ? "dot settings settingsHigh" : "dot settings"
-                }`}
-              >
-                <Image
-                  style={{ opacity: 0.8 }}
-                  src="/Gear.svg"
-                  width={17}
-                  height={17}
-                  draggable={false}
-                  alt="Gear settings"
-                  priority
-                />
-              </button>
-            </ToolTip>
-            <div
-              style={{
-                display: "inline-block",
-                width: "60%",
-                height: "1px",
-                backgroundColor: "rgba(255,255,255,0.05)",
-                margin: "15px 0",
-              }}
-            ></div>
-            <ToolTip
-              content={new Translate().get(
-                language!,
-                "Comps.pageSecondary.back"
-              )}
-              placement="top"
-            >
+            <ToolTip content="Go Back" placement="top">
               <button
                 type="button"
                 className="navIconButton dot home"
-                aria-label={new Translate().get(
-                  language!,
-                  "Comps.pageSecondary.back"
-                )}
+                aria-label="Go Back"
                 onClick={() => back()}
                 onKeyDown={navigateBackKb}
               >
@@ -224,34 +41,8 @@ export default function Page({ children }: { children: ReactNode }) {
                 />
               </button>
             </ToolTip>
-            <Popover
-              id="settings"
-              open={Boolean(anchor)}
-              anchorEl={anchor}
-              onClose={() => setAnchor(null)}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              PaperProps={{
-                sx: {
-                  backgroundColor: "transparent",
-                  boxShadow: "none",
-                  backgroundImage: "none",
-                  overflow: "visible",
-                },
-              }}
-            >
-              <SettingsComponents
-                language={language}
-                setLanguage={setLanguage}
-                currentTheme={currentTheme}
-                setCurrentTheme={setCurrentTheme}
-                customColor={customColor}
-                setCustomColor={setCustomColor}
-              />
-            </Popover>
           </div>
+
           <div className="hiding flexGrid center">
             <div className="description">{children}</div>
             <div
@@ -266,57 +57,11 @@ export default function Page({ children }: { children: ReactNode }) {
               }}
             >
               <div className="mobileSliderSideSecondary">
-                <ToolTip
-                  content={new Translate().get(
-                    language!,
-                    "Comps.page.settings"
-                  )}
-                  placement="top"
-                >
-                  <button
-                    type="button"
-                    aria-describedby="settingsM"
-                    aria-expanded={drawerOpen}
-                    onClick={openMobileSettingsDrawer}
-                    onKeyDown={openMobileSettingsDrawerKb}
-                    className={`navIconButton ${
-                      drawerOpen ? "dot settings settingsHigh" : "dot settings"
-                    }`}
-                  >
-                    <Image
-                      style={{ opacity: 0.8 }}
-                      src="/Gear.svg"
-                      width={17}
-                      height={17}
-                      draggable={false}
-                      alt="Gear settings"
-                      priority
-                    />
-                  </button>
-                </ToolTip>
-                <div
-                  style={{
-                    display: "inline-block",
-                    width: "1px",
-                    height: "60%",
-                    backgroundColor: "rgba(255,255,255,0.05)",
-                    margin: "0 15px",
-                  }}
-                ></div>
-                <ToolTip
-                  content={new Translate().get(
-                    language!,
-                    "Comps.pageSecondary.back"
-                  )}
-                  placement="top"
-                >
+                <ToolTip content="Go Back" placement="top">
                   <button
                     type="button"
                     className="navIconButton dot home"
-                    aria-label={new Translate().get(
-                      language!,
-                      "Comps.pageSecondary.back"
-                    )}
+                    aria-label="Go Back"
                     onClick={() => back()}
                     onKeyDown={navigateBackKb}
                   >
@@ -336,17 +81,6 @@ export default function Page({ children }: { children: ReactNode }) {
           </div>
         </div>
       </div>
-      <SettingsDrawer
-        open={drawerOpen}
-        onClose={handleCloseDrawer}
-        language={language}
-        onLanguageSwitch={languageSwitcher}
-        themes={themes}
-        currentTheme={currentTheme}
-        customColor={customColor}
-        onThemeClick={handleThemeClick}
-        onCustomColorChange={handleCustomColorChange}
-      />
     </TransitionEffect>
   );
 }

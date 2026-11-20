@@ -32,6 +32,11 @@ const nextConfig = {
         hostname: "lastfm.freetls.fastly.net",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "s4.anilist.co",
+        pathname: "/**",
+      },
     ],
   },
 };

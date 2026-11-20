@@ -1,19 +1,12 @@
 import projects, {
-  FlagTypeConvert,
-  TagTypeConvert,
   ProjectData,
   FlagType,
 } from "@/components/ProjectsArray";
 import ProjectDrawer from "@/components/Drawers/ProjectDrawer";
 import React, { useEffect, useState } from "react";
-import Translate from "@/components/translation";
 import ToolTip from "@/components/ToolTipCover";
 import Image from "next/image";
 import Link from "next/link";
-
-interface ProjectProps {
-  data: string;
-}
 
 type ProjectFlag = ProjectData["flags"][number];
 
@@ -38,8 +31,7 @@ export const renderButtons = (
   </Link>
 );
 
-function ProjectFlagLabel({ flag, data }: { flag: ProjectFlag; data: string }) {
-  const translate = new Translate();
+function ProjectFlagLabel({ flag }: { flag: ProjectFlag }) {
   return (
     <span
       style={{
@@ -55,14 +47,13 @@ function ProjectFlagLabel({ flag, data }: { flag: ProjectFlag; data: string }) {
         bottom: flag.name === FlagType.Discontinued ? "0.75rem" : undefined,
       }}
     >
-      {translate.get(data, `Projects.flags.${FlagTypeConvert(flag.name)}`)}
+      {flag.name}
     </span>
   );
 }
 
-const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
-  const translate = new Translate();
-  const projectList = projects(data);
+const ProjectCards: React.FC = () => {
+  const projectList = projects();
   const [isMobile, setIsMobile] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<ProjectData | null>(
@@ -82,15 +73,10 @@ const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
   }, []);
 
   const renderProject = (project: ProjectData) => {
-    const projectDesc = translate.get(
-      data,
-      `Projects.list.${project.target}.desc`
-    );
-    const projectFooterEnd =
-      project.footer.end || translate.get(data, "Projects.footer.endPresent");
+    const projectFooterEnd = project.footer.end ?? "Present";
 
     const renderFlags = project.flags.map((flag) => (
-      <ProjectFlagLabel key={flag.name} flag={flag} data={data} />
+      <ProjectFlagLabel key={flag.name} flag={flag} />
     ));
     return (
       <button
@@ -121,11 +107,11 @@ const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
             {project.title}
           </span>
         </div>
-        <div className="projectDesc">{projectDesc}</div>
+        <div className="projectDesc">{project.description}</div>
         <div className="tags">
           {project.tags.map((tag) => (
             <div
-              key={TagTypeConvert(tag.name)}
+              key={tag.name}
               style={{
                 backgroundColor: darkenColor(tag.color),
                 padding: "0.35rem",
@@ -133,7 +119,7 @@ const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
               }}
               className="projectTags"
             >
-              {translate.get(data, `Projects.tags.${TagTypeConvert(tag.name)}`)}
+              {tag.name}
             </div>
           ))}
         </div>
@@ -155,12 +141,9 @@ const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
           {renderButtons(project.github, "GitHub")}
           {renderButtons(
             project.community,
-            project.community?.includes("fluxer.gg") ? "Fluxer" : translate.get(data, "Projects.buttons.community")
+            project.community?.includes("fluxer.gg") ? "Fluxer" : "Discord"
           )}
-          {renderButtons(
-            project.website,
-            translate.get(data, "Projects.buttons.website")
-          )}
+          {renderButtons(project.website, "Website")}
         </div>
       }
     >
@@ -178,7 +161,6 @@ const ProjectCards: React.FC<ProjectProps> = ({ data }) => {
           open={drawerOpen}
           onClose={() => setDrawerOpen(false)}
           selectedProject={selectedProject}
-          translate={data}
         />
       )}
     </>

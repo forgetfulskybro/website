@@ -1,6 +1,5 @@
 import { Dialog, Typography, Box, Button, DialogContent } from "@mui/material";
 import { m, AnimatePresence } from "framer-motion";
-import Translate from "@/components/translation";
 import { ThemeColors } from "../Lyrics/theme";
 import { GameType } from "../GamesArray";
 import Image from "next/image";
@@ -9,7 +8,6 @@ interface GameViewerProps {
   open: boolean;
   onClose: () => void;
   game: GameType | null;
-  data: string;
   themeColors: ThemeColors;
 }
 
@@ -17,11 +15,8 @@ export const GameViewer: React.FC<GameViewerProps> = ({
   open,
   onClose,
   game,
-  data,
   themeColors,
 }) => {
-  const translate = new Translate();
-
   if (!game) return null;
 
   return (
@@ -149,7 +144,7 @@ export const GameViewer: React.FC<GameViewerProps> = ({
                     marginBottom: '8px',
                   }}
                 >
-                  {translate.get(data!, "Games.review")}
+                  Review
                 </Typography>
                 <Typography 
                   variant="body1"
@@ -159,9 +154,9 @@ export const GameViewer: React.FC<GameViewerProps> = ({
                     fontSize: '0.95rem',
                   }}
                 >
-                  {game.review
-                    ? translate.get(data, `Games.${game.target}.review`)
-                    : translate.get(data, "Games.noReview")}
+                  {game.reviewText
+                    ? game.reviewText
+                    : "There is no review for this game."}
                 </Typography>
               </Box>
 
@@ -177,7 +172,7 @@ export const GameViewer: React.FC<GameViewerProps> = ({
                     marginBottom: '8px',
                   }}
                 >
-                  {translate.get(data, "Games.progress")}
+                  Progress
                 </Typography>
                 <Typography 
                   variant="body1"
@@ -187,7 +182,7 @@ export const GameViewer: React.FC<GameViewerProps> = ({
                     fontSize: '0.95rem',
                   }}
                 >
-                  {translate.get(data, `Games.${game.target}.progress`)}
+                  {game.progress}
                 </Typography>
               </Box>
             </m.div>
@@ -231,7 +226,7 @@ export const GameViewer: React.FC<GameViewerProps> = ({
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10 6V8H5V19H16V14H18V20C18 20.55 17.55 21 17 21H4C3.45 21 3 20.55 3 20V7C3 6.45 3.45 6 4 6H10ZM21 3V11H19V6.41L11.21 14.21L9.79 12.79L17.59 5H13V3H21Z" fill="currentColor"/>
                   </svg>
-                  {translate.get(data, "Games.visit")}
+                  Visit Website
                 </Button>
               )}
               <Button 

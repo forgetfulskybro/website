@@ -1,9 +1,7 @@
 "use client";
 import { WakaResponse } from "../../app/api/wakatime/wakatimeData";
-import Translate from "@/components/translation";
 import { WakaTime } from "@/hooks/WakaTime";
 import {
-  m,
   useMotionValue,
   useAnimationFrame,
   useMotionValueEvent,
@@ -12,14 +10,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-interface WakaProps {
-  data: string;
-}
-
-export const Waka: React.FC<WakaProps> = ({ data }) => {
-  const { seconds, decimal } = WakaTime() as WakaResponse;
-  const translate = new Translate();
-  const targetHours = !isNaN(seconds) ? Math.round(seconds / 3600) : 0;
+export const Waka: React.FC = () => {
+  const { decimal } = WakaTime() as WakaResponse;
   const hoursMotion = useMotionValue(0);
   const [displayHours, setDisplayHours] = React.useState(0);
 
@@ -40,42 +32,25 @@ export const Waka: React.FC<WakaProps> = ({ data }) => {
   });
 
   return (
-    <Link href={"https://wakatime.com/@ForGetFulSkyBro"} target="_blank">
-      <div
-        className="gameCard flex boxes"
-        style={{
-          width: 362,
-          height: 98,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          position: "relative",
-          gap: "18px",
-          padding: "0 18px",
-        }}
-      >
-        <Image src="/wakatime.png" alt="WakaTime Logo" width={80} height={80} />
-        <div style={{ textAlign: "left", color: "white" }}>
-          <span
-            style={{
-              fontSize: "22px",
-              fontWeight: "bold",
-              display: "block",
-            }}
-          >
-            {displayHours.toLocaleString()}+{" "}
-            {translate.get(data!, "Info.hours")}
-          </span>
-          <span
-            style={{
-              fontSize: "15px",
-              opacity: 0.8,
-              display: "block",
-            }}
-          >
-            {translate.get(data!, "Info.on")} WakaTime
-          </span>
-        </div>
+    <Link
+      href={"https://wakatime.com/@ForGetFulSkyBro"}
+      target="_blank"
+      className="homeStatusCard homeWakaCard"
+    >
+      <Image
+        className="homeStatusCover homeStatusLogo"
+        src="/wakatime.png"
+        alt="WakaTime Logo"
+        width={64}
+        height={64}
+      />
+      <div className="homeStatusBody">
+        <span className="homeStatusTitle">
+          {displayHours.toLocaleString()}+ hours
+        </span>
+        <span className="homeStatusArtist">
+          on WakaTime
+        </span>
       </div>
     </Link>
   );
